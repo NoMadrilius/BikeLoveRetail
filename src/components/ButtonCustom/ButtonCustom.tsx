@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import { Wrapper } from "./ButtonCustomStyles";
 import { ThemeProvider } from "styled-components";

@@ -1,7 +1,7 @@
+"use client";
 import { styled } from "styled-components";
 import { templates } from "../../../../theme/templates";
 import { colors } from "../../../../theme/colors";
-import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { FC } from "react";
 import { metrics } from "../../../../theme/metrics";

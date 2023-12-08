@@ -13,8 +13,15 @@ export const BgImage = styled.div<{ bgImage: string }>`
   background-repeat: no-repeat;
 `;
 export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 0 124px;
+  row-gap: 120px;
+  @media (max-width: ${metrics.desktop}) {
+    padding: 10px 24px;
+  }
   @media (max-width: ${metrics.mobile}) {
-    padding: 0 24px;
+    padding: 10px 20px;
+    row-gap: 60px;
   }
 `;

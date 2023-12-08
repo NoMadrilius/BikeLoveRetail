@@ -1,3 +1,4 @@
+'use client'
 import { styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { metrics } from "../../../theme/metrics";
@@ -54,4 +55,11 @@ cursor: pointer;
 @media (max-width: 1155px) {
   display: block;
   }
+`;
+export const Trigger = styled.div`
+
+@media (max-width: 440px) {
+  display: none;
+  }
+
 `;

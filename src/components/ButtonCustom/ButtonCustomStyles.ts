@@ -1,3 +1,4 @@
+'use client'
 import { colors } from "../../../theme/colors"; 
 import { templates } from "../../../theme/templates"; 
 import styled, { css } from "styled-components";
@@ -6,8 +7,8 @@ export const Wrapper = styled.div<{ buttonActive?: boolean; width: string; heigh
   ${(p) => {
     return css`
     ${templates.centerContent};
-    width: ${p.width}px;
-    height: ${p.height}px;
+    width: ${p.width};
+    height: ${p.height};
     color: ${p.buttonActive ? "black" : colors.grayMain};
     margin: ${p.margin};
     color: ${colors.white};

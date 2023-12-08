@@ -1,3 +1,4 @@
+"use client";
 import { FC, useState } from "react";
 import {
   BurgerIcon,
@@ -5,6 +6,7 @@ import {
   IconsContainer,
   Logo,
   TitlesContainer,
+  Trigger,
   Wrapper,
 } from "./HeaderStyles";
 import { Text } from "../Text/Text";
@@ -12,7 +14,6 @@ import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import Input from "./components/Input";
 import { ButtonCustom } from "../ButtonCustom/ButtonCustom";
-import useWindowWidth from "@/helpers/hooks/useWindowWidth";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -27,7 +28,6 @@ type Props = {
 
 const Header: FC<Props> = ({ opacityBg }) => {
   const [inputText, setInputText] = useState("");
-  const windowWidth = useWindowWidth();
   return (
     <Wrapper opacityBg={opacityBg}>
       <Logo src="/images/logo/logo.svg" />
@@ -39,7 +39,6 @@ const Header: FC<Props> = ({ opacityBg }) => {
             color={colors.white}
             fontStyle={fonts.f600}
             hoverColor={colors.redHover}
-            func={() => console.log("hello")}
           >
             {el}
           </Text>
@@ -52,13 +51,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
           <Icon src={el} key={index} />
         ))}
       </IconsContainer>
-      {windowWidth > 440 && (
-        <ButtonCustom width={"107"} height={"40"}>
+      <Trigger>
+        <ButtonCustom width={"107px"} height={"40px"}>
           <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
             Войти
           </Text>
         </ButtonCustom>
-      )}
+      </Trigger>
 
       <BurgerIcon src="/images/home/icons/burger.svg" />
     </Wrapper>
