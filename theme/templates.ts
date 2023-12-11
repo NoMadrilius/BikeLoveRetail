@@ -1,4 +1,5 @@
-import { css } from "styled-components";
+import { css, styled } from "styled-components";
+import { metrics } from "./metrics";
 
 export const templates = {
   absolute: css`
@@ -17,4 +18,19 @@ export const templates = {
     display: flex;
     align-items: center;
   `,
+  
 };
+
+export const PaddingWrapper = styled.div`
+padding: 0 124px;
+  padding-top: 90px;
+  @media(max-width: ${metrics.desktop}){
+    padding: 0 25px;
+    padding-top: 90px;
+   
+  }
+  @media(max-width: ${metrics.mobile}){
+    padding: 0 20px;
+    padding-top: 74px;
+  }
+`;

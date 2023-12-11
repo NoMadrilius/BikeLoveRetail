@@ -12,6 +12,9 @@ export const Wrapper = styled.div<{ opacityBg?: boolean }>`
   padding: 10px 125px;
   column-gap: 35px;
   border-bottom: 1px solid ${colors.grayBorder};
+  position: absolute;
+  top: 0;
+  z-index: 2;
   @media (max-width: ${metrics.desktop}) {
     padding: 10px 24px;
   }
@@ -24,6 +27,7 @@ export const Logo = styled.img`
   width: 71px;
   height: 71px;
   margin-right: auto;
+  cursor: pointer;
   @media (max-width: ${metrics.mobile}) {
     width: 64px;
   }
@@ -36,7 +40,7 @@ margin-right: auto;
 @media (max-width: 1440px) {
     column-gap: 20px;
   }
-@media (max-width: 1155px) {
+@media (max-width: 1183px) {
   display: none;
   }
 

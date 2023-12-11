@@ -32,7 +32,12 @@ const Footer = () => {
           src="/images/logo/logo.svg"
         />
         {rights.map((el, index) => (
-          <Text color={colors.white} size="14px" fontStyle={fonts.f400}>
+          <Text
+            key={index}
+            color={colors.white}
+            size="14px"
+            fontStyle={fonts.f400}
+          >
             {el}
           </Text>
         ))}

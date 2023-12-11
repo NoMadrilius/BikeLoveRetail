@@ -12,14 +12,16 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { metrics } from "../../../../theme/metrics";
+import NewsItem from "@/components/NewsItem/NewsItem";
 
 type Props = {
   title: string;
   tags: string[];
   items: any;
+  variant: "cards" | "news";
 };
 
-const Slider: FC<Props> = ({ items, tags, title }) => {
+const Slider: FC<Props> = ({ items, tags, title, variant }) => {
   return (
     <div style={{ width: "100%" }}>
       <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
@@ -41,9 +43,10 @@ const Slider: FC<Props> = ({ items, tags, title }) => {
         loop
         pagination={{ clickable: true }}
       >
-        {items.map((slide: any, index: React.Key | null | undefined) => (
+        {items.map((el: any, index: React.Key | null | undefined) => (
           <SwiperSlide style={{ width: "auto", height: "100%" }} key={index}>
-            <Card />
+            {variant === "cards" && <Card {...el} />}
+            {variant === "news" && <NewsItem {...el} />}
           </SwiperSlide>
         ))}
       </Swiper>

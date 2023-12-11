@@ -1,22 +1,18 @@
 "use client";
-
-import Header from "@/components/Header/Header";
 import { BgImage, MainContainer, Wrapper } from "./HomeScreenStyles";
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import ByPropose from "./components/ByPropose";
-import { byProposeData, sliderData, sliderTags } from "@/mock/data";
+import { byProposeData, newsData, sliderData, sliderTags } from "@/mock/data";
 import { ResponsiveBlockGroup } from "./components/ResponsiveBlockGroup";
 import Slider from "./components/Slider";
 import Subscribe from "./components/Subscribe";
-import Footer from "@/components/Footer/Footer";
 
 const HomeScreen = () => {
   return (
     <Wrapper>
       <BgImage bgImage="/images/home/bannerImage.png">
-        <Header opacityBg />
         <MainContainer>
           <Text
             color={colors.white}
@@ -36,17 +32,18 @@ const HomeScreen = () => {
           title={"Популярные велосипеды"}
           tags={sliderTags}
           items={sliderData}
+          variant="cards"
         />
         <Slider
           title={"Популярные аксуссуары"}
           tags={sliderTags}
           items={sliderData}
+          variant="cards"
         />
         <ResponsiveBlockGroup variant="2" />
-        <Slider title={"Велоблог"} tags={[]} items={sliderData} />
+        <Slider title={"Велоблог"} tags={[]} items={newsData} variant="news" />
       </MainContainer>
       <Subscribe bg={"/images/home/form-background.png"} />
-      <Footer />
     </Wrapper>
   );
 };

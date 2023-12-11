@@ -4,7 +4,11 @@ export const colors = {
     grayBorder: '#9D9D9D',
     redMain: '#CD0909',
     redHover: "#BA3030",
+    redBlur: 'rgba(255, 239, 239, 1)',
     white: '#fff',
     black: '#000000',
-    opacityBg: 'rgba(255, 255, 255, 0.29)'
+    opacityBg: 'rgba(255, 255, 255, 0.29)',
+    blurBg: "#000000b0",
+    pinkBlur: 'rgba(255, 239, 239, 1)'
+
 }
