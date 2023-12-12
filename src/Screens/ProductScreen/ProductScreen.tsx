@@ -44,7 +44,7 @@ const ProductScreen = () => {
       />
       <Wrapper>
         <BreadCrumbs road={breadCrumbs} />
-        <RowContainer style={{ columnGap: "60px", marginTop: "50px" }}>
+        <RowContainer style={{ columnGap: "60px" }}>
           <ColumnContainer style={{ width: "50%" }}>
             <FakeBlock>
               <SliderProducts />

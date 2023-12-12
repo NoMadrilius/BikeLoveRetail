@@ -3,6 +3,7 @@ import { Text } from "../Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { FC } from "react";
+import { metrics } from "../../../theme/metrics";
 
 type Props = {
   road: {
@@ -17,7 +18,7 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
       <Wrapper>
         <img src="/icons/House.png" />
         {road.map((el, index) => (
-          <Wrapper key={index}>
+          <Container key={index}>
             <Line />
             <Text
               color={index === road.length - 1 ? colors.grayMain : colors.black}
@@ -29,7 +30,7 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
             >
               {el.title}
             </Text>
-          </Wrapper>
+          </Container>
         ))}
       </Wrapper>
     </>
@@ -40,11 +41,18 @@ export default BreadCrumbs;
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-right: auto;
-  column-gap: 8px;
+  margin: 50px 0 30px 0;
+  @media (max-width: ${metrics.mobile}) {
+    margin: 43px 0 16px 0;
+  }
 `;
 const Line = styled.div`
   width: 17px;
   height: 1px;
   background-color: ${colors.black};
+`;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 `;

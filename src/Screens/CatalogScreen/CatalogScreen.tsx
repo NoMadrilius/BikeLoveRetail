@@ -27,7 +27,7 @@ const CatalogScreen = () => {
           size="42px"
           fontStyle={fonts.f500}
           textTransform="uppercase"
-          margin="30px 0 50px 0"
+          margin="0 0 50px 0"
         >
           Подкаталог тест
         </Text>
