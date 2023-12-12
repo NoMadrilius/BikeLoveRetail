@@ -13,6 +13,7 @@ export type ButtonCustomProps = {
   spinner?: boolean;
   height: string;
   margin?: string;
+  type: "default" | "white";
 };
 
 export const ButtonCustom: FC<ButtonCustomProps> = ({
@@ -24,6 +25,7 @@ export const ButtonCustom: FC<ButtonCustomProps> = ({
   height,
   label,
   margin,
+  type,
 }) => {
   const onclickHandler = () => {
     if (buttonActive) {
@@ -37,6 +39,7 @@ export const ButtonCustom: FC<ButtonCustomProps> = ({
       width={width as string}
       height={height as string}
       margin={margin}
+      type={type}
     >
       {spinner ? <CircularProgress size={20} /> : label || children}
     </Wrapper>

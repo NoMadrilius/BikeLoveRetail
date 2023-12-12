@@ -17,8 +17,8 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
       <Wrapper>
         <img src="/icons/House.png" />
         {road.map((el, index) => (
-          <>
-            <Line key={index} />
+          <Wrapper key={index}>
+            <Line />
             <Text
               color={index === road.length - 1 ? colors.grayMain : colors.black}
               size="13px"
@@ -29,7 +29,7 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
             >
               {el.title}
             </Text>
-          </>
+          </Wrapper>
         ))}
       </Wrapper>
     </>

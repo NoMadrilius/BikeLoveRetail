@@ -98,7 +98,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
           ))}
         </IconsContainer>
         <Trigger>
-          <ButtonCustom width={"107px"} height={"40px"}>
+          <ButtonCustom width={"107px"} height={"40px"} type="default">
             <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
               Войти
             </Text>

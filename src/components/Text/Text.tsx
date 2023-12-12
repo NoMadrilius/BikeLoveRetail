@@ -18,6 +18,7 @@ export type TextPtops = {
   maxWidth?: string;
   textAlign?: string;
   textTransform?: "uppercase" | "lowecase";
+  textDecoration?: "trought";
 };
 
 export const Text: FC<TextPtops> = ({
@@ -32,6 +33,7 @@ export const Text: FC<TextPtops> = ({
   hoverColor,
   whiteSpace,
   textTransform,
+  textDecoration,
 }) => {
   return (
     <TextStyle
@@ -46,6 +48,7 @@ export const Text: FC<TextPtops> = ({
       hoverColor={hoverColor}
       whiteSpace={whiteSpace}
       textTransform={textTransform}
+      textDecoration={textDecoration}
     >
       {children}
     </TextStyle>

@@ -16,7 +16,7 @@ import NewsItem from "@/components/NewsItem/NewsItem";
 
 type Props = {
   title: string;
-  tags: string[];
+  tags?: string[];
   items: any;
   variant: "cards" | "news";
 };
@@ -24,7 +24,12 @@ type Props = {
 const Slider: FC<Props> = ({ items, tags, title, variant }) => {
   return (
     <div style={{ width: "100%" }}>
-      <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+      <Text
+        color={colors.black}
+        size="42px"
+        fontStyle={fonts.f500}
+        margin={tags ? "0 0 0 0" : "0 0 50px 0"}
+      >
         {title}
       </Text>
       {tags && (

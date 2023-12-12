@@ -13,7 +13,7 @@ import TextBlock from "./components/TextBlock";
 const CatalogScreen = () => {
   const [filterVisible, setFilterVisible] = useState(false);
 
-  const metadata = [
+  const breadCrumbs = [
     { title: "Каталог", link: "/" },
     { title: "Подкаталог тест", link: "/" },
   ];
@@ -21,7 +21,7 @@ const CatalogScreen = () => {
     <>
       <UseMetaData title={"Каталог"} img={""} description={"asdasdasd"} />
       <Wrapper>
-        <BreadCrumbs road={metadata} />
+        <BreadCrumbs road={breadCrumbs} />
         <Text
           color={colors.black}
           size="42px"

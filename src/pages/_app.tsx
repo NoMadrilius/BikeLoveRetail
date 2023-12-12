@@ -12,9 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <StyledComponentsRegistry>
         <Header opacityBg={currentPath === "/"} />
-
         <Component {...pageProps} />
-
         <Footer />
       </StyledComponentsRegistry>
     </>

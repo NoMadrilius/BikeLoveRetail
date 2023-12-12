@@ -15,6 +15,7 @@ export const TextStyle = styled.div<{
   textAlign?: string;
   whiteSpace?: boolean;
   textTransform?: string
+  textDecoration?: string
 }>`
   max-width: ${(p) => p.maxWidth || "100%"};
   text-transform: ${p => p.textTransform || 'none'} ;
@@ -23,6 +24,7 @@ export const TextStyle = styled.div<{
   font-family: ${(p) => p.fontStyle?.fontFamily};
   font-weight: ${(p) => p.fontStyle?.fontWeight};
   margin: ${(p) => p.margin};
+  text-decoration: ${p => p.textDecoration === 'trought' && `line-through ${p.color}`};
   text-align: ${(p) => p.textAlign || ""};
   cursor: ${(p) => (p.func || p.hoverColor ? "pointer" : "inherit")};
   transition: 0.3s;
@@ -30,6 +32,8 @@ white-space:  ${p => p.whiteSpace && 'nowrap'};
   &:hover {
     color: ${(p) => (p.hoverColor || p.func ? p.hoverColor : p.color)};
   }
+  
+  
   @media (max-width: 700px) {
     font-size: calc(
       ${(props) => {

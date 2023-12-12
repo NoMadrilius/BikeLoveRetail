@@ -146,7 +146,10 @@ const Filter = ({ mobile }: any) => {
             {el.type === "container" && (
               <RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
                 {el.items.map((item, index) => (
-                  <ContainerSelect key={index} onClick={() => addItem(el.title, item)}>
+                  <ContainerSelect
+                    key={index}
+                    onClick={() => addItem(el.title, item)}
+                  >
                     <Text
                       key={index}
                       color={colors.black}
