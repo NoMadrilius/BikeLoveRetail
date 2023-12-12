@@ -27,6 +27,7 @@ const Subscribe: FC<Props> = ({ bg }) => {
         <InputField placeholder="E-mail" />
         <RespContainer>
           <ButtonCustom
+            type="default"
             width={"100%"}
             height={"57px"}
             buttonActive
@@ -35,6 +36,7 @@ const Subscribe: FC<Props> = ({ bg }) => {
         </RespContainer>
         <ResContainer>
           <ButtonCustom
+            type="default"
             width={"250px"}
             height={"57px"}
             buttonActive
