@@ -17,12 +17,13 @@ import { ButtonCustom } from "../ButtonCustom/ButtonCustom";
 import Categories from "../Modal/Categories";
 import SideBar from "../SideBar/Sidebar";
 import { useRouter } from "next/router";
+import Cart from "../Modal/Cart/Cart";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
-  "/images/home/icons/icon1.svg",
-  "/images/home/icons/icon2.svg",
-  "/images/home/icons/icon3.svg",
+  { id: 1, icon: "/images/home/icons/icon1.svg" },
+  { id: 2, icon: "/images/home/icons/icon2.svg" },
+  { id: 3, icon: "/images/home/icons/icon3.svg" },
 ];
 
 type Props = {
@@ -33,7 +34,17 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [inputText, setInputText] = useState("");
   const [categoriesVisible, setCategoriesVisible] = useState(false);
   const [sideBarVisible, setSideBarVisible] = useState(false);
+  const [cartVisible, setCartVisible] = useState(false);
   const router = useRouter();
+
+  const onClickIcons = (id: number) => {
+    if (id === 1) {
+      router.push("/wish-list");
+    }
+    if (id === 2) {
+      setCartVisible(true);
+    }
+  };
 
   return (
     <>
@@ -94,7 +105,11 @@ const Header: FC<Props> = ({ opacityBg }) => {
         <Input value={inputText} onChange={setInputText} />
         <IconsContainer>
           {ICONS.map((el, index) => (
-            <Icon src={el} key={index} />
+            <Icon
+              src={el.icon}
+              key={index}
+              onClick={() => onClickIcons(el.id)}
+            />
           ))}
         </IconsContainer>
         <Trigger>
@@ -112,6 +127,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
       </Wrapper>
       {categoriesVisible && <Categories setVisible={setCategoriesVisible} />}
       {sideBarVisible && <SideBar setVisible={setSideBarVisible} />}
+      {cartVisible && <Cart setVisible={setCartVisible} />}
     </>
   );
 };

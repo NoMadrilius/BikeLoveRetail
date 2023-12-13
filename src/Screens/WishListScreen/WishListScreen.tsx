@@ -1,5 +1,4 @@
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
-import { PaddingWrapper } from "../../../theme/templates";
 import { styled } from "styled-components";
 import Slider from "@/Screens/HomeScreen/components/Slider";
 import { sliderData } from "@/mock/data";

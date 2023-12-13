@@ -1,6 +1,14 @@
-export const prettyPrice = (price: string) => {
-  let priceStr = String(price);
-  
+export const prettyPrice = (price: string | number): string => {
+  let priceStr: string;
+
+  if (typeof price === 'number') {
+    priceStr = String(price);
+  } else if (typeof price === 'string') {
+    priceStr = price;
+  } else {
+    throw new Error('Invalid input type. Expected string or number.');
+  }
+
   let priceArray = priceStr.split('');
 
   if (priceArray.length > 3) {
@@ -20,4 +28,4 @@ export const prettyPrice = (price: string) => {
   }
 
   return priceStr;
-}
+};
