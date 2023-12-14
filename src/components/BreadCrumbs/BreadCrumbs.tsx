@@ -50,6 +50,7 @@ const Line = styled.div`
   width: 17px;
   height: 1px;
   background-color: ${colors.black};
+  margin-left: 8px;
 `;
 const Container = styled.div`
   display: flex;

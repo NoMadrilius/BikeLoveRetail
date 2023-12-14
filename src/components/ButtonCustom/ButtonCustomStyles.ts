@@ -1,5 +1,6 @@
 'use client'
 import { colors } from "../../../theme/colors"; 
+import { fonts } from "../../../theme/fonts";
 import { templates } from "../../../theme/templates"; 
 import styled, { css } from "styled-components";
 
@@ -18,10 +19,12 @@ export const Wrapper = styled.div<{ buttonActive?: boolean; width: string; heigh
             ? colors.redMain
             : colors.grayBorder};
           border-radius: 5px;
-          font-size: 20px;  
+          font-size: 16px;  
           line-height: 29px;
           text-align: center;
           letter-spacing: -0.3px;
+          font-family: ${fonts.f700.fontFamily};
+          font-weight: ${fonts.f700.fontWeight};
           user-select: none;
           cursor: pointer;
           transition: 0.3s;
