@@ -60,6 +60,8 @@ white-space:  ${p => p.whiteSpace && 'nowrap'};
             return "11px";
           case "16px":
             return "14px";
+            case '15px':
+            return '15px';
           case "13px":
             return "13px";
 

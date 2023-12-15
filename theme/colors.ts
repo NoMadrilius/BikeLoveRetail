@@ -9,6 +9,7 @@ export const colors = {
     black: '#000000',
     opacityBg: 'rgba(255, 255, 255, 0.29)',
     blurBg: "#000000b0",
-    pinkBlur: 'rgba(255, 239, 239, 1)'
+    pinkBlur: 'rgba(255, 239, 239, 1)',
+    green: 'rgba(26, 144, 78, 1)'
 
 }

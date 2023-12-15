@@ -7,6 +7,7 @@ import { styled } from "styled-components";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import Navigation from "./components/Navigation";
 import Step1 from "./components/Step1";
+import Step2 from "./components/Step2/Step2";
 
 const AccountScreen = () => {
   const road = [
@@ -33,6 +34,7 @@ const AccountScreen = () => {
               <Step1 />
             </>
           )}
+          {step === 1 && <Step2 />}
         </Right>
       </MainWrapper>
     </>
@@ -47,9 +49,11 @@ const MainWrapper = styled.div`
   column-gap: 40px;
 `;
 const Left = styled.div``;
-const Right = styled.div``;
+const Right = styled.div`
+  width: 100%;
+`;
 const Line = styled.div`
-  width: 1px;
+  min-width: 1px;
   height: auto;
   background-color: ${colors.grayBorder};
 `;

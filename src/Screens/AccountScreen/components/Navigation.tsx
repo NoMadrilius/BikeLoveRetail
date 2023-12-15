@@ -63,6 +63,7 @@ const NavItem = styled.div`
   display: flex;
   align-items: center;
   column-gap: 15px;
+  cursor: pointer;
 `;
 const Icon = styled.img`
   width: 21px;

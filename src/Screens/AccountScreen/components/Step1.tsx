@@ -45,12 +45,12 @@ const Step1 = () => {
         </Text>
         <ButtonsContainer>
           <Button>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+            <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
               Самовывоз
             </Text>
           </Button>
           <Button>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+            <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
               Новая почта
             </Text>
           </Button>
@@ -62,17 +62,17 @@ const Step1 = () => {
 
         <ButtonsPayContainer>
           <ButtonPay>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f500}>
+            <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
               При получении
             </Text>
           </ButtonPay>
           <ButtonPay>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f500}>
+            <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
               liqpay
             </Text>
           </ButtonPay>
           <ButtonPay>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f500}>
+            <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
               portmone
             </Text>
           </ButtonPay>
@@ -122,7 +122,7 @@ const ButtonsContainer = styled.div`
   margin: 42px 0 60px;
 `;
 const Button = styled.div`
-  width: 217px;
+  width: 206px;
   height: 56px;
   ${templates.centerContent};
   border: 1px solid ${colors.grayBorder};
@@ -131,8 +131,9 @@ const Button = styled.div`
 `;
 const ButtonsPayContainer = styled.div`
   display: flex;
-  column-gap: 13px;
+  gap: 13px;
   margin: 42px 0 54px 0;
+  flex-wrap: wrap;
   @media (max-width: 640px) {
     flex-direction: column;
     row-gap: 12px;
