@@ -1,4 +1,4 @@
-'use client'
+
 import { colors } from "../../../theme/colors"; 
 import { fonts } from "../../../theme/fonts";
 import { templates } from "../../../theme/templates"; 

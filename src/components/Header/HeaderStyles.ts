@@ -1,4 +1,4 @@
-'use client'
+
 import { styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { metrics } from "../../../theme/metrics";
