@@ -17,7 +17,7 @@ const BlogScreen = () => {
       </Text>
       <GridContainer>
         {newsData.map((el, index) => (
-          <NewsItem {...el} blog />
+          <NewsItem {...el} blog key={index} />
         ))}
       </GridContainer>
     </>
