@@ -22,12 +22,10 @@ const SliderProducts = () => {
   };
   const handleThumbnailClick = (swiper: any, index: number) => {
     setCurrentSlide(index);
-    console.log(topSwiper);
     //@ts-ignore
     if (swiper.current && swiper.current.swiper) {
       //@ts-ignore
       swiper.current.swiper.slideTo(index);
-      console.log("ok");
     }
   };
 

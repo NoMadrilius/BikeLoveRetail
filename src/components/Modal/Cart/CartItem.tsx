@@ -17,7 +17,6 @@ const CartItem: FC<Props> = ({ name, sale, lastPrice, price }) => {
   const [count, setCount] = useState(1);
 
   const counterHandler = (symbol: string) => {
-    console.log(prettyPrice(count * +price));
     if (symbol === "plus") {
       setCount((prev) => prev + 1);
     }

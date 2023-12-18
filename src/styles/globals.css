@@ -45,6 +45,23 @@ p {
   padding: 0;
 }
 
+.swiper-pagination-bullet-active {
+  background-color: red !important;
+  width: 10px;
+  height: 10px;
+}
+
+div.swiper-button-prev,
+div.swiper-button-next {
+color: red;
+}
+
+
+span.swiper-pagination-bullet {
+background-color: red;
+}
+
+
 
 body {
   height: 100vh;

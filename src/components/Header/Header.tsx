@@ -37,6 +37,8 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [cartVisible, setCartVisible] = useState(false);
   const router = useRouter();
 
+  const path = router.pathname;
+
   const onClickIcons = (id: number) => {
     if (id === 1) {
       router.push("/wish-list");
@@ -61,44 +63,36 @@ const Header: FC<Props> = ({ opacityBg }) => {
             {TITLES[0]}
           </Text>
           <Text
-            color={colors.white}
+            color={path === "/about" ? colors.redMain : colors.white}
             fontStyle={fonts.f600}
             hoverColor={colors.redHover}
-            func={() => setCategoriesVisible(!categoriesVisible)}
+            func={() => router.push("/about")}
           >
             {TITLES[1]}
           </Text>
           <Text
-            color={colors.white}
+            color={path === "/workshop" ? colors.redMain : colors.white}
             fontStyle={fonts.f600}
             hoverColor={colors.redHover}
-            func={() => setCategoriesVisible(!categoriesVisible)}
+            func={() => router.push("/workshop")}
           >
             {TITLES[2]}
           </Text>
           <Text
-            color={colors.white}
+            color={path === "/blog" ? colors.redMain : colors.white}
             fontStyle={fonts.f600}
             hoverColor={colors.redHover}
-            func={() => setCategoriesVisible(!categoriesVisible)}
+            func={() => router.push("/blog")}
           >
             {TITLES[3]}
           </Text>
           <Text
-            color={colors.white}
+            color={path === "/contacts" ? colors.redMain : colors.white}
             fontStyle={fonts.f600}
             hoverColor={colors.redHover}
-            func={() => setCategoriesVisible(!categoriesVisible)}
+            func={() => router.push("/contacts")}
           >
             {TITLES[4]}
-          </Text>
-          <Text
-            color={colors.white}
-            fontStyle={fonts.f600}
-            hoverColor={colors.redHover}
-            func={() => setCategoriesVisible(!categoriesVisible)}
-          >
-            {TITLES[5]}
           </Text>
         </TitlesContainer>
 

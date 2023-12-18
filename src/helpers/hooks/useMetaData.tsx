@@ -16,6 +16,7 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={img} />
+      <link rel="icon" href="/favicon.ico" />
     </Head>
   );
 };

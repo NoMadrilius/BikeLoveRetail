@@ -7,8 +7,10 @@ export type Product = {
     sale?: string;
 }
 export type INewsItem = {
+    id: number
     date: string;
     title: string; 
     description: string;
     image: string
+    blog?: boolean
 }

@@ -19,7 +19,6 @@ const Footer = () => {
   useEffect(() => {
     setItemsToRender(max > 1444 ? footerItems : footerItems.slice(-2));
   }, [max]);
-  console.log(max);
   return (
     <Wrapper>
       <ItemsContainer>

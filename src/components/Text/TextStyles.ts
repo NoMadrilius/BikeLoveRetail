@@ -29,12 +29,13 @@ export const TextStyle = styled.div<{
   cursor: ${(p) => (p.func || p.hoverColor ? "pointer" : "inherit")};
   transition: 0.3s;
 white-space:  ${p => p.whiteSpace && 'nowrap'};
+z-index: 1;
   &:hover {
     color: ${(p) => (p.hoverColor || p.func ? p.hoverColor : p.color)};
   }
   
   
-  @media (max-width: 700px) {
+  @media (max-width: 500px) {
     font-size: calc(
       ${(props) => {
         switch (props.size) {
@@ -66,7 +67,7 @@ white-space:  ${p => p.whiteSpace && 'nowrap'};
             return "13px";
 
           default:
-            return `${props.size} / 1.5`;
+            return `${props.size} / 1.3`;
         }
       }}
     );

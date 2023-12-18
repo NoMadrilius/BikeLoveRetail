@@ -25,11 +25,11 @@ export const fonts:Fonts = {
     fontWeight:'500'
   },
   f600:{
-    fontFamily:'Roboto-Medium',
+    fontFamily:'Roboto-Regular',
     fontWeight:'600'
   },
   f700:{
-    fontFamily:'Roboto-Bold',
+    fontFamily:'Roboto-Medium',
     fontWeight:'700'
   },
   f800:{

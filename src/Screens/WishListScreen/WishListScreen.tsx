@@ -7,7 +7,7 @@ import { metrics } from "../../../theme/metrics";
 
 const WishListScreen = () => {
   const road = [
-    { title: "Личный кабинет", link: "/" },
+    { title: "Личный кабинет", link: "/account" },
     { title: "Список желайний", link: "/" },
   ];
   return (

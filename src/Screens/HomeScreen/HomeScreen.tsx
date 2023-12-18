@@ -30,6 +30,7 @@ const HomeScreen = () => {
         </BgImage>
         <MainContainer>
           <ByPropose items={byProposeData} />
+
           <ResponsiveBlockGroup variant="1" />
           <Slider
             title={"Популярные велосипеды"}

@@ -1,14 +1,23 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { Text } from "../Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { FC } from "react";
 import { INewsItem } from "@/types/types";
 import { metrics } from "../../../theme/metrics";
+import { useRouter } from "next/router";
 
-const NewsItem: FC<INewsItem> = ({ date, title, description, image }) => {
+const NewsItem: FC<INewsItem> = ({
+  date,
+  title,
+  description,
+  image,
+  blog,
+  id,
+}) => {
+  const router = useRouter();
   return (
-    <Wrapper>
+    <Wrapper onClick={() => router.push(`/blog/${id}`)}>
       <Text
         color={colors.grayBorder}
         size="13px"
@@ -17,7 +26,7 @@ const NewsItem: FC<INewsItem> = ({ date, title, description, image }) => {
       >
         {date}
       </Text>
-      <Picture src={image} />
+      <Picture src={image} blog={!!blog} />
       <Text
         color={colors.black}
         size="24px"
@@ -49,15 +58,26 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: start;
   width: 430px;
+  cursor: pointer;
   @media (max-width: ${metrics.mobile}) {
     width: 322px;
   }
 `;
-const Picture = styled.img`
+const Picture = styled.img<{ blog: boolean }>`
   width: 100%;
+
   border-radius: 12px;
   height: 266px;
   @media (max-width: ${metrics.mobile}) {
     height: 212px;
   }
+  ${(p) =>
+    p.blog &&
+    css`
+      aspect-ratio: 430/226;
+      height: 100%;
+      @media (max-width: ${metrics.desktop}) {
+        height: 100%;
+      }
+    `}
 `;

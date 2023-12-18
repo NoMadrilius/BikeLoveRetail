@@ -1,24 +1,22 @@
 import { styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { metrics } from "../../../../theme/metrics";
+import { Text } from "@/components/Text/Text";
+import { fonts } from "../../../../theme/fonts";
+import { Children } from "react";
+import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 
 const GROUP1 = [
   {
-    title: "Выбери велосипед мечты",
-    subTitle: "какак  кака ка",
-    bg: "/images/home/choice.png",
+    bg: "/images/home/workshop.png",
     size: false,
   },
   {
-    title: "Новая коллекция осенней одежды Northwave",
+    title: "BIKELOVE WORKSHOP",
     subTitle:
-      "Хочешь кататься с комфортом даже в межсезонье? Тогда новая коллекция итальянского бренда Northwave ждёт тебя в наших магазинах.",
+      "Веломастерская, в которой мы оказываем услуги гарантийного и послегарантийного обслуживания и ремонта велосипедов.",
     bgColor: "rgba(57, 54, 24, 1)",
-    size: true,
-  },
-  {
-    bg: "/images/home/decor.png",
-    size: true,
+    size: false,
   },
 ];
 const GROUP2 = [
@@ -57,10 +55,10 @@ const GROUP2 = [
     size: false,
   },
 ];
-const Block = ({ title, subTitle, bgColor, bg, size }: any) => {
+const Block = ({ title, subTitle, bgColor, bg, size, children }: any) => {
   return (
     <BlockWrapper bg={bg} size={size} bgColor={bgColor}>
-      <></>
+      <>{children}</>
     </BlockWrapper>
   );
 };
@@ -71,39 +69,38 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
       {variant === "1" && (
         <>
           <Container>
-            <Block {...GROUP1[0]} />
+            <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+              ПРОФЕСІЙНА ВЕЛОМАЙСТЕРНЯ
+            </Text>
             <ContainerRow>
-              <Block {...GROUP1[1]} />
-              <Block {...GROUP1[2]} />
+              <Block {...GROUP1[0]} />
+              <Block {...GROUP1[1]}>
+                <Text color={colors.white} size="40px" fontStyle={fonts.f700}>
+                  BIKELOVE WORKSHOP
+                </Text>
+                <Text color={colors.white} size="18px" fontStyle={fonts.f500}>
+                  Веломастерская, в которой мы оказываем услуги гарантийного и
+                  послегарантийного обслуживания и ремонта велосипедов.
+                </Text>
+                <Input placeholder=" Номер телефону" />
+                <ButtonCustom
+                  width={"264px"}
+                  height={"50px"}
+                  type={"default"}
+                  label="Безкоштовна консультація"
+                />
+              </Block>
             </ContainerRow>
           </Container>
-          <ResContainer>
-            <Block {...GROUP1[0]} />
-            <Block {...GROUP1[1]} />
-            <Block {...GROUP1[2]} />
-          </ResContainer>
         </>
       )}
       {variant === "2" && (
         <>
           <Container>
-            <ContainerRow>
-              <Block {...GROUP2[0]} />
-              <Block {...GROUP2[1]} />
-            </ContainerRow>
-            <Block {...GROUP2[2]} />
-            <ContainerRow>
-              <Block {...GROUP2[3]} />
-              <Block {...GROUP2[4]} />
-            </ContainerRow>
+            <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+              ПРО НАС
+            </Text>
           </Container>
-          <ResContainer>
-            <Block {...GROUP2[0]} />
-            <Block {...GROUP2[1]} />
-            <Block {...GROUP2[2]} />
-            <Block {...GROUP2[3]} />
-            <Block {...GROUP2[4]} />
-          </ResContainer>
         </>
       )}
     </MainWrapper>
@@ -116,22 +113,27 @@ const BlockWrapper = styled.div<{
   bgColor?: string;
 }>`
   width: 100%;
-  height: ${(p) => (p.size ? "482px" : "330px")};
-  padding: 66px 50px;
+  height: ${(p) => (p.size ? "550px" : "330px")};
+  padding: 30px 50px 48px 50px;
   background-image: url(${(p) => p.bg});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right;
   background-color: ${(p) => p.bg || p.bgColor};
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   @media (max-width: ${metrics.mobile}) {
     height: ${(p) => (p.size ? "402px" : "330px")};
+    padding: 24px 24px 24px 24px;
   }
 `;
 const MainWrapper = styled.div`
-  margin-top: 120px;
+  margin-top: 31px;
   @media (max-width: ${metrics.mobile}) {
-    margin-top: 60px;
+    margin-top: 30px;
   }
 `;
 
@@ -139,14 +141,16 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
-  @media (max-width: 950px) {
-    display: none;
-  }
 `;
 
 const ContainerRow = styled.div`
   display: flex;
   column-gap: 30px;
+  @media (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+  }
 `;
 const ResContainer = styled.div`
   display: none;
@@ -155,4 +159,13 @@ const ResContainer = styled.div`
     flex-direction: column;
     row-gap: 30px;
   }
+`;
+const Input = styled.input`
+  all: unset;
+  width: 100%;
+  border: 1px solid ${colors.grayBorder};
+  border-radius: 5px;
+  height: 48px;
+  padding: 0 30px;
+  box-sizing: border-box;
 `;
