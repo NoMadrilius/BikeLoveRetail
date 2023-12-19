@@ -17,6 +17,7 @@ import Categories from "../Modal/Categories";
 import SideBar from "../SideBar/Sidebar";
 import { useRouter } from "next/router";
 import Cart from "../Modal/Cart/Cart";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -46,6 +47,8 @@ const Header: FC<Props> = ({ opacityBg }) => {
       setCartVisible(true);
     }
   };
+
+  const { loginWithRedirect, user, logout } = useAuth0();
 
   return (
     <>
@@ -106,9 +109,14 @@ const Header: FC<Props> = ({ opacityBg }) => {
           ))}
         </IconsContainer>
         <Trigger>
-          <ButtonCustom width={"107px"} height={"40px"} type="default">
+          <ButtonCustom
+            width={"107px"}
+            height={"40px"}
+            type="default"
+            func={user ? logout : loginWithRedirect}
+          >
             <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
-              Войти
+              {user ? user.name : "Войти"}
             </Text>
           </ButtonCustom>
         </Trigger>
