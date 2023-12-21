@@ -5,19 +5,21 @@ import Card from "@/components/Card/Card";
 import { Product } from "@/types/types";
 
 type Props = {
-  items: Product[];
+  items: any;
 };
 
 const Products: FC<Props> = ({ items }) => {
+  const products = items.map((el: any) => el.product);
+  console.log(products);
   return (
     <>
       <GridContainer>
-        {items.map((el: any, index: any) => (
+        {products?.map((el: any, index: any) => (
           <Card
             key={index}
-            title={el.title}
-            image={el.image}
-            price={el.price}
+            title={el.name}
+            image={"/mock/testCardByPropose.png"}
+            price={el.retailPrice}
             colors={el.colors}
             sizes={el.sizes}
             sale={el.sale}

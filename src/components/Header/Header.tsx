@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   BurgerIcon,
   Icon,
@@ -18,6 +18,7 @@ import SideBar from "../SideBar/Sidebar";
 import { useRouter } from "next/router";
 import Cart from "../Modal/Cart/Cart";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useCategoriesStore } from "@/store/CategoriesStore";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -47,8 +48,14 @@ const Header: FC<Props> = ({ opacityBg }) => {
       setCartVisible(true);
     }
   };
-
   const { loginWithRedirect, user, logout } = useAuth0();
+
+  const categories = useCategoriesStore();
+
+  useEffect(() => {
+    categories.fetchCategories();
+  }, []);
+  console.log(categories);
 
   return (
     <>
@@ -126,7 +133,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
           onClick={() => setSideBarVisible(!sideBarVisible)}
         />
       </Wrapper>
-      {categoriesVisible && <Categories setVisible={setCategoriesVisible} />}
+      {categoriesVisible && (
+        <Categories setVisible={setCategoriesVisible} categories={categories} />
+      )}
       {sideBarVisible && <SideBar setVisible={setSideBarVisible} />}
       {cartVisible && <Cart setVisible={setCartVisible} />}
     </>

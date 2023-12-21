@@ -4,30 +4,62 @@ import BlurWrapper from "../BlurWrapper/BlurWrapper";
 import { metrics } from "../../../theme/metrics";
 import { Text } from "../Text/Text";
 import { fonts } from "../../../theme/fonts";
-import { useState } from "react";
-import { CATEGORIES, CATEGORIES_TITLES } from "@/mock/data";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-const Categories = ({ setVisible }: any) => {
+const Categories = ({ setVisible, categories }: any) => {
   const [selectedTitle, setSelectedTitle] = useState(0);
+  const router = useRouter();
+  const filteredCategory = categories.parentCategories.filter(
+    (el: any) => el.id === selectedTitle
+  )[0];
+
+  const childrenId =
+    filteredCategory && filteredCategory.childrenIds
+      ? filteredCategory.childrenIds.split(";").map(Number)
+      : [];
+
+  const childCategories = categories.categories?.filter((el: any) =>
+    childrenId.includes(el.id)
+  );
+
+  const smallChildCategories = (el: any) => {
+    const ids =
+      el && el.childrenIds ? el.childrenIds.split(";").map(Number) : [];
+    return categories.categories?.filter((el: any) => ids.includes(el.id));
+  };
+
+  const parentClick = (el: any) => {
+    if (el.childrenIds !== "") {
+      setSelectedTitle(el.id);
+    } else {
+      alert("hello");
+    }
+  };
+  const smallChildClick = (id: number) => {
+    router.push(`/catalog/${id}`);
+    setVisible(false);
+  };
+
   return (
     <BlurWrapper setModal={setVisible}>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         <MainColumn>
-          {CATEGORIES_TITLES.map((el, index) => (
+          {categories?.parentCategories?.map((el: any) => (
             <Text
-              key={index}
-              color={index === selectedTitle ? colors.redMain : colors.black}
+              key={el.id}
+              color={el.id === selectedTitle ? colors.redMain : colors.black}
               hoverColor={colors.redHover}
               size="15px"
               fontStyle={fonts.f600}
-              func={() => setSelectedTitle(index)}
+              func={() => parentClick(el)}
             >
-              {el}
+              {el.name}
             </Text>
           ))}
         </MainColumn>
         <DetailsContainer>
-          {CATEGORIES.map((el, index) => (
+          {childCategories.map((el: any, index: any) => (
             <>
               <Text
                 key={index}
@@ -36,33 +68,21 @@ const Categories = ({ setVisible }: any) => {
                 size="15px"
                 fontStyle={fonts.f600}
               >
-                {el.title}
+                {el.name}
               </Text>
-              {el?.categories &&
-                el.categories.map((el, index) => (
-                  //нажатие вот тут
+              {el.childrenIds &&
+                el.childrenIds !== "" &&
+                smallChildCategories(el)?.map((child: any, childIndex: any) => (
                   <Text
-                    key={index}
+                    key={childIndex}
                     color={colors.black}
                     hoverColor={colors.redHover}
                     size="15px"
-                    fontStyle={fonts.f600}
+                    fontStyle={fonts.f400}
+                    margin="0 0 0 8px"
+                    func={() => smallChildClick(child.id)}
                   >
-                    {el.title}
-                    {/* вот эта часть, что ниже должна открываться по нажатию */}
-                    {el?.categories &&
-                      el.categories.map((el, index) => (
-                        <Text
-                          key={index}
-                          color={colors.black}
-                          hoverColor={colors.redHover}
-                          size="15px"
-                          fontStyle={fonts.f400}
-                          margin="10px 0 0 10px"
-                        >
-                          {el}
-                        </Text>
-                      ))}
+                    {child.name}
                   </Text>
                 ))}
             </>
@@ -80,7 +100,7 @@ const Wrapper = styled.div`
   top: 90px;
   background-color: ${colors.white};
   width: 100%;
-  height: 741px;
+  height: 742px;
   padding: 0 124px;
   @media (max-width: ${metrics.desktop}) {
     padding: 0 24px;
@@ -105,4 +125,6 @@ const DetailsContainer = styled.div`
   flex-direction: column;
   padding: 38px 0 0 77px;
   row-gap: 16px;
+  overflow: scroll;
+  column-gap: 20px;
 `;

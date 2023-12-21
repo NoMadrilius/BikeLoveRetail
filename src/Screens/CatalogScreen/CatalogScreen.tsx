@@ -6,22 +6,51 @@ import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import Filter from "./components/Filter";
 import Products from "./components/Products";
-import { sliderData } from "@/mock/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextBlock from "./components/TextBlock";
+import categoriesStore, { useCategoriesStore } from "@/store/CategoriesStore";
+import { useRouter } from "next/router";
 
-const CatalogScreen = () => {
+const CatalogScreen = ({ catalogId }: any) => {
+  const router = useRouter();
+  const catId = router.query.id;
   const [filterVisible, setFilterVisible] = useState(false);
+  const [cards, setCards] = useState([]);
+  const catalogStore = useCategoriesStore();
+  useEffect(() => {
+    catalogStore.fetchCategories();
+    if (catId) {
+      catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
+    }
+  }, [catId]);
+  const catalog = categoriesStore.categories
+    ? catalogStore.categories.filter((el) => el.id === +catId!)
+    : [];
+  useEffect(() => {
+    setCards(catalogStore.cardsByCategory);
+  }, [catalogStore.cardsByCategory]);
 
-  const breadCrumbs = [
-    { title: "Каталог", link: "/" },
-    { title: "Подкаталог тест", link: "/" },
-  ];
+  ////
+  console.log(cards);
+  console.log(catId);
+  /////
+
+  const parts = catalog[0]?.way.split("->");
+
+  const breadCrumbs = parts?.map((part, index) => ({
+    title: part,
+    link: "/",
+  }));
   return (
     <>
-      <UseMetaData title={"Каталог"} img={""} description={"asdasdasd"} />
+      <UseMetaData
+        title={catalog[0]?.name}
+        img={""}
+        description={"asdasdasd"}
+      />
       <Wrapper>
-        <BreadCrumbs road={breadCrumbs} />
+        {parts && <BreadCrumbs road={breadCrumbs} />}
+
         <Text
           color={colors.black}
           size="42px"
@@ -29,7 +58,7 @@ const CatalogScreen = () => {
           textTransform="uppercase"
           margin="0 0 50px 0"
         >
-          Подкаталог тест
+          {catalog[0]?.name}
         </Text>
 
         <RowContainer>
@@ -60,7 +89,7 @@ const CatalogScreen = () => {
           <TriggerHidden width="1000px">
             <Filter />
           </TriggerHidden>
-          <Products items={sliderData} />
+          <Products items={catalogStore.cardsByCategory} />
         </MainContainer>
         <TextBlock />
       </Wrapper>

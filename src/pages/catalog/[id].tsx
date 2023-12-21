@@ -1,12 +1,19 @@
 import CatalogScreen from "@/Screens/CatalogScreen/CatalogScreen";
 import { PaddingWrapper } from "../../../theme/templates";
+import { useCategoriesStore } from "@/store/CategoriesStore";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function Page() {
+const Page = () => {
+  const router = useRouter();
+
   return (
     <>
       <PaddingWrapper>
-        <CatalogScreen />
+        <CatalogScreen catalogId={router.query.id!} />
       </PaddingWrapper>
     </>
   );
-}
+};
+
+export default Page;
