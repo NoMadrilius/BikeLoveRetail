@@ -5,6 +5,7 @@ export type Product = {
     colors?: string[];
     sizes?: string[];
     sale?: string;
+    id?: number
 }
 export type INewsItem = {
     id: number
@@ -31,3 +32,35 @@ export interface Category {
     updatedAt: string,
     way: string
 }
+export interface IProduct
+{
+    b2BVisibility?: boolean,
+    barcode?: string,
+    brandId?: number,
+    catalogKey?: string,
+    categoryId?: number,
+    categoryImport?: string,
+    categoryName?: string,
+    categoryWay?: string,
+    checkStatus?: string,
+    createdAt?: string,
+    dealerPrice?: number,
+    enabled?: boolean,
+    id: number,
+    incomePrice?: number,
+    isMaster?: boolean,
+    manufacturerBarcode?: string,
+    name: string,
+    oldDealerPrice?: number,
+    oldIncomePrice?: number,
+    quantityUnitId?: number,
+    quantityUnitName?: string,
+    retailPrice: number,
+    retailVisibility?: boolean,
+    updatedAt?: string,
+    userCreated?: string,
+    userUpdated?: string,
+    quantity: number
+}
+
+export default Product

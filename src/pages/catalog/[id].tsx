@@ -3,17 +3,18 @@ import { PaddingWrapper } from "../../../theme/templates";
 import { useCategoriesStore } from "@/store/CategoriesStore";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { observer } from "mobx-react";
 
 const Page = () => {
-  const router = useRouter();
+	const router = useRouter();
 
-  return (
-    <>
-      <PaddingWrapper>
-        <CatalogScreen catalogId={router.query.id!} />
-      </PaddingWrapper>
-    </>
-  );
+	return (
+		<>
+			<PaddingWrapper>
+				<CatalogScreen catalogId={router.query.id!} />
+			</PaddingWrapper>
+		</>
+	);
 };
 
-export default Page;
+export default observer(Page);

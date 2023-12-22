@@ -2,7 +2,7 @@ export const prettyPrice = (price: string | number): string => {
   let priceStr: string;
 
   if (typeof price === 'number') {
-    priceStr = String(price);
+    priceStr = String(price.toFixed(2)); // Преобразование числа в строку с двумя десятичными знаками
   } else if (typeof price === 'string') {
     priceStr = price;
   } else {
