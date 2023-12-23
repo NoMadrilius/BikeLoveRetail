@@ -53,7 +53,6 @@ const ProductScreen = () => {
 	}, [productStore.product]);
 	///
 	console.log(product);
-	console.log(prodId);
 	///
 
 	return (

@@ -88,7 +88,7 @@ const CatalogScreen = ({ catalogId }: any) => {
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>
-			{filterVisible && <Filter mobile={true} />}
+			{filterVisible && <Filter mobile={true} setVisible={setFilterVisible} />}
 		</>
 	);
 };
