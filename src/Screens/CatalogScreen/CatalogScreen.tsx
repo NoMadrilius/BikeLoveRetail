@@ -11,6 +11,7 @@ import TextBlock from "./components/TextBlock";
 import categoriesStore, { useCategoriesStore } from "@/store/CategoriesStore";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
+import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 
 const CatalogScreen = ({ catalogId }: any) => {
 	const router = useRouter();
@@ -88,7 +89,11 @@ const CatalogScreen = ({ catalogId }: any) => {
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>
-			{filterVisible && <Filter mobile={true} setVisible={setFilterVisible} />}
+			{filterVisible && (
+				<BlurWrapper setModal={setFilterVisible}>
+					<Filter mobile={true} />
+				</BlurWrapper>
+			)}
 		</>
 	);
 };

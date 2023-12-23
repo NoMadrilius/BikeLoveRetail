@@ -53,119 +53,114 @@ const Filter = ({ mobile, setVisible }: any) => {
 		setCurrentFilters(updatedFilters);
 	};
 	return (
-		<BlurWrapper setModal={setVisible}>
-			<Wrapper mobile={mobile}>
-				{!!currentFilters.length && (
-					<>
-						<Text color={colors.black} size='15px' fontStyle={fonts.f600}>
-							ТЕКУЩИЕ ФИЛЬТРЫ
-						</Text>
+		<Wrapper mobile={mobile}>
+			{!!currentFilters.length && (
+				<>
+					<Text color={colors.black} size='15px' fontStyle={fonts.f600}>
+						ТЕКУЩИЕ ФИЛЬТРЫ
+					</Text>
 
-						<ColumnContainer style={{ rowGap: "12px", marginTop: "23px" }}>
-							{currentFilters.map((el, index) => (
-								<RowContainer key={index} style={{ columnGap: "29px" }}>
-									<Text
-										color={colors.grayMain}
-										size='16px'
-										fontStyle={fonts.f400}
-										whiteSpace>
-										{el.title} :
-									</Text>
-									<Text
-										color={colors.black}
-										size='16px'
-										fontStyle={fonts.f500}
-										margin='0 0 0 auto'
-										textAlign='right'>
-										{el.value}
-									</Text>
-									<IconClose
-										src='/images/catalog/icons/close.png'
-										onClick={() => removeItem(index)}
-									/>
-								</RowContainer>
-							))}
-							<RowContainer style={{ columnGap: "29px", marginTop: "10px" }}>
-								<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-									Результатов :
-								</Text>
+					<ColumnContainer style={{ rowGap: "12px", marginTop: "23px" }}>
+						{currentFilters.map((el, index) => (
+							<RowContainer key={index} style={{ columnGap: "29px" }}>
 								<Text
 									color={colors.grayMain}
-									size='13px'
-									fontStyle={fonts.f400}>
-									6
+									size='16px'
+									fontStyle={fonts.f400}
+									whiteSpace>
+									{el.title} :
 								</Text>
+								<Text
+									color={colors.black}
+									size='16px'
+									fontStyle={fonts.f500}
+									margin='0 0 0 auto'
+									textAlign='right'>
+									{el.value}
+								</Text>
+								<IconClose
+									src='/images/catalog/icons/close.png'
+									onClick={() => removeItem(index)}
+								/>
 							</RowContainer>
-						</ColumnContainer>
-					</>
-				)}
-
-				{FILTER_ITEMS.map((el, index) => (
-					<FieldWrapper key={index}>
-						<RowContainer>
-							<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
-								{el.title}
+						))}
+						<RowContainer style={{ columnGap: "29px", marginTop: "10px" }}>
+							<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
+								Результатов :
 							</Text>
-
-							<Text
-								color={colors.black}
-								size='16px'
-								fontStyle={fonts.f400}
-								margin='0 0 0 auto'
-								func={() => toggleSelectArea(index)}>
-								+
+							<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
+								6
 							</Text>
 						</RowContainer>
-						<SelectArea open={isOpen[index]}>
-							{el.type === "string" && (
-								<>
-									{el.items.map((item, index) => (
+					</ColumnContainer>
+				</>
+			)}
+
+			{FILTER_ITEMS.map((el, index) => (
+				<FieldWrapper key={index}>
+					<RowContainer>
+						<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
+							{el.title}
+						</Text>
+
+						<Text
+							color={colors.black}
+							size='16px'
+							fontStyle={fonts.f400}
+							margin='0 0 0 auto'
+							func={() => toggleSelectArea(index)}>
+							+
+						</Text>
+					</RowContainer>
+					<SelectArea open={isOpen[index]}>
+						{el.type === "string" && (
+							<>
+								{el.items.map((item, index) => (
+									<Text
+										key={index}
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										hoverColor={colors.redHover}
+										func={() => addItem(el.title, item)}>
+										{item}
+									</Text>
+								))}
+							</>
+						)}
+						{el.type === "color" && (
+							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
+								{el.items.map((item, index) => (
+									<ColorPicker
+										key={index}
+										color={item}
+										onClick={() => addItem(el.title, item)}
+									/>
+								))}
+							</RowContainer>
+						)}
+
+						{el.type === "container" && (
+							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
+								{el.items.map((item, index) => (
+									<ContainerSelect
+										key={index}
+										onClick={() => addItem(el.title, item)}>
 										<Text
 											key={index}
 											color={colors.black}
 											size='16px'
-											fontStyle={fonts.f400}
-											hoverColor={colors.redHover}
-											func={() => addItem(el.title, item)}>
+											fontStyle={fonts.f400}>
 											{item}
 										</Text>
-									))}
-								</>
-							)}
-							{el.type === "color" && (
-								<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
-									{el.items.map((item, index) => (
-										<ColorPicker
-											key={index}
-											color={item}
-											onClick={() => addItem(el.title, item)}
-										/>
-									))}
-								</RowContainer>
-							)}
-
-							{el.type === "container" && (
-								<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
-									{el.items.map((item, index) => (
-										<ContainerSelect
-											key={index}
-											onClick={() => addItem(el.title, item)}>
-											<Text
-												key={index}
-												color={colors.black}
-												size='16px'
-												fontStyle={fonts.f400}>
-												{item}
-											</Text>
-										</ContainerSelect>
-									))}
-								</RowContainer>
-							)}
-						</SelectArea>
-					</FieldWrapper>
-				))}
-			</Wrapper>
-		</BlurWrapper>
+									</ContainerSelect>
+								))}
+							</RowContainer>
+						)}
+					</SelectArea>
+				</FieldWrapper>
+			))}
+		</Wrapper>
 	);
 };
 export default Filter;

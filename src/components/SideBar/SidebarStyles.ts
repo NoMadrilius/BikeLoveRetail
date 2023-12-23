@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 286px;
   height: 100vh;
   background-color: ${colors.white};
+  overflow: scroll;
 `;
 export const AuthContainer = styled.div`
   ${templates.centerContent};
