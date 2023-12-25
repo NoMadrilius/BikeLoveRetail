@@ -129,9 +129,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 						width={"107px"}
 						height={"40px"}
 						type='default'
-						func={user ? logout : loginWithRedirect}>
+						func={() => router.push("/auth")}>
 						<Text color={colors.white} size='16px' fontStyle={fonts.f400}>
-							{user ? user.name : "Войти"}
+							Войти
 						</Text>
 					</ButtonCustom>
 				</Trigger>

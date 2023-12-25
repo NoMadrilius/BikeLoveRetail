@@ -12,6 +12,7 @@ import categoriesStore, { useCategoriesStore } from "@/store/CategoriesStore";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
+import Loader from "@/helpers/Loader/Loader";
 
 const CatalogScreen = ({ catalogId }: any) => {
 	const router = useRouter();
@@ -85,7 +86,7 @@ const CatalogScreen = ({ catalogId }: any) => {
 					<TriggerHidden width='1000px'>
 						<Filter />
 					</TriggerHidden>
-					<Products items={catalogStore.cardsByCategory} />
+					<Products items={cards} loading={catalogStore.loading} />
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>

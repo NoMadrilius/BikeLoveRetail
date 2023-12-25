@@ -7,12 +7,20 @@ import { useRouter } from "next/router";
 import NextNProgress from "nextjs-progressbar";
 import { CONFIG } from "../../config";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
+import { ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 	const currentPath = router.asPath;
 	return (
 		<>
+			<ToastContainer
+				position='top-center'
+				autoClose={3500}
+				hideProgressBar={true}
+				newestOnTop={true}
+				closeOnClick
+			/>
 			<Auth0Provider
 				domain={CONFIG.AUTH0.domain}
 				clientId={CONFIG.AUTH0.clientId}

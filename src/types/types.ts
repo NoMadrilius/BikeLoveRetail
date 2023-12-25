@@ -63,4 +63,17 @@ export interface IProduct
     quantity: number
 }
 
-export default Product
+export interface RegisterRequest {
+    firstName: string,
+    lastName: string,
+    patronymic: string,
+    email: string,
+    phone: string,
+    password: string,
+    confirmPassword?: string
+}
+export type ToastMessageProps = {
+    title: string;
+    info: string;
+    type: "success" | "error" | "warn";
+  };

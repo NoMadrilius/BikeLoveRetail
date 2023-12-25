@@ -10,6 +10,10 @@ export const colors = {
     opacityBg: 'rgba(255, 255, 255, 0.29)',
     blurBg: "#000000b0",
     pinkBlur: 'rgba(255, 239, 239, 1)',
-    green: 'rgba(26, 144, 78, 1)'
+    green: 'rgba(26, 144, 78, 1)',
+    red100: '#d32f2f',
+    green100: '#12980c',
+    yellow: '#aa9000',
+    gold: '#FFD700',
 
 }

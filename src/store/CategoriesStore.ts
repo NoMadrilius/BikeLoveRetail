@@ -6,6 +6,7 @@ import { createContext, useContext } from 'react';
 
 class CategoriesStore {
   categories: Category[] = []
+  loading = false
   parentCategories: any = []
   cardsByCategory = []
   count = 0;
@@ -39,10 +40,11 @@ class CategoriesStore {
       sortingSettings
   }
   try {
+    this.loading = true
     const response = await axios.post(apiUrls.productCardByCategory, request)
     console.log(response)
     this.cardsByCategory = response.data.products
-
+    this.loading = false
     return response.data
 } catch (error) {
     console.error('Error fetching data:', error)
