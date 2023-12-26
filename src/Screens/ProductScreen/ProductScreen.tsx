@@ -16,6 +16,7 @@ import { useProductStore } from "@/store/ProductStore";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import { useCartStore } from "@/store/CartStore";
+import { useWishListStore } from "@/store/WishListStore";
 
 const CHARACTERISTICS = [
 	{ title: "Бренд", value: "Указать бренд" },
@@ -35,6 +36,7 @@ const ProductScreen = () => {
 	const prodId = router.query.id;
 	const productStore = useProductStore();
 	const cart = useCartStore();
+	const wishStore = useWishListStore();
 	const [product, setProduct] = useState<any>();
 	const breadCrumbs = [
 		{ title: "Каталог", link: "/" },
@@ -51,8 +53,9 @@ const ProductScreen = () => {
 	useEffect(() => {
 		setProduct(productStore.product);
 	}, [productStore.product]);
+
 	///
-	console.log(product);
+	console.log(wishStore.wishList);
 	///
 
 	return (
@@ -235,17 +238,17 @@ const ProductScreen = () => {
 							/>
 						</RowContainer>
 						<RowContainer style={{ columnGap: "18px", marginTop: "30px" }}>
-							<ButtonCustom type='default' width={"191px"} height={"56px"}>
+							<ButtonCustom
+								type='default'
+								width={"191px"}
+								height={"56px"}
+								func={() => cart?.addToCart(product)}>
 								<>
 									<img
 										src='/images/product/icons/cart.png'
 										style={{ marginRight: "10px" }}
 									/>
-									<Text
-										color={colors.white}
-										size='16px'
-										fontStyle={fonts.f700}
-										func={() => cart?.addToCart(product)}>
+									<Text color={colors.white} size='16px' fontStyle={fonts.f700}>
 										В корзину
 									</Text>
 								</>
@@ -259,7 +262,7 @@ const ProductScreen = () => {
 									<CustomP>Заказ в 1 клик</CustomP>
 								</>
 							</ButtonCustom>
-							<LikeBtn>
+							<LikeBtn onClick={() => wishStore.addToWishList(product)}>
 								<img src='/images/product/icons/like.png' />
 							</LikeBtn>
 						</RowContainer>

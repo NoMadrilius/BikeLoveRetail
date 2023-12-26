@@ -24,6 +24,7 @@ import { styled } from "styled-components";
 import { templates } from "../../../theme/templates";
 import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
+import { useWishListStore } from "@/store/WishListStore";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -55,15 +56,18 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	};
 	const categories = useCategoriesStore();
 	const cart = useCartStore();
+	const wish = useWishListStore();
 	const [cartData, setCartData] = useState<any>();
+	const [wishData, setWishData] = useState<any>();
 
 	useEffect(() => {
 		categories.fetchCategories();
-	}, [cart]);
-	useEffect(() => {
 		setCartData(cart.cart);
 	}, [cart]);
-	console.log(cart.cart);
+	useEffect(() => {
+		setWishData(wish.wishList);
+	}, [wish]);
+	console.log(wishData);
 	console.log(categories);
 
 	return (
@@ -111,7 +115,19 @@ const Header: FC<Props> = ({ opacityBg }) => {
 
 				<Input value={inputText} onChange={setInputText} />
 				<IconsContainer>
-					<Icon src={ICONS[0].icon} onClick={() => onClickIcons(ICONS[0].id)} />
+					<CounterContainer>
+						<Icon
+							src={ICONS[0].icon}
+							onClick={() => onClickIcons(ICONS[0].id)}
+						/>
+						{wishData?.length ? (
+							<Counter>
+								<Text color={colors.white} size='13px' fontStyle={fonts.f500}>
+									{wishData?.length}
+								</Text>
+							</Counter>
+						) : null}
+					</CounterContainer>
 					<CounterContainer>
 						<Icon
 							src={ICONS[1].icon}
