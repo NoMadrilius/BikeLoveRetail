@@ -82,7 +82,7 @@ const HomeScreen = () => {
 					<ByPropose items={ITEMS} />
 
 					<ResponsiveBlockGroup variant='1' />
-					<Slider
+					{/* <Slider
 						title={"Популярные велосипеды"}
 						tags={sliderTags}
 						items={sliderData}
@@ -100,7 +100,7 @@ const HomeScreen = () => {
 						tags={[]}
 						items={newsData}
 						variant='news'
-					/>
+					/> */}
 				</MainContainer>
 				<Subscribe bg={"/images/home/form-background.png"} />
 			</Wrapper>

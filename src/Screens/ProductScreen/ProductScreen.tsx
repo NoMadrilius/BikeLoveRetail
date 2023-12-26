@@ -372,7 +372,7 @@ const ProductScreen = () => {
 					</ColumnContainer>
 				</RowContainer>
 				<ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
-					<Slider
+					{/* <Slider
 						title={"байки из той серии"}
 						items={sliderData}
 						variant={"cards"}
@@ -387,7 +387,7 @@ const ProductScreen = () => {
 						title={"вы недавно смотрели"}
 						items={sliderData}
 						variant={"cards"}
-					/>
+					/> */}
 				</ColumnContainer>
 			</Wrapper>
 		</>
