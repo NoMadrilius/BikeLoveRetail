@@ -1,3 +1,4 @@
+"use client";
 import { FC, useEffect, useState } from "react";
 import {
 	BurgerIcon,
@@ -52,14 +53,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
 			setCartVisible(true);
 		}
 	};
-	const { loginWithRedirect, user, logout } = useAuth0();
-
 	const categories = useCategoriesStore();
 	const cart = useCartStore();
+	const [cartData, setCartData] = useState<any>();
 
 	useEffect(() => {
 		categories.fetchCategories();
-	}, []);
+	}, [cart]);
+	useEffect(() => {
+		setCartData(cart.cart);
+	}, [cart]);
 	console.log(cart.cart);
 	console.log(categories);
 
@@ -114,13 +117,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
 							src={ICONS[1].icon}
 							onClick={() => onClickIcons(ICONS[1].id)}
 						/>
-						{cart.cart.length !== 0 && (
+						{cartData?.length ? (
 							<Counter>
 								<Text color={colors.white} size='13px' fontStyle={fonts.f500}>
-									{cart.cart.length}
+									{cartData?.length}
 								</Text>
 							</Counter>
-						)}
+						) : null}
 					</CounterContainer>
 					<Icon src={ICONS[2].icon} onClick={() => onClickIcons(ICONS[2].id)} />
 				</IconsContainer>

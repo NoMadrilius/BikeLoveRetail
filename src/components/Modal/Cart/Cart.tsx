@@ -1,3 +1,4 @@
+"use client";
 import { styled } from "styled-components";
 import BlurWrapper from "../../BlurWrapper/BlurWrapper";
 import { colors } from "../../../../theme/colors";
@@ -9,6 +10,7 @@ import CartItem from "./CartItem";
 import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/types/types";
+import { observer } from "mobx-react";
 
 const Cart = ({ setVisible }: any) => {
 	const cartStore = useCartStore();
@@ -112,7 +114,7 @@ const Cart = ({ setVisible }: any) => {
 		</BlurWrapper>
 	);
 };
-export default Cart;
+export default observer(Cart);
 
 const ContentWrapper = styled.div`
 	position: relative;
