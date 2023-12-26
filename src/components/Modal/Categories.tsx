@@ -45,7 +45,7 @@ const Categories = ({ setVisible, categories }: any) => {
 		router.push(`/catalog/${id}`);
 		setVisible(false);
 	};
-
+	console.log(filteredCategory);
 	return (
 		<BlurWrapper setModal={setVisible}>
 			<Wrapper onClick={(e) => e.stopPropagation()}>
@@ -63,6 +63,20 @@ const Categories = ({ setVisible, categories }: any) => {
 					))}
 				</MainColumn>
 				<DetailsContainer>
+					{childCategories.length && (
+						<Text
+							color={colors.black}
+							hoverColor={colors.redHover}
+							size='15px'
+							fontStyle={fonts.f600}
+							func={() => childClick(filteredCategory)}>
+							Все в категорії
+							<img
+								src='/images/contacts/arrow.svg'
+								style={{ transform: "rotate(270deg)" }}
+							/>
+						</Text>
+					)}
 					{childCategories.map((el: any, index: any) => (
 						<>
 							<Text
@@ -123,9 +137,11 @@ const MainColumn = styled.div`
 	row-gap: 20px;
 `;
 const DetailsContainer = styled.div`
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
+
 	padding: 38px 0 0 77px;
 	row-gap: 16px;
 	overflow: scroll;
