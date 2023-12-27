@@ -44,6 +44,25 @@ class WishListStore {
       }
       this.saveCartToLocalStorage();
     }
+    removeFromWishList(productId: number) {
+      const index = this.wishList.findIndex(item => item.id === productId);
+
+      if (index !== -1) {
+          this.wishList.splice(index, 1);
+          showToast({
+              info: 'Товар удален из списка желаний',
+              title: 'Товар удален',
+              type: 'success'
+          });
+          this.saveCartToLocalStorage();
+      } else {
+          showToast({
+              info: 'Товар не найден в списке желаний',
+              title: 'Товар не найден',
+              type: 'warn'
+          });
+      }
+  }
   }
 
 const wishListStore = new WishListStore();

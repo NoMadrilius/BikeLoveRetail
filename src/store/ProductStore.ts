@@ -6,6 +6,8 @@ import { createContext, useContext } from 'react';
 
 class ProductStore {
   product = {}
+  options = {}
+  description = ''
 
   constructor() {
     makeAutoObservable(this);
@@ -19,6 +21,9 @@ class ProductStore {
             }
         });
         this.product = response.data.product
+        this.options = response.data.productOptions
+        this.description = response.data.productCard.description
+        console.log(response.data.productCard.description)
     } catch (error) {
         console.error('Error fetching data:', error);
     }

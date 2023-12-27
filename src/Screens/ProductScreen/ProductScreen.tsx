@@ -38,6 +38,12 @@ const ProductScreen = () => {
 	const cart = useCartStore();
 	const wishStore = useWishListStore();
 	const [product, setProduct] = useState<any>();
+	const [options, setOptions] = useState<
+		{
+			optionName: string;
+			name: string;
+		}[]
+	>();
 	const breadCrumbs = [
 		{ title: "Каталог", link: "/" },
 		{ title: "Велосипеды", link: "/" },
@@ -54,8 +60,27 @@ const ProductScreen = () => {
 		setProduct(productStore.product);
 	}, [productStore.product]);
 
+	useEffect(() => {
+		if (productStore.options && Array.isArray(productStore.options)) {
+			const formattedOptions = productStore.options.map((option: any) => ({
+				optionName: option.optionName,
+				name: option.name,
+			}));
+			setOptions(formattedOptions);
+		}
+	}, [productStore.options]);
+
+	const productInCart = cart.cart?.some((i) => i.id === product?.id);
+	const productInWishList = wishStore.wishList?.some(
+		(i) => i.id === product?.id
+	);
+	const clickLike = () => {
+		productInWishList
+			? wishStore.removeFromWishList(product.id)
+			: wishStore.addToWishList(product);
+	};
 	///
-	console.log(wishStore.wishList);
+	console.log(options);
 	///
 
 	return (
@@ -141,53 +166,30 @@ const ProductScreen = () => {
 								{product?.barcode}
 							</Text>
 						</RowContainer>
-						<Text
-							color={colors.black}
-							size='15px'
-							fontStyle={fonts.f400}
-							margin='35px 0 22px 0'>
-							Цвет
-						</Text>
-						<RowContainer style={{ gap: "8px" }}>
-							<ColorCircle color='red' />
-							<ColorCircle color={colors.redMain} />
-						</RowContainer>
 
-						<Text
-							color={colors.black}
-							size='15px'
-							fontStyle={fonts.f400}
-							margin='35px 0 22px 0'>
-							Размер
-						</Text>
-						<RowContainer
-							style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
-							<SizeContainer>
-								<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
-									15
+						{options?.map((el: any, index: any) => (
+							<div key={index}>
+								<Text
+									color={colors.black}
+									size='15px'
+									fontStyle={fonts.f400}
+									margin='35px 0 22px 0'>
+									{el.optionName}
 								</Text>
-							</SizeContainer>
-							<SizeContainer>
-								<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
-									20
-								</Text>
-							</SizeContainer>
-							<SizeContainer>
-								<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
-									20
-								</Text>
-							</SizeContainer>
-							<SizeContainer>
-								<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
-									20
-								</Text>
-							</SizeContainer>
-							<SizeContainer>
-								<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
-									20
-								</Text>
-							</SizeContainer>
-						</RowContainer>
+								<RowContainer
+									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
+									<SizeContainer>
+										<Text
+											color={colors.black}
+											size='14px'
+											fontStyle={fonts.f500}>
+											{el.name}
+										</Text>
+									</SizeContainer>
+								</RowContainer>
+							</div>
+						))}
+
 						<RowContainer style={{ alignItems: "center", marginTop: "27px" }}>
 							<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
 								Таблица размеров
@@ -249,7 +251,7 @@ const ProductScreen = () => {
 										style={{ marginRight: "10px" }}
 									/>
 									<Text color={colors.white} size='16px' fontStyle={fonts.f700}>
-										В корзину
+										{productInCart ? "Товар в корзине" : "В корзину"}
 									</Text>
 								</>
 							</ButtonCustom>
@@ -262,7 +264,7 @@ const ProductScreen = () => {
 									<CustomP>Заказ в 1 клик</CustomP>
 								</>
 							</ButtonCustom>
-							<LikeBtn onClick={() => wishStore.addToWishList(product)}>
+							<LikeBtn liked={productInWishList} onClick={() => clickLike()}>
 								<img src='/images/product/icons/like.png' />
 							</LikeBtn>
 						</RowContainer>
@@ -320,22 +322,9 @@ const ProductScreen = () => {
 									size='16px'
 									fontStyle={fonts.f400}
 									margin='0 0 0 0'>
-									Совершенно новый Turbo Levo представляет собой невообразимое
-									сочетание человека и машины. Обуздай технологии и преврати
-									каждую поездку в незабываемое приключение. Больше скорости.
-									Больше расстояния. Больше свободы. Больше маршрутов, больше
-									незабываемых впечатлений..
+									{productStore.description}
 								</Text>
-								<Text
-									color={colors.black}
-									size='16px'
-									fontStyle={fonts.f400}
-									margin='33px 0 0 0'>
-									С момента своего появления Turbo Levo установил стандарт, на
-									который ориентируются многие другие производители
-									электровелосипедов, и обновлённый Levo в этом смысле ничуть не
-									отстаёт от своих предшественников.
-								</Text>
+
 								<Text
 									color={colors.grayMain}
 									size='13px'
@@ -348,7 +337,7 @@ const ProductScreen = () => {
 						)}
 						{activeTab === 1 && (
 							<>
-								{CHARACTERISTICS.map((el, index) => (
+								{options?.map((el, index) => (
 									<CharacteristicContainer key={index} index={index}>
 										<Text
 											color={colors.black}
@@ -356,14 +345,14 @@ const ProductScreen = () => {
 											fontStyle={fonts.f400}
 											hoverColor={colors.redHover}
 											maxWidth='100%'>
-											{el.title}
+											{el.optionName}
 										</Text>
 										<Text
 											color={colors.black}
 											size='15px'
 											fontStyle={fonts.f400}
 											hoverColor={colors.redHover}>
-											{el.value}
+											{el.name}
 										</Text>
 									</CharacteristicContainer>
 								))}
@@ -422,7 +411,7 @@ const ColorCircle = styled.div<{ color: string }>`
 `;
 const SizeContainer = styled.div`
 	${templates.centerContent};
-	width: 95px;
+	padding: 10px;
 	height: 32px;
 	background-color: ${colors.white};
 	border-radius: 5px;
@@ -444,11 +433,12 @@ const CustomP = styled.p`
 	font-weight: ${fonts.f700.fontWeight};
 	font-size: 16px;
 `;
-const LikeBtn = styled.div`
+const LikeBtn = styled.div<{ liked: boolean }>`
 	width: 56px;
 	height: 56px;
 	border-radius: 5px;
 	border: 2px solid #cacaca;
+	background-color: ${(p) => (p.liked ? colors.redMain : colors.white)};
 	cursor: pointer;
 	${templates.centerContent}
 `;
