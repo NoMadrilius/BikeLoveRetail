@@ -18,7 +18,9 @@ const Products: FC<Props> = ({ items, loading }) => {
 		<>
 			<GridContainer>
 				{loading
-					? Array.from({ length: 6 }).map((_, index) => <FakeCard />)
+					? Array.from({ length: 6 }).map((_, index) => (
+							<FakeCard key={index} />
+					  ))
 					: products?.map((el: any, index: any) => (
 							<Card
 								key={index}

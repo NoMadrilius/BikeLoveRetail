@@ -18,19 +18,6 @@ import { useRouter } from "next/router";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 
-const CHARACTERISTICS = [
-	{ title: "Бренд", value: "Указать бренд" },
-	{ title: "Год", value: "2022" },
-	{ title: "Пол и возраст", value: "Для взрослых, Для мужчин" },
-	{ title: "Вес", value: "22кг" },
-	{ title: "Электрооборудование", value: "" },
-	{ title: "Тип мотора", value: "Переднее мотор-колесо" },
-	{ title: "Тип батареи", value: "Литий-ионная" },
-	{ title: "Максимальная нагрузка", value: "до 100кг" },
-	{ title: "Максимальный пробег", value: "до 29км" },
-	{ title: "Управление электротягой", value: "Ручка акселератора (Throttle)" },
-];
-
 const ProductScreen = () => {
 	const router = useRouter();
 	const prodId = router.query.id;
