@@ -8,6 +8,7 @@ class ProductStore {
   product = {}
   options = {}
   description = ''
+  images = []
 
   constructor() {
     makeAutoObservable(this);
@@ -23,7 +24,8 @@ class ProductStore {
         this.product = response.data.product
         this.options = response.data.productOptions
         this.description = response.data.productCard.description
-        console.log(response.data.productCard.description)
+        this.images = response.data.productImages
+        console.log(response.data.productImages)
     } catch (error) {
         console.error('Error fetching data:', error);
     }

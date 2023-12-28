@@ -17,6 +17,7 @@
     "@types/styled-components": "^5.1.34",
     "axios": "^1.6.2",
     "babel-plugin-styled-components": "^2.1.4",
+    "jose": "^5.2.0",
     "mobx": "^6.12.0",
     "mobx-react": "^9.1.0",
     "next": "14.0.3",

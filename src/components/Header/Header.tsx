@@ -25,6 +25,7 @@ import { templates } from "../../../theme/templates";
 import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
+import { useAuthStore } from "@/store/AuthStore";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -57,8 +58,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	const categories = useCategoriesStore();
 	const cart = useCartStore();
 	const wish = useWishListStore();
+	const authStore = useAuthStore();
 	const [cartData, setCartData] = useState<any>();
 	const [wishData, setWishData] = useState<any>();
+	const [isAuth, setIsAuth] = useState(false);
 
 	useEffect(() => {
 		categories.fetchCategories();
@@ -67,8 +70,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		setWishData(wish.wishList);
 	}, [wish]);
-	console.log(wishData);
-	console.log(categories);
+	useEffect(() => {
+		const _isAuth = authStore.checkAuth();
+		setIsAuth(_isAuth);
+	}, []);
+	///
+	console.log(isAuth);
+	////
 
 	return (
 		<>
@@ -144,15 +152,28 @@ const Header: FC<Props> = ({ opacityBg }) => {
 					<Icon src={ICONS[2].icon} onClick={() => onClickIcons(ICONS[2].id)} />
 				</IconsContainer>
 				<Trigger>
-					<ButtonCustom
-						width={"107px"}
-						height={"40px"}
-						type='default'
-						func={() => router.push("/auth")}>
-						<Text color={colors.white} size='16px' fontStyle={fonts.f400}>
-							Войти
-						</Text>
-					</ButtonCustom>
+					{isAuth ? (
+						<UserContainer onClick={() => router.push("/account")}>
+							<UserAvatar>
+								{authStore.loginUserResponse.user.firstName.substring(0, 1)}
+							</UserAvatar>
+							<Text color={colors.white} size='13px' fontStyle={fonts.f500}>
+								{authStore.loginUserResponse.user.firstName}
+								<br />
+								{authStore.loginUserResponse.user.lastName}
+							</Text>
+						</UserContainer>
+					) : (
+						<ButtonCustom
+							width={"107px"}
+							height={"40px"}
+							type='default'
+							func={() => router.push("/auth")}>
+							<Text color={colors.white} size='16px' fontStyle={fonts.f400}>
+								Войти
+							</Text>
+						</ButtonCustom>
+					)}
 				</Trigger>
 
 				<BurgerIcon
@@ -181,4 +202,16 @@ const Counter = styled.div`
 	position: absolute;
 	top: -10px;
 	right: -10px;
+`;
+const UserContainer = styled.div`
+	display: flex;
+	column-gap: 7px;
+	cursor: pointer;
+`;
+const UserAvatar = styled.div`
+	${templates.centerContent};
+	width: 32px;
+	height: 32px;
+	background-color: ${colors.redMain};
+	border-radius: 50%;
 `;

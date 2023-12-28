@@ -49,11 +49,26 @@ const ProductScreen = () => {
 
 	useEffect(() => {
 		if (productStore.options && Array.isArray(productStore.options)) {
-			const formattedOptions = productStore.options.map((option: any) => ({
-				optionName: option.optionName,
-				name: option.name,
-			}));
-			setOptions(formattedOptions);
+			const groupedOptions = productStore.options.reduce((acc, option) => {
+				// Проверяем, существует ли уже в аккумуляторе такой optionName
+				const existingOption = acc.find(
+					(item: any) => item.optionName === option.optionName
+				);
+
+				// Если уже существует, добавляем name в существующий элемент
+				if (existingOption) {
+					existingOption.name.push(option.name);
+				} else {
+					// Если optionName новый, создаем новый элемент
+					acc.push({
+						optionName: option.optionName,
+						name: [option.name], // Создаем массив с name для нового optionName
+					});
+				}
+				return acc;
+			}, []);
+
+			setOptions(groupedOptions);
 		}
 	}, [productStore.options]);
 
@@ -67,7 +82,7 @@ const ProductScreen = () => {
 			: wishStore.addToWishList(product);
 	};
 	///
-	console.log(options);
+	console.log(productStore.images);
 	///
 
 	return (
@@ -76,9 +91,14 @@ const ProductScreen = () => {
 			<Wrapper>
 				<BreadCrumbs road={breadCrumbs} />
 				<RowContainer style={{ columnGap: "60px" }}>
-					<ColumnContainer style={{ width: "50%" }}>
+					<ColumnContainer
+						style={{ width: productStore?.images.length ? "50%" : "100%" }}>
 						<FakeBlock>
-							<SliderProducts />
+							{productStore?.images.length ? (
+								<SliderProducts images={productStore?.images} />
+							) : (
+								<img src='/mock/NoPhoto.png' style={{ width: "100%" }} />
+							)}
 						</FakeBlock>
 						<RowContainer
 							style={{
@@ -165,14 +185,29 @@ const ProductScreen = () => {
 								</Text>
 								<RowContainer
 									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
-									<SizeContainer>
-										<Text
-											color={colors.black}
-											size='14px'
-											fontStyle={fonts.f500}>
-											{el.name}
-										</Text>
-									</SizeContainer>
+									{Array.isArray(el.name) ? (
+										// Если name - это массив, мапим его для отображения каждого элемента
+										el.name.map((name: string, idx: number) => (
+											<SizeContainer key={idx}>
+												<Text
+													color={colors.black}
+													size='14px'
+													fontStyle={fonts.f500}>
+													{name}
+												</Text>
+											</SizeContainer>
+										))
+									) : (
+										// Если name - это строка, отображаем ее как одиночный элемент
+										<SizeContainer>
+											<Text
+												color={colors.black}
+												size='14px'
+												fontStyle={fonts.f500}>
+												{el.name}
+											</Text>
+										</SizeContainer>
+									)}
 								</RowContainer>
 							</div>
 						))}
@@ -309,7 +344,11 @@ const ProductScreen = () => {
 									size='16px'
 									fontStyle={fonts.f400}
 									margin='0 0 0 0'>
-									{productStore.description}
+									<div
+										dangerouslySetInnerHTML={{
+											__html: productStore.description,
+										}}
+									/>
 								</Text>
 
 								<Text
@@ -339,7 +378,7 @@ const ProductScreen = () => {
 											size='15px'
 											fontStyle={fonts.f400}
 											hoverColor={colors.redHover}>
-											{el.name}
+											{Array.isArray(el.name) ? el.name.join(", ") : el.name}
 										</Text>
 									</CharacteristicContainer>
 								))}
@@ -386,7 +425,7 @@ const InfoContainer = styled.div`
 const FakeBlock = styled.div`
 	width: 100%;
 	padding: 60px;
-	height: 464px;
+	height: auto;
 	background-color: ${colors.white};
 `;
 const ColorCircle = styled.div<{ color: string }>`

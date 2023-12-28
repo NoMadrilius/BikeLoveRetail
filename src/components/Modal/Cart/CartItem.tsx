@@ -8,6 +8,7 @@ import { FC, useState } from "react";
 import { IProduct } from "@/types/types";
 import { useCartStore } from "@/store/CartStore";
 import { observer } from "mobx-react";
+import { useWishListStore } from "@/store/WishListStore";
 
 type Props = {
 	product: IProduct;
@@ -16,6 +17,7 @@ type Props = {
 
 const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
 	const cartStore = useCartStore();
+	const wishStore = useWishListStore();
 
 	const counterHandler = (symbol: string) => {
 		if (symbol === "plus") {
@@ -27,8 +29,30 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
 			updateTotalPrice(-product.retailPrice);
 		}
 	};
+	const removeItem = () => {
+		cartStore.removeFromCart(product.id);
+		updateTotalPrice(-product.retailPrice * product.quantity);
+	};
+	const likeItem = () => {
+		wishStore.addToWishList(product);
+	};
+	const productInCart = cartStore.cart?.some((i) => i.id === product?.id);
+	const productInWishList = wishStore.wishList?.some(
+		(i) => i.id === product?.id
+	);
 	return (
 		<Wrapper>
+			<Options>
+				<Icon src='/images/card/can.svg' onClick={() => removeItem()} />
+				{productInWishList ? (
+					<Icon
+						src='/images/card/heart-red.svg'
+						onClick={() => wishStore?.removeFromWishList(product.id)}
+					/>
+				) : (
+					<Icon src='/images/card/heart.svg' onClick={() => likeItem()} />
+				)}
+			</Options>
 			<Picture src='/mock/testCardByPropose.png' />
 			<InfoContainer>
 				<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
@@ -93,8 +117,24 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
 };
 export default observer(CartItem);
 
+const Options = styled.div`
+	position: absolute;
+	width: 75px;
+	height: 35px;
+	top: 5px;
+	right: 5px;
+	border-radius: 5px;
+	${templates.centerContent};
+	column-gap: 15px;
+	box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
+`;
+const Icon = styled.img`
+	cursor: pointer;
+`;
+
 const Wrapper = styled.div`
 	display: flex;
+	position: relative;
 	align-items: center;
 	justify-content: space-between;
 	padding: 25px 0;
@@ -110,7 +150,6 @@ const Picture = styled.img`
 	height: 112px;
 	border: 1px solid ${colors.grayBorder};
 	border-radius: 10px;
-	flex-shrink: 0;
 `;
 const InfoBottomContainer = styled.div`
 	display: flex;
@@ -124,7 +163,6 @@ const InfoContainer = styled.div`
 	flex-direction: column;
 	gap: 6px;
 	margin: 0 auto 0 20px;
-	flex-shrink: 0;
 	@media (max-width: 765px) {
 		margin: 0 auto 0 0;
 	}

@@ -7,6 +7,8 @@ import { fonts } from "../../../theme/fonts";
 import { colors as colorsTheme } from "../../../theme/colors";
 import { templates } from "../../../theme/templates";
 import { useRouter } from "next/router";
+import { useWishListStore } from "@/store/WishListStore";
+import { useCartStore } from "@/store/CartStore";
 
 const Card: FC<Product> = ({
 	colors,
@@ -18,6 +20,10 @@ const Card: FC<Product> = ({
 	id,
 }) => {
 	const router = useRouter();
+	const wishStore = useWishListStore();
+	const cart = useCartStore();
+	const productInCart = cart.cart?.some((i) => i.id === id);
+	const productInWishList = wishStore.wishList?.some((i) => i.id === id);
 	return (
 		<Wrapper onClick={() => router.push(`/product/${id}`)}>
 			{sale && (
@@ -28,7 +34,7 @@ const Card: FC<Product> = ({
 				</SalePatch>
 			)}
 
-			<Picture src={image} />
+			<Picture src={image || "/mock/NoPhoto.png"} />
 			<ContainerRow>
 				{colors && colors.map((el, index) => <Color key={index} color={el} />)}
 				{sizes &&
@@ -50,8 +56,16 @@ const Card: FC<Product> = ({
 				{prettyPrice(price)} UAH
 			</Text>
 			<ContainerRow>
-				<img src='/images/home/icons/icon1-gray.svg' />
-				<img src='/images/home/icons/icon2-gray.svg' />
+				{productInWishList ? (
+					<img src='/images/home/icons/icon1-red.svg' />
+				) : (
+					<img src='/images/home/icons/icon1-gray.svg' />
+				)}
+				{productInCart ? (
+					<img src='/images/home/icons/icon2-red.svg' />
+				) : (
+					<img src='/images/home/icons/icon2-gray.svg' />
+				)}
 			</ContainerRow>
 		</Wrapper>
 	);
@@ -71,7 +85,10 @@ const Wrapper = styled.div`
 	background-color: ${colorsTheme.white};
 	cursor: pointer;
 `;
-const Picture = styled.img``;
+const Picture = styled.img`
+	width: 282px;
+	height: 186px;
+`;
 const ContainerRow = styled.div`
 	display: flex;
 	column-gap: 16px;

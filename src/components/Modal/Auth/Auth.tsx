@@ -8,8 +8,10 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { Checkbox } from "@mui/material";
 import { useAuthStore } from "@/store/AuthStore";
 import { showToast } from "@/helpers/alertService/alertService";
+import { useRouter } from "next/router";
 
 const Auth = () => {
+	const router = useRouter();
 	const authStore = useAuthStore();
 	const [step, setStep] = useState(0);
 	const [ok, setOk] = useState(false);
@@ -37,6 +39,20 @@ const Auth = () => {
 				patronymic: regPatronymic,
 				phone: regPhone,
 			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const loginHandle = () => {
+		try {
+			authStore
+				.login({
+					password: loginPassword,
+					phone: loginPhone,
+				})
+				.then(() => {
+					router.push("/");
+				});
 		} catch (error) {
 			console.log(error);
 		}
@@ -93,7 +109,9 @@ const Auth = () => {
 							Напомнить пароль
 						</Text>
 					</RowContainer>
-					<Button active>
+					<Button
+						disabled={!loginPassword.length || !loginPhone.length}
+						onClick={() => loginHandle()}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
 							Войти
 						</Text>
@@ -202,8 +220,8 @@ const Auth = () => {
 						</Text>
 					</RowContainer>
 					<Button
-						active={!authStore.loadingRegister}
-						onClick={() => registerHandle()}>
+						onClick={() => registerHandle()}
+						disabled={authStore?.loadingRegister}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
 							Зарегистрироваться
 						</Text>
@@ -215,7 +233,6 @@ const Auth = () => {
 						margin='10px 0'>
 						Нажимая на эту кнопку я соглашаюсь с
 						<span style={{ color: "black", cursor: "pointer" }}>
-							{" "}
 							публичной офертой
 						</span>
 					</Text>
@@ -270,13 +287,19 @@ const RowContainer = styled.div`
 	display: flex;
 	align-items: center;
 `;
-const Button = styled.div<{ active: boolean }>`
+const Button = styled.button`
 	${templates.centerContent};
 	width: 368px;
 	height: 50px;
 	border-radius: 5px;
-	background-color: ${(p) => (p.active ? colors.redMain : colors.white)};
+	background-color: ${colors.redMain};
 	cursor: pointer;
+	&:disabled {
+		/* Стили для состояния disabled */
+		opacity: 0.6; /* Например, сделаем кнопку полупрозрачной */
+		cursor: not-allowed; /* Изменяем курсор на 'not-allowed' */
+		/* Другие стили, которые нужны для вашего дизайна кнопки в состоянии disabled */
+	}
 `;
 const Line = styled.div`
 	width: 100%;

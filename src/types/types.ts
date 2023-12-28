@@ -77,3 +77,10 @@ export type ToastMessageProps = {
     info: string;
     type: "success" | "error" | "warn";
   };
+
+export interface LoginRequest
+{
+    phone: string,
+    email?: string,
+    password: string
+}

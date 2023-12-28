@@ -25,7 +25,7 @@ const Products: FC<Props> = ({ items, loading }) => {
 							<Card
 								key={index}
 								title={el.name}
-								image={"/mock/testCardByPropose.png"}
+								image={el.img}
 								price={el.retailPrice}
 								colors={el.colors}
 								sizes={el.sizes}

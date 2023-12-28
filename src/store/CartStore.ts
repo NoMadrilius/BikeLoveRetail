@@ -52,6 +52,25 @@ class CartStore {
           this.saveCartToLocalStorage();
         }
       }
+      removeFromCart(productId: number) {
+        const index = this.cart.findIndex(item => item.id === productId);
+
+        if (index !== -1) {
+            this.cart.splice(index, 1);
+            showToast({
+                info: 'Товар удален из корзины',
+                title: 'Товар удален',
+                type: 'success'
+            });
+            this.saveCartToLocalStorage();
+        } else {
+            showToast({
+                info: 'Товар не найден в корзине',
+                title: 'Товар не найден',
+                type: 'warn'
+            });
+        }
+    }
   }
 
 const cartStore = new CartStore();

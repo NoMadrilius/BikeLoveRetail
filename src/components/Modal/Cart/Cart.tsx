@@ -24,7 +24,7 @@ const Cart = ({ setVisible }: any) => {
 		setTotalPrice(
 			cart.reduce((acc, item) => acc + item.retailPrice * item.quantity, 0)
 		);
-	}, [cart]);
+	}, [cart, cartStore.cart]);
 
 	const updateTotalPrice = (priceChange: number) => {
 		setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
@@ -39,8 +39,9 @@ const Cart = ({ setVisible }: any) => {
 				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
 					КОРЗИНА
 				</Text>
+
 				<ItemsContainer>
-					{cart?.map((el, index) => (
+					{cartStore.cart?.map((el, index) => (
 						<CartItem
 							key={index}
 							product={el}
@@ -123,7 +124,7 @@ const ContentWrapper = styled.div`
 	padding: 64px 54px;
 	background-color: ${colors.white};
 	border-radius: 15px;
-	overflow: scroll;
+
 	max-height: 100vh;
 	@media (max-width: 1085px) {
 		width: 765px;
@@ -179,6 +180,8 @@ const CloseButton = styled.img`
 const ItemsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	overflow: scroll;
+	max-height: 600px;
 `;
 const BottomContainer = styled.div`
 	display: flex;
