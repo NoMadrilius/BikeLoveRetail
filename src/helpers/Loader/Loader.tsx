@@ -5,7 +5,11 @@ const Loader = () => {
 	return (
 		<>
 			<>
-				<CircularProgress />
+				<CircularProgress
+					sx={{
+						color: "red",
+					}}
+				/>
 			</>
 		</>
 	);

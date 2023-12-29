@@ -73,7 +73,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		const _isAuth = authStore.checkAuth();
 		setIsAuth(_isAuth);
-	}, []);
+	}, [router.pathname]);
 	///
 	console.log(isAuth);
 	////
@@ -155,12 +155,12 @@ const Header: FC<Props> = ({ opacityBg }) => {
 					{isAuth ? (
 						<UserContainer onClick={() => router.push("/account")}>
 							<UserAvatar>
-								{authStore.loginUserResponse.user.firstName.substring(0, 1)}
+								{authStore.loginUserResponse?.user?.firstName.substring(0, 1)}
 							</UserAvatar>
 							<Text color={colors.white} size='13px' fontStyle={fonts.f500}>
-								{authStore.loginUserResponse.user.firstName}
+								{authStore.loginUserResponse?.user?.firstName}
 								<br />
-								{authStore.loginUserResponse.user.lastName}
+								{authStore.loginUserResponse?.user?.lastName}
 							</Text>
 						</UserContainer>
 					) : (

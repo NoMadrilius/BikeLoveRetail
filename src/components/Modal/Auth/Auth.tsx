@@ -9,6 +9,8 @@ import { Checkbox } from "@mui/material";
 import { useAuthStore } from "@/store/AuthStore";
 import { showToast } from "@/helpers/alertService/alertService";
 import { useRouter } from "next/router";
+import Loader from "@/helpers/Loader/Loader";
+import { observer } from "mobx-react";
 
 const Auth = () => {
 	const router = useRouter();
@@ -45,14 +47,10 @@ const Auth = () => {
 	};
 	const loginHandle = () => {
 		try {
-			authStore
-				.login({
-					password: loginPassword,
-					phone: loginPhone,
-				})
-				.then(() => {
-					router.push("/");
-				});
+			authStore.login({
+				password: loginPassword,
+				phone: loginPhone,
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -110,10 +108,14 @@ const Auth = () => {
 						</Text>
 					</RowContainer>
 					<Button
-						disabled={!loginPassword.length || !loginPhone.length}
+						disabled={
+							!loginPassword.length ||
+							!loginPhone.length ||
+							authStore.loadingLogin
+						}
 						onClick={() => loginHandle()}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
-							Войти
+							{authStore.loadingLogin ? <Loader /> : "Войти"}
 						</Text>
 					</Button>
 					<Text
@@ -262,7 +264,7 @@ const Auth = () => {
 		</>
 	);
 };
-export default Auth;
+export default observer(Auth);
 
 const Wrapper = styled.div`
 	width: 479px;

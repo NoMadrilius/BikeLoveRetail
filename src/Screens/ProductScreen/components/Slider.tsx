@@ -8,16 +8,6 @@ const SliderProducts = ({ images }: any) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const topSwiper = useRef(null);
 
-	const slidesData = [
-		// Замените это вашими данными для слайдов
-		{ id: 1, image: "/mock/testCardByPropose.png" },
-		{ id: 2, image: "/mock/testNews.png" },
-		{ id: 3, image: "/mock/testCardByPropose.png" },
-		{ id: 4, image: "/mock/testNews.png" },
-		{ id: 5, image: "/mock/testCardByPropose.png" },
-		{ id: 6, image: "/mock/testNews.png" },
-	];
-
 	const handleSlideChange = (swiper: any) => {
 		setCurrentSlide(swiper.activeIndex);
 	};

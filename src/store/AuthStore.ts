@@ -5,11 +5,13 @@ import { apiUrls } from './apiUrls';
 import axios from 'axios';
 import * as jose from 'jose'
 import { showToast } from '@/helpers/alertService/alertService';
+import  Router  from 'next/router';
 
 class AuthStore {
     registerUserResponse: any = {}
     loadingRegister: boolean = false
     loginUserResponse: any = {}
+    loadingLogin: boolean = false
   
     constructor() {
       makeAutoObservable(this);
@@ -19,26 +21,30 @@ class AuthStore {
         try {
             this.loadingRegister = true
             console.log(request)
-            const response = await axios.post(apiUrls.register, request)
+            const response = await axios.post('/api/register', request);
             this.registerUserResponse = { ...response.data }
+            console.log(response.data)
             
 
             if (typeof localStorage !== "undefined") {
 
                 if (typeof response.data.user !== "undefined") {
                     localStorage.setItem("RegistrationStore", JSON.stringify({ ...response.data }))
+                   
+                    Router.push('/')
+            showToast({
+                    info: "Удачных покупок :)",
+                    title: "Аккаунт создан",
+                    type: "success",
+                });
+            this.loadingRegister = false
                     return response.data
-                } else {
+                } else { 
                     console.error('Error fetching data:')
                 }
 
             }
-            showToast({
-                info: "Удачных покупок :)",
-                title: "Аккаунт создан",
-                type: "success",
-            });
-            this.loadingRegister = false
+            
         } catch (error: any) {
             showToast({
                 info: error.message,
@@ -51,13 +57,17 @@ class AuthStore {
     }
     login = async (request: LoginRequest) => {
         try {
-            const response = await axios.post(apiUrls.login, request)
+            this.loadingLogin = true
+            const response = await axios.post('/api/login', request)
             this.loginUserResponse = {...response.data}
             showToast({
                 info: 'Вітаємо',
                 title: 'Вхід виконано',
                 type: 'success'
             })
+            this.checkAuth()
+            Router.push('/')
+            this.loadingLogin = false
 
             if (typeof localStorage !== "undefined") {
                 if (typeof response.data.accessToken !== "undefined") {
@@ -69,11 +79,22 @@ class AuthStore {
                     localStorage.setItem("AuthStore", JSON.stringify(result))
                     return result
                 } else {
-                    throw Error('Неправильний логін або пароль')
+                    
+                    showToast({
+                        info: 'Неправильний логін або пароль',
+                        title: 'Вхід не виконано',
+                        type: 'error'
+                    })
+                    this.loadingLogin = false
                 }
             }
         } catch (error) {
-            throw Error('Неправильний логін або пароль')
+            showToast({
+                info: 'Неправильний логін або пароль',
+                title: 'Вхід не виконано',
+                type: 'error'
+            })
+            this.loadingLogin = false
         }
     }
     readAuth = () => {
