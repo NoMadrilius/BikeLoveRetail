@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { FC } from "react";
+import { CONFIG } from "../../../config";
 type Props = {
 	title: string;
 	img: string;
@@ -12,7 +13,10 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
 			<meta name='description' content={description} />
 			<meta property='og:title' content={title} />
 			<meta property='og:description' content={description} />
-			<meta property='og:image' content={"/mock/NoPhoto.png"} />{" "}
+			<meta
+				property='og:image'
+				content={`${CONFIG.BASE_URL}/mock/NoPhoto.png`}
+			/>{" "}
 			<meta name='twitter:title' content={title} />
 			<meta name='twitter:description' content={description} />
 			<meta name='twitter:image' content={"/mock/NoPhoto.png"} />

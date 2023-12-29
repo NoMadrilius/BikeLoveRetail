@@ -45,7 +45,7 @@ const Categories = ({ setVisible, categories }: any) => {
 		router.push(`/catalog/${id}`);
 		setVisible(false);
 	};
-	console.log(filteredCategory);
+	console.log(categories);
 	return (
 		<BlurWrapper setModal={setVisible}>
 			<Wrapper onClick={(e) => e.stopPropagation()}>

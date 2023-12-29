@@ -10,7 +10,7 @@ const BASE_URL = {
 const AUTH0_REDIRECT = BASE_URL[RUN_MODE]; 
 
 export const CONFIG = {
-  BASE_URL: BASE_URL,
+  BASE_URL: BASE_URL[RUN_MODE],
   AUTH0: {
     domain: "dev-68z2y7mawqceinob.us.auth0.com",
     clientId: "SQW7DX7Ok57bOW0ZP0hLH0P7PGUb9Dd6",

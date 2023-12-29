@@ -40,8 +40,10 @@ const ProductScreen = () => {
 	const [activeTab, setActiveTab] = useState(0);
 
 	useEffect(() => {
-		productStore.fetchProduct(+prodId!);
-	}, [prodId]);
+		if (router.query.id) {
+			productStore.fetchProduct(+prodId!);
+		}
+	}, [router.query.id]);
 
 	useEffect(() => {
 		setProduct(productStore.product);
@@ -161,7 +163,7 @@ const ProductScreen = () => {
 					{/* ======Info Container===== */}
 					<InfoContainer style={{ width: "100%" }}>
 						<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
-							{product?.name}
+							<h1>{product?.name}</h1>
 						</Text>
 						<RowContainer style={{ marginTop: "15px" }}>
 							<img src='/images/product/icons/CopyIcon.png' />
