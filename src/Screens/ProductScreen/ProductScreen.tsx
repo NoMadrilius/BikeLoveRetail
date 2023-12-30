@@ -12,25 +12,19 @@ import { useEffect, useState } from "react";
 import Slider from "../HomeScreen/components/Slider";
 import { sliderData, sliderTags } from "@/mock/data";
 import SliderProducts from "./components/Slider";
-import { useProductStore } from "@/store/ProductStore";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 
-const ProductScreen = () => {
-	const router = useRouter();
-	const prodId = router.query.id;
-	const productStore = useProductStore();
+const ProductScreen = ({ productData, options, images }: any) => {
+	console.log(productData.product);
+	console.log(options);
 	const cart = useCartStore();
 	const wishStore = useWishListStore();
-	const [product, setProduct] = useState<any>();
-	const [options, setOptions] = useState<
-		{
-			optionName: string;
-			name: string;
-		}[]
-	>();
+	const [productInCart, setProductInCart] = useState<boolean>();
+	const [productInWishList, setProductInWishList] = useState<boolean>();
+
 	const breadCrumbs = [
 		{ title: "Каталог", link: "/" },
 		{ title: "Велосипеды", link: "/" },
@@ -40,64 +34,35 @@ const ProductScreen = () => {
 	const [activeTab, setActiveTab] = useState(0);
 
 	useEffect(() => {
-		if (router.query.id) {
-			productStore.fetchProduct(+prodId!);
-		}
-	}, [router.query.id]);
+		setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
+		setProductInWishList(
+			wishStore.wishList?.some((i) => i.id === productData.product?.id)
+		);
+	}, [cart, wishStore]);
 
-	useEffect(() => {
-		setProduct(productStore.product);
-	}, [productStore.product]);
-
-	useEffect(() => {
-		if (productStore.options && Array.isArray(productStore.options)) {
-			const groupedOptions = productStore.options.reduce((acc, option) => {
-				// Проверяем, существует ли уже в аккумуляторе такой optionName
-				const existingOption = acc.find(
-					(item: any) => item.optionName === option.optionName
-				);
-
-				// Если уже существует, добавляем name в существующий элемент
-				if (existingOption) {
-					existingOption.name.push(option.name);
-				} else {
-					// Если optionName новый, создаем новый элемент
-					acc.push({
-						optionName: option.optionName,
-						name: [option.name], // Создаем массив с name для нового optionName
-					});
-				}
-				return acc;
-			}, []);
-
-			setOptions(groupedOptions);
-		}
-	}, [productStore.options]);
-
-	const productInCart = cart.cart?.some((i) => i.id === product?.id);
-	const productInWishList = wishStore.wishList?.some(
-		(i) => i.id === product?.id
-	);
 	const clickLike = () => {
 		productInWishList
-			? wishStore.removeFromWishList(product.id)
-			: wishStore.addToWishList(product);
+			? wishStore.removeFromWishList(productData.product?.id)
+			: wishStore.addToWishList(productData.product?.id);
 	};
 	///
-	console.log(productStore.images);
+	// console.log(productStore.images);
 	///
 
 	return (
 		<>
-			<UseMetaData title={product?.name} img={""} description={"ASDASD"} />
+			<UseMetaData
+				title={productData.product?.name}
+				img={images[0].url || undefined}
+				description={"ASDASD"}
+			/>
 			<Wrapper>
 				<BreadCrumbs road={breadCrumbs} />
 				<RowContainer style={{ columnGap: "60px" }}>
-					<ColumnContainer
-						style={{ width: productStore?.images.length ? "50%" : "100%" }}>
+					<ColumnContainer style={{ width: images.length ? "50%" : "100%" }}>
 						<FakeBlock>
-							{productStore?.images.length ? (
-								<SliderProducts images={productStore?.images} />
+							{images.length ? (
+								<SliderProducts images={images} />
 							) : (
 								<img src='/mock/NoPhoto.png' style={{ width: "100%" }} />
 							)}
@@ -162,17 +127,15 @@ const ProductScreen = () => {
 
 					{/* ======Info Container===== */}
 					<InfoContainer style={{ width: "100%" }}>
-						<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
-							<h1>{product?.name}</h1>
-						</Text>
+						<H1Name>{productData.product.name}</H1Name>
 						<RowContainer style={{ marginTop: "15px" }}>
-							<img src='/images/product/icons/CopyIcon.png' />
+							<img src='/images/product/icons/CopyIcon.png' alt='copyIcon' />
 							<Text
 								color={colors.grayMain}
 								size='16px'
 								fontStyle={fonts.f500}
 								margin='0 0 0 5px'>
-								{product?.barcode}
+								{productData.product?.barcode}
 							</Text>
 						</RowContainer>
 
@@ -188,7 +151,6 @@ const ProductScreen = () => {
 								<RowContainer
 									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
 									{Array.isArray(el.name) ? (
-										// Если name - это массив, мапим его для отображения каждого элемента
 										el.name.map((name: string, idx: number) => (
 											<SizeContainer key={idx}>
 												<Text
@@ -200,7 +162,6 @@ const ProductScreen = () => {
 											</SizeContainer>
 										))
 									) : (
-										// Если name - это строка, отображаем ее как одиночный элемент
 										<SizeContainer>
 											<Text
 												color={colors.black}
@@ -268,7 +229,7 @@ const ProductScreen = () => {
 								type='default'
 								width={"191px"}
 								height={"56px"}
-								func={() => cart?.addToCart(product)}>
+								func={() => cart?.addToCart(productData.product)}>
 								<>
 									<img
 										src='/images/product/icons/cart.png'
@@ -288,7 +249,7 @@ const ProductScreen = () => {
 									<CustomP>Заказ в 1 клик</CustomP>
 								</>
 							</ButtonCustom>
-							<LikeBtn liked={productInWishList} onClick={() => clickLike()}>
+							<LikeBtn liked={!!productInWishList} onClick={() => clickLike()}>
 								<img src='/images/product/icons/like.png' />
 							</LikeBtn>
 						</RowContainer>
@@ -341,7 +302,7 @@ const ProductScreen = () => {
 						</RowContainer>
 						{activeTab === 0 && (
 							<>
-								<Text
+								{/* <Text
 									color={colors.black}
 									size='16px'
 									fontStyle={fonts.f400}
@@ -351,7 +312,7 @@ const ProductScreen = () => {
 											__html: productStore.description,
 										}}
 									/>
-								</Text>
+								</Text> */}
 
 								<Text
 									color={colors.grayMain}
@@ -365,7 +326,7 @@ const ProductScreen = () => {
 						)}
 						{activeTab === 1 && (
 							<>
-								{options?.map((el, index) => (
+								{options?.map((el: any, index: any) => (
 									<CharacteristicContainer key={index} index={index}>
 										<Text
 											color={colors.black}
@@ -417,6 +378,13 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
+//color={colors.black} size='42px' fontStyle={fonts.f500}
+const H1Name = styled.h1`
+	color: ${colors.black};
+	font-size: 42px;
+	font-weight: 500;
+	font-family: ${fonts.f500.fontFamily};
+`;
 const RowContainer = styled.div`
 	display: flex;
 `;
@@ -429,13 +397,6 @@ const FakeBlock = styled.div`
 	padding: 60px;
 	height: auto;
 	background-color: ${colors.white};
-`;
-const ColorCircle = styled.div<{ color: string }>`
-	width: 34px;
-	height: 34px;
-	border-radius: 50%;
-	background-color: ${(p) => p.color};
-	cursor: pointer;
 `;
 const SizeContainer = styled.div`
 	${templates.centerContent};

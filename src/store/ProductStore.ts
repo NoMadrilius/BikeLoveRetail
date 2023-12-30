@@ -32,4 +32,4 @@ const productStore = new ProductStore();
 const StoreContext = createContext(productStore);
 
 export const useProductStore = () => useContext(StoreContext);
-export default productStore;
+export { ProductStore };
