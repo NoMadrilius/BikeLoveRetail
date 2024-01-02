@@ -47,22 +47,28 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
 				navigation
 				loop
 				pagination={{ clickable: true }}>
-				{items?.map((el: any, index: React.Key | null | undefined) => (
-					<SwiperSlide style={{ width: "auto", height: "100%" }} key={index}>
-						{variant === "cards" && (
-							<Card
-								title={el.name}
-								image={"/mock/testCardByPropose.png"}
-								price={el.retailPrice}
-								colors={el.colors}
-								sizes={el.sizes}
-								sale={el.sale}
-								id={el.id}
-							/>
-						)}
-						{variant === "news" && <NewsItem {...el} />}
-					</SwiperSlide>
-				))}
+				{items?.length > 0 && (
+					<>
+						{items?.map((el: any, index: React.Key | null | undefined) => (
+							<SwiperSlide
+								style={{ width: "auto", height: "100%" }}
+								key={index}>
+								{variant === "cards" && (
+									<Card
+										title={el.name}
+										image={"/mock/testCardByPropose.png"}
+										price={el.retailPrice}
+										colors={el.colors}
+										sizes={el.sizes}
+										sale={el.sale}
+										id={el.id}
+									/>
+								)}
+								{variant === "news" && <NewsItem {...el} />}
+							</SwiperSlide>
+						))}
+					</>
+				)}
 			</Swiper>
 		</div>
 	);

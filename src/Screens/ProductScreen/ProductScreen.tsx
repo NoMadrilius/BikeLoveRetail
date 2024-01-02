@@ -18,8 +18,6 @@ import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 
 const ProductScreen = ({ productData, options, images }: any) => {
-	console.log(productData.product);
-	console.log(options);
 	const cart = useCartStore();
 	const wishStore = useWishListStore();
 	const [productInCart, setProductInCart] = useState<boolean>();
@@ -38,12 +36,31 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		setProductInWishList(
 			wishStore.wishList?.some((i) => i.id === productData.product?.id)
 		);
-	}, [cart, wishStore]);
+		console.log("effect work");
+	}, [cart, wishStore.wishList]);
 
 	const clickLike = () => {
 		productInWishList
 			? wishStore.removeFromWishList(productData.product?.id)
-			: wishStore.addToWishList(productData.product?.id);
+			: wishStore.addToWishList(productData.product);
+	};
+	const calculateDiscount = (oldPrice: any, newPrice: any) => {
+		if (oldPrice !== 0 && oldPrice > newPrice) {
+			const discount = ((oldPrice - newPrice) / oldPrice) * 100;
+			return (
+				<RowContainer style={{ alignItems: "center", marginTop: "22px" }}>
+					<Text
+						color={colors.grayMain}
+						size='20px'
+						fontStyle={fonts.f500}
+						textDecoration='trought'>
+						{prettyPrice(oldPrice)}UAH
+					</Text>
+					<SalePatch>{`-${Math.round(discount)}%`}</SalePatch>
+				</RowContainer>
+			);
+		}
+		return null; // Нет скидки или старая цена равна 0
 	};
 	///
 	// console.log(productStore.images);
@@ -53,7 +70,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		<>
 			<UseMetaData
 				title={productData.product?.name}
-				img={images[0].url || undefined}
+				img={images[0]?.url || undefined}
 				description={"ASDASD"}
 			/>
 			<Wrapper>
@@ -189,22 +206,17 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								}}
 							/>
 						</RowContainer>
-						<RowContainer style={{ alignItems: "center", marginTop: "22px" }}>
-							<Text
-								color={colors.grayMain}
-								size='20px'
-								fontStyle={fonts.f500}
-								textDecoration='trought'>
-								{prettyPrice("54 000")}UAH
-							</Text>
-							<SalePatch>-30%</SalePatch>
-						</RowContainer>
+						{calculateDiscount(
+							productData.product.oldRetailPrice,
+							productData.product.retailPrice
+						)}
+
 						<Text
 							color={colors.black}
 							size='30px'
 							fontStyle={fonts.f500}
 							margin='16px 0 0 0'>
-							{prettyPrice("54 000")}UAH
+							{prettyPrice(productData.product.retailPrice)}UAH
 						</Text>
 						<RowContainer
 							style={{

@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const response = await axios.get('https://bikeshop.1gb.ua/api/public/getcategories'); // Замените на ваш URL для получения категорий
+      const response = await axios.get('https://bikeshop.1gb.ua/api/public/getcategories'); 
       const categories = response.data;
 
       res.status(200).json(categories);
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sortingSettings
       };
 
-      const response = await axios.post('https://bikeshop.1gb.ua/api/public/catalogproducts', requestData); // Замените на ваш URL для получения продуктов по категории
+      const response = await axios.post('https://bikeshop.1gb.ua/api/public/catalogproducts', requestData); 
       const products = response.data.products;
 
       res.status(200).json(products);

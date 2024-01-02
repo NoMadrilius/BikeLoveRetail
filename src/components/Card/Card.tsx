@@ -24,6 +24,7 @@ const Card: FC<Product> = ({
 	const cart = useCartStore();
 	const productInCart = cart.cart?.some((i) => i.id === id);
 	const productInWishList = wishStore.wishList?.some((i) => i.id === id);
+	console.log(price);
 	return (
 		<Wrapper onClick={() => router.push(`/product/${id}`)}>
 			{sale && (
@@ -53,7 +54,7 @@ const Card: FC<Product> = ({
 				{title}
 			</Text>
 			<Text size='16px' color={colorsTheme.black} fontStyle={fonts.f400}>
-				{prettyPrice(price)} UAH
+				{price && <>{prettyPrice(price)} UAH</>}
 			</Text>
 			<ContainerRow>
 				{productInWishList ? (

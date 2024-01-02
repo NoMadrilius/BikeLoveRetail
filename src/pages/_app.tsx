@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	const currentPath = router.asPath;
 	return (
 		<>
+			<UseMetaData title={"BikeLove"} img={""} description={"Bike Shop"} />
 			<ToastContainer
 				position='top-center'
 				autoClose={3500}

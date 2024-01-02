@@ -18,6 +18,7 @@ const WishListScreen = () => {
 	useEffect(() => {
 		setWishList(wishStore.wishList);
 	}, [wishStore]);
+	console.log(wishList);
 
 	return (
 		<>

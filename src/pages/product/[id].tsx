@@ -19,7 +19,7 @@ const groupOptions = (options: any) => {
 				name: [option.name],
 			});
 		}
-		console.log(acc);
+
 		return acc;
 	}, []);
 };
@@ -38,8 +38,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 			}
 		);
 		const productData = response.data;
-		console.log(productData);
-
 		const options = groupOptions(productData.productOptions);
 
 		return {
@@ -58,9 +56,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 const ProductItem = ({ productData, options, images }: any) => {
-	console.log(productData);
-	console.log(options);
-	console.log(images);
 	return (
 		<>
 			<PaddingWrapper>
