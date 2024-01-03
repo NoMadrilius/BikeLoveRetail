@@ -7,25 +7,44 @@ import { CATEGORIES } from "@/mock/data";
 import { useEffect, useState } from "react";
 import { useCategoriesStore } from "@/store/CategoriesStore";
 import { observer } from "mobx-react";
+import { useRouter } from "next/router";
 
-const SidebarCatalog = ({ setMainStep }: any) => {
+const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
+	const router = useRouter();
 	const catalogStore = useCategoriesStore();
 	const [id, setId] = useState<any>();
 	const [title, setTitle] = useState<any>("Каталог");
+	const [titlesHistory, setTitlesHistory] = useState<string[]>(["Каталог"]);
 	const [step, setStep] = useState(0);
 
 	const onPress = (el: any) => {
-		setTitle(el?.name);
-		setId(el?.id as any);
-		setStep((prev) => prev + 1);
-	};
-	const backPress = () => {
-		if (step !== 0) {
-			setStep((prev) => prev - 1);
+		if (el.childrenIds !== "") {
+			setTitlesHistory([...titlesHistory, title]);
+			setTitle(el?.name);
+			setId(el?.id as any);
+			setStep((prev) => prev + 1);
 		} else {
-			setMainStep(0);
+			router.push(`/catalog/${el.id}`);
+			setVisible(false);
 		}
 	};
+	const onPressChildren = (el: any) => {
+		router.push(`/catalog/${el.id}`);
+		setVisible(false);
+	};
+	const backPress = () => {
+		if (titlesHistory.length > 1) {
+			const previousTitle = titlesHistory[titlesHistory.length - 2];
+			setTitle(previousTitle);
+			setTitlesHistory(titlesHistory.slice(0, -1));
+			setStep((prev) => prev - 1);
+			console.log("hello");
+		} else {
+			setMainStep(0);
+			console.log("else");
+		}
+	};
+
 	useEffect(() => {
 		catalogStore.fetchCategories();
 	}, []);
@@ -41,9 +60,9 @@ const SidebarCatalog = ({ setMainStep }: any) => {
 		childrenId.includes(el.id)
 	);
 	///
-	console.log(filteredCategory);
-	console.log(childrenId);
-	console.log(childCategories);
+	console.log(title);
+	console.log(titlesHistory);
+	console.log(step);
 	///
 	return (
 		<>
@@ -111,7 +130,7 @@ const SidebarCatalog = ({ setMainStep }: any) => {
 									size='16px'
 									fontStyle={fonts.f500}
 									hoverColor={colors.redHover}
-									func={() => onPress(el)}>
+									func={() => onPressChildren(el)}>
 									{el.name}
 								</Text>
 							</RowContainer>

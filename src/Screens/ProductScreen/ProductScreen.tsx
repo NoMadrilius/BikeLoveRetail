@@ -1,25 +1,41 @@
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
-import { styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../theme/fonts";
-import { templates } from "../../../theme/templates";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { ColumnContainer } from "@/components/SideBar/SidebarStyles";
 import { useEffect, useState } from "react";
-import Slider from "../HomeScreen/components/Slider";
-import { sliderData, sliderTags } from "@/mock/data";
 import SliderProducts from "./components/Slider";
 import { observer } from "mobx-react";
-import { useRouter } from "next/router";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
+import {
+	CharacteristicContainer,
+	ContainerWithBG,
+	CustomP,
+	FakeBlock,
+	H1Name,
+	InfoContainer,
+	LikeBtn,
+	MainContainer,
+	Res1Text,
+	Res2Text,
+	RowContainer,
+	SalePatch,
+	SecondContainer,
+	SizeContainer,
+	SliderContainer,
+	Wrapper,
+} from "./ProductScreenStyles";
+import InfoUnderSlider from "./components/InfoUnderSlider";
+import { styled } from "styled-components";
 
 const ProductScreen = ({ productData, options, images }: any) => {
 	const cart = useCartStore();
 	const wishStore = useWishListStore();
+	const [activeTab, setActiveTab] = useState(0);
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
 
@@ -28,8 +44,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		{ title: "Велосипеды", link: "/" },
 		{ title: "Горные", link: "/" },
 	];
-
-	const [activeTab, setActiveTab] = useState(0);
 
 	useEffect(() => {
 		setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
@@ -60,10 +74,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 				</RowContainer>
 			);
 		}
-		return null; // Нет скидки или старая цена равна 0
+		return null;
 	};
 	///
-	// console.log(productStore.images);
+
 	///
 
 	return (
@@ -75,77 +89,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 			/>
 			<Wrapper>
 				<BreadCrumbs road={breadCrumbs} />
-				<RowContainer style={{ columnGap: "60px" }}>
-					<ColumnContainer style={{ width: images.length ? "50%" : "100%" }}>
-						<FakeBlock>
-							{images.length ? (
-								<SliderProducts images={images} />
-							) : (
-								<img src='/mock/NoPhoto.png' style={{ width: "100%" }} />
-							)}
-						</FakeBlock>
-						<RowContainer
-							style={{
-								width: "100%",
-								justifyContent: "space-between",
-								padding: "0 42px",
-								marginTop: "69px",
-							}}>
-							<ColumnContainer style={{ alignItems: "center" }}>
-								<IconServices src='/images/product/icons/official.png' />
-								<Text
-									color={colors.black}
-									size='15px'
-									fontStyle={fonts.f400}
-									margin='7px 0 0 0'
-									maxWidth='139px'
-									textAlign='center'>
-									Официальное представительство
-								</Text>
-							</ColumnContainer>
-							<ColumnContainer style={{ alignItems: "center" }}>
-								<IconServices src='/images/product/icons/service.png' />
-								<Text
-									color={colors.black}
-									size='15px'
-									fontStyle={fonts.f400}
-									margin='7px 0 0 0'
-									maxWidth='121px'
-									textAlign='center'>
-									Гарантийное обслуживание
-								</Text>
-							</ColumnContainer>
-							<ColumnContainer style={{ alignItems: "center" }}>
-								<IconServices src='/images/product/icons/bike.png' />
-								<Text
-									color={colors.black}
-									size='15px'
-									fontStyle={fonts.f400}
-									margin='7px 0 0 0'
-									maxWidth='121px'
-									textAlign='center'>
-									Test Ride велосипедов
-								</Text>
-							</ColumnContainer>
-							<ColumnContainer style={{ alignItems: "center" }}>
-								<IconServices src='/images/product/icons/money.png' />
-								<Text
-									color={colors.black}
-									size='15px'
-									fontStyle={fonts.f400}
-									margin='7px 0 0 0'
-									maxWidth='121px'
-									textAlign='center'>
-									Кешбэк на товары
-								</Text>
-							</ColumnContainer>
-						</RowContainer>
-					</ColumnContainer>
-
-					{/* ======Info Container===== */}
-					<InfoContainer style={{ width: "100%" }}>
+				<MainContainer>
+					<Res2Text>
 						<H1Name>{productData.product.name}</H1Name>
-						<RowContainer style={{ marginTop: "15px" }}>
+						<RowContainer style={{ margin: "15px 0" }}>
 							<img src='/images/product/icons/CopyIcon.png' alt='copyIcon' />
 							<Text
 								color={colors.grayMain}
@@ -155,6 +102,33 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								{productData.product?.barcode}
 							</Text>
 						</RowContainer>
+					</Res2Text>
+					<SliderContainer images={!!images.length}>
+						<FakeBlock>
+							{images.length ? (
+								<SliderProducts images={images} />
+							) : (
+								<img src='/mock/NoPhoto.png' style={{ width: "100%" }} />
+							)}
+						</FakeBlock>
+						<InfoUnderSlider />
+					</SliderContainer>
+
+					{/* ======Info Container===== */}
+					<InfoContainer style={{ width: "100%" }}>
+						<Res1Text>
+							<H1Name>{productData.product.name}</H1Name>
+							<RowContainer style={{ marginTop: "15px" }}>
+								<img src='/images/product/icons/CopyIcon.png' alt='copyIcon' />
+								<Text
+									color={colors.grayMain}
+									size='16px'
+									fontStyle={fonts.f500}
+									margin='0 0 0 5px'>
+									{productData.product?.barcode}
+								</Text>
+							</RowContainer>
+						</Res1Text>
 
 						{options?.map((el: any, index: any) => (
 							<div key={index}>
@@ -236,7 +210,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								style={{ width: "11px", height: "6px", cursor: "pointer" }}
 							/>
 						</RowContainer>
-						<RowContainer style={{ columnGap: "18px", marginTop: "30px" }}>
+						<ButtonsContainer>
 							<ButtonCustom
 								type='default'
 								width={"191px"}
@@ -264,11 +238,11 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							<LikeBtn liked={!!productInWishList} onClick={() => clickLike()}>
 								<img src='/images/product/icons/like.png' />
 							</LikeBtn>
-						</RowContainer>
+						</ButtonsContainer>
 					</InfoContainer>
 					{/* ======Info Container===== */}
-				</RowContainer>
-				<RowContainer style={{ width: "100%", columnGap: "60px" }}>
+				</MainContainer>
+				<SecondContainer style={{ width: "100%", columnGap: "60px" }}>
 					<ColumnContainer style={{ width: "100%" }}>
 						{" "}
 						<ContainerWithBG bg='/images/product/images/image_bg.png'>
@@ -314,17 +288,17 @@ const ProductScreen = ({ productData, options, images }: any) => {
 						</RowContainer>
 						{activeTab === 0 && (
 							<>
-								{/* <Text
+								<Text
 									color={colors.black}
 									size='16px'
 									fontStyle={fonts.f400}
 									margin='0 0 0 0'>
 									<div
 										dangerouslySetInnerHTML={{
-											__html: productStore.description,
+											__html: productData.productCard.description,
 										}}
 									/>
-								</Text> */}
+								</Text>
 
 								<Text
 									color={colors.grayMain}
@@ -360,7 +334,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							</>
 						)}
 					</ColumnContainer>
-				</RowContainer>
+				</SecondContainer>
 				<ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
 					{/* <Slider
 						title={"байки из той серии"}
@@ -384,80 +358,13 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	);
 };
 export default observer(ProductScreen);
-
-const Wrapper = styled.div`
-	margin-top: 60px;
+//style={{ columnGap: "18px", marginTop: "30px" }}
+const ButtonsContainer = styled.div`
 	display: flex;
-	flex-direction: column;
-`;
-//color={colors.black} size='42px' fontStyle={fonts.f500}
-const H1Name = styled.h1`
-	color: ${colors.black};
-	font-size: 42px;
-	font-weight: 500;
-	font-family: ${fonts.f500.fontFamily};
-`;
-const RowContainer = styled.div`
-	display: flex;
-`;
-const InfoContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-const FakeBlock = styled.div`
-	width: 100%;
-	padding: 60px;
-	height: auto;
-	background-color: ${colors.white};
-`;
-const SizeContainer = styled.div`
-	${templates.centerContent};
-	padding: 10px;
-	height: 32px;
-	background-color: ${colors.white};
-	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.3s;
-	&:hover {
-		background-color: ${colors.redBlur};
+	column-gap: 18px;
+	margin-top: 30px;
+	@media (max-width: 1000px) {
+		flex-wrap: wrap;
+		row-gap: 18px;
 	}
-`;
-const SalePatch = styled.div`
-	padding: 6px 12px;
-	${templates.centerContent};
-	background-color: ${colors.redHover};
-	border-radius: 5px;
-	margin-left: 18px;
-`;
-const CustomP = styled.p`
-	font-family: ${fonts.f700.fontFamily};
-	font-weight: ${fonts.f700.fontWeight};
-	font-size: 16px;
-`;
-const LikeBtn = styled.div<{ liked: boolean }>`
-	width: 56px;
-	height: 56px;
-	border-radius: 5px;
-	border: 2px solid #cacaca;
-	background-color: ${(p) => (p.liked ? colors.redMain : colors.white)};
-	cursor: pointer;
-	${templates.centerContent}
-`;
-const IconServices = styled.img`
-	width: 22px;
-	height: 22px;
-`;
-const ContainerWithBG = styled.div<{ bg: string }>`
-	background-image: url(${(p) => p.bg});
-	background-size: cover;
-	margin-top: 60px;
-	width: 100%;
-	aspect-ratio: 2/1;
-	border-radius: 20px;
-`;
-const CharacteristicContainer = styled.div<{ index: number }>`
-	display: flex;
-	background-color: ${(p) => (p.index % 2 === 0 ? "white" : "transparent")};
-	justify-content: space-between;
-	padding: 11px 16px;
 `;

@@ -25,7 +25,10 @@ const SliderProducts = ({ images }: any) => {
 			<Swiper
 				slidesPerView={1}
 				onSlideChange={handleSlideChange}
-				ref={topSwiper}>
+				ref={topSwiper}
+				pagination={{ clickable: true }}
+				modules={[Navigation, Pagination]}
+				navigation>
 				{images?.map((slide: any) => (
 					<SwiperSlide
 						key={slide.id}
@@ -46,9 +49,7 @@ const SliderProducts = ({ images }: any) => {
 				spaceBetween={10}
 				slidesPerView={"auto"} // Измените количество отображаемых слайдов по вашему усмотрению
 				onSlideChange={handleSlideChange}
-				loop
-				pagination={{ clickable: true }}
-				navigation>
+				loop>
 				{images?.map((slide: any, index: number) => (
 					<SwiperSlide
 						onClick={() => handleThumbnailClick(topSwiper, index)}
@@ -61,8 +62,8 @@ const SliderProducts = ({ images }: any) => {
 							src={slide.url}
 							alt={`Slide ${slide.id}`}
 							style={{
-								width: "110px",
-								height: "75px",
+								width: "84px",
+								height: "58px",
 								border:
 									currentSlide === slide.id - 1 ? "1px solid grey" : "none",
 								borderRadius: "10px",
