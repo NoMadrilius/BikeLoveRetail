@@ -14,10 +14,10 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Loader from "@/helpers/Loader/Loader";
 
-const CatalogScreen = ({ catalogData }: any) => {
+const CatalogScreen = ({ catalogData, options }: any) => {
 	const router = useRouter();
 	const catId = router.query.id;
-	console.log(catalogData.data);
+	const numberTotal = catalogData.map((el: any) => el.product).length;
 	const [filterVisible, setFilterVisible] = useState(false);
 	const catalogStore = useCategoriesStore();
 
@@ -31,6 +31,7 @@ const CatalogScreen = ({ catalogData }: any) => {
 		title: part,
 		link: "/",
 	}));
+
 	return (
 		<>
 			<UseMetaData
@@ -76,15 +77,15 @@ const CatalogScreen = ({ catalogData }: any) => {
 				</RowContainer>
 				<MainContainer>
 					<TriggerHidden width='1000px'>
-						<Filter />
+						<Filter options={options} numberTotal={numberTotal} />
 					</TriggerHidden>
-					<Products items={catalogData.data} loading={catalogStore.loading} />
+					<Products items={catalogData} loading={catalogStore.loading} />
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>
 			{filterVisible && (
 				<BlurWrapper setModal={setFilterVisible}>
-					<Filter mobile={true} />
+					<Filter mobile options={options} numberTotal={numberTotal} />
 				</BlurWrapper>
 			)}
 		</>

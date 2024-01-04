@@ -21,7 +21,6 @@ class ProductStore {
       this.options = response.data.productOptions;
       this.description = response.data.productCard.description;
       this.images = response.data.productImages;
-      console.log(response.data.productImages);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

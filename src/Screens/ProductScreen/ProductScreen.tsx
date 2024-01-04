@@ -50,7 +50,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		setProductInWishList(
 			wishStore.wishList?.some((i) => i.id === productData.product?.id)
 		);
-		console.log("effect work");
 	}, [cart, wishStore.wishList]);
 
 	const clickLike = () => {

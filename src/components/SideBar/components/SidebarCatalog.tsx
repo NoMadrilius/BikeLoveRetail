@@ -38,10 +38,8 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 			setTitle(previousTitle);
 			setTitlesHistory(titlesHistory.slice(0, -1));
 			setStep((prev) => prev - 1);
-			console.log("hello");
 		} else {
 			setMainStep(0);
-			console.log("else");
 		}
 	};
 
@@ -60,9 +58,6 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 		childrenId.includes(el.id)
 	);
 	///
-	console.log(title);
-	console.log(titlesHistory);
-	console.log(step);
 	///
 	return (
 		<>

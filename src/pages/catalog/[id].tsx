@@ -4,9 +4,32 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import axios from "axios";
 
-export const getServerSideProps = async (context: any) => {
-	console.log(context.params.id);
+const groupOptions = (options: any) => {
+	return options.reduce((acc: any, option: any) => {
+		const existingOption = acc.find(
+			(item: any) => item.optionName === option.optionName
+		);
 
+		if (existingOption) {
+			existingOption.name.push({
+				optionVariantId: option.optionVariantId,
+				name: option.name,
+			});
+		} else {
+			acc.push({
+				optionName: option.optionName,
+				name: [{ optionVariantId: option.optionVariantId, name: option.name }],
+			});
+		}
+
+		return acc;
+	}, []);
+};
+
+export const getServerSideProps = async (context: any) => {
+	const filtersVariantIds = context.query.filter
+		? context.query.filter.split(",").map(Number)
+		: [];
 	try {
 		//catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
 		const request: any = {
@@ -14,18 +37,20 @@ export const getServerSideProps = async (context: any) => {
 			storageId: 1,
 			page: 1,
 			pageSize: 15,
-			filtersVariantIds: [],
+			filtersVariantIds: filtersVariantIds,
 			sortingSettings: [],
 		};
 		const response = await axios.post(
 			"https://bikeshop.1gb.ua/api/public/catalogproducts",
 			request
 		);
-		console.log(response.data);
+		const data = response.data.products;
+		const options = groupOptions(data.flatMap((el: any) => el.productOptions));
 
 		return {
 			props: {
-				data: response.data.products,
+				data,
+				options,
 			},
 		};
 	} catch (error) {
@@ -35,13 +60,16 @@ export const getServerSideProps = async (context: any) => {
 	}
 };
 
-const Page = (data: any) => {
+const Page = ({ data, options }: any) => {
 	const router = useRouter();
-	console.log(data);
 	return (
 		<>
 			<PaddingWrapper>
-				<CatalogScreen catalogId={router.query.id!} catalogData={data} />
+				<CatalogScreen
+					catalogId={router.query.id!}
+					catalogData={data}
+					options={options}
+				/>
 			</PaddingWrapper>
 		</>
 	);

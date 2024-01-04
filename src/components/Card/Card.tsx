@@ -24,7 +24,6 @@ const Card: FC<Product> = ({
 	const cart = useCartStore();
 	const productInCart = cart.cart?.some((i) => i.id === id);
 	const productInWishList = wishStore.wishList?.some((i) => i.id === id);
-	console.log(price);
 	return (
 		<Wrapper onClick={() => router.push(`/product/${id}`)}>
 			{sale && (

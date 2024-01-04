@@ -22,7 +22,6 @@ type Props = {
 };
 
 const Slider: FC<Props> = ({ items, tags, title, variant }) => {
-	console.log(items);
 	return (
 		<div style={{ width: "100%" }}>
 			<Text

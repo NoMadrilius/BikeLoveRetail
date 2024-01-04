@@ -17,13 +17,12 @@ class AuthStore {
       makeAutoObservable(this);
     }
     register = async (request: RegisterRequest) => {
-        console.log(request)
         try {
             this.loadingRegister = true
-            console.log(request)
+
             const response = await axios.post('/api/register', request);
             this.registerUserResponse = { ...response.data }
-            console.log(response.data)
+
             
 
             if (typeof localStorage !== "undefined") {

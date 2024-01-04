@@ -10,6 +10,7 @@ import {
 import { templates } from "../../../../theme/templates";
 import { metrics } from "../../../../theme/metrics";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
+import { useRouter } from "next/router";
 
 const FILTER_ITEMS = [
 	{
@@ -30,9 +31,10 @@ const FILTER_ITEMS = [
 	},
 ];
 
-const Filter = ({ mobile, setVisible }: any) => {
+const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
+	const router = useRouter();
 	const [currentFilters, setCurrentFilters] = useState<
-		{ title: string; value: string }[]
+		{ title: string; value: any }[]
 	>([]);
 	const [isOpen, setIsOpen] = useState(
 		new Array(FILTER_ITEMS.length).fill(false)
@@ -43,14 +45,51 @@ const Filter = ({ mobile, setVisible }: any) => {
 		updatedIsOpen[index] = !updatedIsOpen[index];
 		setIsOpen(updatedIsOpen);
 	};
-	const addItem = (title: string, value: string) => {
+	const addItem = (title: string, value: string, optionVariantId: any) => {
 		setCurrentFilters((prev) => [...prev, { title: title, value: value }]);
+		const currentFilter = Array.isArray(router.query.filter)
+			? router.query.filter
+			: typeof router.query.filter === "string"
+			? router.query.filter.split(",")
+			: [];
+
+		const updatedFilter = [...currentFilter, optionVariantId].join(",");
+
+		router.push({
+			...router,
+			query: {
+				...router.query,
+				filter: updatedFilter,
+			},
+		});
 	};
-	const removeItem = (indexToRemove: number) => {
+	const removeItem = (indexToRemove: number, optionVariantId: any) => {
 		const updatedFilters = currentFilters.filter(
 			(_, index) => index !== indexToRemove
 		);
 		setCurrentFilters(updatedFilters);
+		const currentFilter = Array.isArray(router.query.filter)
+			? router.query.filter
+			: typeof router.query.filter === "string"
+			? router.query.filter.split(",")
+			: [];
+
+		const updatedFilter = currentFilter
+			.filter((_, index) => index !== indexToRemove)
+			.join(",");
+
+		const query = { ...router.query };
+
+		if (updatedFilter) {
+			query.filter = updatedFilter;
+		} else {
+			delete query.filter;
+		}
+
+		router.push({
+			...router,
+			query: query,
+		});
 	};
 	return (
 		<Wrapper mobile={mobile}>
@@ -80,7 +119,7 @@ const Filter = ({ mobile, setVisible }: any) => {
 								</Text>
 								<IconClose
 									src='/images/catalog/icons/close.png'
-									onClick={() => removeItem(index)}
+									onClick={() => removeItem(index, el.value.optionVariantId)}
 								/>
 							</RowContainer>
 						))}
@@ -89,77 +128,61 @@ const Filter = ({ mobile, setVisible }: any) => {
 								Результатов :
 							</Text>
 							<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
-								6
+								{numberTotal}
 							</Text>
 						</RowContainer>
 					</ColumnContainer>
 				</>
 			)}
 
-			{FILTER_ITEMS.map((el, index) => (
-				<FieldWrapper key={index}>
-					<RowContainer>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
-							{el.title}
-						</Text>
-
-						<Text
-							color={colors.black}
-							size='16px'
-							fontStyle={fonts.f400}
-							margin='0 0 0 auto'
-							func={() => toggleSelectArea(index)}>
-							+
-						</Text>
-					</RowContainer>
-					<SelectArea open={isOpen[index]}>
-						{el.type === "string" && (
+			{options?.map((el: any, index: number) => {
+				const uniqueNames = Array.from(
+					new Set(el.name.map((item: any) => item.name))
+				);
+				return (
+					<FieldWrapper key={index}>
+						<RowContainer>
+							<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
+								{el.optionName}
+							</Text>
+							<Text
+								color={colors.black}
+								size='16px'
+								fontStyle={fonts.f400}
+								margin='0 0 0 auto'
+								func={() => toggleSelectArea(index)}>
+								+
+							</Text>
+						</RowContainer>
+						<SelectArea open={isOpen[index]}>
 							<>
-								{el.items.map((item, index) => (
-									<Text
-										key={index}
-										color={colors.black}
-										size='16px'
-										fontStyle={fonts.f400}
-										hoverColor={colors.redHover}
-										func={() => addItem(el.title, item)}>
-										{item}
-									</Text>
-								))}
-							</>
-						)}
-						{el.type === "color" && (
-							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
-								{el.items.map((item, index) => (
-									<ColorPicker
-										key={index}
-										color={item}
-										onClick={() => addItem(el.title, item)}
-									/>
-								))}
-							</RowContainer>
-						)}
-
-						{el.type === "container" && (
-							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
-								{el.items.map((item, index) => (
-									<ContainerSelect
-										key={index}
-										onClick={() => addItem(el.title, item)}>
+								{uniqueNames.map((itemName: any, itemIndex: number) => {
+									const uniqueItem = el.name.find(
+										(item: any) => item.name === itemName
+									);
+									return (
 										<Text
-											key={index}
+											key={itemIndex}
 											color={colors.black}
 											size='16px'
-											fontStyle={fonts.f400}>
-											{item}
+											fontStyle={fonts.f400}
+											hoverColor={colors.redHover}
+											func={() =>
+												addItem(
+													el.optionName,
+													uniqueItem.name,
+													uniqueItem.optionVariantId
+												)
+											}>
+											{uniqueItem.name}
 										</Text>
-									</ContainerSelect>
-								))}
-							</RowContainer>
-						)}
-					</SelectArea>
-				</FieldWrapper>
-			))}
+									);
+								})}
+							</>
+						</SelectArea>
+					</FieldWrapper>
+				);
+			})}
 		</Wrapper>
 	);
 };
@@ -215,3 +238,34 @@ const ContainerSelect = styled.div`
 		background-color: ${colors.redBlur};
 	}
 `;
+{
+	/* {el.type === "color" && (
+							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
+								{el.items.map((item, index) => (
+									<ColorPicker
+										key={index}
+										color={item}
+										onClick={() => addItem(el.title, item)}
+									/>
+								))}
+							</RowContainer>
+						)}
+
+						{el.type === "container" && (
+							<RowContainer style={{ flexWrap: "wrap", gap: "8px" }}>
+								{el.items.map((item, index) => (
+									<ContainerSelect
+										key={index}
+										onClick={() => addItem(el.title, item)}>
+										<Text
+											key={index}
+											color={colors.black}
+											size='16px'
+											fontStyle={fonts.f400}>
+											{item}
+										</Text>
+									</ContainerSelect>
+								))}
+							</RowContainer>
+						)} */
+}

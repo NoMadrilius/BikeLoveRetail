@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 			"https://bikeshop.1gb.ua/api/public/getcategories"
 		);
 		const data = response.data;
-		console.log(response);
+
 		return {
 			props: {
 				data,

@@ -4,8 +4,6 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 
 const groupOptions = (options: any) => {
-	console.log(options);
-
 	return options.reduce((acc: any, option: any) => {
 		const existingOption = acc.find(
 			(item: any) => item.optionName === option.optionName

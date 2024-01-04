@@ -48,7 +48,6 @@ class CategoriesStore {
     try {
       this.loading = true;
       const response = await axios.post('/api/categories', request); // Изменение на ваш API endpoint для получения продуктов по категории
-      console.log(response);
       this.cardsByCategory = response.data;
       this.loading = false;
       return response.data;
