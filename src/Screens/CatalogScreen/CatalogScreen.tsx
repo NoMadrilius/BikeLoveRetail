@@ -14,24 +14,16 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Loader from "@/helpers/Loader/Loader";
 
-const CatalogScreen = ({ catalogId }: any) => {
+const CatalogScreen = ({ catalogData }: any) => {
 	const router = useRouter();
 	const catId = router.query.id;
+	console.log(catalogData.data);
 	const [filterVisible, setFilterVisible] = useState(false);
-	const [cards, setCards] = useState([]);
 	const catalogStore = useCategoriesStore();
-	useEffect(() => {
-		catalogStore.fetchCategories();
-		if (catId) {
-			catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
-		}
-	}, [catId]);
+
 	const catalog = categoriesStore.categories
 		? catalogStore.categories.filter((el) => el.id === +catId!)
 		: [];
-	useEffect(() => {
-		setCards(catalogStore.cardsByCategory);
-	}, [catalogStore.cardsByCategory]);
 
 	const parts = catalog[0]?.way.split("->");
 
@@ -86,7 +78,7 @@ const CatalogScreen = ({ catalogId }: any) => {
 					<TriggerHidden width='1000px'>
 						<Filter />
 					</TriggerHidden>
-					<Products items={cards} loading={catalogStore.loading} />
+					<Products items={catalogData.data} loading={catalogStore.loading} />
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>

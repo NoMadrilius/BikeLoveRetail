@@ -358,7 +358,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	);
 };
 export default observer(ProductScreen);
-//style={{ columnGap: "18px", marginTop: "30px" }}
 const ButtonsContainer = styled.div`
 	display: flex;
 	column-gap: 18px;

@@ -12,8 +12,8 @@ type Props = {
 };
 
 const Products: FC<Props> = ({ items, loading }) => {
-	const products = items.map((el: any) => el.product);
-	console.log(products);
+	const products = items?.map((el: any) => el.product);
+	console.log(items);
 	return (
 		<>
 			<GridContainer>
