@@ -25,7 +25,6 @@ const Cart = ({ setVisible }: any) => {
 			cart.reduce((acc, item) => acc + item.retailPrice * item.quantity, 0)
 		);
 	}, [cart, cartStore.cart]);
-
 	const updateTotalPrice = (priceChange: number) => {
 		setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
 	};

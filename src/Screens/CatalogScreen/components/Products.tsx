@@ -12,7 +12,10 @@ type Props = {
 };
 
 const Products: FC<Props> = ({ items, loading }) => {
-	const products = items?.map((el: any) => el.product);
+	const products = items?.map((el: any) => ({
+		...el.product,
+		img: el.productImages[0],
+	}));
 	return (
 		<>
 			<GridContainer>
@@ -24,7 +27,7 @@ const Products: FC<Props> = ({ items, loading }) => {
 							<Card
 								key={index}
 								title={el.name}
-								image={el.img}
+								image={el.img?.url}
 								price={el.retailPrice}
 								colors={el.colors}
 								sizes={el.sizes}

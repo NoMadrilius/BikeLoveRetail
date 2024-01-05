@@ -16,6 +16,7 @@ class AuthStore {
     constructor() {
       makeAutoObservable(this);
     }
+    
     register = async (request: RegisterRequest) => {
         try {
             this.loadingRegister = true
@@ -118,6 +119,10 @@ class AuthStore {
         }
 
         return false
+    }
+    getLoginUserResponse() {
+        this.checkAuth()
+        return this.loginUserResponse?.user?.id;
     }
     
    

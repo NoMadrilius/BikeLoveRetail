@@ -9,10 +9,11 @@ class WishListStore {
   
     constructor() {
       makeAutoObservable(this);
-      this.initializeCartFromLocalStorage()
+      this.initializeWishListFromLocalStorage()
     }
+
   
-    initializeCartFromLocalStorage() {
+    initializeWishListFromLocalStorage() {
       if (typeof window !== 'undefined') {
         const savedWishList = localStorage.getItem('wishList');
         if (savedWishList) {
@@ -21,7 +22,7 @@ class WishListStore {
       }
     }
   
-    saveCartToLocalStorage() {
+    saveWishListToLocalStorage() {
       if (typeof window !== 'undefined') {
         localStorage.setItem('wishList', JSON.stringify(this.wishList));
       }
@@ -42,7 +43,7 @@ class WishListStore {
           info:'Товар добавлен в список желаний',title:"Товар добавлен",type:'success'
         })
       }
-      this.saveCartToLocalStorage();
+      this.saveWishListToLocalStorage();
     }
     removeFromWishList(productId: number) {
       const index = this.wishList.findIndex(item => item.id === productId);
@@ -54,7 +55,7 @@ class WishListStore {
               title: 'Товар удален',
               type: 'success'
           });
-          this.saveCartToLocalStorage();
+          this.saveWishListToLocalStorage();
       } else {
           showToast({
               info: 'Товар не найден в списке желаний',

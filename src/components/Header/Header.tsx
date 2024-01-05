@@ -75,6 +75,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 		setIsAuth(_isAuth);
 	}, [router.pathname]);
 	///
+
 	////
 
 	return (
