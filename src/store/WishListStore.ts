@@ -3,17 +3,35 @@ import { showToast } from '@/helpers/alertService/alertService';
 import { IProduct } from '@/types/types';
 import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
+import authStore from './AuthStore';
+import axios from 'axios';
 
 class WishListStore {
     wishList: IProduct[] = [];
+    authStore: any
+
   
-    constructor() {
+    constructor(authStore: any) {
       makeAutoObservable(this);
-      this.initializeWishListFromLocalStorage()
+      this.authStore = authStore;
+      this.initializeWishList()
+    }
+
+    initializeWishList() {
+      if (typeof window !== 'undefined') {
+       authStore.getLoginUserResponse()
+       console.log( authStore.getLoginUserResponse())
+        if (authStore.loginUserResponse.user?.id) {
+          this.initializeWishListFromServer(); 
+        } else {
+          this.initializeWishListFromLocalStorage(); 
+        }
+      }
     }
 
   
     initializeWishListFromLocalStorage() {
+      console.log('success')
       if (typeof window !== 'undefined') {
         const savedWishList = localStorage.getItem('wishList');
         if (savedWishList) {
@@ -21,17 +39,55 @@ class WishListStore {
         }
       }
     }
+    initializeWishListFromServer = async() => {
+      console.log('success')
+      console.log()
+      try {
+        const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`);
+    
+        this.wishList = [];
+    
+       this.wishList = response.data.map((item: any) => item.product)
+       console.log(response.data.map((item: any) => item.product))
+       console.log('success')
+       
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
+    }
+
   
     saveWishListToLocalStorage() {
       if (typeof window !== 'undefined') {
         localStorage.setItem('wishList', JSON.stringify(this.wishList));
       }
     }
+    saveWishListToServer(product: any) {
+      try {
+        axios.post(`https://bikeshop.1gb.ua/api/public/addfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}`);
+      } catch (error) {
+        console.log('error saveProductToServer')
+      }
+   
+    }
+    removeWishListItemFromServer(productId: any) {
+      try {
+        axios.delete(`https://bikeshop.1gb.ua/api/public/delfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productId}`);
+      } catch (error) {
+        console.log('error saveProductToServer')
+      }
+   
+    }
   
   
   
     addToWishList(product: IProduct) {
       const existingProduct = this.wishList.find(item => item.id === product.id);
+      console.log(authStore.loginUserResponse)
+      if(authStore.loginUserResponse.user?.id){
+      this.saveWishListToServer(product)
+      console.log('success')
+      }
   
       if (existingProduct) {
         showToast({
@@ -47,7 +103,10 @@ class WishListStore {
     }
     removeFromWishList(productId: number) {
       const index = this.wishList.findIndex(item => item.id === productId);
-
+      if(authStore.loginUserResponse.user?.id){
+        this.removeWishListItemFromServer(productId)
+        console.log('success')
+        }
       if (index !== -1) {
           this.wishList.splice(index, 1);
           showToast({
@@ -66,7 +125,7 @@ class WishListStore {
   }
   }
 
-const wishListStore = new WishListStore();
+const wishListStore = new WishListStore(authStore);
 const StoreContext = createContext(wishListStore);
 
 export const useWishListStore = () => useContext(StoreContext);

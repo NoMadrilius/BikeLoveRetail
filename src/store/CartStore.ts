@@ -20,9 +20,9 @@ class CartStore {
       if (typeof window !== 'undefined') {
        authStore.getLoginUserResponse()
         if (authStore.loginUserResponse.user?.id) {
-          this.initializeCartFromServer(); // Если есть ID пользователя, инициализировать с сервера
+          this.initializeCartFromServer(); 
         } else {
-          this.initializeCartFromLocalStorage(); // Иначе инициализировать с локального хранилища
+          this.initializeCartFromLocalStorage(); 
         }
       }
     }
@@ -35,6 +35,7 @@ class CartStore {
         }
       }
     }
+    
     initializeCartFromServer = async() => {
       try {
         const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`);
@@ -47,6 +48,7 @@ class CartStore {
         console.error('Error fetching cart:', error);
       }
     }
+
     getLoginUserResponseFromAuthStore() {
       return this.authStore.getLoginUserResponse();
   }
@@ -87,6 +89,13 @@ class CartStore {
 
     updateProductQuantity(productId: number, newQuantity: number) {
         const productToUpdate = this.cart.find(item => item.id === productId);
+        if(authStore.loginUserResponse?.user?.id){
+          try {
+            axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`);
+          } catch (error) {
+            console.log('error saveProductToServer')
+          }
+        }
     
         if (productToUpdate) {
           productToUpdate.quantity = newQuantity;

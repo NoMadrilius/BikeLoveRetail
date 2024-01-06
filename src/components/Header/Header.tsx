@@ -66,13 +66,14 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		categories.fetchCategories();
 		setCartData(cart.cart);
-	}, [cart]);
+	}, [cart.cart, router.pathname]);
 	useEffect(() => {
 		setWishData(wish.wishList);
-	}, [wish]);
+	}, [wish, router.pathname]);
 	useEffect(() => {
 		const _isAuth = authStore.checkAuth();
 		setIsAuth(_isAuth);
+		cart.initializeCartFromServer();
 	}, [router.pathname]);
 	///
 

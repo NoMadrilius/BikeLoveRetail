@@ -28,6 +28,7 @@ const Cart = ({ setVisible }: any) => {
 	const updateTotalPrice = (priceChange: number) => {
 		setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
 	};
+	console.log(cartStore.cart);
 	return (
 		<BlurWrapper setModal={setVisible}>
 			<ContentWrapper onClick={(e) => e.stopPropagation()}>
