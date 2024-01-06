@@ -50,13 +50,20 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		setProductInWishList(
 			wishStore.wishList?.some((i) => i.id === productData.product?.id)
 		);
-	}, [cart, wishStore.wishList]);
+	}, [
+		cart.cart?.map((item) => item.id),
+		wishStore.wishList?.map((item) => item.id),
+	]);
 
 	const clickLike = () => {
 		productInWishList
 			? wishStore.removeFromWishList(productData.product?.id)
-			: wishStore.addToWishList(productData.product);
+			: wishStore.addToWishList(
+					productData.product,
+					productData.productImages[0]?.url
+			  );
 	};
+
 	const calculateDiscount = (oldPrice: any, newPrice: any) => {
 		if (oldPrice !== 0 && oldPrice > newPrice) {
 			const discount = ((oldPrice - newPrice) / oldPrice) * 100;
@@ -76,7 +83,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		return null;
 	};
 	///
-
 	///
 
 	return (
@@ -214,7 +220,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								type='default'
 								width={"191px"}
 								height={"56px"}
-								func={() => cart?.addToCart(productData.product)}>
+								func={() =>
+									cart?.addToCart(
+										productData.product,
+										productData.productImages[0]?.url
+									)
+								}>
 								<>
 									<img
 										src='/images/product/icons/cart.png'

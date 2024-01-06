@@ -55,7 +55,7 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
 								{variant === "cards" && (
 									<Card
 										title={el.name}
-										image={"/mock/testCardByPropose.png"}
+										image={el.image || "/mock/NoPhoto.png"}
 										price={el.retailPrice}
 										colors={el.colors}
 										sizes={el.sizes}

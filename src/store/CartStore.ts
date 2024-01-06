@@ -39,11 +39,8 @@ class CartStore {
     initializeCartFromServer = async() => {
       try {
         const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`);
-    
         this.cart = [];
-    
-       this.cart = response.data.map((item:any) => ({...item.product.product, quantity: item.quantity}))
-       
+       this.cart = response.data.map((item:any) => ({...item.product.product, quantity: item.quantity, image: item.product.productImages[0]?.url || null}))
       } catch (error) {
         console.error('Error fetching cart:', error);
       }
@@ -67,9 +64,8 @@ class CartStore {
    
     }
   
-    addToCart(product: IProduct) {
+    addToCart(product: IProduct, image: any) {
       const existingProduct = this.cart.find(item => item.id === product.id);
-      console.log(authStore.loginUserResponse)
       if(authStore.loginUserResponse.user?.id){
       this.saveProductToServer(product)
       }
@@ -79,7 +75,7 @@ class CartStore {
           info:`${existingProduct.name}`,title:"Товар уже в корзине",type:'warn'
         })
       } else {
-        this.cart.push({ ...product, quantity: 1 });
+        this.cart.push({ ...product, quantity: 1, image: image });
         showToast({
           info:'',title:"Товар добавлен",type:'success'
         })
@@ -100,7 +96,7 @@ class CartStore {
         if (productToUpdate) {
           productToUpdate.quantity = newQuantity;
           if(authStore.loginUserResponse?.user?.id){
-            console.log('hello')
+        
           }else{
             this.saveCartToLocalStorage();
           }

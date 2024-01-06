@@ -61,6 +61,7 @@ export interface IProduct
     userCreated?: string,
     userUpdated?: string,
     quantity: number
+    image: string
 }
 
 export interface RegisterRequest {

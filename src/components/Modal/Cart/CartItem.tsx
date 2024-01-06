@@ -9,15 +9,18 @@ import { IProduct } from "@/types/types";
 import { useCartStore } from "@/store/CartStore";
 import { observer } from "mobx-react";
 import { useWishListStore } from "@/store/WishListStore";
+import { useRouter } from "next/router";
 
 type Props = {
 	product: IProduct;
 	updateTotalPrice: any;
+	setVisible: any;
 };
 
-const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
+const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
 	const cartStore = useCartStore();
 	const wishStore = useWishListStore();
+	const router = useRouter();
 
 	const counterHandler = (symbol: string) => {
 		if (symbol === "plus") {
@@ -34,12 +37,16 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
 		updateTotalPrice(-product.retailPrice * product.quantity);
 	};
 	const likeItem = () => {
-		wishStore.addToWishList(product);
+		wishStore.addToWishList(product, product.image || null);
 	};
-	const productInCart = cartStore.cart?.some((i) => i.id === product?.id);
+
 	const productInWishList = wishStore.wishList?.some(
 		(i) => i.id === product?.id
 	);
+	const goToProduct = () => {
+		router.push(`/product/${product.id}`);
+		setVisible(false);
+	};
 	return (
 		<Wrapper>
 			<Options>
@@ -53,7 +60,10 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice }) => {
 					<Icon src='/images/card/heart.svg' onClick={() => likeItem()} />
 				)}
 			</Options>
-			<Picture src='/mock/testCardByPropose.png' />
+			<Picture
+				src={product.image || "/mock/NoPhoto.png"}
+				onClick={() => goToProduct()}
+			/>
 			<InfoContainer>
 				<Text color={colors.black} size='16px' fontStyle={fonts.f600}>
 					{product.name}

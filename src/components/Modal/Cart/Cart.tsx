@@ -28,7 +28,6 @@ const Cart = ({ setVisible }: any) => {
 	const updateTotalPrice = (priceChange: number) => {
 		setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
 	};
-	console.log(cartStore.cart);
 	return (
 		<BlurWrapper setModal={setVisible}>
 			<ContentWrapper onClick={(e) => e.stopPropagation()}>
@@ -46,6 +45,7 @@ const Cart = ({ setVisible }: any) => {
 							key={index}
 							product={el}
 							updateTotalPrice={updateTotalPrice}
+							setVisible={setVisible}
 						/>
 					))}
 				</ItemsContainer>
@@ -181,7 +181,7 @@ const ItemsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	overflow: scroll;
-	max-height: 600px;
+	max-height: 50vh;
 `;
 const BottomContainer = styled.div`
 	display: flex;

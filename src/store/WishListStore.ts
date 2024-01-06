@@ -31,7 +31,6 @@ class WishListStore {
 
   
     initializeWishListFromLocalStorage() {
-      console.log('success')
       if (typeof window !== 'undefined') {
         const savedWishList = localStorage.getItem('wishList');
         if (savedWishList) {
@@ -40,16 +39,11 @@ class WishListStore {
       }
     }
     initializeWishListFromServer = async() => {
-      console.log('success')
-      console.log()
       try {
         const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`);
     
         this.wishList = [];
-    
-       this.wishList = response.data.map((item: any) => item.product)
-       console.log(response.data.map((item: any) => item.product))
-       console.log('success')
+        this.wishList = response.data.map((item: any) => ({...item.product, image: item.productImages[0]?.url || null }))
        
       } catch (error) {
         console.error('Error fetching cart:', error);
@@ -81,12 +75,10 @@ class WishListStore {
   
   
   
-    addToWishList(product: IProduct) {
+    addToWishList(product: IProduct, image: any) {
       const existingProduct = this.wishList.find(item => item.id === product.id);
-      console.log(authStore.loginUserResponse)
       if(authStore.loginUserResponse.user?.id){
       this.saveWishListToServer(product)
-      console.log('success')
       }
   
       if (existingProduct) {
@@ -94,7 +86,7 @@ class WishListStore {
           info:`${existingProduct.name}`,title:"Товар уже в списке желаний",type:'warn'
         })
       } else {
-        this.wishList.push({ ...product, quantity: 1 });
+        this.wishList.push({ ...product, quantity: 1, image: image });
         showToast({
           info:'Товар добавлен в список желаний',title:"Товар добавлен",type:'success'
         })
@@ -105,7 +97,6 @@ class WishListStore {
       const index = this.wishList.findIndex(item => item.id === productId);
       if(authStore.loginUserResponse.user?.id){
         this.removeWishListItemFromServer(productId)
-        console.log('success')
         }
       if (index !== -1) {
           this.wishList.splice(index, 1);
