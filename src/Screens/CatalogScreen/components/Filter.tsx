@@ -2,14 +2,12 @@ import { Text } from "@/components/Text/Text";
 import { css, styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	ColumnContainer,
 	RowContainer,
 } from "@/components/SideBar/SidebarStyles";
 import { templates } from "../../../../theme/templates";
-import { metrics } from "../../../../theme/metrics";
-import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import { useRouter } from "next/router";
 
 const FILTER_ITEMS = [
@@ -36,6 +34,46 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
 	const [currentFilters, setCurrentFilters] = useState<
 		{ title: string; value: any }[]
 	>([]);
+
+	const [params, setParams] = useState<any>([]);
+	useEffect(() => {
+		const filterParam = router.query.filter;
+		if (filterParam) {
+			if (filterParam.includes(",")) {
+				const paramsArray = filterParam
+					//@ts-ignore
+					.split(",")
+					.map((param: any) => parseInt(param, 10));
+				setParams(paramsArray);
+			} else {
+				//@ts-ignore
+				const singleParam = parseInt(filterParam, 10);
+				setParams([singleParam]);
+			}
+		} else {
+			setCurrentFilters([]);
+			setParams([]);
+		}
+	}, [router.query.filter, router]);
+
+	useEffect(() => {
+		if (params.length) {
+			const foundFilters: { title: string; value: string }[] = [];
+			options.forEach((el: any) => {
+				el.name.forEach((item: any) => {
+					if (params.includes(item.optionVariantId)) {
+						foundFilters.push({
+							title: el.optionName,
+							value: item.name,
+						});
+					}
+				});
+			});
+			setCurrentFilters(foundFilters);
+		} else {
+			setCurrentFilters([]);
+		}
+	}, [params, options]);
 	const [isOpen, setIsOpen] = useState(
 		new Array(FILTER_ITEMS.length).fill(false)
 	);
@@ -92,7 +130,7 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
 		});
 	};
 	return (
-		<Wrapper mobile={mobile}>
+		<Wrapper mobile={mobile} onClick={(e) => e.stopPropagation()}>
 			{!!currentFilters.length && (
 				<>
 					<Text color={colors.black} size='15px' fontStyle={fonts.f600}>
@@ -198,10 +236,9 @@ const Wrapper = styled.div<{ mobile: boolean }>`
 		p.mobile &&
 		css`
 			position: absolute;
-			top: 74px;
 			left: 0;
 			background-color: ${colors.white};
-			height: 100%;
+			height: 100vh;
 			overflow-y: scroll;
 		`}
 `;
