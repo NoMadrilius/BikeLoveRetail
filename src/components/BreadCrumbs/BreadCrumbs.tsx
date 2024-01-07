@@ -31,7 +31,9 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
 							hoverColor={
 								index !== road.length - 1 ? colors.redHover : undefined
 							}
-							func={() => router.push(el.link)}>
+							func={() => {
+								index !== road.length - 1 && router.push(el.link);
+							}}>
 							{el.title}
 						</Text>
 					</Container>

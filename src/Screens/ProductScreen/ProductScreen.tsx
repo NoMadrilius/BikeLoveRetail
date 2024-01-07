@@ -38,12 +38,34 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
+	const [prepareOptions, setPrepareOptions] = useState<
+		{ title: string; value: string }[]
+	>([{ title: "", value: "" }]);
 
-	const breadCrumbs = [
-		{ title: "Каталог", link: "/" },
-		{ title: "Велосипеды", link: "/" },
-		{ title: "Горные", link: "/" },
-	];
+	const categoryPath = productData.productCategory.way.split("->");
+	console.log(categoryPath);
+	console.log(categoryPath.slice(-2));
+	const breadCrumbs = categoryPath
+		.slice(-2)
+		.map((category: any, index: any, array: any) => {
+			let link = "/catalog/";
+			if (index === 0) {
+				link += productData.productCategory.parentId;
+			} else if (index === 1) {
+				link += productData.productCategory.id;
+			}
+
+			return {
+				title: category,
+				link: link,
+			};
+		});
+	breadCrumbs.push({
+		title: productData.product.name,
+		link: "",
+	});
+	console.log(breadCrumbs);
+	console.log(breadCrumbs);
 
 	useEffect(() => {
 		setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
@@ -82,7 +104,15 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		}
 		return null;
 	};
+	const addOption = (title: string, value: string) => {
+		setPrepareOptions((prevOptions) => {
+			return [...prevOptions, { title: title, value: value }];
+		});
+	};
 	///
+	console.log(productData);
+	console.log(options);
+	console.log(prepareOptions);
 	///
 
 	return (
@@ -147,13 +177,15 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								<RowContainer
 									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
 									{Array.isArray(el.name) ? (
-										el.name.map((name: string, idx: number) => (
-											<SizeContainer key={idx}>
+										el.name.map((name: any, idx: number) => (
+											<SizeContainer
+												key={idx}
+												onClick={() => addOption(el.optionName, name.name)}>
 												<Text
 													color={colors.black}
 													size='14px'
 													fontStyle={fonts.f500}>
-													{name}
+													{name.name}
 												</Text>
 											</SizeContainer>
 										))
@@ -163,7 +195,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 												color={colors.black}
 												size='14px'
 												fontStyle={fonts.f500}>
-												{el.name}
+												{el.name.name}
 											</Text>
 										</SizeContainer>
 									)}
@@ -322,25 +354,32 @@ const ProductScreen = ({ productData, options, images }: any) => {
 						)}
 						{activeTab === 1 && (
 							<>
-								{options?.map((el: any, index: any) => (
-									<CharacteristicContainer key={index} index={index}>
-										<Text
-											color={colors.black}
-											size='15px'
-											fontStyle={fonts.f400}
-											hoverColor={colors.redHover}
-											maxWidth='100%'>
-											{el.optionName}
-										</Text>
-										<Text
-											color={colors.black}
-											size='15px'
-											fontStyle={fonts.f400}
-											hoverColor={colors.redHover}>
-											{Array.isArray(el.name) ? el.name.join(", ") : el.name}
-										</Text>
-									</CharacteristicContainer>
-								))}
+								{options?.map(
+									(el: any, index: any) =>
+										el.name.some(
+											(item: any) => item.id === productData.product.id
+										) && (
+											<CharacteristicContainer key={index} index={index}>
+												<Text
+													color={colors.black}
+													size='15px'
+													fontStyle={fonts.f400}
+													hoverColor={colors.redHover}
+													maxWidth='100%'>
+													{el.optionName}
+												</Text>
+												<Text
+													color={colors.black}
+													size='15px'
+													fontStyle={fonts.f400}
+													hoverColor={colors.redHover}>
+													{el.name.map((item: any) =>
+														item.id === productData.product.id ? item.name : ""
+													)}
+												</Text>
+											</CharacteristicContainer>
+										)
+								)}
 							</>
 						)}
 					</ColumnContainer>

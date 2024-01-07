@@ -10,11 +10,23 @@ const groupOptions = (options: any) => {
 		);
 
 		if (existingOption) {
-			existingOption.name.push(option.name);
+			existingOption.name.push({
+				optionVariantId: option.optionVariantId,
+				name: option.name,
+				icon: option.icon || null,
+				id: option.productId || null,
+			});
 		} else {
 			acc.push({
 				optionName: option.optionName,
-				name: [option.name],
+				name: [
+					{
+						optionVariantId: option.optionVariantId,
+						name: option.name,
+						icon: option.icon || null,
+						id: option.productId || null,
+					},
+				],
 			});
 		}
 
