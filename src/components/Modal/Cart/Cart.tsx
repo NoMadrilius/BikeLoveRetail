@@ -11,9 +11,11 @@ import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/types/types";
 import { observer } from "mobx-react";
+import { useRouter } from "next/router";
 
 const Cart = ({ setVisible }: any) => {
 	const cartStore = useCartStore();
+	const router = useRouter();
 	const [cart, setCart] = useState<IProduct[]>([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 
@@ -27,6 +29,10 @@ const Cart = ({ setVisible }: any) => {
 	}, [cart, cartStore.cart]);
 	const updateTotalPrice = (priceChange: number) => {
 		setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
+	};
+	const goTo = () => {
+		router.push("/checklist");
+		setVisible(false);
 	};
 	return (
 		<BlurWrapper setModal={setVisible}>
@@ -108,6 +114,7 @@ const Cart = ({ setVisible }: any) => {
 							height={"56px"}
 							type={"default"}
 							label='Оформить заказ'
+							func={() => goTo()}
 						/>
 					</TotalContainer>
 				</BottomContainer>

@@ -2,9 +2,6 @@ import { keyframes, styled } from "styled-components";
 import { metrics } from "../../../../theme/metrics";
 import { FC } from "react";
 import Card from "@/components/Card/Card";
-import { Product } from "@/types/types";
-
-const FAKE_PRODUCTS = [{ title: "", image: "", price: "", id: 0 }];
 
 type Props = {
 	items: any;

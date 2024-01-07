@@ -25,7 +25,6 @@ export const Wrapper = styled.div<{ opacityBg?: boolean }>`
 `;
 export const Logo = styled.img`
   width: 71px;
-  height: 71px;
   margin-right: auto;
   cursor: pointer;
   @media (max-width: ${metrics.mobile}) {
