@@ -62,7 +62,6 @@ export const getServerSideProps = async (context: any) => {
 
 const Page = ({ data, options }: any) => {
 	const router = useRouter();
-
 	return (
 		<>
 			<PaddingWrapper>

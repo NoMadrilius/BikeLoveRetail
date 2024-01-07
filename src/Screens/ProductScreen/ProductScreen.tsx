@@ -43,8 +43,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	>([{ title: "", value: "" }]);
 
 	const categoryPath = productData.productCategory.way.split("->");
-	console.log(categoryPath);
-	console.log(categoryPath.slice(-2));
 	const breadCrumbs = categoryPath
 		.slice(-2)
 		.map((category: any, index: any, array: any) => {
@@ -64,8 +62,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		title: productData.product.name,
 		link: "",
 	});
-	console.log(breadCrumbs);
-	console.log(breadCrumbs);
 
 	useEffect(() => {
 		setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
@@ -110,9 +106,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		});
 	};
 	///
-	console.log(productData);
-	console.log(options);
-	console.log(prepareOptions);
 	///
 
 	return (

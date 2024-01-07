@@ -25,13 +25,22 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 		? catalogStore.categories.filter((el) => el.id === +catId!)
 		: [];
 
-	const parts = catalog[0]?.way.split("->");
+	const categoryPath = catalogData[0]?.productCategory.way.split("->");
+	const breadCrumbs = categoryPath
+		.slice(-2)
+		.map((category: any, index: any, array: any) => {
+			let link = "/catalog/";
+			if (index === 0) {
+				link += catalogData[0]?.productCategory.parentId;
+			} else if (index === 1) {
+				link += catalogData[0]?.productCategory.id;
+			}
 
-	const breadCrumbs = parts?.map((part, index) => ({
-		title: part,
-		link: "/",
-	}));
-
+			return {
+				title: category,
+				link: link,
+			};
+		});
 	return (
 		<>
 			<UseMetaData
@@ -40,7 +49,7 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 				description={"asdasdasd"}
 			/>
 			<Wrapper>
-				{parts && <BreadCrumbs road={breadCrumbs} />}
+				<BreadCrumbs road={breadCrumbs} />
 
 				<Text
 					color={colors.black}
