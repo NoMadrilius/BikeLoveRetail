@@ -274,6 +274,10 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	border-radius: 15px;
 	margin: 120px auto;
+	@media (max-width: 600px) {
+		width: 100%;
+		padding: 30px 15px;
+	}
 `;
 const InputField = styled.input`
 	all: unset;
@@ -296,11 +300,12 @@ const Button = styled.button`
 	border-radius: 5px;
 	background-color: ${colors.redMain};
 	cursor: pointer;
+	@media (max-width: 600px) {
+		width: 100%;
+	}
 	&:disabled {
-		/* Стили для состояния disabled */
-		opacity: 0.6; /* Например, сделаем кнопку полупрозрачной */
-		cursor: not-allowed; /* Изменяем курсор на 'not-allowed' */
-		/* Другие стили, которые нужны для вашего дизайна кнопки в состоянии disabled */
+		opacity: 0.6;
+		cursor: not-allowed;
 	}
 `;
 const Line = styled.div`

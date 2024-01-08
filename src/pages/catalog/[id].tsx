@@ -3,6 +3,7 @@ import { PaddingWrapper } from "../../../theme/templates";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import axios from "axios";
+import Error from "next/error";
 
 const groupOptions = (options: any) => {
 	return options.reduce((acc: any, option: any) => {
@@ -62,14 +63,19 @@ export const getServerSideProps = async (context: any) => {
 
 const Page = ({ data, options }: any) => {
 	const router = useRouter();
+	console.log(data);
 	return (
 		<>
 			<PaddingWrapper>
-				<CatalogScreen
-					catalogId={router.query.id!}
-					catalogData={data}
-					options={options}
-				/>
+				{data.length === 0 ? (
+					<Error statusCode={404} />
+				) : (
+					<CatalogScreen
+						catalogId={router.query.id!}
+						catalogData={data}
+						options={options}
+					/>
+				)}
 			</PaddingWrapper>
 		</>
 	);

@@ -41,10 +41,8 @@ class WishListStore {
     initializeWishListFromServer = async() => {
       try {
         const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`);
-    
         this.wishList = [];
         this.wishList = response.data.map((item: any) => ({...item.product, image: item.productImages[0]?.url || null }))
-       
       } catch (error) {
         console.error('Error fetching cart:', error);
       }

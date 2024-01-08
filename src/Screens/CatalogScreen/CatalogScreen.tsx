@@ -41,6 +41,7 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 				link: link,
 			};
 		});
+
 	return (
 		<>
 			<UseMetaData

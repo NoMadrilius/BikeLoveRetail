@@ -38,9 +38,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
-	const [prepareOptions, setPrepareOptions] = useState<
-		{ title: string; value: string }[]
-	>([{ title: "", value: "" }]);
+	const [prepareOptions, setPrepareOptions] = useState([]);
 
 	const categoryPath = productData.productCategory.way.split("->");
 	const breadCrumbs = categoryPath
@@ -100,12 +98,27 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		}
 		return null;
 	};
-	const addOption = (title: string, value: string) => {
-		setPrepareOptions((prevOptions) => {
-			return [...prevOptions, { title: title, value: value }];
-		});
-	};
+
+	useEffect(() => {
+		if (productData.product) {
+			const filteredOptions = options.reduce((acc: any, option: any) => {
+				const filteredName = option.name.filter(
+					(name: any) => name.id === productData.product.id
+				);
+				if (filteredName.length > 0) {
+					acc.push(filteredName);
+				}
+				return acc;
+			}, []);
+
+			setPrepareOptions(filteredOptions);
+		}
+	}, [productData.product, options]);
 	///
+	console.log("prepare", prepareOptions);
+	console.log(options);
+	console.log(productData);
+
 	///
 
 	return (
@@ -170,18 +183,27 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								<RowContainer
 									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
 									{Array.isArray(el.name) ? (
-										el.name.map((name: any, idx: number) => (
-											<SizeContainer
-												key={idx}
-												onClick={() => addOption(el.optionName, name.name)}>
-												<Text
-													color={colors.black}
-													size='14px'
-													fontStyle={fonts.f500}>
-													{name.name}
-												</Text>
-											</SizeContainer>
-										))
+										el.name.map((name: any, idx: number) => {
+											const isActive = prepareOptions.some(
+												//@ts-ignore
+												(option) => option[0]?.id === name.id
+											);
+
+											return (
+												<SizeContainer key={idx} active={isActive}>
+													<Text
+														color={
+															productData.product.id === name.id
+																? colors.white
+																: colors.black
+														}
+														size='14px'
+														fontStyle={fonts.f500}>
+														{name.name}
+													</Text>
+												</SizeContainer>
+											);
+										})
 									) : (
 										<SizeContainer>
 											<Text
@@ -189,6 +211,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 												size='14px'
 												fontStyle={fonts.f500}>
 												{el.name.name}
+												{el.name.id}
 											</Text>
 										</SizeContainer>
 									)}

@@ -5,6 +5,7 @@ import { fonts } from "../../../../theme/fonts";
 import { IProduct } from "@/types/types";
 import { FC } from "react";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
+import { useRouter } from "next/router";
 
 type Props = {
 	data: IProduct;
@@ -12,9 +13,10 @@ type Props = {
 
 const ListItems: FC<Props> = ({ data }) => {
 	console.log(data);
+	const router = useRouter();
 	return (
 		<>
-			<Wrapper>
+			<Wrapper onClick={() => router.push(`/product/${data.id}`)}>
 				<ItemWrapper>
 					<Picture src={data.image || "/mock/NoPhoto.png"} />
 					<ColumnContainer>
@@ -44,6 +46,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin-top: 20px;
+	cursor: pointer;
 `;
 const ItemWrapper = styled.div`
 	display: flex;

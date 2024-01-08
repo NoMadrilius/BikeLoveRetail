@@ -121,8 +121,13 @@ class AuthStore {
         return false
     }
     getLoginUserResponse() {
-        this.checkAuth()
-        return this.loginUserResponse?.user?.id;
+        if(this.checkAuth()){
+            return this.loginUserResponse?.user?.id;
+        }else{
+            return this.loginUserResponse = {};
+        }
+        
+        
     }
     
    

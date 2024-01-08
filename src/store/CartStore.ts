@@ -21,8 +21,10 @@ class CartStore {
        authStore.getLoginUserResponse()
         if (authStore.loginUserResponse.user?.id) {
           this.initializeCartFromServer(); 
+      
         } else {
           this.initializeCartFromLocalStorage(); 
+      
         }
       }
     }
@@ -31,6 +33,7 @@ class CartStore {
       if (typeof window !== 'undefined') {
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
+      
           this.cart = JSON.parse(savedCart);
         }
       }
@@ -38,6 +41,7 @@ class CartStore {
     
     initializeCartFromServer = async() => {
       try {
+    
         const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`);
         this.cart = [];
        this.cart = response.data.map((item:any) => ({...item.product.product, quantity: item.quantity, image: item.product.productImages[0]?.url || null}))
@@ -52,6 +56,7 @@ class CartStore {
 
     saveCartToLocalStorage() {
       if (typeof window !== 'undefined') {
+    
         localStorage.setItem('cart', JSON.stringify(this.cart));
       }
     }
@@ -86,6 +91,7 @@ class CartStore {
     updateProductQuantity(productId: number, newQuantity: number) {
         const productToUpdate = this.cart.find(item => item.id === productId);
         if(authStore.loginUserResponse?.user?.id){
+      
           try {
             axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`);
           } catch (error) {
@@ -98,6 +104,7 @@ class CartStore {
           if(authStore.loginUserResponse?.user?.id){
         
           }else{
+        
             this.saveCartToLocalStorage();
           }
           

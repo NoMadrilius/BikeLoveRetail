@@ -73,7 +73,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		const _isAuth = authStore.checkAuth();
 		setIsAuth(_isAuth);
-		cart.initializeCartFromServer();
+		if (_isAuth) {
+			cart.initializeCartFromServer();
+			wish.initializeWishListFromServer();
+		}
 	}, [router.pathname]);
 	///
 

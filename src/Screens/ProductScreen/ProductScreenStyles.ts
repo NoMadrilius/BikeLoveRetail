@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { templates } from "../../../theme/templates";
@@ -71,16 +71,20 @@ export const FakeBlock = styled.div`
         padding: 15px;
     }
 `;
-export const SizeContainer = styled.div`
+export const SizeContainer = styled.div<{active?: boolean}>`
 	${templates.centerContent};
 	padding: 10px;
 	height: 32px;
-	background-color: ${colors.white};
+	background-color: ${p => p.active ? colors.redMain: colors.white};
 	border-radius: 5px;
 	cursor: pointer;
 	transition: 0.3s;
 	&:hover {
 		background-color: ${colors.redBlur};
+		${p => p.active && css`
+		background-color: ${colors.redMain}
+		`}
+		
 	}
 `;
 export const SalePatch = styled.div`
