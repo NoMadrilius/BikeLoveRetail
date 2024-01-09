@@ -66,6 +66,17 @@ const OptionsProduct: FC<Props> = ({
 			);
 		}
 	}, [selectedOptions]);
+	const findNameByOptionVariantId = (data: any, optionVariantId: any) => {
+		for (const item of data) {
+			const foundName = item.name.find(
+				(name: any) => name.optionVariantId === optionVariantId
+			);
+			if (foundName) {
+				return foundName;
+			}
+		}
+		return null; // Если не найдено подходящего объекта
+	};
 	useEffect(() => {
 		const optionsFromUrl = router.query.options;
 
@@ -74,6 +85,9 @@ const OptionsProduct: FC<Props> = ({
 				//@ts-ignore
 				.split(",")
 				.map((option: string) => parseInt(option, 10));
+			setSelectedOptionsId(
+				findNameByOptionVariantId(options, optionsArray[0]).id
+			);
 
 			setSelectedOptions(optionsArray);
 		}
