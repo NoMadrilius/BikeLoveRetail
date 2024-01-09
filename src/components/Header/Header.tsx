@@ -185,7 +185,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 					onClick={() => setSideBarVisible(!sideBarVisible)}
 				/>
 			</Wrapper>
-			{categoriesVisible && (
+			{categoriesVisible && categories && (
 				<Categories setVisible={setCategoriesVisible} categories={categories} />
 			)}
 			{sideBarVisible && <SideBar setVisible={setSideBarVisible} />}

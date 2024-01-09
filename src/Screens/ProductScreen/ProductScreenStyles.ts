@@ -71,22 +71,28 @@ export const FakeBlock = styled.div`
         padding: 15px;
     }
 `;
-export const SizeContainer = styled.div<{active?: boolean}>`
-	${templates.centerContent};
-	padding: 10px;
-	height: 32px;
-	background-color: ${p => p.active ? colors.redMain: colors.white};
+export const SizeContainer = styled.div<{active?: boolean, chosed:boolean}>`
+    ${templates.centerContent};
+    padding: 10px;
+    height: 32px;
+	background-color: ${p => p.active ? colors.white: '#c2c2c2'};
+	background-color: ${p => p.chosed && colors.redMain};
 	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.3s;
-	&:hover {
-		background-color: ${colors.redBlur};
-		${p => p.active && css`
-		background-color: ${colors.redMain}
-		`}
-		
-	}
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+        background-color: ${p => {
+            if (p.active && p.chosed) {
+                return colors.redMain; // если и active и chosed = true
+            } else if (p.active) {
+                return colors.redBlur; // если только active = true
+            } else {
+                return '#d8d8d8'; // в остальных случаях
+            }
+        }};
+    }
 `;
+
 export const SalePatch = styled.div`
 	padding: 6px 12px;
 	${templates.centerContent};

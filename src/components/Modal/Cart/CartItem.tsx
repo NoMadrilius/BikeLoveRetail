@@ -12,7 +12,7 @@ import { useWishListStore } from "@/store/WishListStore";
 import { useRouter } from "next/router";
 
 type Props = {
-	product: IProduct;
+	product: any;
 	updateTotalPrice: any;
 	setVisible: any;
 };
@@ -76,13 +76,13 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
 							</Text>
 						</SalePatch> 
 					)}*/}
-					{product?.incomePrice && (
+					{product?.oldRetailPrice && (
 						<Text
 							color={colors.grayMain}
 							size='16px'
 							fontStyle={fonts.f400}
 							textDecoration='trought'>
-							{prettyPrice(product?.incomePrice)} UAH
+							{prettyPrice(product?.oldRetailPrice)} UAH
 						</Text>
 					)}
 

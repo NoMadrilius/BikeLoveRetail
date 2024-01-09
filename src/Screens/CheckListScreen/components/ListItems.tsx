@@ -12,7 +12,6 @@ type Props = {
 };
 
 const ListItems: FC<Props> = ({ data }) => {
-	console.log(data);
 	const router = useRouter();
 	return (
 		<>

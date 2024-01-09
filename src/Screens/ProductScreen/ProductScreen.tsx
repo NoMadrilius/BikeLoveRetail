@@ -12,7 +12,6 @@ import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 import {
-	CharacteristicContainer,
 	ContainerWithBG,
 	CustomP,
 	FakeBlock,
@@ -23,14 +22,15 @@ import {
 	Res1Text,
 	Res2Text,
 	RowContainer,
-	SalePatch,
 	SecondContainer,
-	SizeContainer,
 	SliderContainer,
 	Wrapper,
 } from "./ProductScreenStyles";
 import InfoUnderSlider from "./components/InfoUnderSlider";
 import { styled } from "styled-components";
+import Discount from "./components/Discount";
+import OptionsProduct from "./components/Options";
+import DescChar from "./components/DescChar";
 
 const ProductScreen = ({ productData, options, images }: any) => {
 	const cart = useCartStore();
@@ -39,7 +39,13 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
 	const [prepareOptions, setPrepareOptions] = useState([]);
-
+	const [selectedOptionsId, setSelectedOptionsId] = useState<number>(
+		productData.product.id
+	);
+	const [selectedOptions, setSelectedOptions] = useState([]);
+	const [selectedProduct, setSelectedProduct] = useState(
+		productData.bindedProducts
+	);
 	const categoryPath = productData.productCategory.way.split("->");
 	const breadCrumbs = categoryPath
 		.slice(-2)
@@ -80,30 +86,11 @@ const ProductScreen = ({ productData, options, images }: any) => {
 			  );
 	};
 
-	const calculateDiscount = (oldPrice: any, newPrice: any) => {
-		if (oldPrice !== 0 && oldPrice > newPrice) {
-			const discount = ((oldPrice - newPrice) / oldPrice) * 100;
-			return (
-				<RowContainer style={{ alignItems: "center", marginTop: "22px" }}>
-					<Text
-						color={colors.grayMain}
-						size='20px'
-						fontStyle={fonts.f500}
-						textDecoration='trought'>
-						{prettyPrice(oldPrice)}UAH
-					</Text>
-					<SalePatch>{`-${Math.round(discount)}%`}</SalePatch>
-				</RowContainer>
-			);
-		}
-		return null;
-	};
-
 	useEffect(() => {
 		if (productData.product) {
 			const filteredOptions = options.reduce((acc: any, option: any) => {
 				const filteredName = option.name.filter(
-					(name: any) => name.id === productData.product.id
+					(name: any) => name.id === selectedOptionsId
 				);
 				if (filteredName.length > 0) {
 					acc.push(filteredName);
@@ -113,11 +100,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 
 			setPrepareOptions(filteredOptions);
 		}
-	}, [productData.product, options]);
+	}, [productData.product, options, selectedOptionsId]);
+
+	useEffect(() => {}, [selectedOptions]);
 	///
-	console.log("prepare", prepareOptions);
-	console.log(options);
-	console.log(productData);
 
 	///
 
@@ -144,7 +130,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							</Text>
 						</RowContainer>
 					</Res2Text>
-					<SliderContainer images={!!images.length}>
+					<SliderContainer images={images.length > 0 && images.length !== 1}>
 						<FakeBlock>
 							{images.length ? (
 								<SliderProducts images={images} />
@@ -170,54 +156,15 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								</Text>
 							</RowContainer>
 						</Res1Text>
-
-						{options?.map((el: any, index: any) => (
-							<div key={index}>
-								<Text
-									color={colors.black}
-									size='15px'
-									fontStyle={fonts.f400}
-									margin='35px 0 22px 0'>
-									{el.optionName}
-								</Text>
-								<RowContainer
-									style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
-									{Array.isArray(el.name) ? (
-										el.name.map((name: any, idx: number) => {
-											const isActive = prepareOptions.some(
-												//@ts-ignore
-												(option) => option[0]?.id === name.id
-											);
-
-											return (
-												<SizeContainer key={idx} active={isActive}>
-													<Text
-														color={
-															productData.product.id === name.id
-																? colors.white
-																: colors.black
-														}
-														size='14px'
-														fontStyle={fonts.f500}>
-														{name.name}
-													</Text>
-												</SizeContainer>
-											);
-										})
-									) : (
-										<SizeContainer>
-											<Text
-												color={colors.black}
-												size='14px'
-												fontStyle={fonts.f500}>
-												{el.name.name}
-												{el.name.id}
-											</Text>
-										</SizeContainer>
-									)}
-								</RowContainer>
-							</div>
-						))}
+						<OptionsProduct
+							options={options}
+							productData={productData}
+							prepareOptions={prepareOptions}
+							selectedOptionsId={selectedOptionsId}
+							setSelectedOptionsId={setSelectedOptionsId}
+							selectedOptions={selectedOptions}
+							setSelectedOptions={setSelectedOptions}
+						/>
 
 						<RowContainer style={{ alignItems: "center", marginTop: "27px" }}>
 							<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
@@ -233,10 +180,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								}}
 							/>
 						</RowContainer>
-						{calculateDiscount(
-							productData.product.oldRetailPrice,
-							productData.product.retailPrice
-						)}
+						<Discount
+							oldPrice={productData.product.oldRetailPrice}
+							newPrice={productData.product.retailPrice}
+						/>
 
 						<Text
 							color={colors.black}
@@ -322,83 +269,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							</Text>
 						</ContainerWithBG>
 					</ColumnContainer>
-					<ColumnContainer style={{ width: "100%" }}>
-						<RowContainer
-							style={{
-								marginTop: "60px",
-								columnGap: "34px",
-								marginBottom: "33px",
-							}}>
-							<Text
-								color={activeTab === 0 ? colors.black : colors.grayMain}
-								size='40px'
-								fontStyle={fonts.f500}
-								func={() => setActiveTab(0)}>
-								Описание
-							</Text>
-							<Text
-								color={activeTab === 1 ? colors.black : colors.grayMain}
-								size='40px'
-								fontStyle={fonts.f500}
-								func={() => setActiveTab(1)}>
-								Характеристики
-							</Text>
-						</RowContainer>
-						{activeTab === 0 && (
-							<>
-								<Text
-									color={colors.black}
-									size='16px'
-									fontStyle={fonts.f400}
-									margin='0 0 0 0'>
-									<div
-										dangerouslySetInnerHTML={{
-											__html: productData.productCard.description,
-										}}
-									/>
-								</Text>
-
-								<Text
-									color={colors.grayMain}
-									size='13px'
-									fontStyle={fonts.f400}
-									margin='26px 0 0 0'
-									hoverColor={colors.redHover}>
-									Читать далее
-								</Text>
-							</>
-						)}
-						{activeTab === 1 && (
-							<>
-								{options?.map(
-									(el: any, index: any) =>
-										el.name.some(
-											(item: any) => item.id === productData.product.id
-										) && (
-											<CharacteristicContainer key={index} index={index}>
-												<Text
-													color={colors.black}
-													size='15px'
-													fontStyle={fonts.f400}
-													hoverColor={colors.redHover}
-													maxWidth='100%'>
-													{el.optionName}
-												</Text>
-												<Text
-													color={colors.black}
-													size='15px'
-													fontStyle={fonts.f400}
-													hoverColor={colors.redHover}>
-													{el.name.map((item: any) =>
-														item.id === productData.product.id ? item.name : ""
-													)}
-												</Text>
-											</CharacteristicContainer>
-										)
-								)}
-							</>
-						)}
-					</ColumnContainer>
+					<DescChar
+						activeTab={activeTab}
+						setActiveTab={setActiveTab}
+						productData={productData}
+						options={options}
+					/>
 				</SecondContainer>
 				<ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
 					{/* <Slider
