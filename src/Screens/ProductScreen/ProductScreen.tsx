@@ -31,6 +31,8 @@ import { styled } from "styled-components";
 import Discount from "./components/Discount";
 import OptionsProduct from "./components/Options";
 import DescChar from "./components/DescChar";
+import { showToast } from "@/helpers/alertService/alertService";
+import axios from "axios";
 
 const ProductScreen = ({ productData, options, images }: any) => {
 	const cart = useCartStore();
@@ -39,13 +41,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
 	const [prepareOptions, setPrepareOptions] = useState([]);
-	const [selectedOptionsId, setSelectedOptionsId] = useState<number>(
-		productData.product.id
-	);
+	const [selectedOptionsId, setSelectedOptionsId] = useState<number[]>([
+		productData.product.id,
+	]);
 	const [selectedOptions, setSelectedOptions] = useState([]);
-	const [selectedProduct, setSelectedProduct] = useState(
-		productData.bindedProducts
-	);
+	const [filteredProductId, setFilteredProductId] = useState<any>();
+	const [buttonVisible, setButtonVisible] = useState(false);
 	const categoryPath = productData.productCategory.way.split("->");
 	const breadCrumbs = categoryPath
 		.slice(-2)
@@ -66,7 +67,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 		title: productData.product.name,
 		link: "",
 	});
-
 	useEffect(() => {
 		setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
 		setProductInWishList(
@@ -85,27 +85,87 @@ const ProductScreen = ({ productData, options, images }: any) => {
 					productData.productImages[0]?.url
 			  );
 	};
-
 	useEffect(() => {
 		if (productData.product) {
 			const filteredOptions = options.reduce((acc: any, option: any) => {
-				const filteredName = option.name.filter(
-					(name: any) => name.id === selectedOptionsId
-				);
-				if (filteredName.length > 0) {
-					acc.push(filteredName);
+				const filteredNames = option.name.filter((name: any) => {
+					return selectedOptionsId.some((selectedId) =>
+						name.id.includes(selectedId)
+					);
+				});
+
+				if (filteredNames.length > 0) {
+					acc.push({ optionName: option.optionName, names: filteredNames });
 				}
+
 				return acc;
 			}, []);
-
 			setPrepareOptions(filteredOptions);
 		}
 	}, [productData.product, options, selectedOptionsId]);
+	//выбераем id
+	useEffect(() => {
+		const selectedOptionsObjects = selectedOptions.map((selectedOption) => {
+			const matchingOption = options.find((option: any) =>
+				option.name.some((name: any) => name.optionVariantId === selectedOption)
+			);
+			return matchingOption
+				? matchingOption.name.find(
+						(name: any) => name.optionVariantId === selectedOption
+				  )
+				: undefined;
+		});
+		if (selectedOptionsObjects.length === 0) {
+			console.log("No matching ID found.");
+			return;
+		}
+		const commonIds = selectedOptionsObjects.reduce((intersection, obj) => {
+			if (intersection.length === 0) {
+				return obj.id;
+			} else {
+				return intersection.filter((id: any) => obj.id.includes(id));
+			}
+		}, []);
 
-	useEffect(() => {}, [selectedOptions]);
+		setFilteredProductId(commonIds[0]);
+	}, [selectedOptions, options]);
+
+	useEffect(() => {
+		const filteredOptions = options.filter(
+			(option: any) => option.name.length > 1
+		);
+		const isOptionSelected = filteredOptions.every((option: any) => {
+			return option.name.some((name: any) =>
+				//@ts-ignore
+				selectedOptions.includes(name.optionVariantId)
+			);
+		});
+		setButtonVisible(isOptionSelected);
+	}, [prepareOptions, selectedOptions]);
 	///
 
 	///
+	const onClickCart = () => {
+		if (buttonVisible) {
+			// cart?.addToCart(productData.product, productData.productImages[0]?.url);
+			get();
+		} else {
+			showToast({ info: "Выберите опции", title: "Внимание", type: "warn" });
+		}
+	};
+	const get = async () => {
+		try {
+			const response = await axios.get(`/api/products/${filteredProductId}`);
+			const product = response.data;
+			cart?.addToCart(product.product, product.productImages[0]?.url);
+		} catch (error) {
+			showToast({
+				info: "Что-то пошло не так",
+				title: "Внимание",
+				type: "error",
+			});
+		}
+	};
 
 	return (
 		<>
@@ -215,19 +275,16 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								type='default'
 								width={"191px"}
 								height={"56px"}
-								func={() =>
-									cart?.addToCart(
-										productData.product,
-										productData.productImages[0]?.url
-									)
-								}>
+								func={() => onClickCart()}
+								funcIfDisable={() => onClickCart()}
+								buttonActive={buttonVisible}>
 								<>
 									<img
 										src='/images/product/icons/cart.png'
 										style={{ marginRight: "10px" }}
 									/>
 									<Text color={colors.white} size='16px' fontStyle={fonts.f700}>
-										{productInCart ? "Товар в корзине" : "В корзину"}
+										В корзину
 									</Text>
 								</>
 							</ButtonCustom>

@@ -6,10 +6,7 @@ import { createContext, useContext } from 'react';
 
 class ProductStore {
   product = {}
-  options = {}
-  description = ''
-  images = []
-
+  
   constructor() {
     makeAutoObservable(this);
   }
@@ -18,9 +15,7 @@ class ProductStore {
     try {
       const response = await axios.get(`/api/products/${productId}`);
       this.product = response.data.product;
-      this.options = response.data.productOptions;
-      this.description = response.data.productCard.description;
-      this.images = response.data.productImages;
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }

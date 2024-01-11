@@ -82,7 +82,7 @@ class CartStore {
       } else {
         this.cart.push({ ...product, quantity: 1, image: image });
         showToast({
-          info:'',title:"Товар добавлен",type:'success'
+          info:product.name,title:"Товар добавлен",type:'success'
         })
       }
       this.saveCartToLocalStorage();

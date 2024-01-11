@@ -10,7 +10,7 @@ type Props = {
 	options: any;
 	productData: any;
 	prepareOptions: any;
-	selectedOptionsId: number;
+	selectedOptionsId: any;
 	setSelectedOptionsId: any;
 	selectedOptions: any;
 	setSelectedOptions: any;
@@ -26,19 +26,26 @@ const OptionsProduct: FC<Props> = ({
 }) => {
 	const router = useRouter();
 
-	const onClickOption = (id: any, optionId: any) => {
-		if (id !== selectedOptionsId) {
+	const onClickOption = (id: any, optionId: any, arrayToDelete: any) => {
+		const deleteId = arrayToDelete.filter((num: any) => num !== optionId);
+
+		const containsSelectedId = id.some((singleId: any) =>
+			selectedOptionsId.includes(singleId)
+		);
+
+		if (!containsSelectedId) {
 			setSelectedOptions([]);
 		}
 
 		setSelectedOptionsId(id);
 
 		setSelectedOptions((prev: any) => {
-			if (prev.includes(optionId)) {
-				return prev.filter((item: any) => item !== optionId);
-			} else {
-				return [...prev, optionId];
-			}
+			const updatedOptions = prev.filter(
+				(item: any) => !deleteId.includes(item)
+			);
+			return updatedOptions.includes(optionId)
+				? updatedOptions
+				: [...updatedOptions, optionId];
 		});
 	};
 	useEffect(() => {
@@ -92,7 +99,10 @@ const OptionsProduct: FC<Props> = ({
 			setSelectedOptions(optionsArray);
 		}
 	}, []);
-
+	// console.log(options);
+	// console.log(prepareOptions);
+	// console.log(selectedOptions);
+	// console.log(selectedOptionsId);
 	return (
 		<>
 			{options?.map((el: any, index: any) => (
@@ -109,20 +119,27 @@ const OptionsProduct: FC<Props> = ({
 					<RowContainer style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
 						{el.name.length > 1
 							? el.name.map((name: any, idx: number) => {
-									const isActive = prepareOptions.some(
-										//@ts-ignore
-										(option) => option[0]?.id === name.id
+									// Проверка наличия элемента в prepareOptions
+									const isActive = prepareOptions.some((option: any) =>
+										option.names.some(
+											(optionName: any) =>
+												optionName.optionVariantId === name.optionVariantId
+										)
 									);
 
 									return (
 										<SizeContainer
 											key={idx}
-											active={isActive}
+											active={isActive} //
 											chosed={selectedOptions.some(
 												(el: any) => el === name.optionVariantId
 											)}
 											onClick={() =>
-												onClickOption(name.id, name.optionVariantId)
+												onClickOption(
+													name.id,
+													name.optionVariantId,
+													el.name.map((el: any) => el.optionVariantId)
+												)
 											}>
 											<Text
 												color={

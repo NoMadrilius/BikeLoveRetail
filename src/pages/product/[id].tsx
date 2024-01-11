@@ -3,35 +3,64 @@ import { PaddingWrapper } from "../../../theme/templates";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 
-const groupOptions = (options: any) => {
-	return options.reduce((acc: any, option: any) => {
-		const existingOption = acc.find(
-			(item: any) => item.optionName === option.optionName
-		);
+interface Option {
+	optionVariantId: number;
+	name: string;
+	icon: string | null;
+	id: any;
+	optionName?: any;
+	productId?: any;
+}
 
-		if (existingOption) {
-			existingOption.name.push({
-				optionVariantId: option.optionVariantId,
-				name: option.name,
-				icon: option.icon || null,
-				id: option.productId || null,
-			});
-		} else {
-			acc.push({
-				optionName: option.optionName,
-				name: [
-					{
-						optionVariantId: option.optionVariantId,
+interface GroupedOption {
+	optionName: string;
+	name: Option[];
+}
+
+const groupOptions = (options: Option[]): GroupedOption[] => {
+	const groupedOptionsMap = options.reduce<{ [key: string]: GroupedOption }>(
+		(acc, option) => {
+			const existingOption = acc[option.optionName];
+			const { optionVariantId, id, productId } = option;
+
+			if (existingOption) {
+				const existingVariant = existingOption.name.find(
+					(item) => item.optionVariantId === optionVariantId
+				);
+
+				if (existingVariant) {
+					const index = existingOption.name.indexOf(existingVariant);
+					existingOption.name[index].id.push(productId);
+				} else {
+					existingOption.name.push({
+						optionVariantId,
 						name: option.name,
 						icon: option.icon || null,
-						id: option.productId || null,
-					},
-				],
-			});
-		}
+						id: [productId],
+					});
+				}
+			} else {
+				acc[option.optionName] = {
+					optionName: option.optionName,
+					name: [
+						{
+							optionVariantId,
+							name: option.name,
+							icon: option.icon || null,
+							id: [productId],
+						},
+					],
+				};
+			}
 
-		return acc;
-	}, []);
+			return acc;
+		},
+		{}
+	);
+
+	const groupedOptions: GroupedOption[] = Object.values(groupedOptionsMap);
+
+	return groupedOptions;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({
