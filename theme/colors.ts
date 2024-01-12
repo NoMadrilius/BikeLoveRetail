@@ -15,5 +15,6 @@ export const colors = {
     green100: '#12980c',
     yellow: '#aa9000',
     gold: '#FFD700',
+    grayBg: 'rgba(238, 238, 238, 1)'
 
 }

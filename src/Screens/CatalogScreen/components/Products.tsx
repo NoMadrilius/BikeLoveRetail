@@ -53,6 +53,8 @@ const GridContainer = styled.div`
 
 	& > div {
 		width: 100%;
+		min-width: 320px;
+		height: auto;
 	}
 `;
 const skeletonAnimation = keyframes`

@@ -22,6 +22,7 @@ const BlogScreen = () => {
 					<NewsItem {...el} blog key={index} />
 				))}
 			</GridContainer>
+			<div style={{ paddingBottom: "90px" }}></div>
 		</>
 	);
 };

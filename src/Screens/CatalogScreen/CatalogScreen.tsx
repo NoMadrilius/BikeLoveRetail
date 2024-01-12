@@ -104,7 +104,7 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 export default observer(CatalogScreen);
 
 const Wrapper = styled.div`
-	margin: 60px 0;
+	padding: 60px 0;
 `;
 const MainContainer = styled.div`
 	display: flex;

@@ -19,7 +19,11 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
 	return (
 		<>
 			<Wrapper>
-				<img src='/icons/House.png' />
+				<img
+					src='/icons/House.png'
+					onClick={() => router.push("/")}
+					style={{ cursor: "pointer" }}
+				/>
 				{road.map((el, index) => (
 					<Container key={index}>
 						<Line />

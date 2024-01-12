@@ -94,7 +94,7 @@ const TotalPrice = styled.div`
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 50px;
+	padding-bottom: 50px;
 `;
 const Container = styled.div`
 	display: flex;

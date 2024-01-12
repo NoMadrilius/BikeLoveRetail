@@ -21,7 +21,7 @@ const AccountScreen = () => {
 		<>
 			<UseMetaData title={"Аккаунт"} img={""} description={"йцуйцк12к"} />
 			<BreadCrumbs road={road} />
-			<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
+			<Text color={colors.black} size='40px' fontStyle={fonts.f500}>
 				ПЕРСОНАЛЬНЫЕ ДАННЫЕ
 			</Text>
 			<MainWrapper>
@@ -46,8 +46,12 @@ export default AccountScreen;
 const MainWrapper = styled.div`
 	display: flex;
 	margin-top: 53px;
-	margin-bottom: 100px;
+	padding-bottom: 100px;
 	column-gap: 40px;
+	@media (max-width: 750px) {
+		flex-direction: column;
+		margin-top: 35px;
+	}
 `;
 const Left = styled.div``;
 const Right = styled.div`

@@ -33,6 +33,7 @@ import OptionsProduct from "./components/Options";
 import DescChar from "./components/DescChar";
 import { showToast } from "@/helpers/alertService/alertService";
 import axios from "axios";
+import { useCurrencyStore } from "@/store/CurrencyStore";
 
 const ProductScreen = ({ productData, options, images }: any) => {
 	const cart = useCartStore();
@@ -41,12 +42,23 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
 	const [prepareOptions, setPrepareOptions] = useState([]);
-	const [selectedOptionsId, setSelectedOptionsId] = useState<number[]>([
-		productData.product.id,
-	]);
+	const [selectedOptionsId, setSelectedOptionsId] = useState<number[]>([]);
 	const [selectedOptions, setSelectedOptions] = useState([]);
 	const [filteredProductId, setFilteredProductId] = useState<any>();
 	const [buttonVisible, setButtonVisible] = useState(false);
+	const currStore = useCurrencyStore();
+	const [priceStr, setPriceStr] = useState<any>();
+	useEffect(() => {
+		setPriceStr(
+			productData?.product?.retailPrice
+				? prettyPrice(productData?.product?.retailPrice)
+				: 0
+		);
+	}, [
+		productData?.product?.retailPrice,
+		currStore.selectedCurrency,
+		currStore,
+	]);
 	const categoryPath = productData.productCategory.way.split("->");
 	const breadCrumbs = categoryPath
 		.slice(-2)
@@ -87,22 +99,29 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	};
 	useEffect(() => {
 		if (productData.product) {
-			const filteredOptions = options.reduce((acc: any, option: any) => {
-				const filteredNames = option.name.filter((name: any) => {
-					return selectedOptionsId.some((selectedId) =>
-						name.id.includes(selectedId)
+			if (selectedOptionsId.length === 0) {
+				const allOptions = options.map((option: any) => ({
+					optionName: option.optionName,
+					names: option.name,
+				}));
+				setPrepareOptions(allOptions);
+			} else {
+				const filteredOptions = options.reduce((acc: any, option: any) => {
+					const filteredNames = option.name.filter((name: any) =>
+						selectedOptionsId.some((selectedId) => name.id.includes(selectedId))
 					);
-				});
 
-				if (filteredNames.length > 0) {
-					acc.push({ optionName: option.optionName, names: filteredNames });
-				}
+					if (filteredNames.length > 0) {
+						acc.push({ optionName: option.optionName, names: filteredNames });
+					}
 
-				return acc;
-			}, []);
-			setPrepareOptions(filteredOptions);
+					return acc;
+				}, []);
+				setPrepareOptions(filteredOptions);
+			}
 		}
 	}, [productData.product, options, selectedOptionsId]);
+
 	//выбераем id
 	useEffect(() => {
 		const selectedOptionsObjects = selectedOptions.map((selectedOption) => {
@@ -195,7 +214,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							{images.length ? (
 								<SliderProducts images={images} />
 							) : (
-								<img src='/mock/NoPhoto.png' style={{ width: "100%" }} />
+								<img
+									src='/mock/NoPhoto.png'
+									style={{ width: "100%", borderRadius: "10px" }}
+								/>
 							)}
 						</FakeBlock>
 						<InfoUnderSlider />
@@ -250,7 +272,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							size='30px'
 							fontStyle={fonts.f500}
 							margin='16px 0 0 0'>
-							{prettyPrice(productData.product.retailPrice)}UAH
+							{priceStr}
 						</Text>
 						<RowContainer
 							style={{

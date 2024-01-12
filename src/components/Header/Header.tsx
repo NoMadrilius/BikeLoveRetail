@@ -18,7 +18,6 @@ import Categories from "../Modal/Categories";
 import SideBar from "../SideBar/Sidebar";
 import { useRouter } from "next/router";
 import Cart from "../Modal/Cart/Cart";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useCategoriesStore } from "@/store/CategoriesStore";
 import { styled } from "styled-components";
 import { templates } from "../../../theme/templates";
@@ -26,6 +25,8 @@ import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 import { useAuthStore } from "@/store/AuthStore";
+import { useCurrencyStore } from "@/store/CurrencyStore";
+import GearSelect from "./components/GearSelect";
 
 const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
@@ -39,11 +40,17 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ opacityBg }) => {
+	const currensyStore = useCurrencyStore();
 	const [inputText, setInputText] = useState("");
 	const [categoriesVisible, setCategoriesVisible] = useState(false);
 	const [sideBarVisible, setSideBarVisible] = useState(false);
 	const [cartVisible, setCartVisible] = useState(false);
+	const [gearVisible, setGearVisible] = useState(false);
 	const router = useRouter();
+	useEffect(() => {
+		currensyStore.getCurrency();
+		currensyStore.selectCurrensy(currensyStore.selectedCurrency);
+	}, []);
 
 	const path = router.pathname;
 
@@ -54,6 +61,12 @@ const Header: FC<Props> = ({ opacityBg }) => {
 		if (id === 2) {
 			setCartVisible(true);
 		}
+		if (id === 3) {
+			setGearVisible(!gearVisible);
+		}
+	};
+	const selectCurrency = (currency: string) => {
+		currensyStore.selectCurrensy(currency);
 	};
 	const categories = useCategoriesStore();
 	const cart = useCartStore();
@@ -190,6 +203,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 			)}
 			{sideBarVisible && <SideBar setVisible={setSideBarVisible} />}
 			{cartVisible && <Cart setVisible={setCartVisible} />}
+			{gearVisible && (
+				<GearSelect onClick={selectCurrency} setVisible={setGearVisible} />
+			)}
 		</>
 	);
 };

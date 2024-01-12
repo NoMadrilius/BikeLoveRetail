@@ -61,11 +61,19 @@ const Step1 = ({ step }: any) => {
 				</Text>
 				<ButtonsContainer>
 					<Button>
+						<img
+							src='/images/account/icons/samovivoz.svg'
+							style={{ marginRight: "10px" }}
+						/>
 						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
 							Самовывоз
 						</Text>
 					</Button>
 					<Button>
+						<img
+							src='/images/account/icons/np.svg'
+							style={{ marginRight: "10px" }}
+						/>
 						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
 							Новая почта
 						</Text>
@@ -83,14 +91,16 @@ const Step1 = ({ step }: any) => {
 						</Text>
 					</ButtonPay>
 					<ButtonPay>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f500}>
-							liqpay
-						</Text>
+						<img
+							src='/images/account/icons/liqpay.svg'
+							style={{ marginRight: "10px" }}
+						/>
 					</ButtonPay>
 					<ButtonPay>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f500}>
-							portmone
-						</Text>
+						<img
+							src='/images/account/icons/portmone.svg'
+							style={{ marginRight: "10px" }}
+						/>
 					</ButtonPay>
 				</ButtonsPayContainer>
 				<ButtonCustom
@@ -136,6 +146,8 @@ const ButtonsContainer = styled.div`
 	display: flex;
 	column-gap: 13px;
 	margin: 42px 0 60px;
+	flex-wrap: wrap;
+	row-gap: 13px;
 `;
 const Button = styled.div`
 	width: 206px;
@@ -144,6 +156,9 @@ const Button = styled.div`
 	border: 1px solid ${colors.grayBorder};
 	cursor: pointer;
 	border-radius: 5px;
+	@media (max-width: 700px) {
+		width: 100%;
+	}
 `;
 const ButtonsPayContainer = styled.div`
 	display: flex;

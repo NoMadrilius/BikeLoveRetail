@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 const Categories = ({ setVisible, categories }: any) => {
 	const [selectedTitle, setSelectedTitle] = useState(0);
+	const [expandedCategoryId, setExpandedCategoryId] = useState(null);
 	const router = useRouter();
 	const filteredCategory = categories.parentCategories.filter(
 		(el: any) => el.id === selectedTitle
@@ -63,52 +64,110 @@ const Categories = ({ setVisible, categories }: any) => {
 				</MainColumn>
 				<DetailsContainer>
 					{childCategories.length && (
-						<Text
-							color={colors.black}
-							hoverColor={colors.redHover}
-							size='15px'
-							fontStyle={fonts.f600}
-							func={() => childClick(filteredCategory)}>
-							Все в категорії
-							<img
-								src='/images/contacts/arrow.svg'
-								style={{ transform: "rotate(270deg)" }}
-							/>
-						</Text>
-					)}
-					{childCategories.map((el: any, index: any) => (
-						<>
+						<TitleWrapper>
 							<Text
-								key={index}
 								color={colors.black}
 								hoverColor={colors.redHover}
 								size='15px'
 								fontStyle={fonts.f600}
-								func={() => childClick(el)}>
-								{el.name}
+								func={() => childClick(filteredCategory)}>
+								Все в категорії
 							</Text>
-							{el.childrenIds &&
-								el.childrenIds !== "" &&
-								smallChildCategories(el)?.map((child: any, childIndex: any) => (
+							<img
+								src='/icons/catArrow.svg'
+								style={{
+									transform: "rotate(270deg)",
+									marginLeft: "5px",
+									width: "20px",
+									height: "20px",
+								}}
+							/>
+						</TitleWrapper>
+					)}
+
+					{childCategories.map((el: any, index: any) => {
+						const isExpanded = expandedCategoryId === el.id;
+
+						return (
+							<>
+								<TitleWrapper>
+									{el.childrenIds && el.childrenIds !== "" && (
+										<TitleIcon open={isExpanded} src='/icons/catArrow.svg' />
+									)}
 									<Text
-										key={childIndex}
+										key={index}
 										color={colors.black}
 										hoverColor={colors.redHover}
 										size='15px'
-										fontStyle={fonts.f400}
-										margin='0 0 0 8px'
-										func={() => smallChildClick(child.id)}>
-										{child.name}
+										fontStyle={fonts.f600}
+										func={() => {
+											el.childrenIds && el.childrenIds !== ""
+												? setExpandedCategoryId(isExpanded ? null : el.id)
+												: childClick(el);
+										}}>
+										{el.name}
 									</Text>
-								))}
-						</>
-					))}
+								</TitleWrapper>
+
+								{isExpanded && el.childrenIds && el.childrenIds !== "" && (
+									<>
+										<TitleWrapper>
+											<Text
+												color={colors.black}
+												hoverColor={colors.redHover}
+												size='15px'
+												fontStyle={fonts.f400}
+												margin='0 0 0 8px'
+												func={() => childClick(el)}>
+												Все в категорії
+											</Text>
+											<img
+												src='/icons/catArrow.svg'
+												style={{
+													transform: "rotate(270deg)",
+													marginLeft: "5px",
+													width: "20px",
+													height: "20px",
+												}}
+											/>
+										</TitleWrapper>
+										{smallChildCategories(el)?.map(
+											(child: any, childIndex: any) => (
+												<Text
+													key={childIndex}
+													color={colors.black}
+													hoverColor={colors.redHover}
+													size='15px'
+													fontStyle={fonts.f400}
+													margin='0 0 0 8px'
+													func={() => smallChildClick(child.id)}>
+													{child.name}
+												</Text>
+											)
+										)}
+									</>
+								)}
+							</>
+						);
+					})}
 				</DetailsContainer>
 			</Wrapper>
 		</BlurWrapper>
 	);
 };
 export default Categories;
+
+const TitleWrapper = styled.div`
+	display: flex;
+	position: relative;
+`;
+const TitleIcon = styled.img<{ open: boolean }>`
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	left: -20px;
+	transform: ${(p) => (p.open ? "rotate(180deg)" : "rotate(0deg)")};
+`;
 
 const Wrapper = styled.div`
 	position: absolute;

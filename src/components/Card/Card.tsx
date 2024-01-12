@@ -1,5 +1,6 @@
+"use client";
 import { styled } from "styled-components";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Product } from "@/types/types";
 import { Text } from "../Text/Text";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
@@ -9,6 +10,8 @@ import { templates } from "../../../theme/templates";
 import { useRouter } from "next/router";
 import { useWishListStore } from "@/store/WishListStore";
 import { useCartStore } from "@/store/CartStore";
+import { useCurrencyStore } from "@/store/CurrencyStore";
+import { observer } from "mobx-react";
 
 const Card: FC<Product> = ({
 	colors,
@@ -24,6 +27,12 @@ const Card: FC<Product> = ({
 	const cart = useCartStore();
 	const productInCart = cart.cart?.some((i) => i.id === id);
 	const productInWishList = wishStore.wishList?.some((i) => i.id === id);
+	const currStore = useCurrencyStore();
+	const [priceStr, setPriceStr] = useState<any>();
+	useEffect(() => {
+		setPriceStr(price ? prettyPrice(price) : 0);
+	}, [price, currStore.selectedCurrency, currStore]);
+
 	return (
 		<Wrapper onClick={() => router.push(`/product/${id}`)}>
 			{sale && (
@@ -49,11 +58,15 @@ const Card: FC<Product> = ({
 						</Size>
 					))}
 			</ContainerRow>
-			<Text size='16px' color={colorsTheme.black} fontStyle={fonts.f600}>
+			<Text
+				size='16px'
+				color={colorsTheme.black}
+				fontStyle={fonts.f600}
+				margin='10px 0 0 0'>
 				{title}
 			</Text>
 			<Text size='16px' color={colorsTheme.black} fontStyle={fonts.f400}>
-				{price && <>{prettyPrice(price)} UAH</>}
+				{priceStr}
 			</Text>
 			<ContainerRow>
 				{productInWishList ? (
@@ -70,7 +83,7 @@ const Card: FC<Product> = ({
 		</Wrapper>
 	);
 };
-export default Card;
+export default observer(Card);
 
 const Wrapper = styled.div`
 	position: relative;
@@ -83,11 +96,12 @@ const Wrapper = styled.div`
 	height: 398px;
 	border-radius: 12px;
 	background-color: ${colorsTheme.white};
+	row-gap: 10px;
 	cursor: pointer;
 `;
 const Picture = styled.img`
-	width: 282px;
-	height: 186px;
+	width: 100%;
+	border-radius: 10px;
 `;
 const ContainerRow = styled.div`
 	display: flex;

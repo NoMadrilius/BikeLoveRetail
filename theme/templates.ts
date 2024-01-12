@@ -23,6 +23,7 @@ export const templates = {
 
 export const PaddingWrapper = styled.div`
 padding: 0 124px;
+background-color: white;
   padding-top: 90px;
   @media(max-width: ${metrics.desktop}){
     padding: 0 25px;

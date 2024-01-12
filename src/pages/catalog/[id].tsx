@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import axios from "axios";
 import Error from "next/error";
+import { colors } from "../../../theme/colors";
 
 const groupOptions = (options: any) => {
 	return options.reduce((acc: any, option: any) => {
@@ -65,7 +66,7 @@ const Page = ({ data, options }: any) => {
 	const router = useRouter();
 	return (
 		<>
-			<PaddingWrapper>
+			<PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
 				{data.length === 0 ? (
 					<Error statusCode={404} />
 				) : (

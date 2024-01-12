@@ -2,6 +2,7 @@ import ProductScreen from "@/Screens/ProductScreen/ProductScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import { colors } from "../../../theme/colors";
 
 interface Option {
 	optionVariantId: number;
@@ -97,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 const ProductItem = ({ productData, options, images }: any) => {
 	return (
 		<>
-			<PaddingWrapper>
+			<PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
 				<ProductScreen
 					productData={productData}
 					options={options}
