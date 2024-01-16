@@ -82,12 +82,12 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
 							size='16px'
 							fontStyle={fonts.f400}
 							textDecoration='trought'>
-							{prettyPrice(product?.oldRetailPrice)} UAH
+							{prettyPrice(product?.oldRetailPrice)}
 						</Text>
 					)}
 
 					<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-						{prettyPrice(product?.retailPrice)} UAH
+						{prettyPrice(product?.retailPrice)}
 					</Text>
 				</InfoBottomContainer>
 			</InfoContainer>
@@ -119,7 +119,7 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
 					fontStyle={fonts.f400}
 					maxWidth='146px'
 					whiteSpace>
-					{prettyPrice(product.quantity * product.retailPrice)} UAH
+					{prettyPrice(product.quantity * product.retailPrice)}
 				</Text>
 			</RightContainer>
 		</Wrapper>

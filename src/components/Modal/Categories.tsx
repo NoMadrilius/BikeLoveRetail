@@ -6,6 +6,7 @@ import { Text } from "../Text/Text";
 import { fonts } from "../../../theme/fonts";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Categories = ({ setVisible, categories }: any) => {
 	const [selectedTitle, setSelectedTitle] = useState(0);
@@ -73,7 +74,10 @@ const Categories = ({ setVisible, categories }: any) => {
 								func={() => childClick(filteredCategory)}>
 								Все в категорії
 							</Text>
-							<img
+							<Image
+								alt='Arrow Icon'
+								width={20}
+								height={20}
 								src='/icons/catArrow.svg'
 								style={{
 									transform: "rotate(270deg)",
@@ -121,7 +125,10 @@ const Categories = ({ setVisible, categories }: any) => {
 												func={() => childClick(el)}>
 												Все в категорії
 											</Text>
-											<img
+											<Image
+												alt='Arrow Icon'
+												width={20}
+												height={20}
 												src='/icons/catArrow.svg'
 												style={{
 													transform: "rotate(270deg)",

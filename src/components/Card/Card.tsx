@@ -12,6 +12,7 @@ import { useWishListStore } from "@/store/WishListStore";
 import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
+import Image from "next/image";
 
 const Card: FC<Product> = ({
 	colors,
@@ -43,7 +44,12 @@ const Card: FC<Product> = ({
 				</SalePatch>
 			)}
 
-			<Picture src={image || "/mock/NoPhoto.png"} />
+			<Picture
+				alt='Product Image'
+				// width={200}
+				// height={100}
+				src={image || "/mock/NoPhoto.png"}
+			/>
 			<ContainerRow>
 				{colors && colors.map((el, index) => <Color key={index} color={el} />)}
 				{sizes &&
@@ -70,14 +76,34 @@ const Card: FC<Product> = ({
 			</Text>
 			<ContainerRow>
 				{productInWishList ? (
-					<img src='/images/home/icons/icon1-red.svg' />
+					<Image
+						width={20}
+						height={20}
+						alt='Icon'
+						src='/images/home/icons/icon1-red.svg'
+					/>
 				) : (
-					<img src='/images/home/icons/icon1-gray.svg' />
+					<Image
+						width={20}
+						height={20}
+						alt='Icon'
+						src='/images/home/icons/icon1-gray.svg'
+					/>
 				)}
 				{productInCart ? (
-					<img src='/images/home/icons/icon2-red.svg' />
+					<Image
+						width={20}
+						height={20}
+						alt='Icon'
+						src='/images/home/icons/icon2-red.svg'
+					/>
 				) : (
-					<img src='/images/home/icons/icon2-gray.svg' />
+					<Image
+						width={20}
+						height={20}
+						alt='Icon'
+						src='/images/home/icons/icon2-gray.svg'
+					/>
 				)}
 			</ContainerRow>
 		</Wrapper>

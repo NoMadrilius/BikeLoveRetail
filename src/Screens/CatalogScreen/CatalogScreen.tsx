@@ -12,7 +12,7 @@ import categoriesStore, { useCategoriesStore } from "@/store/CategoriesStore";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
-import Loader from "@/helpers/Loader/Loader";
+import Image from "next/image";
 
 const CatalogScreen = ({ catalogData, options }: any) => {
 	const router = useRouter();
@@ -64,14 +64,24 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 				<RowContainer>
 					<TriggerHidden2>
 						<OptionContainer onClick={() => setFilterVisible(true)}>
-							<img src='/images/home/icons/Eye.png' />
+							<Image
+								alt='Eye Icon'
+								width={16}
+								height={16}
+								src='/images/home/icons/Eye.png'
+							/>
 							<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
 								фильтр
 							</Text>
 						</OptionContainer>
 					</TriggerHidden2>
 					<OptionContainer style={{ marginLeft: "auto" }}>
-						<img src='/images/home/icons/Eye.png' />
+						<Image
+							alt='Eye Icon'
+							width={16}
+							height={16}
+							src='/images/home/icons/Eye.png'
+						/>
 						<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
 							Сортировать
 						</Text>
@@ -81,7 +91,12 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 							<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
 								По возростанию цены
 							</Text>
-							<img src='/images/home/icons/Eye.png' />
+							<Image
+								alt='Eye Icon'
+								width={16}
+								height={16}
+								src='/images/home/icons/Eye.png'
+							/>
 						</OptionContainer>
 					</TriggerHidden>
 				</RowContainer>

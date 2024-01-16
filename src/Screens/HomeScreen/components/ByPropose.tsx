@@ -6,6 +6,7 @@ import { FC } from "react";
 import { templates } from "../../../../theme/templates";
 import { metrics } from "../../../../theme/metrics";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 type Props = {
 	items: {
@@ -31,7 +32,12 @@ const ByPropose: FC<Props> = ({ items }) => {
 				<GridContainer>
 					{items.map((el, index) => (
 						<CardWrapper key={index} onClick={() => router.push(el.link)}>
-							<Picture src={el.picture} />
+							<Picture
+								width={200}
+								height={100}
+								alt='Propose Image'
+								src={el.picture}
+							/>
 							<Text
 								color={colors.black}
 								size='16px'
@@ -88,7 +94,7 @@ const CardWrapper = styled.div`
 	padding: 30px 22px 10px;
 	cursor: pointer;
 `;
-const Picture = styled.img`
+const Picture = styled(Image)`
 	width: 100%;
 	height: 100%;
 	margin-bottom: 20px;

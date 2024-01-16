@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
+import Image from "next/image";
 
 type ItemI = {
 	title: string;
@@ -83,7 +84,12 @@ const Item: FC<Props> = ({ date, items, orderNumber, status }) => {
 							whiteSpace>
 							Детали заказа
 						</Text>
-						<img src='/images/product/icons/Arrow_Bottom.png' />
+						<Image
+							alt='ArrowBottom'
+							width={12}
+							height={8}
+							src='/images/product/icons/Arrow_Bottom.png'
+						/>
 					</RowContainer>
 				</Info2Wrapper>
 			</Wrapper>

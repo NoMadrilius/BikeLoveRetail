@@ -18,6 +18,7 @@ class AuthStore {
     }
     
     register = async (request: RegisterRequest) => {
+        console.log(request)
         try {
             this.loadingRegister = true
 

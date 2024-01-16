@@ -33,8 +33,10 @@ const WishListScreen = () => {
 export default WishListScreen;
 
 const Wrapper = styled.div`
-	margin: 60px 0 160px 0;
+	margin: 60px 0 0 0;
+	padding-bottom: 160px;
 	@media (max-width: ${metrics.mobile}) {
-		margin: 30px 0 111px 0;
+		margin: 30px 0 0 0;
+		padding-bottom: 111px;
 	}
 `;

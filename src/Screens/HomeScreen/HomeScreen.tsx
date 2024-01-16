@@ -1,5 +1,10 @@
 "use client";
-import { BgImage, MainContainer, Wrapper } from "./HomeScreenStyles";
+import {
+	BgImage,
+	IconBottom,
+	MainContainer,
+	Wrapper,
+} from "./HomeScreenStyles";
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
@@ -61,6 +66,11 @@ const ITEMS = [
 ];
 
 const HomeScreen = () => {
+	const handleScrollToBottom = () => {
+		if (typeof window !== "undefined") {
+			window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+		}
+	};
 	return (
 		<>
 			<UseMetaData title={"Home"} img={""} description={"asd"} />
@@ -76,6 +86,13 @@ const HomeScreen = () => {
 							проехать больше маршрутов
 						</Text>
 					</MainContainer>
+					<IconBottom
+						alt='Arrow Scroll Bottom'
+						width={50}
+						height={50}
+						src='/icons/mainArrowBottom.svg'
+						onClick={() => handleScrollToBottom()}
+					/>
 				</BgImage>
 				<MainContainer>
 					<ByPropose items={ITEMS} />

@@ -6,6 +6,7 @@ import { fonts } from "../../../theme/fonts";
 import { metrics } from "../../../theme/metrics";
 import { Logo } from "../Header/HeaderStyles";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const rights = ["@ 2023", "Все права защищены", "Публичная оферта"];
 const socialIcons = [
@@ -22,6 +23,9 @@ const Footer = () => {
 		<Wrapper>
 			<ItemsContainer>
 				<Logo
+					width={70}
+					height={70}
+					alt='Logo'
 					style={{
 						border: "2px solid white",
 						borderRadius: "50%",
@@ -63,10 +67,13 @@ const Footer = () => {
 						{index === footerItems.length - 1 && (
 							<SocialContainer>
 								{socialIcons.map((el, index) => (
-									<img
+									<Image
+										width={23}
+										height={23}
+										alt='Social Icon'
 										src={el}
 										key={index}
-										style={{ width: "23px", height: "23px", cursor: "pointer" }}
+										style={{ cursor: "pointer" }}
 									/>
 								))}
 							</SocialContainer>
@@ -98,10 +105,13 @@ const Footer = () => {
 						{index === footerItems.slice(-2).length - 1 && (
 							<SocialContainer>
 								{socialIcons.map((el, index) => (
-									<img
+									<Image
+										width={23}
+										height={23}
+										alt='Social Icon'
 										src={el}
 										key={index}
-										style={{ width: "23px", height: "23px", cursor: "pointer" }}
+										style={{ cursor: "pointer" }}
 									/>
 								))}
 							</SocialContainer>

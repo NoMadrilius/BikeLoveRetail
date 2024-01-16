@@ -98,7 +98,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	return (
 		<>
 			<Wrapper opacityBg={opacityBg}>
-				<Logo src='/images/logo/logo.svg' onClick={() => router.push("/")} />
+				<Logo
+					width={70}
+					height={70}
+					alt='Logo'
+					src='/images/logo/logo.svg'
+					onClick={() => router.push("/")}
+				/>
 
 				<TitlesContainer>
 					<Text
@@ -142,6 +148,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 				<IconsContainer>
 					<CounterContainer>
 						<Icon
+							width={23}
+							height={23}
+							alt='Header Icon'
 							src={ICONS[0].icon}
 							onClick={() => onClickIcons(ICONS[0].id)}
 						/>
@@ -155,6 +164,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 					</CounterContainer>
 					<CounterContainer>
 						<Icon
+							width={23}
+							height={23}
+							alt='Header Icon'
 							src={ICONS[1].icon}
 							onClick={() => onClickIcons(ICONS[1].id)}
 						/>
@@ -166,7 +178,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
 							</Counter>
 						) : null}
 					</CounterContainer>
-					<Icon src={ICONS[2].icon} onClick={() => onClickIcons(ICONS[2].id)} />
+					<Icon
+						width={23}
+						height={23}
+						alt='Header Icon'
+						src={ICONS[2].icon}
+						onClick={() => onClickIcons(ICONS[2].id)}
+					/>
 				</IconsContainer>
 				<Trigger>
 					{isAuth ? (
@@ -194,6 +212,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 				</Trigger>
 
 				<BurgerIcon
+					width={20}
+					height={20}
+					alt='Burger Icon'
 					src='/images/home/icons/burger.svg'
 					onClick={() => setSideBarVisible(!sideBarVisible)}
 				/>

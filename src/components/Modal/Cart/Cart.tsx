@@ -106,7 +106,7 @@ const Cart = ({ setVisible }: any) => {
 								fontStyle={fonts.f500}
 								whiteSpace
 								margin='0 0 0 60px'>
-								{prettyPrice(totalPrice)}UAH
+								{prettyPrice(totalPrice)}
 							</Text>
 						</RowContainer>
 						<ButtonCustom

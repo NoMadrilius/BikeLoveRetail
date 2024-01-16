@@ -34,11 +34,14 @@ import DescChar from "./components/DescChar";
 import { showToast } from "@/helpers/alertService/alertService";
 import axios from "axios";
 import { useCurrencyStore } from "@/store/CurrencyStore";
+import SideBar from "./components/SideBar";
+import Image from "next/image";
 
 const ProductScreen = ({ productData, options, images }: any) => {
 	const cart = useCartStore();
 	const wishStore = useWishListStore();
 	const [activeTab, setActiveTab] = useState(0);
+	const [sideBarOpen, setSideBarOpen] = useState(false);
 	const [productInCart, setProductInCart] = useState<boolean>();
 	const [productInWishList, setProductInWishList] = useState<boolean>();
 	const [prepareOptions, setPrepareOptions] = useState([]);
@@ -166,15 +169,15 @@ const ProductScreen = ({ productData, options, images }: any) => {
 	///
 	const onClickCart = () => {
 		if (buttonVisible) {
-			// cart?.addToCart(productData.product, productData.productImages[0]?.url);
 			get();
 		} else {
 			showToast({ info: "Выберите опции", title: "Внимание", type: "warn" });
 		}
 	};
 	const get = async () => {
+		const id = filteredProductId || productData.product.id;
 		try {
-			const response = await axios.get(`/api/products/${filteredProductId}`);
+			const response = await axios.get(`/api/products/${id}`);
 			const product = response.data;
 			cart?.addToCart(product.product, product.productImages[0]?.url);
 		} catch (error) {
@@ -199,7 +202,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
 					<Res2Text>
 						<H1Name>{productData.product.name}</H1Name>
 						<RowContainer style={{ margin: "15px 0" }}>
-							<img src='/images/product/icons/CopyIcon.png' alt='copyIcon' />
+							<Image
+								width={18}
+								height={18}
+								src='/images/product/icons/CopyIcon.png'
+								alt='copyIcon'
+							/>
 							<Text
 								color={colors.grayMain}
 								size='16px'
@@ -214,9 +222,16 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							{images.length ? (
 								<SliderProducts images={images} />
 							) : (
-								<img
+								<Image
+									width={160}
+									height={100}
+									alt='NoPhoto'
 									src='/mock/NoPhoto.png'
-									style={{ width: "100%", borderRadius: "10px" }}
+									style={{
+										width: "100%",
+										height: "fit-content",
+										borderRadius: "10px",
+									}}
 								/>
 							)}
 						</FakeBlock>
@@ -228,7 +243,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
 						<Res1Text>
 							<H1Name>{productData.product.name}</H1Name>
 							<RowContainer style={{ marginTop: "15px" }}>
-								<img src='/images/product/icons/CopyIcon.png' alt='copyIcon' />
+								<Image
+									width={15}
+									height={18}
+									src='/images/product/icons/CopyIcon.png'
+									alt='copyIcon'
+								/>
 								<Text
 									color={colors.grayMain}
 									size='16px'
@@ -252,7 +272,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							<Text color={colors.black} size='14px' fontStyle={fonts.f500}>
 								Таблица размеров
 							</Text>
-							<img
+							<Image
+								width={63}
+								height={9}
+								alt='Ruler'
 								src='/images/product/icons/Ruler.png'
 								style={{
 									width: "63px",
@@ -275,19 +298,27 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							{priceStr}
 						</Text>
 						<RowContainer
+							onClick={() => setSideBarOpen(true)}
 							style={{
 								columnGap: "8px",
 								alignItems: "center",
 								marginTop: "32px",
+								cursor: "pointer",
 							}}>
-							<img
+							<Image
+								width={26}
+								height={26}
+								alt='Location'
 								src='/images/product/icons/location.png'
 								style={{ width: "26px", height: "26px" }}
 							/>
 							<Text color={colors.black} size='18px' fontStyle={fonts.f400}>
 								Наличие в магазинах
 							</Text>
-							<img
+							<Image
+								width={11}
+								height={6}
+								alt='Arrow Bottom'
 								src='/images/product/icons/Arrow_Bottom.png'
 								style={{ width: "11px", height: "6px", cursor: "pointer" }}
 							/>
@@ -301,7 +332,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								funcIfDisable={() => onClickCart()}
 								buttonActive={buttonVisible}>
 								<>
-									<img
+									<Image
+										width={18}
+										height={18}
+										alt='Cart Icon'
 										src='/images/product/icons/cart.png'
 										style={{ marginRight: "10px" }}
 									/>
@@ -312,7 +346,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
 							</ButtonCustom>
 							<ButtonCustom type='white' width={"229px"} height={"56px"}>
 								<>
-									<img
+									<Image
+										width={21}
+										height={20}
+										alt='Order'
 										src='/images/product/icons/order.png'
 										style={{ marginRight: "10px" }}
 									/>
@@ -320,41 +357,25 @@ const ProductScreen = ({ productData, options, images }: any) => {
 								</>
 							</ButtonCustom>
 							<LikeBtn liked={!!productInWishList} onClick={() => clickLike()}>
-								<img src='/images/product/icons/like.png' />
+								<Image
+									width={22}
+									height={20}
+									alt='Cart'
+									src='/images/product/icons/like.png'
+								/>
 							</LikeBtn>
 						</ButtonsContainer>
 					</InfoContainer>
 					{/* ======Info Container===== */}
 				</MainContainer>
-				<SecondContainer style={{ width: "100%", columnGap: "60px" }}>
-					<ColumnContainer style={{ width: "100%" }}>
-						{" "}
-						<ContainerWithBG bg='/images/product/images/image_bg.png'>
-							<Text
-								color={colors.white}
-								size='40px'
-								fontStyle={fonts.f500}
-								margin='20% 0 0 10%'>
-								Легкий
-							</Text>
-						</ContainerWithBG>
-						<ContainerWithBG bg='/images/product/images/image_bg.png'>
-							<Text
-								color={colors.white}
-								size='40px'
-								fontStyle={fonts.f500}
-								margin='20% 0 0 10%'>
-								Быстрый
-							</Text>
-						</ContainerWithBG>
-					</ColumnContainer>
-					<DescChar
-						activeTab={activeTab}
-						setActiveTab={setActiveTab}
-						productData={productData}
-						options={options}
-					/>
-				</SecondContainer>
+
+				<DescChar
+					activeTab={activeTab}
+					setActiveTab={setActiveTab}
+					productData={productData}
+					options={options}
+				/>
+
 				<ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
 					{/* <Slider
 						title={"байки из той серии"}
@@ -374,6 +395,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 					/> */}
 				</ColumnContainer>
 			</Wrapper>
+			{sideBarOpen && <SideBar setVisible={setSideBarOpen} />}
 		</>
 	);
 };

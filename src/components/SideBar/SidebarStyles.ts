@@ -1,6 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { templates } from "../../../theme/templates";
+const slideInAnimation = keyframes`
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+`;
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -9,6 +18,7 @@ export const Wrapper = styled.div`
   height: 100vh;
   background-color: ${colors.white};
   overflow: scroll;
+  animation: ${slideInAnimation} 0.4s ease-out;
 `;
 export const AuthContainer = styled.div`
   ${templates.centerContent};

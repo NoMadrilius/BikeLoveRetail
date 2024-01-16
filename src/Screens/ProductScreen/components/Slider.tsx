@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from "swiper/modules";
 import { styled } from "styled-components";
+import Image from "next/image";
 
 const SliderProducts = ({ images }: any) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -58,7 +59,9 @@ const SliderProducts = ({ images }: any) => {
 							width: "auto",
 							height: "100%",
 						}}>
-						<img
+						<Image
+							width={84}
+							height={54}
 							src={slide.url}
 							alt={`Slide ${slide.id}`}
 							style={{

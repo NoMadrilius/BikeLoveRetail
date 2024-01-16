@@ -32,6 +32,9 @@ export const H1Name = styled.h1`
 	font-size: 42px;
 	font-weight: 500;
 	font-family: ${fonts.f500.fontFamily};
+	@media(max-width: 700px){
+		font-size: 30px;
+	}
 `;
 export const MainContainer = styled.div`
 	display: flex;

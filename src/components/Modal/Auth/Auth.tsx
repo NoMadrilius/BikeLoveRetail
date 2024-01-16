@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { styled } from "styled-components";
+import { css, keyframes, styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
@@ -11,6 +11,7 @@ import { showToast } from "@/helpers/alertService/alertService";
 import { useRouter } from "next/router";
 import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
+import InputMask from "react-input-mask";
 
 const Auth = () => {
 	const router = useRouter();
@@ -28,10 +29,40 @@ const Auth = () => {
 	const [regPhone, setRegPhone] = useState("");
 	const [regPassword, setRegPassword] = useState("");
 	const [regConfirmPassword, setRegConfirmPassword] = useState("");
+	//errors
+	const [passwordsError, setPasswordsError] = useState(false);
+	const [emailError, setEmailError] = useState(false);
 
 	const label = { inputProps: { "aria-label": "Checkbox demo" } };
+	const validateEmail = (email: string) => {
+		// Пример простого регулярного выражения для проверки почты
+		const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegExp.test(email);
+	};
 
 	const registerHandle = () => {
+		if (regPassword !== regConfirmPassword) {
+			setPasswordsError(true);
+			setTimeout(() => {
+				setPasswordsError(false);
+			}, 3000);
+			return showToast({
+				info: "Пароли не совпадают",
+				title: "Ошибка",
+				type: "error",
+			});
+		}
+		if (!validateEmail(regEmail)) {
+			setEmailError(true);
+			setTimeout(() => {
+				setEmailError(false);
+			}, 3000);
+			return showToast({
+				info: "Некоректный E-mail",
+				title: "Ошибка",
+				type: "error",
+			});
+		}
 		try {
 			authStore.register({
 				email: regEmail,
@@ -39,7 +70,7 @@ const Auth = () => {
 				lastName: regLastName,
 				password: regPassword,
 				patronymic: regPatronymic,
-				phone: regPhone,
+				phone: regPhone.slice(3).replace(/\s/g, ""),
 			});
 		} catch (error) {
 			console.log(error);
@@ -49,12 +80,23 @@ const Auth = () => {
 		try {
 			authStore.login({
 				password: loginPassword,
-				phone: loginPhone,
+				phone: loginPhone.slice(3).replace(/\s/g, ""),
 			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	const loginDisabled =
+		!loginPassword.length || !loginPhone.length || authStore.loadingLogin;
+
+	const registerDisabled =
+		!regEmail ||
+		!regName ||
+		!regLastName ||
+		!regPassword ||
+		!regConfirmPassword ||
+		authStore?.loadingRegister;
 
 	return (
 		<>
@@ -72,11 +114,15 @@ const Auth = () => {
 						margin='0 auto 16px 0'>
 						ВХОД
 					</Text>
-					<InputField
-						placeholder='Телефон'
+					<InputMask
+						mask='+380 99 999 99 99'
 						value={loginPhone}
-						onChange={(e) => setLoginPhone(e.target.value)}
-					/>
+						onChange={(e) => setLoginPhone(e.target.value)}>
+						{/*@ts-ignore*/}
+						{(inputProps) => (
+							<InputField placeholder='Телефон' {...inputProps} />
+						)}
+					</InputMask>
 					<InputField
 						placeholder='Пароль'
 						value={loginPassword}
@@ -107,13 +153,7 @@ const Auth = () => {
 							Напомнить пароль
 						</Text>
 					</RowContainer>
-					<Button
-						disabled={
-							!loginPassword.length ||
-							!loginPhone.length ||
-							authStore.loadingLogin
-						}
-						onClick={() => loginHandle()}>
+					<Button disabled={loginDisabled} onClick={() => loginHandle()}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
 							{authStore.loadingLogin ? <Loader /> : "Войти"}
 						</Text>
@@ -175,23 +215,30 @@ const Auth = () => {
 						value={regPatronymic}
 						onChange={(e) => setRegPatronymic(e.target.value)}
 					/>
-					<InputField
-						placeholder='Телефон'
+					<InputMask
+						mask='+380 99 999 99 99'
 						value={regPhone}
-						onChange={(e) => setRegPhone(e.target.value)}
-					/>
+						onChange={(e) => setRegPhone(e.target.value)}>
+						{/*@ts-ignore*/}
+						{(inputProps) => (
+							<InputField placeholder='Телефон' {...inputProps} />
+						)}
+					</InputMask>
 					<InputField
+						error={emailError}
 						placeholder='Email'
 						value={regEmail}
 						onChange={(e) => setRegEmail(e.target.value)}
 					/>
 					<InputField
+						error={passwordsError}
 						placeholder='Пароль'
 						value={regPassword}
 						onChange={(e) => setRegPassword(e.target.value)}
 						type='password'
 					/>
 					<InputField
+						error={passwordsError}
 						placeholder='Повторите пароль'
 						value={regConfirmPassword}
 						onChange={(e) => setRegConfirmPassword(e.target.value)}
@@ -221,9 +268,7 @@ const Auth = () => {
 							Напомнить пароль
 						</Text>
 					</RowContainer>
-					<Button
-						onClick={() => registerHandle()}
-						disabled={authStore?.loadingRegister}>
+					<Button onClick={() => registerHandle()} disabled={registerDisabled}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
 							Зарегистрироваться
 						</Text>
@@ -266,6 +311,15 @@ const Auth = () => {
 };
 export default observer(Auth);
 
+// Anim
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
+`;
+
 const Wrapper = styled.div`
 	width: 479px;
 	padding: 40px 55px;
@@ -274,20 +328,35 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	border-radius: 15px;
 	margin: 120px auto;
+	margin-bottom: 0;
+	padding-bottom: 120px;
 	@media (max-width: 600px) {
 		width: 100%;
 		padding: 30px 15px;
 	}
 `;
-const InputField = styled.input`
+const InputField = styled.input<{ error?: boolean }>`
 	all: unset;
 	padding: 15px 30px;
 	margin-top: 14px;
-	border: 1px solid ${colors.grayBorder};
+	border: 1px solid
+		${({ error }) => (error ? colors.redMain : colors.grayBorder)};
 	border-radius: 5px;
-	color: ${colors.black};
+	color: ${({ error }) => (error ? colors.redMain : colors.black)};
 	font-family: ${fonts.f400.fontFamily};
 	font-weight: 500;
+	transition: border-color 0.3s ease, color 0.3s ease;
+
+	&:focus {
+		border-color: ${({ error }) =>
+			error ? colors.redMain : colors.grayBorder};
+	}
+
+	${({ error }) =>
+		error &&
+		css`
+			animation: ${shakeAnimation} 0.4s ease-in-out;
+		`}
 `;
 const RowContainer = styled.div`
 	display: flex;

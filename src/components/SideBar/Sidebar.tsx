@@ -13,6 +13,7 @@ import {
 import SidebarCatalog from "./components/SidebarCatalog";
 import SideBarAuth from "./components/SidebarAuth";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export const TITLES = [
 	{ title: "КАТАЛОГ", openArrow: true },
@@ -79,7 +80,10 @@ const SideBar = ({ setVisible }: any) => {
 										{el.title}
 									</Text>
 									{el.openArrow && (
-										<img
+										<Image
+											alt='Sidebar Arrow Icon'
+											width={4}
+											height={8}
 											src='/images/home/icons/sidebarArrow.png'
 											style={{ width: "4px", height: "8px" }}
 										/>
@@ -97,7 +101,7 @@ const SideBar = ({ setVisible }: any) => {
 					{TITLES2.map((el, index) => (
 						<RowContainer key={index} style={{ alignItems: "center" }}>
 							<SmallIconContainer>
-								<img src={el.icon} />
+								<Image alt='Title Icon' width={13} height={13} src={el.icon} />
 							</SmallIconContainer>
 							<Text
 								color={colors.black}

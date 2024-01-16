@@ -6,6 +6,7 @@ import { FC } from "react";
 import { metrics } from "../../../theme/metrics";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 type Props = {
 	road: {
@@ -19,10 +20,13 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
 	return (
 		<>
 			<Wrapper>
-				<img
+				<Image
+					width={20}
+					height={20}
 					src='/icons/House.png'
 					onClick={() => router.push("/")}
 					style={{ cursor: "pointer" }}
+					alt='House Icon'
 				/>
 				{road.map((el, index) => (
 					<Container key={index}>

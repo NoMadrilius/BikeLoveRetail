@@ -12,6 +12,8 @@ import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/types/types";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
+import { useCurrencyStore } from "@/store/CurrencyStore";
+import { observer } from "mobx-react";
 
 const CheckListScreen = () => {
 	const road = [
@@ -21,10 +23,21 @@ const CheckListScreen = () => {
 
 	const cartStore = useCartStore();
 	const [cart, setCart] = useState<IProduct[]>([]);
+	const currStore = useCurrencyStore();
+	const [priceStr, setPriceStr] = useState<any>();
+	const price = cart.reduce(
+		(acc, item) => acc + item.retailPrice * item.quantity,
+		0
+	);
+	useEffect(() => {
+		setPriceStr(price ? prettyPrice(price) : 0);
+	}, [price, currStore.selectedCurrency, currStore]);
 
 	useEffect(() => {
 		setCart(cartStore.cart);
-	}, []);
+	}, [cartStore?.cart]);
+	console.log(cart);
+	console.log(cartStore?.cart);
 	return (
 		<>
 			<UseMetaData
@@ -66,13 +79,7 @@ const CheckListScreen = () => {
 								size='18px'
 								fontStyle={fonts.f400}
 								margin='0 0 0 auto'>
-								{prettyPrice(
-									cart.reduce(
-										(acc, item) => acc + item.retailPrice * item.quantity,
-										0
-									)
-								)}{" "}
-								UAH
+								{priceStr}
 							</Text>
 						</TotalPrice>
 					</Right>
@@ -81,7 +88,7 @@ const CheckListScreen = () => {
 		</>
 	);
 };
-export default CheckListScreen;
+export default observer(CheckListScreen);
 //
 const TotalPrice = styled.div`
 	display: flex;

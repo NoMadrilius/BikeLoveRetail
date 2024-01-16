@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { metrics } from "../../../theme/metrics";
 import { templates } from "../../../theme/templates";
+import Image from "next/image";
 export const Wrapper = styled.div<{ opacityBg?: boolean }>`
   width: 100%;
   height: 90px;
@@ -23,7 +24,7 @@ export const Wrapper = styled.div<{ opacityBg?: boolean }>`
     justify-content: end;
   }
 `;
-export const Logo = styled.img`
+export const Logo = styled(Image)`
   width: 71px;
   margin-right: auto;
   cursor: pointer;
@@ -48,11 +49,11 @@ export const IconsContainer = styled.div`
 ${templates.centerContent};
 column-gap: 13px;
 `;
-export const Icon = styled.img`
+export const Icon = styled(Image)`
 width: 21px;
 cursor: pointer;
 `;
-export const BurgerIcon = styled.img`
+export const BurgerIcon = styled(Image)`
 display: none;
 cursor: pointer;
 @media (max-width: 1155px) {

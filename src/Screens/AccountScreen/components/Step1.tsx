@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import { templates } from "../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { useAuthStore } from "@/store/AuthStore";
+import Image from "next/image";
+import axios from "axios";
 
 const Step1 = ({ step }: any) => {
 	const [name, setName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [birthday, setBirthday] = useState("");
@@ -24,9 +27,25 @@ const Step1 = ({ step }: any) => {
 		if (isAuth) {
 			setName(authStore.loginUserResponse.user.firstName);
 			setEmail(authStore.loginUserResponse.user.email);
+			setLastName(authStore.loginUserResponse.user.lastName);
 			setPhone(authStore.loginUserResponse.user.phoneNumber);
 		}
 	}, [isAuth, step]);
+
+	const updateInfo = async () => {
+		const body = {
+			email,
+			firstName: name,
+			lastName: lastName,
+		};
+		try {
+			const response = await axios.put("/api/updateSelfInfo");
+			console.log(response.data);
+		} catch (error) {
+			console.log("error");
+		}
+	};
+	console.log(authStore.loginUserResponse.user);
 
 	return (
 		<>
@@ -39,6 +58,11 @@ const Step1 = ({ step }: any) => {
 						placeholder='Имя'
 						value={name}
 						onChange={(e) => setName(e.target.value)}
+					/>
+					<InputField
+						placeholder='Фамилия'
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
 					/>
 					<InputField
 						placeholder='E-mail'
@@ -61,7 +85,10 @@ const Step1 = ({ step }: any) => {
 				</Text>
 				<ButtonsContainer>
 					<Button>
-						<img
+						<Image
+							alt='Samovivoz Icon'
+							width={22}
+							height={22}
 							src='/images/account/icons/samovivoz.svg'
 							style={{ marginRight: "10px" }}
 						/>
@@ -70,7 +97,10 @@ const Step1 = ({ step }: any) => {
 						</Text>
 					</Button>
 					<Button>
-						<img
+						<Image
+							alt='Nova Poshta'
+							width={29}
+							height={29}
 							src='/images/account/icons/np.svg'
 							style={{ marginRight: "10px" }}
 						/>
@@ -91,13 +121,19 @@ const Step1 = ({ step }: any) => {
 						</Text>
 					</ButtonPay>
 					<ButtonPay>
-						<img
+						<Image
+							alt='LiqPay'
+							width={64}
+							height={32}
 							src='/images/account/icons/liqpay.svg'
 							style={{ marginRight: "10px" }}
 						/>
 					</ButtonPay>
 					<ButtonPay>
-						<img
+						<Image
+							alt='Portmone.com'
+							width={119}
+							height={34}
 							src='/images/account/icons/portmone.svg'
 							style={{ marginRight: "10px" }}
 						/>
@@ -108,6 +144,7 @@ const Step1 = ({ step }: any) => {
 					height={"56px"}
 					type={"default"}
 					label='Сохранить'
+					func={() => updateInfo()}
 				/>
 			</Wrapper>
 		</>

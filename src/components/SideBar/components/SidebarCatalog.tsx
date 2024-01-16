@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useCategoriesStore } from "@/store/CategoriesStore";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 	const router = useRouter();
@@ -29,6 +30,17 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 		}
 	};
 	const onPressChildren = (el: any) => {
+		if (el.childrenIds !== "") {
+			setTitlesHistory([...titlesHistory, title]);
+			setTitle(el?.name);
+			setStep(2);
+			console.log("success");
+			return;
+		}
+		router.push(`/catalog/${el.id}`);
+		setVisible(false);
+	};
+	const onPressSmallChildren = (el: any) => {
 		router.push(`/catalog/${el.id}`);
 		setVisible(false);
 	};
@@ -57,14 +69,27 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 	const childCategories = catalogStore.categories?.filter((el: any) =>
 		childrenId.includes(el.id)
 	);
+	const smallChildCategories = () => {
+		const ids =
+			childCategories && childCategories[0]?.childrenIds
+				? childCategories[0]?.childrenIds.split(";").map(Number)
+				: [];
+		return catalogStore.categories?.filter((el: any) => ids.includes(el.id));
+	};
 	///
+	console.log(id);
+	console.log(childCategories);
+	console.log(smallChildCategories());
 	///
 	return (
 		<>
 			<RowContainer
 				style={{ padding: "30px 0 0 25px" }}
 				onClick={() => backPress()}>
-				<img
+				<Image
+					alt='Sidebar Arrow Icon'
+					width={4}
+					height={8}
 					src='/images/home/icons/sidebarArrow.png'
 					style={{
 						width: "4px",
@@ -107,6 +132,20 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 									func={() => onPress(el)}>
 									{el.name}
 								</Text>
+								{el.childrenIds !== "" && (
+									<Image
+										alt='Arrow Icon'
+										width={20}
+										height={20}
+										src='/icons/catArrow.svg'
+										style={{
+											transform: "rotate(270deg)",
+											marginLeft: "5px",
+											width: "20px",
+											height: "20px",
+										}}
+									/>
+								)}
 							</RowContainer>
 						))}
 					</>
@@ -128,13 +167,53 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 									func={() => onPressChildren(el)}>
 									{el.name}
 								</Text>
+								{el.childrenIds !== "" && (
+									<Image
+										alt='Arrow Icon'
+										width={20}
+										height={20}
+										src='/icons/catArrow.svg'
+										style={{
+											transform: "rotate(270deg)",
+											marginLeft: "5px",
+											width: "20px",
+											height: "20px",
+										}}
+									/>
+								)}
 							</RowContainer>
 						))}
 					</>
 				)}
 				{step === 2 && (
 					<>
-						{childCategories.map((el, index) => (
+						<RowContainer
+							style={{
+								justifyContent: "space-between",
+								alignItems: "center",
+							}}>
+							<Text
+								color={colors.black}
+								size='16px'
+								fontStyle={fonts.f500}
+								hoverColor={colors.redHover}
+								func={() => onPressSmallChildren(childCategories[0])}>
+								Все в категории
+							</Text>
+							<Image
+								alt='Arrow Icon'
+								width={20}
+								height={20}
+								src='/icons/catArrow.svg'
+								style={{
+									transform: "rotate(270deg)",
+									marginLeft: "5px",
+									width: "20px",
+									height: "20px",
+								}}
+							/>
+						</RowContainer>
+						{smallChildCategories().map((el, index) => (
 							<RowContainer
 								key={index}
 								style={{
