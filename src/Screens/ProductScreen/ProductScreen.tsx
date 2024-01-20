@@ -188,7 +188,6 @@ const ProductScreen = ({ productData, options, images }: any) => {
 			});
 		}
 	};
-
 	return (
 		<>
 			<UseMetaData

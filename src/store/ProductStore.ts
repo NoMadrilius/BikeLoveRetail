@@ -3,9 +3,13 @@ import { makeAutoObservable } from 'mobx';
 import { apiUrls } from './apiUrls';
 import { Category } from '@/types/types';
 import { createContext, useContext } from 'react';
+import { showToast } from '@/helpers/alertService/alertService';
+import axiosInstance from '@/api/axiosInstance';
+import Router from 'next/router';
 
 class ProductStore {
   product = {}
+  loadingSendOrder: boolean = false
   
   constructor() {
     makeAutoObservable(this);
@@ -18,6 +22,28 @@ class ProductStore {
       
     } catch (error) {
       console.error('Error fetching data:', error);
+    }
+  }
+
+  sendOrder = async(request: any) => {
+
+    this.loadingSendOrder = true
+    let token
+        if(typeof localStorage !== 'undefined'){
+            const auth = localStorage.getItem('AuthStore')
+            const authToken = JSON.parse(auth!) || ''
+            token = authToken.accessToken
+
+        }
+    try {
+      const response = await axios.post('/api/sendOrder',{request,token})
+      console.log(response)
+      this.loadingSendOrder = false
+      Router.push('/gratitude')
+    } catch (error) {
+      this.loadingSendOrder = false
+      showToast({info:'asd',title:'asdas',type:'error'})
+      console.log(error)
     }
   }
 }

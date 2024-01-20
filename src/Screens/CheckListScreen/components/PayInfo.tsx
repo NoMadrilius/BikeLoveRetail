@@ -6,12 +6,84 @@ import { fonts } from "../../../../theme/fonts";
 import { templates } from "../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import Image from "next/image";
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { IOrderData } from "@/types/types";
+import { showToast } from "@/helpers/alertService/alertService";
+import axiosInstance from "@/api/axiosInstance";
+import axios from "axios";
+import { useProductStore } from "@/store/ProductStore";
+import Loader from "@/helpers/Loader/Loader";
+import { observer } from "mobx-react";
 
-const PayInfo = () => {
-	const [selectedPayMethod, setSelectedPayMethod] = useState<"PP" | "L" | "P">(
-		"PP"
-	);
+type Props = {
+	setSendData: any;
+	data: IOrderData;
+};
+
+const PayInfo: FC<Props> = ({ setSendData, data }) => {
+	const productStore = useProductStore();
+	const [desc, setDesc] = useState("");
+	useEffect(() => {
+		setSendData((prevData: IOrderData) => ({
+			...prevData,
+			order: {
+				...prevData.order,
+				descriptionCilent: desc,
+			},
+		}));
+	}, [desc]);
+
+	const onPress = () => {
+		if (!data.order.clientId) {
+			showToast({
+				info: "Войдите или зарегистрируйтесь",
+				title: "Ошибка",
+				type: "error",
+			});
+			return;
+		}
+
+		if (
+			data.order.deliveryInfo == "" &&
+			data.order.deliveryType === "ShopPickUp"
+		) {
+			showToast({
+				info: "Нужно выбрать магазин",
+				title: "Ошибка",
+				type: "error",
+			});
+			return;
+		}
+		if (
+			data.order.deliveryInfo === undefined &&
+			data.order.deliveryType === "DeliveryNP"
+		) {
+			showToast({
+				info: "Нужно выбрать отделение",
+				title: "Ошибка",
+				type: "error",
+			});
+			return;
+		}
+		if (data.order.deliveryType === "DeliveryNP") {
+			setSendData((prevSendData: IOrderData) => ({
+				...prevSendData,
+
+				order: {
+					...prevSendData.order,
+
+					deliveryInfo: JSON.stringify(prevSendData.order.deliveryInfo),
+				},
+			}));
+		}
+
+		try {
+			productStore.sendOrder(data);
+		} catch (error) {
+			console.log("error");
+		}
+	};
+
 	return (
 		<Wrapper>
 			<Header>
@@ -21,12 +93,13 @@ const PayInfo = () => {
 					</Text>
 				</NumberContainer>
 				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					ИНФОРМАЦИЯ ОБ ОПЛАТЕ
+					ДОДАТКОВА ІНФОРМАЦІЯ
 				</Text>
 			</Header>
 			<Container>
 				<ButtonsContainer>
-					<Button
+					<TextArea onChange={(e) => setDesc(e.target.value)} />
+					{/* <Button
 						selected={selectedPayMethod === "PP"}
 						onClick={() => setSelectedPayMethod("PP")}>
 						<Text color={colors.black} size='15px' fontStyle={fonts.f500}>
@@ -54,14 +127,19 @@ const PayInfo = () => {
 							src='/images/account/icons/portmone.svg'
 							style={{ marginRight: "10px" }}
 						/>
-					</Button>
+					</Button> */}
 				</ButtonsContainer>
-				<ButtonCustom
-					width={"223px"}
-					height={"56px"}
-					type={"default"}
-					label='Перейти к оплате'
-				/>
+				<Button
+					disabled={productStore?.loadingSendOrder}
+					onClick={() => onPress()}>
+					{productStore?.loadingSendOrder ? (
+						<Loader />
+					) : (
+						<Text color={colors.white} size='16px' fontStyle={fonts.f500}>
+							Перейти к оплате
+						</Text>
+					)}
+				</Button>
 				<Text
 					color={colors.grayBorder}
 					size='15px'
@@ -80,7 +158,7 @@ const PayInfo = () => {
 		</Wrapper>
 	);
 };
-export default PayInfo;
+export default observer(PayInfo);
 
 const Wrapper = styled.div`
 	display: flex;
@@ -105,14 +183,21 @@ const ButtonsContainer = styled.div`
 		width: 100%;
 	}
 `;
-const Button = styled.div<{ selected: boolean }>`
+const Button = styled.div<{ disabled: boolean }>`
 	width: 188px;
 	height: 52px;
 	${templates.centerContent};
-	border: 1px solid ${(p) => (p.selected ? colors.redMain : colors.grayBorder)};
+	border: 1px solid ${(p) => (p.disabled ? colors.redMain : colors.grayBorder)};
 	border-radius: 5px;
+	background-color: ${colors.redMain};
 	cursor: pointer;
 	@media (max-width: 640px) {
 		width: 100%;
 	}
+`;
+const TextArea = styled.textarea`
+	width: 100%;
+	height: 127px;
+	resize: none;
+	font-family: ${fonts.f400.fontFamily};
 `;

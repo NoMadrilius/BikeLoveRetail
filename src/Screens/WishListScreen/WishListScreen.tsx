@@ -7,6 +7,10 @@ import { metrics } from "../../../theme/metrics";
 import { useWishListStore } from "@/store/WishListStore";
 import { useEffect, useState } from "react";
 import { IProduct } from "@/types/types";
+import { Text } from "@/components/Text/Text";
+import { colors } from "../../../theme/colors";
+import { fonts } from "../../../theme/fonts";
+import { templates } from "../../../theme/templates";
 
 const WishListScreen = () => {
 	const wishStore = useWishListStore();
@@ -18,7 +22,6 @@ const WishListScreen = () => {
 	useEffect(() => {
 		setWishList(wishStore.wishList);
 	}, [wishStore]);
-
 	return (
 		<>
 			<UseMetaData title={"Wish List"} img={""} description={"sdasd"} />
@@ -26,6 +29,14 @@ const WishListScreen = () => {
 			<Wrapper>
 				<BreadCrumbs road={road} />
 				<Slider title={"список желаний"} items={wishList} variant={"cards"} />
+				{!wishList?.length && (
+					<EmptyContainer style={{ paddingBottom: "300px" }}>
+						<Text color={colors.black} size='40px' fontStyle={fonts.f500}>
+							{" "}
+							Здесь пока пусто :(
+						</Text>
+					</EmptyContainer>
+				)}
 			</Wrapper>
 		</>
 	);
@@ -39,4 +50,7 @@ const Wrapper = styled.div`
 		margin: 30px 0 0 0;
 		padding-bottom: 111px;
 	}
+`;
+const EmptyContainer = styled.div`
+	${templates.centerContent};
 `;

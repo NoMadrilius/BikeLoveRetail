@@ -1,13 +1,14 @@
 // pages/api/login.ts
 
 
+import axiosInstance from '@/api/axiosInstance';
 import axios, { AxiosError } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const response = await axios.post('https://bikeshop.1gb.ua/api/auth/login', req.body);
+      const response = await axiosInstance.post('/auth/login', req.body);
       res.status(200).json(response.data);
     } catch (error) {
       const err = error as AxiosError;

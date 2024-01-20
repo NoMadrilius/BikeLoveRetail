@@ -1,12 +1,13 @@
 // pages/api/categories.js
 
+import axiosInstance from '@/api/axiosInstance';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const response = await axios.get('https://bikeshop.1gb.ua/api/public/getcategories'); 
+      const response = await axiosInstance.get('/public/getcategories'); 
       const categories = response.data;
 
       res.status(200).json(categories);
@@ -25,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sortingSettings
       };
 
-      const response = await axios.post('https://bikeshop.1gb.ua/api/public/catalogproducts', requestData); 
+      const response = await axiosInstance.post('/public/catalogproducts', requestData); 
       const products = response.data.products;
 
       res.status(200).json(products);

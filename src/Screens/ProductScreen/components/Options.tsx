@@ -99,10 +99,6 @@ const OptionsProduct: FC<Props> = ({
 			setSelectedOptions(optionsArray);
 		}
 	}, []);
-	// console.log(options);
-	// console.log(prepareOptions);
-	// console.log(selectedOptions);
-	// console.log(selectedOptionsId);
 	return (
 		<>
 			{options?.map((el: any, index: any) => (

@@ -15,14 +15,14 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
 			<meta property='og:description' content={description} />
 			<meta
 				property='og:image'
-				content={img || `${CONFIG.BASE_URL}/mock/NoPhoto.png`}
+				content={img || `${CONFIG.IMG_URL}/mock/NoPhoto.png`}
 			/>
 			<meta property='og:type' content='website' />
 			<meta name='twitter:title' content={title} />
 			<meta name='twitter:description' content={description} />
 			<meta
 				name='twitter:image'
-				content={img || `${CONFIG.BASE_URL}/mock/NoPhoto.png`}
+				content={img || `${CONFIG.IMG_URL}/mock/NoPhoto.png`}
 			/>
 			<link rel='icon' href='/favicon.ico' />
 		</Head>

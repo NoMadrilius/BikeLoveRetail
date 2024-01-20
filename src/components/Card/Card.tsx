@@ -29,7 +29,7 @@ const Card: FC<Product> = ({
 	const productInCart = cart.cart?.some((i) => i.id === id);
 	const productInWishList = wishStore.wishList?.some((i) => i.id === id);
 	const currStore = useCurrencyStore();
-	const [priceStr, setPriceStr] = useState<any>();
+	const [priceStr, setPriceStr] = useState<string>();
 	useEffect(() => {
 		setPriceStr(price ? prettyPrice(price) : 0);
 	}, [price, currStore.selectedCurrency, currStore]);

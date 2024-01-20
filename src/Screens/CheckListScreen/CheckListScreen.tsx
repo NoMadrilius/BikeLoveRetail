@@ -10,7 +10,7 @@ import PayInfo from "./components/PayInfo";
 import ListItems from "./components/ListItems";
 import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
-import { IProduct } from "@/types/types";
+import { IOrderData, IProduct } from "@/types/types";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
@@ -20,6 +20,17 @@ const CheckListScreen = () => {
 		{ title: "Корзина", link: "/" },
 		{ title: "Оформление заказа", link: "/" },
 	];
+
+	const [sendData, setSendData] = useState<IOrderData>({
+		order: {
+			deliveryType: "",
+			deliveryInfo: "",
+			descriptionCilent: "asd",
+			discountId: 0,
+			clientId: "",
+		},
+		products: [],
+	});
 
 	const cartStore = useCartStore();
 	const [cart, setCart] = useState<IProduct[]>([]);
@@ -35,24 +46,35 @@ const CheckListScreen = () => {
 
 	useEffect(() => {
 		setCart(cartStore.cart);
+
+		const mappedProducts = cartStore?.cart?.map((product: any) => ({
+			productId: product.categoryId,
+			description: "",
+			quantity: product.quantity,
+			discountId: 0,
+		}));
+
+		// @ts-ignore
+		setSendData((prevData) => ({
+			...prevData,
+			products: mappedProducts,
+		}));
 	}, [cartStore?.cart]);
-	console.log(cart);
-	console.log(cartStore?.cart);
 	return (
 		<>
 			<UseMetaData
 				title={"Оформление заказа"}
 				img={""}
-				description={"толдфыад"}
+				description={"Оформление заказа Оформление заказа Оформление заказа"}
 			/>
 			<Wrapper>
 				<BreadCrumbs road={road} />
 
 				<Container>
 					<Left>
-						<Registration />
-						<DeliveryInfo />
-						<PayInfo />
+						<Registration setSendData={setSendData} />
+						<DeliveryInfo setSendData={setSendData} />
+						<PayInfo setSendData={setSendData} data={sendData} />
 					</Left>
 					<Line />
 					<Right>

@@ -34,7 +34,6 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 			setTitlesHistory([...titlesHistory, title]);
 			setTitle(el?.name);
 			setStep(2);
-			console.log("success");
 			return;
 		}
 		router.push(`/catalog/${el.id}`);
@@ -77,9 +76,6 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 		return catalogStore.categories?.filter((el: any) => ids.includes(el.id));
 	};
 	///
-	console.log(id);
-	console.log(childCategories);
-	console.log(smallChildCategories());
 	///
 	return (
 		<>

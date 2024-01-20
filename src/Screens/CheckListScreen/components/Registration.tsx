@@ -1,15 +1,23 @@
-import { styled } from "styled-components";
+import { css, keyframes, styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { templates } from "../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
+import { showToast } from "@/helpers/alertService/alertService";
+import InputMask from "react-input-mask";
+import Loader from "@/helpers/Loader/Loader";
+import { IOrderData } from "@/types/types";
 
-const Registration = () => {
+type Props = {
+	setSendData: any;
+};
+
+const Registration: FC<Props> = ({ setSendData }) => {
 	const [activeTab, setActiveTab] = useState(0);
 	const [name, setName] = useState("");
 	const [surname, setSurname] = useState("");
@@ -19,10 +27,43 @@ const Registration = () => {
 	const [password, setPassword] = useState("");
 	const [verifPassword, setVerifPassword] = useState("");
 	const [isAuth, setIsAuth] = useState(false);
+	/// Login Data
+	const [loginPhone, setLoginPhone] = useState("");
+	const [loginPassword, setLoginPassword] = useState("");
+	/// Register Data
+	const [regData, setRegData] = useState({
+		regName: "",
+		regLastName: "",
+		regPatronymic: "",
+		regEmail: "",
+		regPhone: "",
+		regPassword: "",
+		regConfirmPassword: "",
+	});
+	/// Red Data
+	const [redData, setRedData] = useState({
+		redName: "",
+		redLastName: "",
+		redPatronymic: "",
+		redEmail: "",
+	});
+	//errors
+	const [passwordsError, setPasswordsError] = useState(false);
+	const [emailError, setEmailError] = useState(false);
+	const validateEmail = (email: string) => {
+		// Пример простого регулярного выражения для проверки почты
+		const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegExp.test(email);
+	};
 
 	const authStore = useAuthStore();
 
-	console.log(authStore.loginUserResponse.user);
+	const inputHandler = (value: string, name: string) => {
+		setRegData((prev) => ({ ...prev, [name]: value }));
+	};
+	const inputRedHandler = (value: string, name: string) => {
+		setRedData((prev) => ({ ...prev, [name]: value }));
+	};
 
 	useEffect(() => {
 		if (activeTab === 1 && isAuth) {
@@ -32,18 +73,111 @@ const Registration = () => {
 			setPhone(authStore.loginUserResponse.user.phoneNumber);
 			setEmail(authStore.loginUserResponse.user.email);
 		}
+		if (activeTab === 2 && isAuth) {
+			setRedData({
+				redEmail: authStore.loginUserResponse.user.email,
+				redLastName: authStore.loginUserResponse.user.lastName,
+				redName: authStore.loginUserResponse.user.firstName,
+				redPatronymic: authStore.loginUserResponse.user.patronymic,
+			});
+		}
 	}, [activeTab, authStore]);
-	useEffect(() => {
+	const checkIsAuth = () => {
 		const _isAuth = authStore.checkAuth();
 		setIsAuth(_isAuth);
-	}, [authStore]);
-	useEffect(() => {
-		if (isAuth) {
-			setActiveTab(1);
+		if (_isAuth) {
+			setActiveTab(2);
+		} else {
+			setActiveTab(0);
 		}
-	}, [isAuth]);
+	};
+	useEffect(() => {
+		setSendData((prevSendData: IOrderData) => ({
+			...prevSendData,
+			order: {
+				...prevSendData.order,
+				clientId: authStore?.loginUserResponse?.user?.id,
+			},
+		}));
+	}, [authStore?.loginUserResponse?.user?.id]);
 
-	const router = useRouter();
+	useEffect(() => {
+		checkIsAuth();
+	}, [authStore]);
+
+	const updateSelfInfo = () => {
+		const body = {
+			email: redData.redEmail,
+			firstName: redData.redName,
+			lastName: redData.redLastName,
+			patronymic: redData.redPatronymic,
+		};
+		authStore.selfUpdate(body);
+	};
+	const registerHandle = () => {
+		if (regData.regPassword !== regData.regConfirmPassword) {
+			setPasswordsError(true);
+			setTimeout(() => {
+				setPasswordsError(false);
+			}, 3000);
+			return showToast({
+				info: "Пароли не совпадают",
+				title: "Ошибка",
+				type: "error",
+			});
+		}
+		if (!validateEmail(regData.regEmail)) {
+			setEmailError(true);
+			setTimeout(() => {
+				setEmailError(false);
+			}, 3000);
+			return showToast({
+				info: "Некоректный E-mail",
+				title: "Ошибка",
+				type: "error",
+			});
+		}
+		try {
+			authStore.register(
+				{
+					email: regData.regEmail,
+					firstName: regData.regName,
+					lastName: regData.regLastName,
+					password: regData.regPassword,
+					patronymic: regData.regPatronymic,
+					phone: regData.regPhone.slice(3).replace(/\s/g, ""),
+				},
+				true
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const loginHandle = async () => {
+		try {
+			await authStore.login(
+				{
+					password: loginPassword,
+					phone: loginPhone.slice(3).replace(/\s/g, ""),
+				},
+				true
+			);
+			checkIsAuth();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const registerDisabled =
+		!regData.regEmail ||
+		!regData.regName ||
+		!regData.regLastName ||
+		!regData.regPassword ||
+		!regData.regConfirmPassword ||
+		authStore?.loadingRegister;
+	const loginDisabled =
+		!loginPassword.length || !loginPhone.length || authStore.loadingLogin;
+
 	return (
 		<>
 			<Wrapper>
@@ -56,106 +190,158 @@ const Registration = () => {
 							1
 						</Text>
 					</NumberContainer>
-					<Text
-						color={activeTab === 0 ? colors.black : colors.grayMain}
-						size='22px'
-						fontStyle={fonts.f600}
-						func={() => setActiveTab(0)}>
-						Я НОВЫЙ ПОКУПАТЕЛЬ
-					</Text>
-					<Text
-						color={activeTab === 1 ? colors.black : colors.grayMain}
-						size='22px'
-						fontStyle={fonts.f600}
-						func={() => setActiveTab(1)}>
-						У МЕНЯ УЖЕ ЕСТЬ АККАУНТ
-					</Text>
+					{!isAuth && (
+						<>
+							<Text
+								color={activeTab === 0 ? colors.black : colors.grayMain}
+								size='22px'
+								fontStyle={fonts.f600}
+								func={() => setActiveTab(0)}>
+								Я НОВЫЙ ПОКУПЕЦЬ
+							</Text>
+							<Text
+								color={activeTab === 1 ? colors.black : colors.grayMain}
+								size='22px'
+								fontStyle={fonts.f600}
+								func={() => setActiveTab(1)}>
+								У МЕНЕ ВЖЕ Є АККАУНТ
+							</Text>
+						</>
+					)}
+					{isAuth && (
+						<Text
+							color={activeTab === 2 ? colors.black : colors.grayMain}
+							size='22px'
+							fontStyle={fonts.f600}>
+							Покупець
+						</Text>
+					)}
 				</Header>
 				{activeTab === 0 && (
 					<InputsContainer>
 						<InputField
-							value={name}
-							onChange={(e) => setName(e.target.value)}
 							placeholder='Имя'
+							value={regData.regName}
+							onChange={(e) => inputHandler(e.target.value, "regName")}
 						/>
 						<InputField
-							value={surname}
-							onChange={(e) => setSurname(e.target.value)}
 							placeholder='Фамилия'
+							value={regData.regLastName}
+							onChange={(e) => inputHandler(e.target.value, "regLastName")}
 						/>
 						<InputField
-							value={secondName}
-							onChange={(e) => setSecondName(e.target.value)}
 							placeholder='Отчество'
+							value={regData.regPatronymic}
+							onChange={(e) => inputHandler(e.target.value, "regPatronymic")}
+						/>
+						<InputMask
+							mask='+380 99 999 99 99'
+							value={regData.regPhone}
+							onChange={(e) => inputHandler(e.target.value, "regPhone")}>
+							{/*@ts-ignore*/}
+							{(inputProps) => (
+								<InputField placeholder='Телефон' {...inputProps} />
+							)}
+						</InputMask>
+						<InputField
+							error={emailError}
+							placeholder='Email'
+							value={regData.regEmail}
+							onChange={(e) => inputHandler(e.target.value, "regEmail")}
 						/>
 						<InputField
-							value={phone}
-							onChange={(e) => setPhone(e.target.value)}
-							placeholder='Телефон'
+							error={passwordsError}
+							placeholder='Пароль'
+							value={regData.regPassword}
+							onChange={(e) => inputHandler(e.target.value, "regPassword")}
+							type='password'
 						/>
 						<InputField
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							placeholder='E-mail'
+							error={passwordsError}
+							placeholder='Повторите пароль'
+							value={regData.regConfirmPassword}
+							onChange={(e) =>
+								inputHandler(e.target.value, "regConfirmPassword")
+							}
+							type='password'
 						/>
 
-						{/* <ButtonCustom
-          width={"100%"}
-          height={"50px"}
-          type={"white"}
-          label='Или зарегистрироваться'
-          func={() => router.push("/auth")}
-        /> */}
+						<Button
+							onClick={() => registerHandle()}
+							disabled={registerDisabled}>
+							<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
+								Зарегистрироваться
+							</Text>
+						</Button>
 					</InputsContainer>
 				)}
 				{activeTab === 1 && (
 					<>
-						{isAuth ? (
-							<InputsContainer>
-								<InputField
-									value={name}
-									onChange={(e) => setName(e.target.value)}
-									placeholder='Имя'
-								/>
-								<InputField
-									value={surname}
-									onChange={(e) => setSurname(e.target.value)}
-									placeholder='Фамилия'
-								/>
-								<InputField
-									value={secondName}
-									onChange={(e) => setSecondName(e.target.value)}
-									placeholder='Отчество'
-								/>
-								<InputField
-									value={phone}
-									onChange={(e) => setPhone(e.target.value)}
-									placeholder='Телефон'
-								/>
-								<InputField
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									placeholder='E-mail'
-								/>
-							</InputsContainer>
-						) : (
-							<div style={{ marginTop: "10px" }}>
-								<ButtonCustom
-									width={"100%"}
-									height={"50px"}
-									type={"white"}
-									label='Авторизоваться'
-									func={() => router.push("/auth")}
-								/>
-							</div>
-						)}
+						<InputsContainer>
+							<InputMask
+								mask='+380 99 999 99 99'
+								value={loginPhone}
+								onChange={(e) => setLoginPhone(e.target.value)}>
+								{/*@ts-ignore*/}
+								{(inputProps) => (
+									<InputField placeholder='Телефон' {...inputProps} />
+								)}
+							</InputMask>
+							<InputField
+								placeholder='Пароль'
+								value={loginPassword}
+								onChange={(e) => setLoginPassword(e.target.value)}
+								type='password'
+							/>
+							<Button disabled={loginDisabled} onClick={() => loginHandle()}>
+								<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
+									{authStore.loadingLogin ? <Loader /> : "Войти"}
+								</Text>
+							</Button>
+						</InputsContainer>
 					</>
+				)}
+				{activeTab === 2 && (
+					<InputsContainer>
+						<InputField
+							placeholder="Ім'я"
+							value={redData.redName}
+							onChange={(e) => inputRedHandler(e.target.value, "redName")}
+						/>
+						<InputField
+							placeholder='Прізвище'
+							value={redData.redLastName}
+							onChange={(e) => inputRedHandler(e.target.value, "redLastName")}
+						/>
+						<InputField
+							placeholder='По баькові'
+							value={redData.redPatronymic}
+							onChange={(e) => inputRedHandler(e.target.value, "redPatronymic")}
+						/>
+						<InputField
+							placeholder='E-mail'
+							value={redData.redEmail}
+							onChange={(e) => inputRedHandler(e.target.value, "redPatronymic")}
+						/>
+						<Button red onClick={() => updateSelfInfo()} disabled={false}>
+							<Text color={colors.redMain} size='15px' fontStyle={fonts.f400}>
+								Редагувати
+							</Text>
+						</Button>
+					</InputsContainer>
 				)}
 			</Wrapper>
 		</>
 	);
 };
 export default observer(Registration);
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
+`;
 
 export const Wrapper = styled.div`
 	display: flex;
@@ -191,15 +377,27 @@ export const InputsContainer = styled.div`
 		align-items: center;
 	}
 `;
-export const InputField = styled.input`
+export const InputField = styled.input<{ error?: boolean }>`
 	all: unset;
 	width: 100%;
 	height: 48px;
-	border: 1px solid ${colors.grayBorder};
+	border: 1px solid
+		${({ error }) => (error ? colors.redMain : colors.grayBorder)};
 	padding: 15px 30px;
 	box-sizing: border-box;
 	border-radius: 5px;
-	color: ${colors.black};
+	color: ${({ error }) => (error ? colors.redMain : colors.black)};
+	transition: border-color 0.3s ease, color 0.3s ease;
+	&:focus {
+		border-color: ${({ error }) =>
+			error ? colors.redMain : colors.grayBorder};
+	}
+
+	${({ error }) =>
+		error &&
+		css`
+			animation: ${shakeAnimation} 0.4s ease-in-out;
+		`}
 `;
 export const Line = styled.div`
 	width: 100%;
@@ -218,12 +416,28 @@ export const ButtonsContainer = styled.div`
 		column-gap: 12px;
 	}
 `;
-export const Button = styled.div<{ fill?: boolean }>`
+export const Button = styled.button<{ fill?: boolean; red?: boolean }>`
+	all: unset;
 	${templates.centerContent};
-	width: 170px;
-	height: 30px;
+	width: 368px;
+	height: 50px;
 	border-radius: 5px;
+	background-color: ${colors.redMain};
 	cursor: pointer;
-	background-color: ${(p) => (p.fill ? "rgba(59, 88, 154, 1)" : "transparent")};
-	border: ${(p) => (p.fill ? "none" : `1px solid ${colors.black}`)};
+	@media (max-width: 600px) {
+		width: 100%;
+	}
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+	${(p) =>
+		p.red &&
+		css`
+			background-color: ${colors.white};
+			border: 1px solid ${colors.redMain};
+			&:hover {
+				background-color: ${colors.redBlur};
+			}
+		`}
 `;

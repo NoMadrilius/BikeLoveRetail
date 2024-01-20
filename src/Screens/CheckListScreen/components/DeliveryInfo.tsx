@@ -7,19 +7,39 @@ import { templates } from "../../../../theme/templates";
 import Image from "next/image";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { OrderDeliveryInfo } from "@/types/types";
 
-const DeliveryInfo = () => {
+const SHOPS = [
+	"г. Киев Веломагази Bikelove ул. Данила Щербаковского",
+	"г. Киев Веломагази Bikelove ул. Данила Щербаковского",
+	"г. Киев Веломагази Bikelove ул. Данила Щербаковского",
+];
+
+const DeliveryInfo = ({ setSendData }: any) => {
 	const [adress, setAdress] = useState<string>("");
 	const [viewAdress, setViewAdress] = useState<
 		{ name: string; desc: string; type: string; ref: string }[]
 	>([{ name: "", desc: "", type: "", ref: "" }]);
 	const [realAdress, setRealAdress] = useState<string>("");
-	const [vidd, setVidd] = useState<string[]>([]);
-	const [selectedVidd, setSelectedVidd] = useState<string>("");
+	const [vidd, setVidd] = useState<OrderDeliveryInfo[]>([]);
+	const [selectedVidd, setSelectedVidd] = useState<OrderDeliveryInfo>();
+	const [selectedShop, setSelectedShop] = useState<string>("");
 	const [openVidd, setOpenVidd] = useState(false);
+	const [openShop, setOpenShop] = useState(false);
 	const [cityRef, setCityRef] = useState<string>("");
 
 	const [selectedDelivery, setSelectedDelivery] = useState<"NP" | "S">("NP");
+	// DeliveryService?: "NovaPoshta"
+	// Description: string (Description)
+	// CityName?: string (CityDescription)
+	// AreaName?: string (SettlementAreaDescription)
+	// CityRef?: string (CityRef)
+	// SettlementType?: string (SettlementTypeDescription)
+	// WarehouseName?: string (Description)
+	// WarehouseAddress?: string (ShortAddress)
+	// WarehousePhone?: string (Phone)
+	// WarehouseRef?: string (Ref)
+	// WarehouseTypeRef?: string (TypeOfWarehouse)
 	const getAdresses = async () => {
 		try {
 			const response = await axios.get(`/api/getNpAdress`, {
@@ -46,12 +66,25 @@ const DeliveryInfo = () => {
 					cityRef,
 				},
 			});
-			setVidd(response.data.data.map((el: any) => el.Description));
+			setVidd(
+				response.data.data.map((el: any) => ({
+					DeliveryService: "NovaPoshta",
+					Description: el.Description,
+					CityName: el.CityDescription,
+					AreaName: el.SettlementAreaDescription,
+					CityRef: el.CityRef,
+					SettlementType: el.SettlementTypeDescription,
+					WarehouseName: el.Description,
+					WarehouseAddress: el.ShortAddress,
+					WarehousePhone: el.Phone,
+					WarehouseRef: el.Ref,
+					WarehouseTypeRef: el.TypeOfWarehouse,
+				}))
+			);
 		} catch (error) {
 			console.log("error");
 		}
 	};
-
 	useEffect(() => {
 		getAdresses();
 		if (!adress.length) {
@@ -59,11 +92,31 @@ const DeliveryInfo = () => {
 		}
 	}, [adress]);
 	useEffect(() => {
-		setSelectedVidd("");
+		setSelectedVidd(undefined);
 		getVidd();
 	}, [cityRef]);
-	console.log(adress);
-	console.log(viewAdress);
+
+	const deliveryInform =
+		selectedDelivery === "NP" ? selectedVidd : `${selectedShop}`;
+	const deliveryType = selectedDelivery === "NP" ? `DeliveryNP` : `ShopPickUp`;
+
+	useEffect(() => {
+		setSendData((prevData: any) => ({
+			...prevData,
+			order: {
+				...prevData.order,
+				deliveryType: deliveryType,
+				deliveryInfo: deliveryInform,
+			},
+		}));
+	}, [selectedDelivery, selectedShop, selectedVidd, adress]);
+
+	const resSelectText = selectedVidd
+		? selectedVidd.Description
+		: selectedDelivery === "S"
+		? "оберіть магазин"
+		: "оберіть відділення";
+
 	return (
 		<Wrapper>
 			<Header>
@@ -107,36 +160,81 @@ const DeliveryInfo = () => {
 						</Text>
 					</Button>
 				</ButtonsContainer>
-				<Select>
-					<Image
-						src='/icons/location.svg'
-						alt='Location'
-						width={30}
-						height={30}
-					/>
-					<InputField
-						value={adress}
-						placeholder='Почніть писати ...'
-						onChange={(e) => setAdress(e.target.value)}
-					/>
-					{adress.length && viewAdress.length ? (
-						<SelectArea>
-							{viewAdress.map((el: any, index: number) => (
-								<SelectItem
-									key={index}
-									onClick={() => {
-										setCityRef(el.ref);
-										setAdress(
-											`${el.type.charAt(0)}. ${el.name}, ${el.desc} обл.`
-										);
-									}}>
-									{el.type.charAt(0)}. {el.name}, {el.desc} обл.
-								</SelectItem>
-							))}
-						</SelectArea>
-					) : null}
-				</Select>
-				{cityRef && (
+
+				{selectedDelivery === "NP" && (
+					<>
+						<Select>
+							<Image
+								src='/icons/location.svg'
+								alt='Location'
+								width={30}
+								height={30}
+							/>
+							<InputField
+								value={adress}
+								placeholder='Почніть писати ...'
+								onChange={(e) => setAdress(e.target.value)}
+							/>
+							{adress.length && viewAdress.length ? (
+								<SelectArea>
+									{viewAdress.map((el: any, index: number) => (
+										<SelectItem
+											key={index}
+											onClick={() => {
+												setCityRef(el.ref);
+												setAdress(
+													`${el.type.charAt(0)}. ${el.name}, ${el.desc} обл.`
+												);
+											}}>
+											{el.type.charAt(0)}. {el.name}, {el.desc} обл.
+										</SelectItem>
+									))}
+								</SelectArea>
+							) : null}
+						</Select>
+						{cityRef && (
+							<Select>
+								<Image
+									src='/icons/Viddilennya.svg'
+									alt='Location'
+									width={18}
+									height={18}
+								/>
+								<Text
+									color={colors.black}
+									size='14px'
+									fontStyle={fonts.f500}
+									margin='0 0 0 10px'>
+									{resSelectText as string}
+								</Text>
+								{openVidd && (
+									<SelectArea>
+										{vidd.map((el, index: number) => (
+											<SelectItem
+												key={index}
+												onClick={() => {
+													setOpenVidd(false);
+													setSelectedVidd(el);
+												}}>
+												{el.Description}
+											</SelectItem>
+										))}
+									</SelectArea>
+								)}
+								<OpenButton
+									src='/icons/catArrow.svg'
+									alt='Location'
+									width={18}
+									height={18}
+									onClick={() => setOpenVidd(!openVidd)}
+									open={openVidd}
+									style={{ marginLeft: "auto" }}
+								/>
+							</Select>
+						)}
+					</>
+				)}
+				{selectedDelivery === "S" && (
 					<Select>
 						<Image
 							src='/icons/Viddilennya.svg'
@@ -149,16 +247,16 @@ const DeliveryInfo = () => {
 							size='14px'
 							fontStyle={fonts.f500}
 							margin='0 0 0 10px'>
-							{selectedVidd || "Оберіть відділення"}
+							{selectedShop || "Оберіть магазин"}
 						</Text>
-						{openVidd && (
+						{openShop && (
 							<SelectArea>
-								{vidd.map((el: any, index: number) => (
+								{SHOPS.map((el: any, index: number) => (
 									<SelectItem
 										key={index}
 										onClick={() => {
-											setOpenVidd(false);
-											setSelectedVidd(el);
+											setOpenShop(false);
+											setSelectedShop(el);
 										}}>
 										{el}
 									</SelectItem>
@@ -170,7 +268,7 @@ const DeliveryInfo = () => {
 							alt='Location'
 							width={18}
 							height={18}
-							onClick={() => setOpenVidd(!openVidd)}
+							onClick={() => setOpenShop(!openShop)}
 							open={openVidd}
 							style={{ marginLeft: "auto" }}
 						/>

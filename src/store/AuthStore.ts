@@ -17,22 +17,27 @@ class AuthStore {
       makeAutoObservable(this);
     }
     
-    register = async (request: RegisterRequest) => {
-        console.log(request)
+    register = async (request: RegisterRequest, noRelocate?:boolean) => {
+        const loginRequest = {
+            phone: request.phone,
+            password: request.password
+        }
         try {
             this.loadingRegister = true
 
             const response = await axios.post('/api/register', request);
             this.registerUserResponse = { ...response.data }
-
             
+            await this.login(loginRequest)
 
             if (typeof localStorage !== "undefined") {
 
                 if (typeof response.data.user !== "undefined") {
                     localStorage.setItem("RegistrationStore", JSON.stringify({ ...response.data }))
                    
-                    Router.push('/')
+                    if(!noRelocate){
+                        Router.push('/')
+                    }
             showToast({
                     info: "Удачных покупок :)",
                     title: "Аккаунт создан",
@@ -56,7 +61,7 @@ class AuthStore {
             
         }
     }
-    login = async (request: LoginRequest) => {
+    login = async (request: LoginRequest,noRelocate?:boolean) => {
         try {
             this.loadingLogin = true
             const response = await axios.post('/api/login', request)
@@ -67,7 +72,11 @@ class AuthStore {
                 type: 'success'
             })
             this.checkAuth()
-            Router.push('/')
+            if(!noRelocate){
+                Router.push('/')
+            }
+         
+           
             this.loadingLogin = false
 
             if (typeof localStorage !== "undefined") {
@@ -98,6 +107,45 @@ class AuthStore {
             this.loadingLogin = false
         }
     }
+
+    selfUpdate = async (requestBody: any,) => {
+        let token
+        if(typeof localStorage !== 'undefined'){
+            const auth = localStorage.getItem('AuthStore')
+            const authToken = JSON.parse(auth!) || ''
+            token = authToken.accessToken
+        }
+        try {
+          const response = await axios.put('/api/updateSelfInfo', {token, requestBody});
+      
+          this.loginUserResponse.user = response.data
+          if (typeof localStorage !== 'undefined') {
+            const storedJson = localStorage.getItem("AuthStore");
+            const authStoreData = storedJson ? JSON.parse(storedJson) : {};
+      
+            authStoreData.user = {
+              ...authStoreData.user,
+              ...response.data,
+            };
+            localStorage.setItem("AuthStore", JSON.stringify(authStoreData));
+          }
+      
+          showToast({
+            info: 'Ваші особисті дані успішно змінено',
+            title: 'Успіх',
+            type: 'success'
+          });
+        } catch (error) {
+          console.log('erorr');
+          showToast({
+            info: 'Щось пішло не так :(',
+            title: 'Помилка',
+            type: 'error'
+          });
+        }
+      };
+      
+
     readAuth = () => {
         if (typeof localStorage !== "undefined") {
             const storedJson = localStorage.getItem("AuthStore")

@@ -43,9 +43,8 @@ export const IconBottom = styled(Image)`
 	border-radius: 50%;
 	width: 70px;
 	height: 70px;
-	position: absolute;
 	cursor: pointer;
-	left: 50%;
-	transform: translate(-50%, 50%);
+	left: calc(50% - 35px);
+	transform: translateX(-50%) translateY(50%);
 	animation: ${bounceAnimation} 2s infinite;
 `;

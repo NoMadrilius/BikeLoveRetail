@@ -90,9 +90,8 @@ const Header: FC<Props> = ({ opacityBg }) => {
 			cart.initializeCartFromServer();
 			wish.initializeWishListFromServer();
 		}
-	}, [router.pathname]);
+	}, [router.pathname, authStore?.loginUserResponse?.user?.id]);
 	///
-
 	////
 
 	return (

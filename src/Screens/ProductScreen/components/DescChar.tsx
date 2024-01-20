@@ -27,8 +27,6 @@ const DescChar: FC<Props> = ({
 	const isImages = false;
 
 	///
-	console.log(options);
-	console.log(productData.product.id);
 
 	///
 	return (

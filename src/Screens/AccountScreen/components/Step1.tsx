@@ -6,15 +6,26 @@ import { useEffect, useState } from "react";
 import { templates } from "../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { useAuthStore } from "@/store/AuthStore";
+import { observer } from "mobx-react";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 import Image from "next/image";
-import axios from "axios";
 
 const Step1 = ({ step }: any) => {
 	const [name, setName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [birthday, setBirthday] = useState("");
+	const [openSelectLang, setOpenSelectLang] = useState(false);
+	const [openSelectGender, setOpenSelectGender] = useState(false);
+	const [birthday, setBirthday] = useState<any>("");
+	const [lang, setLang] = useState<"English" | "Russian" | "Ukrainin" | string>(
+		""
+	);
+	const [patronymic, setPatronymic] = useState("");
+	const [bike, setBike] = useState("");
+	const [gender, setGender] = useState<"Male" | "Female" | string>("");
 
 	const authStore = useAuthStore();
 	const [isAuth, setIsAuth] = useState(false);
@@ -28,25 +39,33 @@ const Step1 = ({ step }: any) => {
 			setName(authStore.loginUserResponse.user.firstName);
 			setEmail(authStore.loginUserResponse.user.email);
 			setLastName(authStore.loginUserResponse.user.lastName);
-			setPhone(authStore.loginUserResponse.user.phoneNumber);
+			setBike(authStore.loginUserResponse.user.bike);
+			setPatronymic(authStore.loginUserResponse.user.patronymic);
+			setBirthday(dayjs(authStore.loginUserResponse.user.birth));
 		}
-	}, [isAuth, step]);
+	}, [isAuth, step, authStore.loginUserResponse.user]);
 
 	const updateInfo = async () => {
 		const body = {
 			email,
 			firstName: name,
-			lastName: lastName,
+			lastName,
+			patronymic,
+			bike,
+			gender,
+			birth: birthday.$d,
+			language: lang,
 		};
-		try {
-			const response = await axios.put("/api/updateSelfInfo");
-			console.log(response.data);
-		} catch (error) {
-			console.log("error");
-		}
+		authStore.selfUpdate(body);
 	};
-	console.log(authStore.loginUserResponse.user);
-
+	const onClickSelectLang = (lang: string) => {
+		setLang(lang);
+		setOpenSelectLang(false);
+	};
+	const onClickSelectGender = (gen: string) => {
+		setGender(gen);
+		setOpenSelectGender(false);
+	};
 	return (
 		<>
 			<Wrapper>
@@ -55,90 +74,127 @@ const Step1 = ({ step }: any) => {
 				</Text>
 				<InputsContainer>
 					<InputField
-						placeholder='Имя'
+						placeholder='Прізвище'
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+					/>
+					<InputField
+						placeholder="Ім'я"
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
 					<InputField
-						placeholder='Фамилия'
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
+						placeholder='По батькові'
+						value={patronymic}
+						onChange={(e) => setPatronymic(e.target.value)}
 					/>
+					<InputField
+						placeholder='Велосипед'
+						value={bike}
+						onChange={(e) => setBike(e.target.value)}
+					/>
+
+					<SelectField>
+						<Text
+							color={gender ? colors.black : colors.grayBorder}
+							size='16px'
+							fontStyle={fonts.f400}>
+							{gender || "Стать"}
+						</Text>
+						<Arrow
+							width={20}
+							height={20}
+							alt='Arrow'
+							src='/icons/catArrow.svg'
+							onClick={() => setOpenSelectGender(!openSelectGender)}
+						/>
+						{openSelectGender && (
+							<SelectArea>
+								<SelectItem>
+									<Text
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										func={() => onClickSelectGender("Male")}>
+										Male
+									</Text>
+								</SelectItem>
+
+								<SelectItem>
+									<Text
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										func={() => onClickSelectGender("Female")}>
+										Female
+									</Text>
+								</SelectItem>
+							</SelectArea>
+						)}
+					</SelectField>
+
+					<SelectField>
+						<Text
+							color={lang ? colors.black : colors.grayBorder}
+							size='16px'
+							fontStyle={fonts.f400}>
+							{lang || "Мова"}
+						</Text>
+						<Arrow
+							width={20}
+							height={20}
+							alt='Arrow'
+							src='/icons/catArrow.svg'
+							onClick={() => setOpenSelectLang(!openSelectLang)}
+						/>
+						{openSelectLang && (
+							<SelectArea>
+								<SelectItem>
+									<Text
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										func={() => onClickSelectLang("Ukrainin")}>
+										Ukrainian
+									</Text>
+								</SelectItem>
+
+								<SelectItem>
+									<Text
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										func={() => onClickSelectLang("English")}>
+										English
+									</Text>
+								</SelectItem>
+								<SelectItem>
+									<Text
+										color={colors.black}
+										size='16px'
+										fontStyle={fonts.f400}
+										func={() => onClickSelectLang("Russian")}>
+										Russian
+									</Text>
+								</SelectItem>
+							</SelectArea>
+						)}
+					</SelectField>
+
 					<InputField
 						placeholder='E-mail'
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<InputField
-						placeholder='Номер'
-						value={phone}
-						onChange={(e) => setPhone(e.target.value)}
-					/>
-					<InputField
-						placeholder='Дата рождения'
-						value={birthday}
-						onChange={(e) => setBirthday(e.target.value)}
-					/>
+					<LocalizationProvider dateAdapter={AdapterDayjs}>
+						<DatePicker
+							label='Дата народження'
+							value={birthday || ""}
+							onChange={(newValue) => setBirthday(newValue)}
+						/>
+					</LocalizationProvider>
 				</InputsContainer>
-				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					Способы доставки
-				</Text>
-				<ButtonsContainer>
-					<Button>
-						<Image
-							alt='Samovivoz Icon'
-							width={22}
-							height={22}
-							src='/images/account/icons/samovivoz.svg'
-							style={{ marginRight: "10px" }}
-						/>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-							Самовывоз
-						</Text>
-					</Button>
-					<Button>
-						<Image
-							alt='Nova Poshta'
-							width={29}
-							height={29}
-							src='/images/account/icons/np.svg'
-							style={{ marginRight: "10px" }}
-						/>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-							Новая почта
-						</Text>
-					</Button>
-				</ButtonsContainer>
 
-				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					Способы получения
-				</Text>
-
-				<ButtonsPayContainer>
-					<ButtonPay>
-						<Text color={colors.black} size='16px' fontStyle={fonts.f500}>
-							При получении
-						</Text>
-					</ButtonPay>
-					<ButtonPay>
-						<Image
-							alt='LiqPay'
-							width={64}
-							height={32}
-							src='/images/account/icons/liqpay.svg'
-							style={{ marginRight: "10px" }}
-						/>
-					</ButtonPay>
-					<ButtonPay>
-						<Image
-							alt='Portmone.com'
-							width={119}
-							height={34}
-							src='/images/account/icons/portmone.svg'
-							style={{ marginRight: "10px" }}
-						/>
-					</ButtonPay>
-				</ButtonsPayContainer>
 				<ButtonCustom
 					width={"188px"}
 					height={"56px"}
@@ -150,7 +206,7 @@ const Step1 = ({ step }: any) => {
 		</>
 	);
 };
-export default Step1;
+export default observer(Step1);
 
 const Wrapper = styled.div`
 	display: flex;
@@ -179,42 +235,42 @@ const InputField = styled.input`
 	border-radius: 5px;
 	color: ${colors.black};
 `;
-const ButtonsContainer = styled.div`
-	display: flex;
-	column-gap: 13px;
-	margin: 42px 0 60px;
-	flex-wrap: wrap;
-	row-gap: 13px;
-`;
-const Button = styled.div`
-	width: 206px;
-	height: 56px;
-	${templates.centerContent};
+const SelectArea = styled.div`
+	position: absolute;
+	width: calc(100% + 2px);
+	background-color: white;
 	border: 1px solid ${colors.grayBorder};
+	border-top: none;
+	left: -1px;
+	height: auto;
+	top: 40px;
+	padding: 0 0 15px 0;
+	border-radius: 0 0 10px 10px;
+	z-index: 5;
+`;
+const SelectField = styled.div`
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	height: 48px;
+	border: 1px solid ${colors.grayBorder};
+	padding: 15px 30px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	color: ${colors.grayBorder};
+`;
+const SelectItem = styled.div`
+	${templates.centerContent};
+	height: 20px;
+	padding: 15px 30px;
 	cursor: pointer;
-	border-radius: 5px;
-	@media (max-width: 700px) {
-		width: 100%;
+	&:hover {
+		background-color: ${colors.redBlur};
 	}
 `;
-const ButtonsPayContainer = styled.div`
-	display: flex;
-	gap: 13px;
-	margin: 42px 0 54px 0;
-	flex-wrap: wrap;
-	@media (max-width: 640px) {
-		flex-direction: column;
-		row-gap: 12px;
-		width: 100%;
-	}
-`;
-const ButtonPay = styled.div`
-	width: 188px;
-	height: 52px;
-	${templates.centerContent};
-	border: 1px solid ${colors.grayBorder};
-	border-radius: 5px;
-	@media (max-width: 640px) {
-		width: 100%;
-	}
+const Arrow = styled(Image)`
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 `;

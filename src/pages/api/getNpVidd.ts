@@ -22,7 +22,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     try {
       const response = await axios.post('https://api.novaposhta.ua/v2.0/json/', body);
-      console.log(body)
       res.status(200).json(response.data);
     } catch (error) {
       const err = error as AxiosError;

@@ -85,3 +85,32 @@ export interface LoginRequest
     email?: string,
     password: string
 }
+export interface IOrderData
+{
+    order: {
+        deliveryType: string;
+        deliveryInfo: string;
+        descriptionCilent: string;
+        discountId: number;
+        clientId: string;
+    };
+    products: {
+        productId: number;
+        description: string;
+        quantity: number;
+        discountId: number
+    }[];
+}
+export interface OrderDeliveryInfo {
+    DeliveryService?: "NovaPoshta"
+    Description: string
+    CityName?: string
+    AreaName?: string
+    CityRef?: string
+    SettlementType?: string
+    WarehouseName?: string
+    WarehouseAddress?: string
+    WarehousePhone?: string
+    WarehouseRef?: string
+    WarehouseTypeRef?: string
+}
