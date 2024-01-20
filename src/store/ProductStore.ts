@@ -10,6 +10,8 @@ import Router from 'next/router';
 class ProductStore {
   product = {}
   loadingSendOrder: boolean = false
+  order:[] = []
+
   
   constructor() {
     makeAutoObservable(this);
@@ -43,6 +45,29 @@ class ProductStore {
     } catch (error) {
       this.loadingSendOrder = false
       showToast({info:'asd',title:'asdas',type:'error'})
+      console.log(error)
+    }
+  }
+
+  getOrder = async () => {
+    let token
+        if(typeof localStorage !== 'undefined'){
+            const auth = localStorage.getItem('AuthStore')
+            const authToken = JSON.parse(auth!) || ''
+            token = authToken.accessToken
+
+        }
+    try {
+      console.log(token)
+const response = await axios.get('/api/getOrder', {
+  params: {
+    token: token,
+  },
+})
+this.order = response.data
+console.log(response.data)
+
+    } catch (error) {
       console.log(error)
     }
   }

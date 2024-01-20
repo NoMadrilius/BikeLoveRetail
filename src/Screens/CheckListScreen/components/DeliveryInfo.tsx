@@ -29,17 +29,6 @@ const DeliveryInfo = ({ setSendData }: any) => {
 	const [cityRef, setCityRef] = useState<string>("");
 
 	const [selectedDelivery, setSelectedDelivery] = useState<"NP" | "S">("NP");
-	// DeliveryService?: "NovaPoshta"
-	// Description: string (Description)
-	// CityName?: string (CityDescription)
-	// AreaName?: string (SettlementAreaDescription)
-	// CityRef?: string (CityRef)
-	// SettlementType?: string (SettlementTypeDescription)
-	// WarehouseName?: string (Description)
-	// WarehouseAddress?: string (ShortAddress)
-	// WarehousePhone?: string (Phone)
-	// WarehouseRef?: string (Ref)
-	// WarehouseTypeRef?: string (TypeOfWarehouse)
 	const getAdresses = async () => {
 		try {
 			const response = await axios.get(`/api/getNpAdress`, {
@@ -97,7 +86,9 @@ const DeliveryInfo = ({ setSendData }: any) => {
 	}, [cityRef]);
 
 	const deliveryInform =
-		selectedDelivery === "NP" ? selectedVidd : `${selectedShop}`;
+		selectedDelivery === "NP"
+			? JSON.stringify(selectedVidd)
+			: `${selectedShop}`;
 	const deliveryType = selectedDelivery === "NP" ? `DeliveryNP` : `ShopPickUp`;
 
 	useEffect(() => {

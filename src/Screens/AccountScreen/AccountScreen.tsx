@@ -9,13 +9,25 @@ import Navigation from "./components/Navigation";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2/Step2";
 import { useAuthStore } from "@/store/AuthStore";
+import { useProductStore } from "@/store/ProductStore";
+import { IOrderViewData } from "@/types/types";
+import { observer } from "mobx-react";
 
 const AccountScreen = () => {
 	const road = [
 		{ title: "Личный кабинет", link: "" },
 		{ title: "Персональные данные", link: "" },
 	];
+	const productStore = useProductStore();
+	const [products, setProducts] = useState<IOrderViewData[]>([]);
 
+	useEffect(() => {
+		productStore.getOrder();
+	}, [productStore]);
+	useEffect(() => {
+		setProducts(productStore.order);
+	}, [productStore.order]);
+	console.log(products);
 	const [step, setStep] = useState(0);
 	return (
 		<>
@@ -24,6 +36,7 @@ const AccountScreen = () => {
 			<Text color={colors.black} size='40px' fontStyle={fonts.f500}>
 				ПЕРСОНАЛЬНЫЕ ДАННЫЕ
 			</Text>
+
 			<MainWrapper>
 				<Left>
 					<Navigation setStep={setStep} step={step} />
@@ -35,13 +48,13 @@ const AccountScreen = () => {
 							<Step1 step={step} />
 						</>
 					)}
-					{step === 1 && <Step2 />}
+					{step === 1 && <Step2 data={products} />}
 				</Right>
 			</MainWrapper>
 		</>
 	);
 };
-export default AccountScreen;
+export default observer(AccountScreen);
 
 const MainWrapper = styled.div`
 	display: flex;

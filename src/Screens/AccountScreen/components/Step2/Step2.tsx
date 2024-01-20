@@ -5,6 +5,7 @@ import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { FC, useState } from "react";
 import Item from "./Item";
+import { IOrderViewData } from "@/types/types";
 
 const TITLES = [
 	{ title: "Все заказы", tab: 0 },
@@ -37,8 +38,13 @@ const testData = [
 		],
 	},
 ];
-const Step2 = () => {
+type Props = {
+	data: IOrderViewData[];
+};
+
+const Step2: FC<Props> = ({ data }) => {
 	const [orderTab, setOrderTab] = useState(0);
+	console.log(data);
 	return (
 		<>
 			<>
@@ -54,11 +60,14 @@ const Step2 = () => {
 						</Button>
 					))}
 				</Header>
-				<MainContainer>
-					{testData.map((el, index) => (
-						<Item key={index} {...el} />
-					))}
-				</MainContainer>
+				{data && (
+					<MainContainer>
+						{data.map((el: any, index: number) => (
+							<Item key={index} data={el} />
+						))}
+						<>cacs</>
+					</MainContainer>
+				)}
 			</>
 		</>
 	);

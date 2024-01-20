@@ -65,17 +65,6 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 			});
 			return;
 		}
-		if (data.order.deliveryType === "DeliveryNP") {
-			setSendData((prevSendData: IOrderData) => ({
-				...prevSendData,
-
-				order: {
-					...prevSendData.order,
-
-					deliveryInfo: JSON.stringify(prevSendData.order.deliveryInfo),
-				},
-			}));
-		}
 
 		try {
 			productStore.sendOrder(data);
