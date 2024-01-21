@@ -96,7 +96,7 @@ const Auth = () => {
 		!regEmail ||
 		!regName ||
 		!regLastName ||
-		!isLoginPhoneValid ||
+		!isRegPhoneValid ||
 		!regPassword ||
 		!regConfirmPassword ||
 		authStore?.loadingRegister;

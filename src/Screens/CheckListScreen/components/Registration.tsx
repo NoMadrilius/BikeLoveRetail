@@ -146,7 +146,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 					lastName: regData.regLastName,
 					password: regData.regPassword,
 					patronymic: regData.regPatronymic,
-					phone: regData.regPhone.slice(3).replace(/\s/g, ""),
+					phone: regData.regPhone,
 				},
 				true
 			);
@@ -159,7 +159,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 			await authStore.login(
 				{
 					password: loginPassword,
-					phone: loginPhone.slice(3).replace(/\s/g, ""),
+					phone: loginPhone,
 				},
 				true
 			);
@@ -173,12 +173,12 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		!regData.regEmail ||
 		!regData.regName ||
 		!regData.regLastName ||
-		isRegPhoneValid ||
+		!isRegPhoneValid ||
 		!regData.regPassword ||
 		!regData.regConfirmPassword ||
 		authStore?.loadingRegister;
 	const loginDisabled =
-		!loginPassword.length || isLoginPhoneValid || authStore.loadingLogin;
+		!loginPassword.length || !isLoginPhoneValid || authStore.loadingLogin;
 
 	return (
 		<>
