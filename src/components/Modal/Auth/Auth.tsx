@@ -72,7 +72,7 @@ const Auth = () => {
 				lastName: regLastName,
 				password: regPassword,
 				patronymic: regPatronymic,
-				phone: regPhone,
+				phone: regPhone.replace(/\s/g, ""),
 			});
 		} catch (error) {
 			console.log(error);
@@ -82,7 +82,7 @@ const Auth = () => {
 		try {
 			authStore.login({
 				password: loginPassword,
-				phone: loginPhone,
+				phone: loginPhone.replace(/\s/g, ""),
 			});
 		} catch (error) {
 			console.log(error);
@@ -100,7 +100,6 @@ const Auth = () => {
 		!regPassword ||
 		!regConfirmPassword ||
 		authStore?.loadingRegister;
-
 	return (
 		<>
 			<UseMetaData
