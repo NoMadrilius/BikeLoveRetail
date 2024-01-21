@@ -51,10 +51,10 @@ const Registration: FC<Props> = ({ setSendData }) => {
 	const [passwordsError, setPasswordsError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
 	const validateEmail = (email: string) => {
-		// Пример простого регулярного выражения для проверки почты
 		const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegExp.test(email);
 	};
+	const isLoginPhoneValid = loginPhone.replace(/[^0-9]/g, "").length >= 12;
 
 	const authStore = useAuthStore();
 
@@ -172,11 +172,12 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		!regData.regEmail ||
 		!regData.regName ||
 		!regData.regLastName ||
+		isLoginPhoneValid ||
 		!regData.regPassword ||
 		!regData.regConfirmPassword ||
 		authStore?.loadingRegister;
 	const loginDisabled =
-		!loginPassword.length || !loginPhone.length || authStore.loadingLogin;
+		!loginPassword.length || isLoginPhoneValid || authStore.loadingLogin;
 
 	return (
 		<>

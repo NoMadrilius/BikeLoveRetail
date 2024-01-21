@@ -39,6 +39,7 @@ const Auth = () => {
 		const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegExp.test(email);
 	};
+	const isLoginPhoneValid = loginPhone.replace(/[^0-9]/g, "").length >= 12;
 
 	const registerHandle = () => {
 		if (regPassword !== regConfirmPassword) {
@@ -70,7 +71,7 @@ const Auth = () => {
 				lastName: regLastName,
 				password: regPassword,
 				patronymic: regPatronymic,
-				phone: regPhone.slice(3).replace(/\s/g, ""),
+				phone: regPhone,
 			});
 		} catch (error) {
 			console.log(error);
@@ -80,7 +81,7 @@ const Auth = () => {
 		try {
 			authStore.login({
 				password: loginPassword,
-				phone: loginPhone.slice(3).replace(/\s/g, ""),
+				phone: loginPhone,
 			});
 		} catch (error) {
 			console.log(error);
@@ -88,12 +89,13 @@ const Auth = () => {
 	};
 
 	const loginDisabled =
-		!loginPassword.length || !loginPhone.length || authStore.loadingLogin;
+		!loginPassword.length || !isLoginPhoneValid || authStore.loadingLogin;
 
 	const registerDisabled =
 		!regEmail ||
 		!regName ||
 		!regLastName ||
+		!isLoginPhoneValid ||
 		!regPassword ||
 		!regConfirmPassword ||
 		authStore?.loadingRegister;
