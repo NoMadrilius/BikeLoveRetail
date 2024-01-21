@@ -33,12 +33,14 @@ export const getServerSideProps = async (context: any) => {
 	const filtersVariantIds = context.query.filter
 		? context.query.filter.split(",").map(Number)
 		: [];
+	const page = context.query.page || 1;
+	console.log(page);
 	try {
 		//catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
 		const request: any = {
 			categoryId: context.params.id,
 			storageId: 1,
-			page: 1,
+			page: page,
 			pageSize: 15,
 			filtersVariantIds: filtersVariantIds,
 			sortingSettings: [],
@@ -49,11 +51,13 @@ export const getServerSideProps = async (context: any) => {
 		);
 		const data = response.data.products;
 		const options = groupOptions(data.flatMap((el: any) => el.productOptions));
+		const totalPages = response.data.totalPages;
 
 		return {
 			props: {
 				data,
 				options,
+				totalPages,
 			},
 		};
 	} catch (error) {
@@ -63,8 +67,10 @@ export const getServerSideProps = async (context: any) => {
 	}
 };
 
-const Page = ({ data, options }: any) => {
+const Page = ({ data, options, totalPages }: any) => {
 	const router = useRouter();
+	console.log(data);
+	console.log(totalPages);
 
 	return (
 		<>
@@ -76,6 +82,7 @@ const Page = ({ data, options }: any) => {
 						catalogId={router.query.id!}
 						catalogData={data}
 						options={options}
+						totalPages={totalPages}
 					/>
 				)}
 			</PaddingWrapper>

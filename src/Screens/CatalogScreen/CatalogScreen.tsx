@@ -14,7 +14,7 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
 
-const CatalogScreen = ({ catalogData, options }: any) => {
+const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
 	const router = useRouter();
 	const catId = router.query.id;
 	const numberTotal = catalogData.map((el: any) => el.product).length;
@@ -104,7 +104,11 @@ const CatalogScreen = ({ catalogData, options }: any) => {
 					<TriggerHidden width='1000px'>
 						<Filter options={options} numberTotal={numberTotal} />
 					</TriggerHidden>
-					<Products items={catalogData} loading={catalogStore.loading} />
+					<Products
+						items={catalogData}
+						loading={catalogStore.loading}
+						totalPages={totalPages}
+					/>
 				</MainContainer>
 				<TextBlock />
 			</Wrapper>
