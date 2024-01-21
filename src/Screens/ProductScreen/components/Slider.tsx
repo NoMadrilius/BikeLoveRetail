@@ -59,9 +59,7 @@ const SliderProducts = ({ images }: any) => {
 							width: "auto",
 							height: "100%",
 						}}>
-						<Image
-							width={84}
-							height={54}
+						<img
 							src={slide.url}
 							alt={`Slide ${slide.id}`}
 							style={{

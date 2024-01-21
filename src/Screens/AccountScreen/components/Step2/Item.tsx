@@ -1,5 +1,5 @@
 import { Text } from "@/components/Text/Text";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
@@ -7,6 +7,8 @@ import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import Image from "next/image";
 import { IOrderViewData } from "@/types/types";
 import { prettyDate } from "@/helpers/stringDecorate/prettyDate";
+import { useCurrencyStore } from "@/store/CurrencyStore";
+import { observer } from "mobx-react";
 
 type Props = {
 	data: IOrderViewData;
@@ -14,6 +16,16 @@ type Props = {
 
 const Item: FC<Props> = ({ data }) => {
 	console.log(data);
+	const currStore = useCurrencyStore();
+	const [priceStr, setPriceStr] = useState<number>(1);
+	// const price = cart.reduce(
+	// 	(acc, item) => acc + item.retailPrice * item.quantity,
+	// 	0
+	// );
+	useEffect(() => {
+		setPriceStr((prev) => prev + 1);
+	}, [currStore.selectedCurrency, currStore]);
+	console.log(priceStr);
 	const statusData = () => {
 		switch (data.order.orderStatus) {
 			case "jibilix":
@@ -189,7 +201,7 @@ const Item: FC<Props> = ({ data }) => {
 		</>
 	);
 };
-export default Item;
+export default observer(Item);
 
 const Wrapper = styled.div`
 	display: flex;

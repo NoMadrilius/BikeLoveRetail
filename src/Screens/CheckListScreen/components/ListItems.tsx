@@ -27,7 +27,7 @@ const ListItems: FC<Props> = ({ data }) => {
 						</Text>
 						<RowContainer>
 							<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-								{prettyPrice(data.retailPrice)} UAH
+								{prettyPrice(data.retailPrice)}
 							</Text>
 							<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
 								{data.quantity} шт

@@ -6,6 +6,7 @@ import { createContext, useContext } from 'react';
 import { showToast } from '@/helpers/alertService/alertService';
 import axiosInstance from '@/api/axiosInstance';
 import Router from 'next/router';
+import cartStore from './CartStore';
 
 class ProductStore {
   product = {}
@@ -42,6 +43,7 @@ class ProductStore {
       console.log(response)
       this.loadingSendOrder = false
       Router.push('/gratitude')
+      cartStore.removeAllFromCart()
     } catch (error) {
       this.loadingSendOrder = false
       showToast({info:'asd',title:'asdas',type:'error'})

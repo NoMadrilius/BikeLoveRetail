@@ -130,6 +130,25 @@ class CartStore {
             });
         }
     }
+    removeAllFromCart = () => {
+      const updatedCart = this.cart.map((el) => {
+        const newQuantity = el.quantity + 1;
+        const newId = el.id;
+        return { id: newId, quantity: newQuantity };
+      });
+      try {
+        updatedCart.forEach((product) => {
+          
+          axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=${0}`);
+        });
+      } catch (error) {
+        console.log('error saveProductToServer', error);
+      }
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('cart');
+      }
+    }
+    
   }
 
 const cartStore = new CartStore(authStore);
