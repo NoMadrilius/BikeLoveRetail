@@ -55,6 +55,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		return emailRegExp.test(email);
 	};
 	const isLoginPhoneValid = loginPhone.replace(/[^0-9]/g, "").length >= 12;
+	const isRegPhoneValid = regData.regPhone.replace(/[^0-9]/g, "").length >= 12;
 
 	const authStore = useAuthStore();
 
@@ -172,7 +173,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		!regData.regEmail ||
 		!regData.regName ||
 		!regData.regLastName ||
-		isLoginPhoneValid ||
+		isRegPhoneValid ||
 		!regData.regPassword ||
 		!regData.regConfirmPassword ||
 		authStore?.loadingRegister;

@@ -40,6 +40,7 @@ const Auth = () => {
 		return emailRegExp.test(email);
 	};
 	const isLoginPhoneValid = loginPhone.replace(/[^0-9]/g, "").length >= 12;
+	const isRegPhoneValid = regPhone.replace(/[^0-9]/g, "").length >= 12;
 
 	const registerHandle = () => {
 		if (regPassword !== regConfirmPassword) {
