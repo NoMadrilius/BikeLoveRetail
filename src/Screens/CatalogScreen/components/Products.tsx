@@ -78,6 +78,7 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
 				</HoverableSvg>
 				{Array.from({ length: totalPages }).map((x, index: number) => (
 					<Text
+						key={index}
 						color={currentPage === index + 1 ? colors.black : colors.grayBorder}
 						size='18'
 						fontStyle={currentPage === index + 1 ? fonts.f600 : fonts.f400}
