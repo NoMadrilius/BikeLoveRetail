@@ -24,7 +24,7 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
 				name='twitter:image'
 				content={img || `${CONFIG.IMG_URL}/mock/NoPhoto.png`}
 			/>
-			<link rel='icon' href='/favicon.ico' />
+			<link rel='icon' href='/logo.ico' />
 		</Head>
 	);
 };

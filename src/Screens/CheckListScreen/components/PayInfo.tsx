@@ -9,8 +9,6 @@ import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { IOrderData } from "@/types/types";
 import { showToast } from "@/helpers/alertService/alertService";
-import axiosInstance from "@/api/axiosInstance";
-import axios from "axios";
 import { useProductStore } from "@/store/ProductStore";
 import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";

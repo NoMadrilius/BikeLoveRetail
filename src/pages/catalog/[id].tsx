@@ -6,6 +6,7 @@ import axios from "axios";
 import Error from "next/error";
 import { colors } from "../../../theme/colors";
 import NotFound from "@/Screens/CatalogScreen/components/NotFound";
+import axiosInstance from "@/api/axiosInstance";
 
 const groupOptions = (options: any) => {
 	return options.reduce((acc: any, option: any) => {
@@ -45,8 +46,8 @@ export const getServerSideProps = async (context: any) => {
 			filtersVariantIds: filtersVariantIds,
 			sortingSettings: [],
 		};
-		const response = await axios.post(
-			"https://bikeshop.1gb.ua/api/public/catalogproducts",
+		const response = await axiosInstance.post(
+			"/public/catalogproducts",
 			request
 		);
 		const data = response.data.products;

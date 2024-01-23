@@ -6,9 +6,20 @@ import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../theme/fonts";
 import { colors } from "../../../theme/colors";
 import Image from "next/image";
+import axios from "axios";
 
 const GratitudeScreen = () => {
-  
+	const onPress = async () => {
+		try {
+			const response = await axios.post("/api/create-payment");
+			console.log(response.data);
+			if (typeof window !== "undefined") {
+				window.location.href = response.data;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<>
 			<>
@@ -37,10 +48,7 @@ const GratitudeScreen = () => {
 								textAlign='center'>
 								ЧЕКАЄМО НА ОПЛАТУ:
 							</Text>
-							<Button
-
-							// onClick={() => setSelectedPayMethod("L")}
-							>
+							<Button onClick={() => onPress()}>
 								<Image
 									alt='LiqPay'
 									width={64}

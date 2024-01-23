@@ -3,6 +3,7 @@ import { PaddingWrapper } from "../../../theme/templates";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { colors } from "../../../theme/colors";
+import axiosInstance from "@/api/axiosInstance";
 
 interface Option {
 	optionVariantId: number;
@@ -69,14 +70,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 }: any) => {
 	try {
 		const { id } = params;
-		const response = await axios.get(
-			`https://bikeshop.1gb.ua/api/public/getproductcardbyid`,
-			{
-				params: {
-					productId: +id,
-				},
-			}
-		);
+		const response = await axiosInstance.get(`/public/getproductcardbyid`, {
+			params: {
+				productId: +id,
+			},
+		});
 		const productData = response.data;
 		const options = groupOptions(productData.productOptions);
 

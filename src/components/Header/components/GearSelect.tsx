@@ -6,6 +6,7 @@ import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	onClick: any;
@@ -14,10 +15,16 @@ type Props = {
 
 const GearSelect: FC<Props> = ({ onClick, setVisible }) => {
 	const currStore = useCurrencyStore();
+	const { i18n } = useTranslation();
 	const [open, setOpen] = useState(false);
+	const [openLang, setOpenLang] = useState(false);
 
 	const clickCurr = (curr: string) => {
 		onClick(curr);
+		setVisible(false);
+	};
+	const clickLang = (lang: string) => {
+		i18n.changeLanguage(lang);
 		setVisible(false);
 	};
 
@@ -52,6 +59,42 @@ const GearSelect: FC<Props> = ({ onClick, setVisible }) => {
 								hoverColor={colors.redMain}
 								margin='5px 0 0 0'>
 								USD
+							</Text>
+						</SelectArea>
+					)}
+				</SelectField>
+				<SelectField>
+					<Text
+						color={colors.black}
+						fontStyle={fonts.f500}
+						size='18px'
+						margin='0 auto 0 10px'
+						textTransform='uppercase'>
+						{i18n.language}
+					</Text>
+					<Icon
+						src='/icons/catArrow.svg'
+						onClick={() => setOpenLang(!openLang)}
+					/>
+					{openLang && (
+						<SelectArea>
+							<Text
+								color={colors.black}
+								size='18px'
+								fontStyle={fonts.f500}
+								func={() => clickLang("ua")}
+								hoverColor={colors.redMain}
+								margin='5px 0 0 0'>
+								UA
+							</Text>
+							<Text
+								color={colors.black}
+								size='18px'
+								fontStyle={fonts.f500}
+								func={() => clickLang("ru")}
+								hoverColor={colors.redMain}
+								margin='5px 0 0 0'>
+								RU
 							</Text>
 						</SelectArea>
 					)}

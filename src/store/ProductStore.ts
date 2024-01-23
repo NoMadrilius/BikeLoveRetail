@@ -7,12 +7,14 @@ import { showToast } from '@/helpers/alertService/alertService';
 import axiosInstance from '@/api/axiosInstance';
 import Router from 'next/router';
 import cartStore from './CartStore';
+import authStore from './AuthStore';
 
 class ProductStore {
   product = {}
   loadingSendOrder: boolean = false
   order:[] = []
-
+  forYou:[] = []
+  sales:[] = []
   
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +28,33 @@ class ProductStore {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  }
+
+  fetchForYou = async () => {
+    console.log(authStore.loginUserResponse?.user?.id)
+
+    if(authStore.loginUserResponse?.user?.id){
+      try {
+        const response = await axiosInstance.get(`/public/foryou?ClientId=${authStore.loginUserResponse?.user?.id}`)
+        this.forYou = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+   
+  }
+  fetchSales = async () => {
+    console.log(authStore.loginUserResponse?.user?.id)
+
+    if(authStore.loginUserResponse?.user?.id){
+      try {
+        const response = await axiosInstance.get(`/public/sales?ClientId=${authStore.loginUserResponse?.user?.id}`)
+        this.sales = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+   
   }
 
   sendOrder = async(request: any) => {

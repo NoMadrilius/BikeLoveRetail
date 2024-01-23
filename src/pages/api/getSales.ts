@@ -9,15 +9,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
     if (req.method === 'GET') {
-
-        const {token} = req.query
-        console.log(token)
         try {
-          const response = await axiosInstance.get('/order/getbyuser', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await axiosInstance.get('/public/sales');
           res.status(200).json(response.data);
         } catch (error) {
           const err = error as AxiosError;

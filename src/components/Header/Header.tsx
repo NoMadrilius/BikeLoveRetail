@@ -27,8 +27,8 @@ import { useWishListStore } from "@/store/WishListStore";
 import { useAuthStore } from "@/store/AuthStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import GearSelect from "./components/GearSelect";
+import { useTranslation } from "react-i18next";
 
-const TITLES = ["каталог", "о магазине", "мастерская", "велоблог", "контакты"];
 const ICONS = [
 	{ id: 1, icon: "/images/home/icons/icon1.svg" },
 	{ id: 2, icon: "/images/home/icons/icon2.svg" },
@@ -40,6 +40,15 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ opacityBg }) => {
+	const { t } = useTranslation();
+
+	const TITLES = [
+		t("header.catalog"),
+		t("header.about"),
+		t("header.workshop"),
+		t("header.blog"),
+		t("header.contacts"),
+	];
 	const currensyStore = useCurrencyStore();
 	const [inputText, setInputText] = useState("");
 	const [categoriesVisible, setCategoriesVisible] = useState(false);
@@ -204,7 +213,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 							type='default'
 							func={() => router.push("/auth")}>
 							<Text color={colors.white} size='16px' fontStyle={fonts.f400}>
-								Войти
+								{t("header.enter")}
 							</Text>
 						</ButtonCustom>
 					)}
