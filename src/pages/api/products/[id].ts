@@ -1,5 +1,6 @@
 // pages/api/products/[id].js
 
+import axiosInstance from '@/api/axiosInstance';
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     try {
 
-      const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getproductcardbyid`, {
+      const response = await axiosInstance.get(`/public/getproductcardbyid`, {
         params: {
             productId: id
         }

@@ -4,7 +4,7 @@ import { IProduct } from '@/types/types';
 import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
 import authStore from './AuthStore';
-import axios from 'axios';
+import axiosInstance from '@/api/axiosInstance';
 
 class WishListStore {
     wishList: IProduct[] = [];
@@ -40,7 +40,7 @@ class WishListStore {
     }
     initializeWishListFromServer = async() => {
       try {
-        const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`);
+        const response = await axiosInstance.get(`/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`);
         this.wishList = [];
         this.wishList = response.data.map((item: any) => ({...item.product, image: item.productImages[0]?.url || null }))
       } catch (error) {
@@ -56,7 +56,7 @@ class WishListStore {
     }
     saveWishListToServer(product: any) {
       try {
-        axios.post(`https://bikeshop.1gb.ua/api/public/addfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}`);
+        axiosInstance.post(`/public/addfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}`);
       } catch (error) {
         console.log('error saveProductToServer')
       }
@@ -64,7 +64,7 @@ class WishListStore {
     }
     removeWishListItemFromServer(productId: any) {
       try {
-        axios.delete(`https://bikeshop.1gb.ua/api/public/delfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productId}`);
+        axiosInstance.delete(`/public/delfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productId}`);
       } catch (error) {
         console.log('error saveProductToServer')
       }

@@ -18,6 +18,7 @@ const Card: FC<Product> = ({
 	colors,
 	image,
 	price,
+	oldPrice,
 	sale,
 	sizes,
 	title,

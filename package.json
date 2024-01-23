@@ -24,6 +24,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "dayjs": "^1.11.10",
     "jose": "^5.2.0",
+    "liqpay": "^0.0.1",
     "mobx": "^6.12.0",
     "mobx-react": "^9.1.0",
     "next": "14.0.3",

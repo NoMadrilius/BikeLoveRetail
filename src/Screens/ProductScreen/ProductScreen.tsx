@@ -253,7 +253,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 									size='16px'
 									fontStyle={fonts.f500}
 									margin='0 0 0 5px'>
-									{productData.product?.barcode}
+									{productData.product?.id}
 								</Text>
 							</RowContainer>
 						</Res1Text>

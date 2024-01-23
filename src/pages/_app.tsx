@@ -7,6 +7,7 @@ import { CONFIG } from "../../config";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { ToastContainer } from "react-toastify";
 import Layout from "./layout";
+import PhoneWidget from "@/components/PhoneWidget/PhoneWidget";
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
 						showOnShallow={true}
 					/>
 					<Component {...pageProps} />
+					<PhoneWidget />
 				</Layout>
 			</Auth0Provider>
 		</>

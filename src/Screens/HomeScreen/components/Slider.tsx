@@ -54,13 +54,14 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
 								key={index}>
 								{variant === "cards" && (
 									<Card
-										title={el.name}
+										title={el.product.name}
 										image={el.image || "/mock/NoPhoto.png"}
-										price={el.retailPrice}
+										price={el.product.retailPrice}
 										colors={el.colors}
 										sizes={el.sizes}
 										sale={el.sale}
-										id={el.id}
+										oldPrice={el.product.oldRetailPrice}
+										id={el.product.id}
 									/>
 								)}
 								{variant === "news" && <NewsItem {...el} />}

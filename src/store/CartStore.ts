@@ -5,6 +5,7 @@ import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
 import authStore from './AuthStore';
 import axios from 'axios';
+import axiosInstance from '@/api/axiosInstance';
 
 class CartStore {
     cart: IProduct[] = [];
@@ -42,7 +43,7 @@ class CartStore {
     initializeCartFromServer = async() => {
       try {
     
-        const response = await axios.get(`https://bikeshop.1gb.ua/api/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`);
+        const response = await axiosInstance.get(`/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`);
         this.cart = [];
        this.cart = response.data.map((item:any) => ({...item.product.product, quantity: item.quantity, image: item.product.productImages[0]?.url || null}))
       } catch (error) {
@@ -62,7 +63,7 @@ class CartStore {
     }
     saveProductToServer(product: IProduct){
       try {
-        axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=1`);
+        axiosInstance.post(`/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=1`);
       } catch (error) {
         console.log('error saveProductToServer')
       }
@@ -93,7 +94,7 @@ class CartStore {
         if(authStore.loginUserResponse?.user?.id){
       
           try {
-            axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`);
+            axiosInstance.post(`/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`);
           } catch (error) {
             console.log('error saveProductToServer')
           }
@@ -139,7 +140,7 @@ class CartStore {
       try {
         updatedCart.forEach((product) => {
           
-          axios.post(`https://bikeshop.1gb.ua/api/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=${0}`);
+          axiosInstance.post(`/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=${0}`);
         });
       } catch (error) {
         console.log('error saveProductToServer', error);

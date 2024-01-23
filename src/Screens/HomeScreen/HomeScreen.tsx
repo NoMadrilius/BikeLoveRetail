@@ -13,6 +13,10 @@ import { byProposeData, newsData, sliderData, sliderTags } from "@/mock/data";
 import { ResponsiveBlockGroup } from "./components/ResponsiveBlockGroup";
 import Subscribe from "./components/Subscribe";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
+import { useProductStore } from "@/store/ProductStore";
+import { observer } from "mobx-react";
+import { useEffect } from "react";
+import Slider from "./components/Slider";
 
 const ITEMS = [
 	{
@@ -66,11 +70,20 @@ const ITEMS = [
 ];
 
 const HomeScreen = () => {
+	const productStore = useProductStore();
 	const handleScrollToBottom = () => {
 		if (typeof window !== "undefined") {
 			window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
 		}
 	};
+
+	useEffect(() => {
+		productStore.fetchSales();
+		productStore.fetchForYou();
+	}, []);
+	console.log(productStore.sales);
+	console.log(productStore.forYou);
+
 	return (
 		<>
 			<UseMetaData title={"Home"} img={""} description={"asd"} />
@@ -98,20 +111,23 @@ const HomeScreen = () => {
 					<ByPropose items={ITEMS} />
 
 					<ResponsiveBlockGroup variant='1' />
-					{/* <Slider
-						title={"Популярные велосипеды"}
-						tags={sliderTags}
-						items={sliderData}
-						variant='cards'
-					/>
-					<Slider
-						title={"Популярные аксуссуары"}
-						tags={sliderTags}
-						items={sliderData}
-						variant='cards'
-					/>
+					{productStore.forYou && (
+						<Slider
+							title={"Для тебя"}
+							items={productStore?.forYou}
+							variant='cards'
+						/>
+					)}
+					{productStore.sales && (
+						<Slider
+							title={"Популярные аксуссуары"}
+							items={productStore?.sales}
+							variant='cards'
+						/>
+					)}
+
 					<ResponsiveBlockGroup variant='2' />
-					<Slider
+					{/*<Slider
 						title={"Велоблог"}
 						tags={[]}
 						items={newsData}
@@ -123,4 +139,4 @@ const HomeScreen = () => {
 		</>
 	);
 };
-export default HomeScreen;
+export default observer(HomeScreen);
