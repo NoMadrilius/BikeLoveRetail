@@ -14,6 +14,7 @@ export const TextStyle = styled.div<{
   maxWidth?: string;
   textAlign?: string;
   whiteSpace?: boolean;
+  preline?: boolean
   textTransform?: string
   textDecoration?: string
 }>`
@@ -28,7 +29,8 @@ export const TextStyle = styled.div<{
   text-align: ${(p) => p.textAlign || ""};
   cursor: ${(p) => (p.func || p.hoverColor ? "pointer" : "inherit")};
   transition: 0.3s;
-white-space:  ${p => p.whiteSpace && 'nowrap'};
+  white-space:  ${p => p.whiteSpace && 'nowrap'};
+  white-space: ${p => p.preline && 'pre-line'};
 z-index: 1;
   &:hover {
     color: ${(p) => (p.hoverColor || p.func ? p.hoverColor : p.color)};

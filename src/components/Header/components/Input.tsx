@@ -12,6 +12,7 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	value: string;
@@ -25,6 +26,7 @@ type Preview = {
 };
 
 const Input: FC<Props> = ({ onChange, value }) => {
+	const { t } = useTranslation();
 	const [previwData, setPreviewData] = useState<Preview[]>();
 	const [focused, setFocused] = useState(false);
 	const [areaIsOpen, setAreaIsOpen] = useState(false);
@@ -56,7 +58,7 @@ const Input: FC<Props> = ({ onChange, value }) => {
 		<>
 			<Wrapper>
 				<InputField
-					placeholder='Поиск'
+					placeholder={t("header.search")}
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
 					onFocus={() => setFocused(true)}

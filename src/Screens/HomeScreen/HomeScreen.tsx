@@ -17,6 +17,7 @@ import { useProductStore } from "@/store/ProductStore";
 import { observer } from "mobx-react";
 import { useEffect } from "react";
 import Slider from "./components/Slider";
+import { useTranslation } from "react-i18next";
 
 const ITEMS = [
 	{
@@ -81,9 +82,7 @@ const HomeScreen = () => {
 		productStore.fetchSales();
 		productStore.fetchForYou();
 	}, []);
-	console.log(productStore.sales);
-	console.log(productStore.forYou);
-
+	const { t } = useTranslation();
 	return (
 		<>
 			<UseMetaData title={"Home"} img={""} description={"asd"} />
@@ -94,9 +93,9 @@ const HomeScreen = () => {
 							color={colors.white}
 							size='54px'
 							margin='20% 0'
-							fontStyle={fonts.f500}>
-							Лови возможность <br />
-							проехать больше маршрутов
+							fontStyle={fonts.f500}
+							preline>
+							{t("home.mainText")}
 						</Text>
 					</MainContainer>
 					<IconBottom
