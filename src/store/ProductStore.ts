@@ -71,7 +71,7 @@ class ProductStore {
       const response = await axios.post('/api/sendOrder',{request,token})
       console.log(response)
       this.loadingSendOrder = false
-      Router.push('/gratitude')
+      Router.push(`/gratitude/${response.data.order.id}`)
       cartStore.removeAllFromCart()
     } catch (error) {
       this.loadingSendOrder = false

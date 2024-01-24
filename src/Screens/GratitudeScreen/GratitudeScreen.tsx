@@ -7,8 +7,13 @@ import { fonts } from "../../../theme/fonts";
 import { colors } from "../../../theme/colors";
 import Image from "next/image";
 import axios from "axios";
+import { FC } from "react";
 
-const GratitudeScreen = () => {
+type Props = {
+	id?: string;
+};
+
+const GratitudeScreen: FC<Props> = ({ id }) => {
 	const onPress = async () => {
 		try {
 			const response = await axios.post("/api/create-payment");
@@ -38,7 +43,7 @@ const GratitudeScreen = () => {
 							fontStyle={fonts.f500}
 							color={colors.white}
 							textAlign='center'>
-							№ 993476
+							№ {id}
 						</Text>
 						<Container>
 							<Text

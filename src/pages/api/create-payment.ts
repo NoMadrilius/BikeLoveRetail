@@ -1,5 +1,6 @@
 // pages/api/checkout.js
 import axios from 'axios';
+import { CONFIG } from '../../../config';
 const crypto = require('crypto');
 const private_key = 'sandbox_0dWwC9zTPiVKqBeLKLLwD08WZrEeI9Q3RJtY5JXm'
 const public_key = 'sandbox_i86573020396'
@@ -8,7 +9,7 @@ const handler = async (req:any, res:any) => {
   if (req.method !== 'POST') {
     return res.status(405).end(); // Method Not Allowed
   }
-
+const orderId = '6'
   try {
     console.log()
     const order = {
@@ -19,7 +20,9 @@ const handler = async (req:any, res:any) => {
 			amount: '20',
 			currency: 'UAH',
 			description: 'description',
-			order_id: '2',
+      result_url: `${CONFIG.IMG_URL}gratitude/${orderId}`,
+      server_url: `${CONFIG.IMG_URL}gratitude/${orderId}?Success=ok`,
+			order_id: orderId,
 			sandbox: '1',
     };
     const base64Encoded = Buffer.from(JSON.stringify(order)).toString('base64');

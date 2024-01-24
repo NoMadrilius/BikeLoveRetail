@@ -18,6 +18,8 @@ import { observer } from "mobx-react";
 import { useEffect } from "react";
 import Slider from "./components/Slider";
 import { useTranslation } from "react-i18next";
+import { useCurrencyStore } from "@/store/CurrencyStore";
+import { useAuthStore } from "@/store/AuthStore";
 
 const ITEMS = [
 	{
@@ -72,6 +74,7 @@ const ITEMS = [
 
 const HomeScreen = () => {
 	const productStore = useProductStore();
+	const currencyStore = useCurrencyStore();
 	const handleScrollToBottom = () => {
 		if (typeof window !== "undefined") {
 			window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
@@ -83,6 +86,10 @@ const HomeScreen = () => {
 		productStore.fetchForYou();
 	}, []);
 	const { t } = useTranslation();
+	const authStore = useAuthStore();
+	const refresh = () => {
+		authStore.refreshToken();
+	};
 	return (
 		<>
 			<UseMetaData title={"Home"} img={""} description={"asd"} />
@@ -107,17 +114,18 @@ const HomeScreen = () => {
 					/>
 				</BgImage>
 				<MainContainer>
+					<button onClick={() => refresh()}>Click</button>
 					<ByPropose items={ITEMS} />
 
 					<ResponsiveBlockGroup variant='1' />
-					{productStore.forYou && (
+					{productStore?.forYou.length && (
 						<Slider
 							title={"Для тебя"}
 							items={productStore?.forYou}
 							variant='cards'
 						/>
 					)}
-					{productStore.sales && (
+					{productStore?.sales.length && (
 						<Slider
 							title={"Популярные аксуссуары"}
 							items={productStore?.sales}

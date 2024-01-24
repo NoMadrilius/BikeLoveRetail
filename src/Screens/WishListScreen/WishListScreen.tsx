@@ -22,13 +22,14 @@ const WishListScreen = () => {
 	useEffect(() => {
 		setWishList(wishStore.wishList);
 	}, [wishStore]);
+	console.log(wishList);
 	return (
 		<>
 			<UseMetaData title={"Wish List"} img={""} description={"sdasd"} />
 
 			<Wrapper>
 				<BreadCrumbs road={road} />
-				<Slider title={"список желаний"} items={wishList} variant={"cards"} />
+				<Slider title={"список желаний"} items={wishList} variant={"wish"} />
 				{!wishList?.length && (
 					<EmptyContainer style={{ paddingBottom: "300px" }}>
 						<Text color={colors.black} size='40px' fontStyle={fonts.f500}>

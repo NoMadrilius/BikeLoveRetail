@@ -129,6 +129,8 @@ const Wrapper = styled.div`
 const Picture = styled.img`
 	width: 100%;
 	border-radius: 10px;
+	height: 183px;
+	object-fit: contain;
 `;
 const ContainerRow = styled.div`
 	display: flex;

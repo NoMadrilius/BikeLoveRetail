@@ -4,9 +4,12 @@ import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from "swiper/modules";
 import { styled } from "styled-components";
 import Image from "next/image";
+import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 
 const SliderProducts = ({ images }: any) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [imgInModal, setImgInModal] = useState<string>("");
 	const topSwiper = useRef(null);
 
 	const handleSlideChange = (swiper: any) => {
@@ -20,7 +23,11 @@ const SliderProducts = ({ images }: any) => {
 			swiper.current.swiper.slideTo(index);
 		}
 	};
-
+	const handleClickBigImg = (img: string) => {
+		setModalIsOpen(true);
+		setImgInModal(img);
+	};
+	console.log(currentSlide);
 	return (
 		<>
 			<Swiper
@@ -39,8 +46,13 @@ const SliderProducts = ({ images }: any) => {
 							display: "flex",
 							justifyContent: "center",
 							alignItems: "center",
+							cursor: "pointer",
 						}}>
-						<BigImg src={slide.url} alt={`Slide ${slide.id}`} />
+						<BigImg
+							src={slide.url}
+							alt={`Slide ${slide.id}`}
+							onClick={() => handleClickBigImg(slide.url)}
+						/>
 					</SwiperSlide>
 				))}
 			</Swiper>
@@ -65,15 +77,20 @@ const SliderProducts = ({ images }: any) => {
 							style={{
 								width: "84px",
 								height: "58px",
-								border:
-									currentSlide === slide.id - 1 ? "1px solid grey" : "none",
+								border: currentSlide === index ? "1px solid grey" : "none",
 								borderRadius: "10px",
 								cursor: "pointer",
+								objectFit: "contain",
 							}}
 						/>
 					</SwiperSlide>
 				))}
 			</Swiper>
+			{modalIsOpen && (
+				<BlurWrapper setModal={setModalIsOpen}>
+					<ModalImg src={imgInModal} />
+				</BlurWrapper>
+			)}
 		</>
 	);
 };
@@ -82,4 +99,10 @@ export default SliderProducts;
 const BigImg = styled.img`
 	width: 100%;
 	aspect-ratio: 469/324;
+	object-fit: contain;
+`;
+const ModalImg = styled.img`
+	max-width: 100%;
+	max-height: 100vh;
+	padding: 10px 0;
 `;

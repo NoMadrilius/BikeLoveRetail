@@ -2,6 +2,7 @@ import axios from 'axios';
 import { makeAutoObservable } from 'mobx';
 import { apiUrls } from './apiUrls';
 import { createContext, useContext } from 'react';
+import axiosInstance from '@/api/axiosInstance';
 
 class CurrencyStore {
   currency = [];
@@ -13,6 +14,7 @@ class CurrencyStore {
     this.loadSelectedCurrencyFromLocalStorage()
   }
 
+
   getCurrency = async () => {
 if(typeof window !== 'undefined'){
     try {
@@ -20,8 +22,9 @@ if(typeof window !== 'undefined'){
         if (storedCurrency) {
           this.currency = JSON.parse(storedCurrency);
         } else {
-          const response = await axios.get('/api/currency');
-          this.currency = response.data;
+          const response = await axiosInstance.get('/currency/getpublic')
+          this.currency = response.data
+      console.log(response.data)
   
           localStorage.setItem('currency', JSON.stringify(this.currency));
         }

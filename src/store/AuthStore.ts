@@ -6,6 +6,8 @@ import axios from 'axios';
 import * as jose from 'jose'
 import { showToast } from '@/helpers/alertService/alertService';
 import  Router  from 'next/router';
+import axiosInstance from '@/api/axiosInstance';
+import { CONFIG } from '../../config';
 
 class AuthStore {
     registerUserResponse: any = {}
@@ -105,6 +107,14 @@ class AuthStore {
                 type: 'error'
             })
             this.loadingLogin = false
+        }
+    }
+    refreshToken = async() => {
+        try {
+            const response = await axiosInstance.post(`/auth/refresh`)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
         }
     }
 

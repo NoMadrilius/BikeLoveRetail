@@ -41,7 +41,7 @@ const GearSelect: FC<Props> = ({ onClick, setVisible }) => {
 					</Text>
 					<Icon src='/icons/catArrow.svg' onClick={() => setOpen(!open)} />
 					{open && (
-						<SelectArea>
+						<SelectArea style={{ zIndex: "6" }}>
 							<Text
 								color={colors.black}
 								size='18px'

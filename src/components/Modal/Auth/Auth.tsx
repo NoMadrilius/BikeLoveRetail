@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
 import InputMask from "react-input-mask";
+import RenewPassword from "./components/RenewPassword";
 
 const Auth = () => {
 	const router = useRouter();
@@ -150,7 +151,7 @@ const Auth = () => {
 							size='13px'
 							fontStyle={fonts.f400}
 							margin='0 0 0 auto'
-							func={() => console.log("hello")}
+							func={() => setStep(2)}
 							hoverColor={colors.redMain}>
 							Напомнить пароль
 						</Text>
@@ -307,6 +308,7 @@ const Auth = () => {
 					</Text>
 				</Wrapper>
 			)}
+			{step === 2 && <RenewPassword setMainStep={setStep} />}
 			<></>
 		</>
 	);

@@ -18,10 +18,11 @@ type Props = {
 	title: string;
 	tags?: string[];
 	items: any;
-	variant: "cards" | "news";
+	variant: "cards" | "news" | "wish";
 };
 
 const Slider: FC<Props> = ({ items, tags, title, variant }) => {
+	console.log(items);
 	return (
 		<div style={{ width: "100%" }}>
 			<Text
@@ -55,13 +56,25 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
 								{variant === "cards" && (
 									<Card
 										title={el.product.name}
-										image={el.image || "/mock/NoPhoto.png"}
+										image={el.productImages[0]?.url || "/mock/NoPhoto.png"}
 										price={el.product.retailPrice}
 										colors={el.colors}
 										sizes={el.sizes}
 										sale={el.sale}
 										oldPrice={el.product.oldRetailPrice}
 										id={el.product.id}
+									/>
+								)}
+								{variant === "wish" && (
+									<Card
+										title={el.name}
+										image={el.image || "/mock/NoPhoto.png"}
+										price={el.retailPrice}
+										colors={el.colors}
+										sizes={el.sizes}
+										sale={el.sale}
+										oldPrice={el.oldRetailPrice}
+										id={el.id}
 									/>
 								)}
 								{variant === "news" && <NewsItem {...el} />}
