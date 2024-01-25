@@ -66,7 +66,8 @@ class AuthStore {
     login = async (request: LoginRequest,noRelocate?:boolean) => {
         try {
             this.loadingLogin = true
-            const response = await axios.post('/api/login', request)
+            console.log(request)
+            const response = await axios.post('https://bikeshop.1gb.ua/api/auth/login', request)
             this.loginUserResponse = {...response.data}
             showToast({
                 info: 'Вітаємо',
@@ -115,7 +116,9 @@ class AuthStore {
            
     
             // Отправляем запрос на обновление токена с текущим токеном в куке
-            const response = await axios.post('/api/refreshToken');
+            const response = await axios.post(`https://bikeshop.1gb.ua/api/auth/refresh`, null, {
+                withCredentials: true,
+              })
     
             console.log(response.data);
         } catch (error) {
