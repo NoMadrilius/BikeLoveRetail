@@ -61,7 +61,7 @@ const Categories = ({ setVisible, categories }: any) => {
 							size='15px'
 							fontStyle={fonts.f600}
 							func={() => parentClick(el)}>
-							{el.name} {el.sortOrder}
+							{el.name}
 						</Text>
 					))}
 				</MainColumn>
@@ -111,7 +111,7 @@ const Categories = ({ setVisible, categories }: any) => {
 												? setExpandedCategoryId(isExpanded ? null : el.id)
 												: childClick(el);
 										}}>
-										{el.name} {el.sortOrder}
+										{el.name}
 									</Text>
 								</TitleWrapper>
 
@@ -150,7 +150,7 @@ const Categories = ({ setVisible, categories }: any) => {
 													fontStyle={fonts.f400}
 													margin='0 0 0 8px'
 													func={() => smallChildClick(child.id)}>
-													{child.name} {el.sortOrder}
+													{child.name}
 												</Text>
 											)
 										)}

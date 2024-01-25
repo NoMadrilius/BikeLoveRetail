@@ -19,8 +19,8 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
 	const products = items?.map((el: any) => ({
 		...el.product,
 		img: el.productImages[0],
+		avaliability: el.productStorageQuantity[el.product?.id][1],
 	}));
-	console.log(totalPages);
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const onPagiClick = (number: number) => {
@@ -62,6 +62,7 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
 								sizes={el.sizes}
 								sale={el.sale}
 								id={el.id}
+								avaliability={el.avaliability}
 							/>
 					  ))}
 			</GridContainer>

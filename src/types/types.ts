@@ -7,6 +7,7 @@ export type Product = {
     sizes?: string[];
     sale?: string;
     id?: number
+    avaliability?: number 
 }
 export type INewsItem = {
     id: number
@@ -189,4 +190,3 @@ export interface Order {
   products: OrderProduct[];
   statusHistories: StatusHistory[];
   }
-  

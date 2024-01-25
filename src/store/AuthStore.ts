@@ -110,6 +110,12 @@ class AuthStore {
         }
     }
     refreshToken = async() => {
+        const refreshCookie = document.cookie
+ 
+
+const refreshToken = refreshCookie ? refreshCookie.split('=')[1] : null;
+console.log(refreshCookie)
+console.log(refreshToken)
         try {
             const response = await axiosInstance.post(`/auth/refresh`)
             console.log(response.data)

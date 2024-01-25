@@ -23,6 +23,7 @@ const Card: FC<Product> = ({
 	sizes,
 	title,
 	id,
+	avaliability,
 }) => {
 	const router = useRouter();
 	const wishStore = useWishListStore();
@@ -34,9 +35,14 @@ const Card: FC<Product> = ({
 	useEffect(() => {
 		setPriceStr(price ? prettyPrice(price) : 0);
 	}, [price, currStore.selectedCurrency, currStore]);
+	console.log(typeof avaliability);
+	console.log((avaliability as number) > 0);
 
 	return (
-		<Wrapper onClick={() => router.push(`/product/${id}`)}>
+		<Wrapper
+			onClick={() => router.push(`/product/${id}`)}
+			off={(avaliability as number) > 0}>
+			{avaliability}
 			{sale && (
 				<SalePatch>
 					<Text size='12px' color={colorsTheme.white} fontStyle={fonts.f500}>
@@ -112,7 +118,7 @@ const Card: FC<Product> = ({
 };
 export default observer(Card);
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ off: boolean }>`
 	position: relative;
 	display: flex;
 	padding: 38px 24px 32px;
@@ -125,6 +131,7 @@ const Wrapper = styled.div`
 	background-color: ${colorsTheme.white};
 	row-gap: 10px;
 	cursor: pointer;
+	opacity: ${(p) => (p.off ? "1" : "0.5")};
 `;
 const Picture = styled.img`
 	width: 100%;

@@ -5,10 +5,10 @@ import { Text } from "../Text/Text";
 import { fonts } from "../../../theme/fonts";
 import { metrics } from "../../../theme/metrics";
 import { Logo } from "../Header/HeaderStyles";
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
-const rights = ["@ 2023", "Все права защищены", "Публичная оферта"];
 const socialIcons = [
 	"/icons/social/viber.svg",
 	"/icons/social/tg.svg",
@@ -19,6 +19,10 @@ const socialIcons = [
 ];
 
 const Footer = () => {
+	const { t } = useTranslation();
+	const currentLang: "ua" | "ru" = i18next.language as "ua" | "ru";
+
+	const rights = ["@ 2023", t("footer.allRights"), t("footer.publicAffert")];
 	return (
 		<Wrapper>
 			<ItemsContainer>
@@ -44,7 +48,7 @@ const Footer = () => {
 				))}
 			</ItemsContainer>
 			<Res1Container>
-				{footerItems.map((el: any, index: any) => (
+				{footerItems[currentLang].map((el: any, index: any) => (
 					<ItemsContainer key={index}>
 						<Text
 							color={colors.white}
@@ -64,7 +68,7 @@ const Footer = () => {
 								{el}
 							</Text>
 						))}
-						{index === footerItems.length - 1 && (
+						{index === footerItems[currentLang].length - 1 && (
 							<SocialContainer>
 								{socialIcons.map((el, index) => (
 									<Image
@@ -82,7 +86,7 @@ const Footer = () => {
 				))}
 			</Res1Container>
 			<Res2Container>
-				{footerItems.slice(-2).map((el: any, index: any) => (
+				{footerItems[currentLang].slice(-2).map((el: any, index: any) => (
 					<ItemsContainer key={index}>
 						<Text
 							color={colors.white}
@@ -102,7 +106,7 @@ const Footer = () => {
 								{el}
 							</Text>
 						))}
-						{index === footerItems.slice(-2).length - 1 && (
+						{index === footerItems[currentLang].slice(-2).length - 1 && (
 							<SocialContainer>
 								{socialIcons.map((el, index) => (
 									<Image

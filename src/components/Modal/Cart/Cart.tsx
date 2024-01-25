@@ -12,8 +12,10 @@ import { useEffect, useState } from "react";
 import { IProduct } from "@/types/types";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const Cart = ({ setVisible }: any) => {
+	const { t } = useTranslation();
 	const cartStore = useCartStore();
 	const router = useRouter();
 	const [cart, setCart] = useState<IProduct[]>([]);
@@ -42,7 +44,7 @@ const Cart = ({ setVisible }: any) => {
 					onClick={() => setVisible(false)}
 				/>
 				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					КОРЗИНА
+					{t("cart.cart")}
 				</Text>
 
 				<ItemsContainer>
@@ -61,7 +63,7 @@ const Cart = ({ setVisible }: any) => {
 							width={"254px"}
 							height={"56px"}
 							type={"white"}
-							label='Продолжить покупки'
+							label={t("cart.continueBuy")}
 							func={() => setVisible(false)}
 						/>
 
@@ -69,27 +71,27 @@ const Cart = ({ setVisible }: any) => {
 							<Icon src='/icons/van.png' style={{ height: "28px" }} />
 							<ColumnContainer>
 								<Text color={colors.black} size='16px' fontStyle={fonts.f700}>
-									Быстрая доставка
+									{t("cart.quiqDelivery")}
 								</Text>
 								<Text
 									color={colors.black}
 									size='12px'
 									fontStyle={fonts.f400}
 									margin='10px 0 0 0'>
-									Мы доставляем заказы в течении 48 часов
+									{t("cart.delivery48h")}
 								</Text>
 							</ColumnContainer>
 							<Icon src='/icons/card.png' />
 							<ColumnContainer>
 								<Text color={colors.black} size='16px' fontStyle={fonts.f700}>
-									Безопасная оплата
+									{t("cart.sefetyPay")}
 								</Text>
 								<Text
 									color={colors.black}
 									size='12px'
 									fontStyle={fonts.f400}
 									margin='10px 0 0 0'>
-									Мы используем 3D-Secure для защиты всех пользователей{" "}
+									{t("cart.secure3D")}
 								</Text>
 							</ColumnContainer>
 						</InfoContainer>
@@ -98,7 +100,7 @@ const Cart = ({ setVisible }: any) => {
 					<TotalContainer>
 						<RowContainer style={{ alignItems: "center" }}>
 							<Text color={colors.black} size='18px' fontStyle={fonts.f400}>
-								ИТОГО
+								{t("cart.total")}
 							</Text>
 							<Text
 								color={colors.black}
@@ -113,7 +115,7 @@ const Cart = ({ setVisible }: any) => {
 							width={"214px"}
 							height={"56px"}
 							type={"default"}
-							label='Оформить заказ'
+							label={t("cart.placeOrder")}
 							func={() => goTo()}
 						/>
 					</TotalContainer>
