@@ -112,16 +112,10 @@ class AuthStore {
     refreshToken = async() => {
         try {
             // Получаем текущий токен из localStorage
-            const auth = localStorage.getItem('AuthStore');
-            const authToken = JSON.parse(auth!) || '';
-            const currentToken = authToken.accessToken;
+           
     
             // Отправляем запрос на обновление токена с текущим токеном в куке
-            const response = await axios.post('/api/refreshToken', null, {
-                headers: {
-                    Cookie: `X-Refresh-Token=${currentToken}`,
-                },
-            });
+            const response = await axios.post('/api/refreshToken');
     
             console.log(response.data);
         } catch (error) {
