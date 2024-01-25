@@ -110,17 +110,22 @@ class AuthStore {
         }
     }
     refreshToken = async() => {
-        const refreshCookie = document.cookie
- 
-
-const refreshToken = refreshCookie ? refreshCookie.split('=')[1] : null;
-console.log(refreshCookie)
-console.log(refreshToken)
         try {
-            const response = await axiosInstance.post(`/auth/refresh`)
-            console.log(response.data)
+            // Получаем текущий токен из localStorage
+            const auth = localStorage.getItem('AuthStore');
+            const authToken = JSON.parse(auth!) || '';
+            const currentToken = authToken.accessToken;
+    
+            // Отправляем запрос на обновление токена с текущим токеном в куке
+            const response = await axios.post('/api/refreshToken', null, {
+                headers: {
+                    Cookie: `X-Refresh-Token=${currentToken}`,
+                },
+            });
+    
+            console.log(response.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
