@@ -8,6 +8,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
+      console.log()
       const response = await axiosInstance.post('/auth/login', req.body, {
         withCredentials: true,
       });

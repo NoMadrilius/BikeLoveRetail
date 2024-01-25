@@ -92,15 +92,23 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		setWishData(wish.wishList);
 	}, [wish, router.pathname]);
+	// Проверка на авторизацию
 	useEffect(() => {
-		const _isAuth = authStore.checkAuth();
-		setIsAuth(_isAuth);
-		if (_isAuth) {
-			cart.initializeCartFromServer();
-			wish.initializeWishListFromServer();
-		}
+		const checkAuth = async () => {
+			const _isAuth = await authStore.checkAuth();
+			setIsAuth(_isAuth);
+
+			if (_isAuth) {
+				cart.initializeCartFromServer();
+				wish.initializeWishListFromServer();
+			}
+		};
+
+		checkAuth();
 	}, [router.pathname, authStore?.loginUserResponse?.user?.id]);
+
 	///
+	console.log(isAuth);
 	////
 
 	return (

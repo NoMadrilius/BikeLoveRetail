@@ -114,6 +114,12 @@ class AuthStore {
     }
     refreshToken = async () => {
         try {
+            // Проверяем, доступен ли localStorage
+            if (typeof localStorage === "undefined") {
+                console.error("localStorage is not available.");
+                return;
+            }
+    
             // Получаем текущий токен из localStorage
             const storedJson = localStorage.getItem("AuthStore");
             const authStoreData = storedJson ? JSON.parse(storedJson) : {};
@@ -130,6 +136,7 @@ class AuthStore {
     
                 // Сохраняем обновленное значение в localStorage
                 localStorage.setItem("AuthStore", JSON.stringify(authStoreData));
+          
                 return authStoreData;
             } else {
                 showToast({
@@ -145,6 +152,7 @@ class AuthStore {
             console.log(error);
         }
     };
+    
     
 
     selfUpdate = async (requestBody: any,) => {
@@ -195,28 +203,53 @@ class AuthStore {
         }
     }
 
-    checkAuth = async ()  => {
-        this.readAuth();
-    
-        if (typeof authStore.loginUserResponse.accessTokenDetail !== "undefined") {
-            const currentTime = Math.ceil((+new Date()) / 1000);
-            
-            if (currentTime < authStore.loginUserResponse.accessTokenDetail.exp) {
-                console.log('Token is still valid.');
-                return true;
-            } else {
-                console.log('Token has expired. Refreshing...');
-                await this.refreshToken();
-                this.checkAuth();
-                return false // После обновления токена, вызываем checkAuth снова
-            }
-        }
-    
+// Опционально: Функция для задержки выполнения
+private static sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+checkAuth = async ():Promise<boolean> => {
+  this.readAuth();
+
+  if (
+    typeof authStore.loginUserResponse.accessTokenDetail !== "undefined" &&
+    typeof authStore.loginUserResponse.accessToken !== "undefined"
+  ) {
+    const currentTime = Math.ceil(+new Date() / 1000);
+    const expirationTime = authStore.loginUserResponse.accessTokenDetail.exp;
+    console.log(currentTime);
+        console.log(authStore.loginUserResponse.accessTokenDetail.exp);
+        console.log(authStore.loginUserResponse.accessTokenDetail.exp - currentTime);
+        
+
+    if (currentTime < expirationTime) {
+      console.log('Token is still valid.');
+      return true;
+    } else {
+      console.log('Token has expired. Refreshing...');
+
+      // Запускаем обновление токена
+      try {
+        await this.refreshToken();
+
+        // Ждем немного, чтобы обновленный токен успел стать действительным
+        await AuthStore.sleep(1000);
+
+        // Повторно вызываем checkAuth для обновленного токена
+        return this.checkAuth();
+      } catch (refreshError) {
+        // Обработка ошибки обновления токена
+        console.log("Failed to refresh token:", refreshError);
         return false;
+      }
     }
+  }
+
+  return false;
+};
+
+
     
-    getLoginUserResponse() {
-        if(this.checkAuth()){
+    getLoginUserResponse= async() => {
+        if(await this.checkAuth()){
             return this.loginUserResponse?.user?.id;
         }else{
             return this.loginUserResponse = {};

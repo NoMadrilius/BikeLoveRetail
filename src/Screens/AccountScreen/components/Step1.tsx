@@ -31,8 +31,11 @@ const Step1 = ({ step }: any) => {
 	const [isAuth, setIsAuth] = useState(false);
 
 	useEffect(() => {
-		const _isAuth = authStore.checkAuth();
-		setIsAuth(_isAuth);
+		const checkAuth = async () => {
+			const _isAuth = await authStore.checkAuth();
+			setIsAuth(_isAuth);
+		};
+		checkAuth();
 	}, []);
 	useEffect(() => {
 		if (isAuth) {
