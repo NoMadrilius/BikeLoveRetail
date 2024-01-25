@@ -67,7 +67,9 @@ class AuthStore {
         try {
             this.loadingLogin = true
             console.log(request)
-            const response = await axios.post('https://bikeshop.1gb.ua/api/auth/login', request)
+            const response = await axiosInstance.post('/auth/login', request, {
+                withCredentials: true,
+            })
             this.loginUserResponse = {...response.data}
             showToast({
                 info: 'Вітаємо',
@@ -110,21 +112,40 @@ class AuthStore {
             this.loadingLogin = false
         }
     }
-    refreshToken = async() => {
+    refreshToken = async () => {
         try {
             // Получаем текущий токен из localStorage
-           
+            const storedJson = localStorage.getItem("AuthStore");
+            const authStoreData = storedJson ? JSON.parse(storedJson) : {};
     
             // Отправляем запрос на обновление токена с текущим токеном в куке
-            const response = await axios.post(`https://bikeshop.1gb.ua/api/auth/refresh`, null, {
+            const response = await axiosInstance.post(`/auth/refresh`, null, {
                 withCredentials: true,
-              })
+            });
+    
+            if (typeof response.data.accessToken !== "undefined") {
+                // Обновляем только нужные поля
+                authStoreData.accessTokenDetail = jose.decodeJwt(response.data.accessToken);
+                authStoreData.accessToken = response.data.accessToken;
+    
+                // Сохраняем обновленное значение в localStorage
+                localStorage.setItem("AuthStore", JSON.stringify(authStoreData));
+                return authStoreData;
+            } else {
+                showToast({
+                    info: 'Неправильний логін або пароль',
+                    title: 'Вхід не виконано',
+                    type: 'error'
+                });
+                this.loadingLogin = false;
+            }
     
             console.log(response.data);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+    
 
     selfUpdate = async (requestBody: any,) => {
         let token
@@ -174,19 +195,26 @@ class AuthStore {
         }
     }
 
-    checkAuth = () => {
-        this.readAuth()
-
+    checkAuth = async ()  => {
+        this.readAuth();
+    
         if (typeof authStore.loginUserResponse.accessTokenDetail !== "undefined") {
-            const currentTime = Math.ceil((+new Date())/1000)
+            const currentTime = Math.ceil((+new Date()) / 1000);
             
             if (currentTime < authStore.loginUserResponse.accessTokenDetail.exp) {
-                return true
+                console.log('Token is still valid.');
+                return true;
+            } else {
+                console.log('Token has expired. Refreshing...');
+                await this.refreshToken();
+                this.checkAuth();
+                return false // После обновления токена, вызываем checkAuth снова
             }
         }
-
-        return false
+    
+        return false;
     }
+    
     getLoginUserResponse() {
         if(this.checkAuth()){
             return this.loginUserResponse?.user?.id;
