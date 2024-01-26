@@ -4,9 +4,35 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import BlockWithFrame from "./components/BlockWithFrame";
+import { useEffect } from "react";
+import axios from "axios";
+import axiosInstance from "@/api/axiosInstance";
 
 const ContactsScreen = () => {
 	const road = [{ title: "Котакты", link: "" }];
+	const getContacts = async () => {
+		let token;
+		try {
+			if (typeof localStorage !== "undefined") {
+				const auth = localStorage.getItem("AuthStore");
+				const authToken = JSON.parse(auth!) || "";
+				token = authToken.accessToken;
+			}
+
+			const response = await axiosInstance.get("/shop/getpublic", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			console.log(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getContacts();
+	}, []);
 	return (
 		<>
 			<>

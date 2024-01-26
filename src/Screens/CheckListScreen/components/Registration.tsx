@@ -84,16 +84,13 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		}
 	}, [activeTab, authStore]);
 	const checkIsAuth = () => {
-		const checkAuth = async () => {
-			const _isAuth = await authStore.checkAuth();
-			setIsAuth(_isAuth);
-			if (_isAuth) {
-				setActiveTab(2);
-			} else {
-				setActiveTab(0);
-			}
-		};
-		checkAuth();
+		const _isAuth = authStore.checkAuth();
+		setIsAuth(_isAuth);
+		if (_isAuth) {
+			setActiveTab(2);
+		} else {
+			setActiveTab(0);
+		}
 	};
 	useEffect(() => {
 		setSendData((prevSendData: IOrderData) => ({

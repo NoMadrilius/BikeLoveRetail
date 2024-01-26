@@ -11,25 +11,25 @@ import Image from "next/image";
 const Categories = ({ setVisible, categories }: any) => {
 	const [selectedTitle, setSelectedTitle] = useState(0);
 	const [expandedCategoryId, setExpandedCategoryId] = useState(null);
+	const [expandedSmallCategoryId, setExpandedSmallCategoryId] = useState(null);
 	const router = useRouter();
 	const filteredCategory = categories.parentCategories.filter(
 		(el: any) => el.id === selectedTitle
 	)[0];
 	console.log(categories);
+	console.log(filteredCategory);
 
-	const childrenId =
-		filteredCategory && filteredCategory.childrenIds
-			? filteredCategory.childrenIds.split(";").map(Number)
-			: [];
-
-	const childCategories = categories.categories?.filter((el: any) =>
-		childrenId.includes(el.id)
+	const childCategories = categories.categories?.filter(
+		(el: any) => el.parentId === selectedTitle
 	);
 	console.log(childCategories);
 
 	const smallChildCategories = (el: any) => {
 		const ids =
 			el && el.childrenIds ? el.childrenIds.split(";").map(Number) : [];
+		console.log(
+			categories.categories?.filter((el: any) => ids.includes(el.id))
+		);
 		return categories.categories?.filter((el: any) => ids.includes(el.id));
 	};
 
@@ -42,6 +42,7 @@ const Categories = ({ setVisible, categories }: any) => {
 		}
 	};
 	const childClick = (el: any) => {
+		console.log(el.id);
 		router.push(`/catalog/${el.id}`);
 		setVisible(false);
 	};
@@ -141,18 +142,56 @@ const Categories = ({ setVisible, categories }: any) => {
 											/>
 										</TitleWrapper>
 										{smallChildCategories(el)?.map(
-											(child: any, childIndex: any) => (
-												<Text
-													key={childIndex}
-													color={colors.black}
-													hoverColor={colors.redHover}
-													size='15px'
-													fontStyle={fonts.f400}
-													margin='0 0 0 8px'
-													func={() => smallChildClick(child.id)}>
-													{child.name}
-												</Text>
-											)
+											(child: any, childIndex: any) => {
+												const isExpanded = expandedSmallCategoryId === child.id;
+												return (
+													<>
+														<TitleWrapper>
+															{child.childrenIds !== "" && (
+																<TitleIcon
+																	open={isExpanded}
+																	src='/icons/catArrow.svg'
+																/>
+															)}
+															<Text
+																key={childIndex}
+																color={colors.black}
+																hoverColor={colors.redHover}
+																size='15px'
+																fontStyle={fonts.f400}
+																margin='0 0 0 8px'
+																// func={() => smallChildClick(child.id)}
+																func={() => {
+																	child.childrenIds && child.childrenIds !== ""
+																		? setExpandedSmallCategoryId(
+																				isExpanded ? null : child.id
+																		  )
+																		: childClick(child);
+																}}>
+																{child.name}
+															</Text>
+														</TitleWrapper>
+														{isExpanded && child.childrenIds !== "" && (
+															<>
+																{smallChildCategories(child)?.map(
+																	(childer: any, childerIndex: any) => (
+																		<Text
+																			key={childerIndex}
+																			color={colors.black}
+																			hoverColor={colors.redHover}
+																			size='15px'
+																			fontStyle={fonts.f400}
+																			margin='0 0 0 12px'
+																			func={() => smallChildClick(childer.id)}>
+																			{childer.name}
+																		</Text>
+																	)
+																)}
+															</>
+														)}
+													</>
+												);
+											}
 										)}
 									</>
 								)}

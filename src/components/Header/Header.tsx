@@ -94,18 +94,33 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	}, [wish, router.pathname]);
 	// Проверка на авторизацию
 	useEffect(() => {
-		const checkAuth = async () => {
-			const _isAuth = await authStore.checkAuth();
+		const fetchData = async () => {
+			const _isAuth = authStore.checkAuth();
+			//@ts-ignore
 			setIsAuth(_isAuth);
+			if (!_isAuth) {
+				try {
+					// Попытка обновить токен
+					console.log("success");
+					await authStore.refreshToken();
+				} catch (refreshError) {
+					// Обработка ошибки обновления токена
+					console.log("Failed to refresh token:", refreshError);
+				}
 
-			if (_isAuth) {
+				// После обновления токена, обновляем данные корзины и списка желаемого
+			} else {
 				cart.initializeCartFromServer();
 				wish.initializeWishListFromServer();
 			}
 		};
 
-		checkAuth();
-	}, [router.pathname, authStore?.loginUserResponse?.user?.id]);
+		fetchData();
+	}, [
+		router.pathname,
+		authStore?.loginUserResponse?.user?.id,
+		authStore.tokenIsRefresh,
+	]);
 
 	///
 	console.log(isAuth);

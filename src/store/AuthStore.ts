@@ -14,6 +14,7 @@ class AuthStore {
     loadingRegister: boolean = false
     loginUserResponse: any = {}
     loadingLogin: boolean = false
+    tokenIsRefresh:number = 0
   
     constructor() {
       makeAutoObservable(this);
@@ -112,6 +113,14 @@ class AuthStore {
             this.loadingLogin = false
         }
     }
+    logout = async() => {
+        try {
+            const response = await axiosInstance.post('/auth/logout')
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     refreshToken = async () => {
         try {
             // Проверяем, доступен ли localStorage
@@ -125,9 +134,13 @@ class AuthStore {
             const authStoreData = storedJson ? JSON.parse(storedJson) : {};
     
             // Отправляем запрос на обновление токена с текущим токеном в куке
+            if(!authStoreData){
+                return
+            }
             const response = await axiosInstance.post(`/auth/refresh`, null, {
                 withCredentials: true,
             });
+            this.tokenIsRefresh++
     
             if (typeof response.data.accessToken !== "undefined") {
                 // Обновляем только нужные поля
@@ -140,8 +153,8 @@ class AuthStore {
                 return authStoreData;
             } else {
                 showToast({
-                    info: 'Неправильний логін або пароль',
-                    title: 'Вхід не виконано',
+                    info: 'Авторизуйтесь знову',
+                    title: 'Сесія застаріла',
                     type: 'error'
                 });
                 this.loadingLogin = false;
@@ -203,53 +216,30 @@ class AuthStore {
         }
     }
 
-// Опционально: Функция для задержки выполнения
-private static sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-checkAuth = async ():Promise<boolean> => {
-  this.readAuth();
+checkAuth = () => {
+    this.readAuth()
 
-  if (
-    typeof authStore.loginUserResponse.accessTokenDetail !== "undefined" &&
-    typeof authStore.loginUserResponse.accessToken !== "undefined"
-  ) {
-    const currentTime = Math.ceil(+new Date() / 1000);
-    const expirationTime = authStore.loginUserResponse.accessTokenDetail.exp;
-    console.log(currentTime);
-        console.log(authStore.loginUserResponse.accessTokenDetail.exp);
-        console.log(authStore.loginUserResponse.accessTokenDetail.exp - currentTime);
+    if (typeof authStore.loginUserResponse.accessTokenDetail !== "undefined") {
+        const currentTime = Math.ceil((+new Date())/1000)
+
+        console.log(currentTime)
+        console.log(authStore.loginUserResponse.accessTokenDetail.exp)
+        console.log(authStore.loginUserResponse.accessTokenDetail.exp - currentTime)
         
+        if (currentTime < authStore.loginUserResponse.accessTokenDetail.exp ) {
+            return true
+        }
+    
 
-    if (currentTime < expirationTime) {
-      console.log('Token is still valid.');
-      return true;
-    } else {
-      console.log('Token has expired. Refreshing...');
-
-      // Запускаем обновление токена
-      try {
-        await this.refreshToken();
-
-        // Ждем немного, чтобы обновленный токен успел стать действительным
-        await AuthStore.sleep(1000);
-
-        // Повторно вызываем checkAuth для обновленного токена
-        return this.checkAuth();
-      } catch (refreshError) {
-        // Обработка ошибки обновления токена
-        console.log("Failed to refresh token:", refreshError);
-        return false;
-      }
-    }
-  }
-
-  return false;
-};
+    return false
+}
+}
 
 
     
-    getLoginUserResponse= async() => {
-        if(await this.checkAuth()){
+    getLoginUserResponse() {
+        if(this.checkAuth()){
             return this.loginUserResponse?.user?.id;
         }else{
             return this.loginUserResponse = {};
