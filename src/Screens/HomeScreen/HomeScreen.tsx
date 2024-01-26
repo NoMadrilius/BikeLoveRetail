@@ -139,7 +139,9 @@ const HomeScreen = () => {
 						items={newsData}
 						variant='news'
 					/> */}
+					<ResponsiveBlockGroup variant='3' />
 				</MainContainer>
+
 				<Subscribe bg={"/images/home/form-background.png"} />
 			</Wrapper>
 		</>

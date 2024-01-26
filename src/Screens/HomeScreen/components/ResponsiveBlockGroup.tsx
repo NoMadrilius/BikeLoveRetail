@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { metrics } from "../../../../theme/metrics";
 import { Text } from "@/components/Text/Text";
@@ -15,13 +15,13 @@ const GROUP1 = [
 		title: "BIKELOVE WORKSHOP",
 		subTitle:
 			"Веломастерская, в которой мы оказываем услуги гарантийного и послегарантийного обслуживания и ремонта велосипедов.",
-		bgColor: "rgba(57, 54, 24, 1)",
+		bgColor: "rgba(74, 84, 80, 1)",
 		size: false,
 	},
 ];
 const GROUP2 = [
 	{
-		title: "Новая коллекция осенней одежды Northwave",
+		title: "BikeLove",
 		subTitle:
 			"Хочешь кататься с комфортом даже в межсезонье? Тогда новая коллекция итальянского бренда Northwave ждёт тебя в наших магазинах.",
 		bgColor: "gray",
@@ -31,20 +31,20 @@ const GROUP2 = [
 		title: "Новая коллекция осенней одежды Northwave",
 		subTitle:
 			"Хочешь кататься с комфортом даже в межсезонье? Тогда новая коллекция итальянского бренда Northwave ждёт тебя в наших магазинах.",
-		bg: "/images/home/decor.png",
+		bg: "/images/home/mountains.png",
 		size: true,
 	},
 	{
 		title: "Выбери велосипед мечты",
 		subTitle: "какак  кака ка",
-		bg: "/images/home/choice.png",
+		bg: "/images/home/women.png",
 		size: false,
 	},
 	{
 		title: "Новая коллекция осенней одежды Northwave",
 		subTitle:
 			"Хочешь кататься с комфортом даже в межсезонье? Тогда новая коллекция итальянского бренда Northwave ждёт тебя в наших магазинах.",
-		bg: "/images/home/decor.png",
+		bg: "/images/home/manOnBIke.png",
 		size: false,
 	},
 	{
@@ -75,10 +75,10 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
 						<ContainerRow>
 							<Block {...GROUP1[0]} />
 							<Block {...GROUP1[1]}>
-								<Text color={colors.white} size='40px' fontStyle={fonts.f700}>
+								<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
 									BIKELOVE WORKSHOP
 								</Text>
-								<Text color={colors.white} size='18px' fontStyle={fonts.f500}>
+								<Text color={colors.white} size='19px' fontStyle={fonts.f500}>
 									Веломастерская, в которой мы оказываем услуги гарантийного и
 									послегарантийного обслуживания и ремонта велосипедов.
 								</Text>
@@ -98,9 +98,75 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
 				<>
 					<Container>
 						<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
-							ПРО НАСd
+							ПРО НАС
 						</Text>
+						<ContainerRow>
+							<Block {...GROUP2[0]}>
+								<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
+									BIKELOVE
+								</Text>
+								<Text color={colors.white} size='19px' fontStyle={fonts.f500}>
+									Тот факт, что мы райдеры, всегда оставался движущей силой
+									наших решений. Начиная с 1974 года. Осознав, что найти
+									качественные покрышки не представляется возможным, мы
+									направили наши усилия на создание лучшей резины. Тот факт, что
+									мы райдеры, всегда оставался движущей силой наших решений.
+									Начиная с 1974 года. Осознав, что найти качественные покрышки
+									не представляется возможным, мы направили наши усилия на
+									создание лучшей резины. Чтобы наслаждаться золотым веком
+									маунтинбайка, вам нужен велосипед, который подходит для
+									катания на любой местности и позволяет полностью раскрыть ваш
+									потенциал.
+								</Text>
+								<Text
+									color={"rgba(255, 255, 255, 0.5)"}
+									size='16px'
+									fontStyle={fonts.f700}>
+									Подробнее
+								</Text>
+							</Block>
+							<Block {...GROUP2[1]} />
+						</ContainerRow>
+						<Block {...GROUP2[2]}>
+							<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
+								Контакти
+							</Text>
+							<Text color={colors.white} size='21px' fontStyle={fonts.f500}>
+								Сеть магазинов по всей Украине: Киев, Одесса, Днепр.
+								<br /> Всегда рады приведствовать Вас в наших магазинах!
+							</Text>
+							<ButtonCustom
+								width={"264px"}
+								height={"50px"}
+								type={"default"}
+								label='Контакти'
+							/>
+						</Block>
 					</Container>
+				</>
+			)}
+			{variant === "3" && (
+				<>
+					<Block {...GROUP2[3]}>
+						<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
+							Ми передзвонимо вам за 30 секунд
+						</Text>
+						<Text color={colors.white} size='21px' fontStyle={fonts.f500}>
+							Підібрати велосипед, проконсультувати по запчастинам,
+							<br /> підсказати по вартості ремонту. БЕЗКОШТОВНО.
+							<br />
+							Чекаємо, щоб зателефонувати вам
+						</Text>
+						<Container3>
+							<Input placeholder=' Номер телефону' variant={true} />
+							<ButtonCustom
+								width={"264px"}
+								height={"50px"}
+								type={"default"}
+								label='Замовити дзвінок'
+							/>
+						</Container3>
+					</Block>
 				</>
 			)}
 		</MainWrapper>
@@ -118,7 +184,7 @@ const BlockWrapper = styled.div<{
 	background-image: url(${(p) => p.bg});
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position: center;
 	background-color: ${(p) => p.bg || p.bgColor};
 	border-radius: 30px;
 	display: flex;
@@ -152,6 +218,14 @@ const ContainerRow = styled.div`
 		row-gap: 30px;
 	}
 `;
+const Container3 = styled.div`
+	display: flex;
+	column-gap: 30px;
+	@media (max-width: 550px) {
+		flex-direction: column;
+		row-gap: 10px;
+	}
+`;
 const ResContainer = styled.div`
 	display: none;
 	@media (max-width: 950px) {
@@ -160,12 +234,23 @@ const ResContainer = styled.div`
 		row-gap: 30px;
 	}
 `;
-const Input = styled.input`
+const Input = styled.input<{ variant?: boolean }>`
 	all: unset;
 	width: 100%;
-	border: 1px solid ${colors.grayBorder};
+	border: 1px solid ${(p) => (p.variant ? colors.white : colors.grayBorder)};
 	border-radius: 5px;
 	height: 48px;
 	padding: 0 30px;
 	box-sizing: border-box;
+	${(p) =>
+		p.variant &&
+		css`
+			width: 360px;
+			@media (max-width: 800px) {
+				width: 100%;
+			}
+			&::placeholder {
+				color: white;
+			}
+		`}
 `;
