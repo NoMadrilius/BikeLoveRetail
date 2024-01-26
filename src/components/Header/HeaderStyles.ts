@@ -11,7 +11,7 @@ export const Wrapper = styled.div<{ opacityBg?: boolean }>`
   justify-content: space-between;
   background-color: ${(p) => (p.opacityBg ? "transparent" : colors.black)};
   padding: 10px 125px;
-  column-gap: 35px;
+  column-gap: 30px;
   border-bottom: 1px solid ${colors.grayBorder};
   position: absolute;
   top: 0;
@@ -34,13 +34,13 @@ export const Logo = styled(Image)`
 `;
 export const TitlesContainer = styled.div`
 ${templates.centerContent};
-column-gap: 40px;
+column-gap: 14px;
 justify-content: space-between;
 margin-right: auto;
 @media (max-width: 1440px) {
-    column-gap: 20px;
+    column-gap: 10px;
   }
-@media (max-width: 1183px) {
+@media (max-width: 1470px) {
   display: none;
   }
 
@@ -56,7 +56,7 @@ cursor: pointer;
 export const BurgerIcon = styled(Image)`
 display: none;
 cursor: pointer;
-@media (max-width: 1155px) {
+@media (max-width: 1470px) {
   display: block;
   }
 `;

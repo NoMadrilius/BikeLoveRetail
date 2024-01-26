@@ -28,14 +28,29 @@ const SideBarAuth = ({ setVisible }: any) => {
 		setVisible(false);
 	};
 	useEffect(() => {
-		const checkAuthentication = async () => {
+		const fetchData = async () => {
 			setIsLoading(true);
-			const isAuthenticated = await authStore.checkAuth();
-			setIsAuth(isAuthenticated);
-			setIsLoading(false);
+			const _isAuth = authStore.checkAuth();
+			//@ts-ignore
+			setIsAuth(_isAuth);
+			if (!_isAuth) {
+				try {
+					// Попытка обновить токен
+					console.log("success");
+					await authStore.refreshToken();
+				} catch (refreshError) {
+					// Обработка ошибки обновления токена
+					console.log("Failed to refresh token:", refreshError);
+					setIsLoading(false);
+				}
+
+				// После обновления токена, обновляем данные корзины и списка желаемого
+			} else {
+				setIsLoading(false);
+			}
 		};
 
-		checkAuthentication();
+		fetchData();
 	}, [router.pathname]);
 	return (
 		<>

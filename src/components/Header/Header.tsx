@@ -28,6 +28,7 @@ import { useAuthStore } from "@/store/AuthStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import GearSelect from "./components/GearSelect";
 import { useTranslation } from "react-i18next";
+import MenuTitle from "./components/MenuTitle";
 
 const ICONS = [
 	{ id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -85,6 +86,8 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	const [wishData, setWishData] = useState<any>();
 	const [isAuth, setIsAuth] = useState(false);
 
+	console.log(categoriesVisible);
+
 	useEffect(() => {
 		categories.fetchCategories();
 		setCartData(cart.cart);
@@ -138,44 +141,20 @@ const Header: FC<Props> = ({ opacityBg }) => {
 				/>
 
 				<TitlesContainer>
-					<Text
-						color={colors.white}
-						fontStyle={fonts.f600}
-						hoverColor={colors.redHover}
-						func={() => setCategoriesVisible(!categoriesVisible)}>
-						{TITLES[0]}
-					</Text>
-					<Text
-						color={path === "/about" ? colors.redMain : colors.white}
-						fontStyle={fonts.f600}
-						hoverColor={colors.redHover}
-						func={() => router.push("/about")}>
-						{TITLES[1]}
-					</Text>
-					<Text
-						color={path === "/workshop" ? colors.redMain : colors.white}
-						fontStyle={fonts.f600}
-						hoverColor={colors.redHover}
-						func={() => router.push("/workshop")}>
-						{TITLES[2]}
-					</Text>
-					<Text
-						color={path === "/blog" ? colors.redMain : colors.white}
-						fontStyle={fonts.f600}
-						hoverColor={colors.redHover}
-						func={() => router.push("/blog")}>
-						{TITLES[3]}
-					</Text>
-					<Text
-						color={path === "/contacts" ? colors.redMain : colors.white}
-						fontStyle={fonts.f600}
-						hoverColor={colors.redHover}
-						func={() => router.push("/contacts")}>
-						{TITLES[4]}
-					</Text>
+					<MenuTitle func={setCategoriesVisible} title={TITLES[0]} hover />
+					<MenuTitle func={() => router.push("/about")} title={TITLES[1]} />
+					<MenuTitle func={() => router.push("/workshop")} title={TITLES[2]} />
+					<MenuTitle func={() => router.push("/blog")} title={TITLES[3]} />
+					<MenuTitle func={() => router.push("/about")} title={TITLES[4]} />
 				</TitlesContainer>
 
 				<Input value={inputText} onChange={setInputText} />
+				<ResNumberWrapper>
+					<Text color={colors.white} fontStyle={fonts.f500}>
+						(093) 211 - 89 - 30
+					</Text>
+				</ResNumberWrapper>
+
 				<IconsContainer>
 					<CounterContainer>
 						<Icon
@@ -286,4 +265,10 @@ const UserAvatar = styled.div`
 	height: 32px;
 	background-color: ${colors.redMain};
 	border-radius: 50%;
+`;
+const ResNumberWrapper = styled.div`
+	${templates.centerContent};
+	@media (max-width: 870px) {
+		display: none;
+	}
 `;

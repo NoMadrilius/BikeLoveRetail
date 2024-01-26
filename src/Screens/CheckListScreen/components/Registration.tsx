@@ -84,13 +84,28 @@ const Registration: FC<Props> = ({ setSendData }) => {
 		}
 	}, [activeTab, authStore]);
 	const checkIsAuth = () => {
-		const _isAuth = authStore.checkAuth();
-		setIsAuth(_isAuth);
-		if (_isAuth) {
-			setActiveTab(2);
-		} else {
-			setActiveTab(0);
-		}
+		const fetchData = async () => {
+			const _isAuth = authStore.checkAuth();
+			//@ts-ignore
+			setIsAuth(_isAuth);
+			if (!_isAuth) {
+				try {
+					// Попытка обновить токен
+					console.log("success");
+					setActiveTab(0);
+					await authStore.refreshToken();
+				} catch (refreshError) {
+					// Обработка ошибки обновления токена
+					console.log("Failed to refresh token:", refreshError);
+				}
+
+				// После обновления токена, обновляем данные корзины и списка желаемого
+			} else {
+				setActiveTab(2);
+			}
+		};
+
+		fetchData();
 	};
 	useEffect(() => {
 		setSendData((prevSendData: IOrderData) => ({

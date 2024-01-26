@@ -114,7 +114,6 @@ const HomeScreen = () => {
 					/>
 				</BgImage>
 				<MainContainer>
-					<button onClick={() => refresh()}>Click</button>
 					<ByPropose items={ITEMS} />
 
 					<ResponsiveBlockGroup variant='1' />

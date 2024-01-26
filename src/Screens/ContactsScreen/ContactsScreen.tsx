@@ -7,37 +7,25 @@ import BlockWithFrame from "./components/BlockWithFrame";
 import { useEffect } from "react";
 import axios from "axios";
 import axiosInstance from "@/api/axiosInstance";
+import { usePublickStore } from "@/store/PublicStore";
 
 const ContactsScreen = () => {
 	const road = [{ title: "Котакты", link: "" }];
-	const getContacts = async () => {
-		let token;
-		try {
-			if (typeof localStorage !== "undefined") {
-				const auth = localStorage.getItem("AuthStore");
-				const authToken = JSON.parse(auth!) || "";
-				token = authToken.accessToken;
-			}
+	const publicStore = usePublickStore();
 
-			const response = await axiosInstance.get("/shop/getpublic", {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-			console.log(response.data);
+	const click = () => {
+		try {
+			publicStore.getContacts();
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
-	useEffect(() => {
-		getContacts();
-	}, []);
 	return (
 		<>
 			<>
 				<UseMetaData title={"Контакты"} img={""} description={""} />
 				<BreadCrumbs road={road} />
+				<button onClick={() => click()}>Click</button>
 				<Text
 					color={colors.black}
 					size='42px'

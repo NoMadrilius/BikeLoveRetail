@@ -31,8 +31,25 @@ const Step1 = ({ step }: any) => {
 	const [isAuth, setIsAuth] = useState(false);
 
 	useEffect(() => {
-		const _isAuth = authStore.checkAuth();
-		setIsAuth(_isAuth);
+		const fetchData = async () => {
+			const _isAuth = authStore.checkAuth();
+			//@ts-ignore
+			setIsAuth(_isAuth);
+			if (!_isAuth) {
+				try {
+					// Попытка обновить токен
+					console.log("success");
+					await authStore.refreshToken();
+				} catch (refreshError) {
+					// Обработка ошибки обновления токена
+					console.log("Failed to refresh token:", refreshError);
+				}
+
+				// После обновления токена, обновляем данные корзины и списка желаемого
+			}
+		};
+
+		fetchData();
 	}, []);
 	useEffect(() => {
 		if (isAuth) {

@@ -16,13 +16,10 @@ const Categories = ({ setVisible, categories }: any) => {
 	const filteredCategory = categories.parentCategories.filter(
 		(el: any) => el.id === selectedTitle
 	)[0];
-	console.log(categories);
-	console.log(filteredCategory);
 
 	const childCategories = categories.categories?.filter(
 		(el: any) => el.parentId === selectedTitle
 	);
-	console.log(childCategories);
 
 	const smallChildCategories = (el: any) => {
 		const ids =
@@ -51,156 +48,154 @@ const Categories = ({ setVisible, categories }: any) => {
 		setVisible(false);
 	};
 	return (
-		<BlurWrapper setModal={setVisible}>
-			<Wrapper onClick={(e) => e.stopPropagation()}>
-				<MainColumn>
-					{categories?.parentCategories?.map((el: any) => (
+		<Wrapper onClick={(e) => e.stopPropagation()}>
+			<MainColumn>
+				{categories?.parentCategories?.map((el: any) => (
+					<Text
+						key={el.id}
+						color={el.id === selectedTitle ? colors.redMain : colors.black}
+						hoverColor={colors.redHover}
+						size='15px'
+						fontStyle={fonts.f600}
+						func={() => parentClick(el)}>
+						{el.name}
+					</Text>
+				))}
+			</MainColumn>
+			<DetailsContainer>
+				{childCategories.length && (
+					<TitleWrapper>
 						<Text
-							key={el.id}
-							color={el.id === selectedTitle ? colors.redMain : colors.black}
+							color={colors.black}
 							hoverColor={colors.redHover}
 							size='15px'
 							fontStyle={fonts.f600}
-							func={() => parentClick(el)}>
-							{el.name}
+							func={() => childClick(filteredCategory)}>
+							Все в категорії
 						</Text>
-					))}
-				</MainColumn>
-				<DetailsContainer>
-					{childCategories.length && (
-						<TitleWrapper>
-							<Text
-								color={colors.black}
-								hoverColor={colors.redHover}
-								size='15px'
-								fontStyle={fonts.f600}
-								func={() => childClick(filteredCategory)}>
-								Все в категорії
-							</Text>
-							<Image
-								alt='Arrow Icon'
-								width={20}
-								height={20}
-								src='/icons/catArrow.svg'
-								style={{
-									transform: "rotate(270deg)",
-									marginLeft: "5px",
-									width: "20px",
-									height: "20px",
-								}}
-							/>
-						</TitleWrapper>
-					)}
+						<Image
+							alt='Arrow Icon'
+							width={20}
+							height={20}
+							src='/icons/catArrow.svg'
+							style={{
+								transform: "rotate(270deg)",
+								marginLeft: "5px",
+								width: "20px",
+								height: "20px",
+							}}
+						/>
+					</TitleWrapper>
+				)}
 
-					{childCategories.map((el: any, index: any) => {
-						const isExpanded = expandedCategoryId === el.id;
+				{childCategories.map((el: any, index: any) => {
+					const isExpanded = expandedCategoryId === el.id;
 
-						return (
-							<>
-								<TitleWrapper>
-									{el.childrenIds && el.childrenIds !== "" && (
-										<TitleIcon open={isExpanded} src='/icons/catArrow.svg' />
-									)}
-									<Text
-										key={index}
-										color={colors.black}
-										hoverColor={colors.redHover}
-										size='15px'
-										fontStyle={fonts.f600}
-										func={() => {
-											el.childrenIds && el.childrenIds !== ""
-												? setExpandedCategoryId(isExpanded ? null : el.id)
-												: childClick(el);
-										}}>
-										{el.name}
-									</Text>
-								</TitleWrapper>
-
-								{isExpanded && el.childrenIds && el.childrenIds !== "" && (
-									<>
-										<TitleWrapper>
-											<Text
-												color={colors.black}
-												hoverColor={colors.redHover}
-												size='15px'
-												fontStyle={fonts.f400}
-												margin='0 0 0 8px'
-												func={() => childClick(el)}>
-												Все в категорії
-											</Text>
-											<Image
-												alt='Arrow Icon'
-												width={20}
-												height={20}
-												src='/icons/catArrow.svg'
-												style={{
-													transform: "rotate(270deg)",
-													marginLeft: "5px",
-													width: "20px",
-													height: "20px",
-												}}
-											/>
-										</TitleWrapper>
-										{smallChildCategories(el)?.map(
-											(child: any, childIndex: any) => {
-												const isExpanded = expandedSmallCategoryId === child.id;
-												return (
-													<>
-														<TitleWrapper>
-															{child.childrenIds !== "" && (
-																<TitleIcon
-																	open={isExpanded}
-																	src='/icons/catArrow.svg'
-																/>
-															)}
-															<Text
-																key={childIndex}
-																color={colors.black}
-																hoverColor={colors.redHover}
-																size='15px'
-																fontStyle={fonts.f400}
-																margin='0 0 0 8px'
-																// func={() => smallChildClick(child.id)}
-																func={() => {
-																	child.childrenIds && child.childrenIds !== ""
-																		? setExpandedSmallCategoryId(
-																				isExpanded ? null : child.id
-																		  )
-																		: childClick(child);
-																}}>
-																{child.name}
-															</Text>
-														</TitleWrapper>
-														{isExpanded && child.childrenIds !== "" && (
-															<>
-																{smallChildCategories(child)?.map(
-																	(childer: any, childerIndex: any) => (
-																		<Text
-																			key={childerIndex}
-																			color={colors.black}
-																			hoverColor={colors.redHover}
-																			size='15px'
-																			fontStyle={fonts.f400}
-																			margin='0 0 0 12px'
-																			func={() => smallChildClick(childer.id)}>
-																			{childer.name}
-																		</Text>
-																	)
-																)}
-															</>
-														)}
-													</>
-												);
-											}
-										)}
-									</>
+					return (
+						<>
+							<TitleWrapper>
+								{el.childrenIds && el.childrenIds !== "" && (
+									<TitleIcon open={isExpanded} src='/icons/catArrow.svg' />
 								)}
-							</>
-						);
-					})}
-				</DetailsContainer>
-			</Wrapper>
-		</BlurWrapper>
+								<Text
+									key={index}
+									color={colors.black}
+									hoverColor={colors.redHover}
+									size='15px'
+									fontStyle={fonts.f600}
+									func={() => {
+										el.childrenIds && el.childrenIds !== ""
+											? setExpandedCategoryId(isExpanded ? null : el.id)
+											: childClick(el);
+									}}>
+									{el.name}
+								</Text>
+							</TitleWrapper>
+
+							{isExpanded && el.childrenIds && el.childrenIds !== "" && (
+								<>
+									<TitleWrapper>
+										<Text
+											color={colors.black}
+											hoverColor={colors.redHover}
+											size='15px'
+											fontStyle={fonts.f400}
+											margin='0 0 0 8px'
+											func={() => childClick(el)}>
+											Все в категорії
+										</Text>
+										<Image
+											alt='Arrow Icon'
+											width={20}
+											height={20}
+											src='/icons/catArrow.svg'
+											style={{
+												transform: "rotate(270deg)",
+												marginLeft: "5px",
+												width: "20px",
+												height: "20px",
+											}}
+										/>
+									</TitleWrapper>
+									{smallChildCategories(el)?.map(
+										(child: any, childIndex: any) => {
+											const isExpanded = expandedSmallCategoryId === child.id;
+											return (
+												<>
+													<TitleWrapper>
+														{child.childrenIds !== "" && (
+															<TitleIcon
+																open={isExpanded}
+																src='/icons/catArrow.svg'
+															/>
+														)}
+														<Text
+															key={childIndex}
+															color={colors.black}
+															hoverColor={colors.redHover}
+															size='15px'
+															fontStyle={fonts.f400}
+															margin='0 0 0 8px'
+															// func={() => smallChildClick(child.id)}
+															func={() => {
+																child.childrenIds && child.childrenIds !== ""
+																	? setExpandedSmallCategoryId(
+																			isExpanded ? null : child.id
+																	  )
+																	: childClick(child);
+															}}>
+															{child.name}
+														</Text>
+													</TitleWrapper>
+													{isExpanded && child.childrenIds !== "" && (
+														<>
+															{smallChildCategories(child)?.map(
+																(childer: any, childerIndex: any) => (
+																	<Text
+																		key={childerIndex}
+																		color={colors.black}
+																		hoverColor={colors.redHover}
+																		size='15px'
+																		fontStyle={fonts.f400}
+																		margin='0 0 0 12px'
+																		func={() => smallChildClick(childer.id)}>
+																		{childer.name}
+																	</Text>
+																)
+															)}
+														</>
+													)}
+												</>
+											);
+										}
+									)}
+								</>
+							)}
+						</>
+					);
+				})}
+			</DetailsContainer>
+		</Wrapper>
 	);
 };
 export default Categories;
@@ -222,6 +217,7 @@ const Wrapper = styled.div`
 	display: flex;
 	top: 90px;
 	background-color: ${colors.white};
+	z-index: 5;
 	width: 100%;
 	height: 742px;
 	padding: 0 124px;
