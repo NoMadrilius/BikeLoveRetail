@@ -14,11 +14,8 @@ if(typeof window !== 'undefined'){
     //@ts-ignore
   selectedCurrView = JSON.parse(jopix2)
 }
-console.log(currency)
-console.log(selectedCurr)
 if(currency){
   const filteredCurrency = currency ? currency.filter((el:any) => el.name === 'Гривна') : [];
-  console.log(filteredCurrency)
   const saleRate = parseFloat(filteredCurrency[0]?.coefficient) || 1;
 
   let priceStr: string;
@@ -48,7 +45,6 @@ if(currency){
         formattedPrice =  formattedPrice;
       }
     }
-    console.log(formattedPrice)
 
     return formattedPrice+ ' ' + selectedCurrView;
   }

@@ -6,12 +6,14 @@ import { IProduct } from "@/types/types";
 import { FC } from "react";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	data: IProduct;
 };
 
 const ListItems: FC<Props> = ({ data }) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	return (
 		<>
@@ -23,7 +25,7 @@ const ListItems: FC<Props> = ({ data }) => {
 							{data.name}
 						</Text>
 						<Text color={colors.black} size='15px' fontStyle={fonts.f400}>
-							Размер:
+							{t("checkList.size")}
 						</Text>
 						<RowContainer>
 							<Text color={colors.black} size='16px' fontStyle={fonts.f400}>

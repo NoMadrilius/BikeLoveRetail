@@ -15,7 +15,6 @@ export default async function handler(
                 phoneNumber: phone,
                 Type: 'BinoCall'
             }
-            console.log(body)
           const response = await axiosInstance.post(`/auth/renewpassword?phoneNumber=${phone}&Type=BinoCall`);
           res.status(200).json(response.data);
         } catch (error) {

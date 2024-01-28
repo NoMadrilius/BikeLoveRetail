@@ -12,6 +12,7 @@ import { showToast } from "@/helpers/alertService/alertService";
 import { useProductStore } from "@/store/ProductStore";
 import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	setSendData: any;
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const PayInfo: FC<Props> = ({ setSendData, data }) => {
+	const { t } = useTranslation();
 	const productStore = useProductStore();
 	const [desc, setDesc] = useState("");
 	useEffect(() => {
@@ -34,8 +36,8 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 	const onPress = () => {
 		if (!data.order.clientId) {
 			showToast({
-				info: "Войдите или зарегистрируйтесь",
-				title: "Ошибка",
+				info: t("checkList.toast1"),
+				title: t("checkList.toastError"),
 				type: "error",
 			});
 			return;
@@ -46,8 +48,8 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 			data.order.deliveryType === "ShopPickUp"
 		) {
 			showToast({
-				info: "Нужно выбрать магазин",
-				title: "Ошибка",
+				info: t("checkList.toast2"),
+				title: t("checkList.toastError"),
 				type: "error",
 			});
 			return;
@@ -57,8 +59,8 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 			data.order.deliveryType === "DeliveryNP"
 		) {
 			showToast({
-				info: "Нужно выбрать отделение",
-				title: "Ошибка",
+				info: t("checkList.toast3"),
+				title: t("checkList.toastError"),
 				type: "error",
 			});
 			return;
@@ -79,8 +81,12 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 						3
 					</Text>
 				</NumberContainer>
-				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					ДОДАТКОВА ІНФОРМАЦІЯ
+				<Text
+					color={colors.black}
+					size='22px'
+					fontStyle={fonts.f600}
+					textTransform='uppercase'>
+					{t("checkList.additionalIfo")}
 				</Text>
 			</Header>
 			<Container>
@@ -123,7 +129,7 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 						<Loader />
 					) : (
 						<Text color={colors.white} size='16px' fontStyle={fonts.f500}>
-							Перейти к оплате
+							{t("checkList.goToPay")}
 						</Text>
 					)}
 				</Button>
@@ -132,14 +138,14 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 					size='15px'
 					fontStyle={fonts.f500}
 					margin='41px 0 0 0'>
-					Нажимая на эту кнопку я соглашаюсь с публичной офертой
+					{t("checkList.whenIPressThis")}
 				</Text>
 				<Text
 					color={colors.grayBorder}
 					size='15px'
 					fontStyle={fonts.f500}
 					margin='24px 0 0 0'>
-					© 2032 Интернет-магазин “BIKELOVE”
+					{t("checkList.label")}
 				</Text>
 			</Container>
 		</Wrapper>

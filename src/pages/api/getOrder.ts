@@ -11,7 +11,6 @@ export default async function handler(
     if (req.method === 'GET') {
 
         const {token} = req.query
-        console.log(token)
         try {
           const response = await axiosInstance.get('/order/getbyuser', {
             headers: {

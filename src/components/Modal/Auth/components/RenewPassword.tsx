@@ -31,7 +31,6 @@ const RenewPassword: FC<Props> = ({ setMainStep }) => {
 		};
 		try {
 			const response = await axios.post("/api/renewPassword", body);
-			console.log(response);
 			showToast({
 				info: "Введите 4 последние цифры номера, с которого вам позвонят",
 				title: "Введите код",
@@ -51,7 +50,6 @@ const RenewPassword: FC<Props> = ({ setMainStep }) => {
 				phone: number.replace(/\s/g, ""),
 			};
 			const response = await axios.post("/api/renewPasswordConfirm", body);
-			console.log(response);
 			setLoading(false);
 			showToast({
 				info: "Пароль успешно изменен, теперь вы можете войти с помощью нового пароля",

@@ -47,7 +47,7 @@ const Input: FC<Props> = ({ onChange, value }) => {
 			console.log("error", error);
 		}
 	};
-
+	console.log(previwData);
 	useEffect(() => {
 		getSearchPreview(value);
 	}, [value]);

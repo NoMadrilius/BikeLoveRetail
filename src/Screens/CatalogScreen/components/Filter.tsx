@@ -9,6 +9,7 @@ import {
 } from "@/components/SideBar/SidebarStyles";
 import { templates } from "../../../../theme/templates";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const FILTER_ITEMS = [
 	{
@@ -30,6 +31,7 @@ const FILTER_ITEMS = [
 ];
 
 const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const [currentFilters, setCurrentFilters] = useState<
 		{ title: string; value: any }[]
@@ -133,8 +135,12 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
 		<Wrapper mobile={mobile} onClick={(e) => e.stopPropagation()}>
 			{!!currentFilters.length && (
 				<>
-					<Text color={colors.black} size='15px' fontStyle={fonts.f600}>
-						ТЕКУЩИЕ ФИЛЬТРЫ
+					<Text
+						color={colors.black}
+						size='15px'
+						fontStyle={fonts.f600}
+						textTransform='uppercase'>
+						{t("catalog.currentFilters")}
 					</Text>
 
 					<ColumnContainer style={{ rowGap: "12px", marginTop: "23px" }}>
@@ -163,7 +169,7 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
 						))}
 						<RowContainer style={{ columnGap: "29px", marginTop: "10px" }}>
 							<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-								Результатов :
+								{t("catalog.results")}
 							</Text>
 							<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
 								{numberTotal}

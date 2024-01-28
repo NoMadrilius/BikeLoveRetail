@@ -7,6 +7,7 @@ import { templates } from "../../../../theme/templates";
 import { metrics } from "../../../../theme/metrics";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	items: {
@@ -19,6 +20,8 @@ type Props = {
 
 const ByPropose: FC<Props> = ({ items }) => {
 	const router = useRouter();
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<Wrapper>
@@ -27,7 +30,7 @@ const ByPropose: FC<Props> = ({ items }) => {
 					size='42px'
 					fontStyle={fonts.f500}
 					margin='0 auto 0 0'>
-					Велосипеди за призначенням
+					{t("home.items.title")}
 				</Text>
 				<GridContainer>
 					{items.map((el, index) => (
@@ -50,7 +53,7 @@ const ByPropose: FC<Props> = ({ items }) => {
 								size='12px'
 								fontStyle={fonts.f500}
 								margin='0 auto 0 0'>
-								{el.count} байков
+								{el.count} {t("home.items.bikes")}
 							</Text>
 						</CardWrapper>
 					))}

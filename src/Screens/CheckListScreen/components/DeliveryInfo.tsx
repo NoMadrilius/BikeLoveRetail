@@ -8,6 +8,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { OrderDeliveryInfo } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 const SHOPS = [
 	"г. Киев Веломагази Bikelove ул. Данила Щербаковского",
@@ -16,6 +17,7 @@ const SHOPS = [
 ];
 
 const DeliveryInfo = ({ setSendData }: any) => {
+	const { t } = useTranslation();
 	const [adress, setAdress] = useState<string>("");
 	const [viewAdress, setViewAdress] = useState<
 		{ name: string; desc: string; type: string; ref: string }[]
@@ -105,8 +107,8 @@ const DeliveryInfo = ({ setSendData }: any) => {
 	const resSelectText = selectedVidd
 		? selectedVidd.Description
 		: selectedDelivery === "S"
-		? "оберіть магазин"
-		: "оберіть відділення";
+		? t("checkList.chooseShop")
+		: t("checkList.chooseVidd");
 
 	return (
 		<Wrapper>
@@ -116,8 +118,12 @@ const DeliveryInfo = ({ setSendData }: any) => {
 						2
 					</Text>
 				</NumberContainer>
-				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					ИНФОРМАЦИЯ О ДОСТАВКЕ
+				<Text
+					color={colors.black}
+					size='22px'
+					fontStyle={fonts.f600}
+					textTransform='uppercase'>
+					{t("checkList.chooseShop")}
 				</Text>
 			</Header>
 			<Container>
@@ -133,7 +139,7 @@ const DeliveryInfo = ({ setSendData }: any) => {
 							style={{ marginRight: "10px" }}
 						/>
 						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-							Самовывоз
+							{t("checkList.self-delivery")}
 						</Text>
 					</Button>
 					<Button
@@ -147,7 +153,7 @@ const DeliveryInfo = ({ setSendData }: any) => {
 							style={{ marginRight: "10px" }}
 						/>
 						<Text color={colors.black} size='16px' fontStyle={fonts.f400}>
-							Новая почта
+							Нова пошта
 						</Text>
 					</Button>
 				</ButtonsContainer>
@@ -163,7 +169,7 @@ const DeliveryInfo = ({ setSendData }: any) => {
 							/>
 							<InputField
 								value={adress}
-								placeholder='Почніть писати ...'
+								placeholder={t("checkList.startTyping")}
 								onChange={(e) => setAdress(e.target.value)}
 							/>
 							{adress.length && viewAdress.length ? (
@@ -238,7 +244,7 @@ const DeliveryInfo = ({ setSendData }: any) => {
 							size='14px'
 							fontStyle={fonts.f500}
 							margin='0 0 0 10px'>
-							{selectedShop || "Оберіть магазин"}
+							{selectedShop || t("checkList.chooseShop")}
 						</Text>
 						{openShop && (
 							<SelectArea>

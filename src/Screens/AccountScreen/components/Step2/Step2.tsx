@@ -6,13 +6,7 @@ import { fonts } from "../../../../../theme/fonts";
 import { FC, useState } from "react";
 import Item from "./Item";
 import { IOrderViewData } from "@/types/types";
-
-const TITLES = [
-	{ title: "Все заказы", tab: 0 },
-	{ title: "В работе", tab: 1 },
-	{ title: "Завершенные", tab: 2 },
-	{ title: "Отмененные", tab: 3 },
-];
+import { useTranslation } from "react-i18next";
 
 const testData = [
 	{
@@ -43,8 +37,14 @@ type Props = {
 };
 
 const Step2: FC<Props> = ({ data }) => {
+	const { t } = useTranslation();
 	const [orderTab, setOrderTab] = useState(0);
-	console.log(data);
+	const TITLES = [
+		{ title: t("account.step2.title1"), tab: 0 },
+		{ title: t("account.step2.title2"), tab: 1 },
+		{ title: t("account.step2.title3"), tab: 2 },
+		{ title: t("account.step2.title4"), tab: 3 },
+	];
 	return (
 		<>
 			<>
@@ -65,7 +65,6 @@ const Step2: FC<Props> = ({ data }) => {
 						{data.map((el: any, index: number) => (
 							<Item key={index} data={el} />
 						))}
-						<>cacs</>
 					</MainContainer>
 				)}
 			</>

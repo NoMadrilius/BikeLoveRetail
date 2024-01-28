@@ -5,6 +5,7 @@ import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { Children } from "react";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
+import { useTranslation } from "react-i18next";
 
 const GROUP1 = [
 	{
@@ -64,30 +65,30 @@ const Block = ({ title, subTitle, bgColor, bg, size, children }: any) => {
 };
 
 export const ResponsiveBlockGroup = ({ variant }: any) => {
+	const { t } = useTranslation();
 	return (
 		<MainWrapper>
 			{variant === "1" && (
 				<>
 					<Container>
 						<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
-							ПРОФЕСІЙНА ВЕЛОМАЙСТЕРНЯ
+							{t("home.blockGroups.text1")}
 						</Text>
 						<ContainerRow>
 							<Block {...GROUP1[0]} />
 							<Block {...GROUP1[1]}>
 								<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
-									BIKELOVE WORKSHOP
+									{t("home.blockGroups.text2")}
 								</Text>
 								<Text color={colors.white} size='19px' fontStyle={fonts.f500}>
-									Веломастерская, в которой мы оказываем услуги гарантийного и
-									послегарантийного обслуживания и ремонта велосипедов.
+									{t("home.blockGroups.text3")}
 								</Text>
-								<Input placeholder=' Номер телефону' />
+								<Input placeholder={t("home.blockGroups.text12")} />
 								<ButtonCustom
 									width={"264px"}
 									height={"50px"}
 									type={"default"}
-									label='Безкоштовна консультація'
+									label={t("home.blockGroups.text14")}
 								/>
 							</Block>
 						</ContainerRow>
@@ -98,48 +99,41 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
 				<>
 					<Container>
 						<Text color={colors.black} size='42px' fontStyle={fonts.f500}>
-							ПРО НАС
+							{t("home.blockGroups.text4")}
 						</Text>
 						<ContainerRow>
 							<Block {...GROUP2[0]}>
 								<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
-									BIKELOVE
+									{t("home.blockGroups.text5")}
 								</Text>
 								<Text color={colors.white} size='19px' fontStyle={fonts.f500}>
-									Тот факт, что мы райдеры, всегда оставался движущей силой
-									наших решений. Начиная с 1974 года. Осознав, что найти
-									качественные покрышки не представляется возможным, мы
-									направили наши усилия на создание лучшей резины. Тот факт, что
-									мы райдеры, всегда оставался движущей силой наших решений.
-									Начиная с 1974 года. Осознав, что найти качественные покрышки
-									не представляется возможным, мы направили наши усилия на
-									создание лучшей резины. Чтобы наслаждаться золотым веком
-									маунтинбайка, вам нужен велосипед, который подходит для
-									катания на любой местности и позволяет полностью раскрыть ваш
-									потенциал.
+									{t("home.blockGroups.text6")}
 								</Text>
 								<Text
 									color={"rgba(255, 255, 255, 0.5)"}
 									size='16px'
 									fontStyle={fonts.f700}>
-									Подробнее
+									{t("home.blockGroups.text7")}
 								</Text>
 							</Block>
 							<Block {...GROUP2[1]} />
 						</ContainerRow>
 						<Block {...GROUP2[2]}>
 							<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
-								Контакти
+								{t("home.blockGroups.text9")}
 							</Text>
-							<Text color={colors.white} size='21px' fontStyle={fonts.f500}>
-								Сеть магазинов по всей Украине: Киев, Одесса, Днепр.
-								<br /> Всегда рады приведствовать Вас в наших магазинах!
+							<Text
+								color={colors.white}
+								size='21px'
+								fontStyle={fonts.f500}
+								preline>
+								{t("home.blockGroups.text8")}
 							</Text>
 							<ButtonCustom
 								width={"264px"}
 								height={"50px"}
 								type={"default"}
-								label='Контакти'
+								label={t("home.blockGroups.text9")}
 							/>
 						</Block>
 					</Container>
@@ -149,21 +143,25 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
 				<>
 					<Block {...GROUP2[3]}>
 						<Text color={colors.white} size='39px' fontStyle={fonts.f700}>
-							Ми передзвонимо вам за 30 секунд
+							{t("home.blockGroups.text10")}
 						</Text>
-						<Text color={colors.white} size='21px' fontStyle={fonts.f500}>
-							Підібрати велосипед, проконсультувати по запчастинам,
-							<br /> підсказати по вартості ремонту. БЕЗКОШТОВНО.
-							<br />
-							Чекаємо, щоб зателефонувати вам
+						<Text
+							color={colors.white}
+							size='21px'
+							fontStyle={fonts.f500}
+							preline>
+							{t("home.blockGroups.text11")}
 						</Text>
 						<Container3>
-							<Input placeholder=' Номер телефону' variant={true} />
+							<Input
+								placeholder={t("home.blockGroups.text12")}
+								variant={true}
+							/>
 							<ButtonCustom
 								width={"264px"}
 								height={"50px"}
 								type={"default"}
-								label='Замовити дзвінок'
+								label={t("home.blockGroups.text13")}
 							/>
 						</Container3>
 					</Block>

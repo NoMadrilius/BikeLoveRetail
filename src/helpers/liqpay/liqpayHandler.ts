@@ -9,7 +9,6 @@ const handler = async (req:any, res:any) => {
   }
 
   try {
-    console.log()
     const order = {
       amount: 12,
       currency: 'USD',

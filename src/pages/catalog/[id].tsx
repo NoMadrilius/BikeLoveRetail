@@ -35,7 +35,6 @@ export const getServerSideProps = async (context: any) => {
 		? context.query.filter.split(",").map(Number)
 		: [];
 	const page = context.query.page || 1;
-	console.log(page);
 	try {
 		//catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
 		const request: any = {
@@ -70,9 +69,6 @@ export const getServerSideProps = async (context: any) => {
 
 const Page = ({ data, options, totalPages }: any) => {
 	const router = useRouter();
-	console.log(data);
-	console.log(totalPages);
-
 	return (
 		<>
 			<PaddingWrapper style={{ backgroundColor: colors.grayBg }}>

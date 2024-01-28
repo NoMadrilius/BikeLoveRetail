@@ -9,13 +9,14 @@ import { IOrderViewData } from "@/types/types";
 import { prettyDate } from "@/helpers/stringDecorate/prettyDate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	data: IOrderViewData;
 };
 
 const Item: FC<Props> = ({ data }) => {
-	console.log(data);
+	const { t } = useTranslation();
 	const currStore = useCurrencyStore();
 	const [priceStr, setPriceStr] = useState<number>(1);
 	// const price = cart.reduce(
@@ -35,17 +36,17 @@ const Item: FC<Props> = ({ data }) => {
 				};
 			case "Created":
 				return {
-					title: "В работе",
+					title: t("account.item.tab2"),
 					color: colors.redMain,
 				};
 			case "sd":
 				return {
-					title: "Завершен",
+					title: t("account.item.tab3"),
 					color: colors.green,
 				};
 			case "asqr":
 				return {
-					title: "Отменен",
+					title: t("account.item.tab4"),
 					color: colors.grayMain,
 				};
 
@@ -56,7 +57,9 @@ const Item: FC<Props> = ({ data }) => {
 	const [openDetails, setOpenDetails] = useState(false);
 
 	const deliveryString =
-		data.order.deliveryType === "DeliveryNP" ? "Нова пошта" : "Самовывоз";
+		data.order.deliveryType === "DeliveryNP"
+			? t("account.item.np")
+			: t("account.item.selfDelivery");
 	const deliveryLocationString =
 		data.order.deliveryType === "DeliveryNP"
 			? //@ts-ignore
@@ -76,13 +79,14 @@ const Item: FC<Props> = ({ data }) => {
 			<Wrapper>
 				<InfoWrapper>
 					<Text color={colors.black} size='18px' fontStyle={fonts.f600}>
-						ЗАКАЗ №{324234}
+						{t("account.item.order")} №{324234}
 					</Text>
 					<Text color={colors.black} size='26px' fontStyle={fonts.f600}>
 						{prettyPrice(data.order.totalPrice)}
 					</Text>
 					<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
-						Состав заказа: {data.products.length}ед
+						{t("account.item.sostav")} {data.products.length}
+						{t("account.item.quantityName")}
 					</Text>
 				</InfoWrapper>
 				<ImagesWrapper>
@@ -108,7 +112,7 @@ const Item: FC<Props> = ({ data }) => {
 							size='15px'
 							fontStyle={fonts.f400}
 							whiteSpace>
-							Детали заказа
+							{t("account.item.orderDetails")}
 						</Text>
 						<Image
 							alt='ArrowBottom'
@@ -123,7 +127,7 @@ const Item: FC<Props> = ({ data }) => {
 				<HiddenWrapper>
 					<DetailsInfo>
 						<Text color={colors.black} size='18px' fontStyle={fonts.f600}>
-							Доставка
+							{t("account.item.delivery")}
 						</Text>
 						<Text
 							color={colors.black}
@@ -157,14 +161,14 @@ const Item: FC<Props> = ({ data }) => {
 							size='18px'
 							fontStyle={fonts.f600}
 							margin='20px 0 0 0'>
-							Оплата
+							{t("account.item.pay")}
 						</Text>
 						<Text
 							color={colors.black}
 							size='15px'
 							fontStyle={fonts.f400}
 							margin='22px 0 0 0'>
-							Наличными при получении
+							{t("account.item.payVar1")}
 						</Text>
 					</DetailsInfo>
 

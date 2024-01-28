@@ -13,8 +13,10 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const catId = router.query.id;
 	const numberTotal = catalogData.map((el: any) => el.product).length;
@@ -71,7 +73,7 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
 								src='/images/home/icons/Eye.png'
 							/>
 							<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-								фильтр
+								{t("catalog.filter")}
 							</Text>
 						</OptionContainer>
 					</TriggerHidden2>
@@ -83,13 +85,13 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
 							src='/images/home/icons/Eye.png'
 						/>
 						<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-							Сортировать
+							{t("catalog.sort")}
 						</Text>
 					</OptionContainer>
 					<TriggerHidden width='500px'>
 						<OptionContainer>
 							<Text color={colors.grayMain} size='13px' fontStyle={fonts.f400}>
-								По возростанию цены
+								{t("catalog.fromPrice")}
 							</Text>
 							<Image
 								alt='Eye Icon'

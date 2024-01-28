@@ -14,8 +14,10 @@ import { IOrderData, IProduct } from "@/types/types";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 const CheckListScreen = () => {
+	const { t } = useTranslation();
 	const road = [
 		{ title: "Корзина", link: "/" },
 		{ title: "Оформление заказа", link: "/" },
@@ -78,8 +80,12 @@ const CheckListScreen = () => {
 					</Left>
 					<Line />
 					<Right>
-						<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-							СОСТАВ ЗАКАЗА
+						<Text
+							color={colors.black}
+							size='22px'
+							fontStyle={fonts.f600}
+							textTransform='uppercase'>
+							{t("checkList.orderContents")}
 						</Text>
 						{cart && (
 							<>
@@ -93,8 +99,9 @@ const CheckListScreen = () => {
 								color={colors.black}
 								size='18px'
 								fontStyle={fonts.f400}
-								margin='0 auto 0 0'>
-								ИТОГО:
+								margin='0 auto 0 0'
+								textTransform='uppercase'>
+								{t("checkList.total")}
 							</Text>
 							<Text
 								color={colors.black}

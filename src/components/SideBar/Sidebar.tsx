@@ -14,30 +14,11 @@ import SidebarCatalog from "./components/SidebarCatalog";
 import SideBarAuth from "./components/SidebarAuth";
 import { useRouter } from "next/router";
 import Image from "next/image";
-
-export const TITLES = [
-	{ title: "КАТАЛОГ", openArrow: true },
-	{ title: "О МАГАЗИНЕ", openArrow: true, href: "/about" },
-	{ title: "МАСТЕРСКАЯ", openArrow: true, href: "/workshop" },
-	{ title: "ВЕЛОБЛОГ", openArrow: false, href: "/blog" },
-	{ title: "КОНТАКТЫ", openArrow: false, href: "/contacts" },
-];
-export const TITLES2 = [
-	{ title: "КАТАЛОГ", icon: "/images/home/icons/Cart.png", href: "#" },
-	{
-		title: "О МАГАЗИНЕ",
-		icon: "/images/home/icons/Invoice.png",
-		href: "/about",
-	},
-	{
-		title: "МАСТЕРСКАЯ",
-		icon: "/images/home/icons/Heart.png",
-		href: "/workshop",
-	},
-	{ title: "ВЕЛОБЛОГ", icon: "/images/home/icons/Eye.png", href: "/blog" },
-];
+import { useTranslation } from "react-i18next";
+import { TITLES, TITLES2 } from "./mock";
 
 const SideBar = ({ setVisible }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const [step, setStep] = useState(0);
 
@@ -74,6 +55,7 @@ const SideBar = ({ setVisible }: any) => {
 										size='16px'
 										fontStyle={fonts.f500}
 										hoverColor={colors.redHover}
+										textTransform='uppercase'
 										func={() =>
 											index === 0 ? setStep(1) : el.href && goToLink(el.href)
 										}>
@@ -109,7 +91,8 @@ const SideBar = ({ setVisible }: any) => {
 								fontStyle={fonts.f400}
 								hoverColor={colors.redHover}
 								margin='0 0 0 10px'
-								func={() => goToLink(el.href)}>
+								func={() => goToLink(el.href)}
+								textTransform='uppercase'>
 								{el.title}
 							</Text>
 						</RowContainer>

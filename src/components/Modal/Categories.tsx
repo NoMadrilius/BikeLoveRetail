@@ -24,9 +24,6 @@ const Categories = ({ setVisible, categories }: any) => {
 	const smallChildCategories = (el: any) => {
 		const ids =
 			el && el.childrenIds ? el.childrenIds.split(";").map(Number) : [];
-		console.log(
-			categories.categories?.filter((el: any) => ids.includes(el.id))
-		);
 		return categories.categories?.filter((el: any) => ids.includes(el.id));
 	};
 
@@ -39,7 +36,6 @@ const Categories = ({ setVisible, categories }: any) => {
 		}
 	};
 	const childClick = (el: any) => {
-		console.log(el.id);
 		router.push(`/catalog/${el.id}`);
 		setVisible(false);
 	};

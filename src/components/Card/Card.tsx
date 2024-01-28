@@ -35,8 +35,6 @@ const Card: FC<Product> = ({
 	useEffect(() => {
 		setPriceStr(price ? prettyPrice(price) : 0);
 	}, [price, currStore.selectedCurrency, currStore]);
-	console.log(typeof avaliability);
-	console.log((avaliability as number) > 0);
 
 	return (
 		<Wrapper

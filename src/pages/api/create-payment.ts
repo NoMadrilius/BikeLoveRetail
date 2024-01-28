@@ -11,7 +11,6 @@ const handler = async (req:any, res:any) => {
   }
 const orderId = '6'
   try {
-    console.log()
     const order = {
       public_key: public_key,
 			private_key: private_key,
@@ -30,10 +29,8 @@ const toHash = private_key + base64Encoded + private_key;
 const sha1Hash = crypto.createHash('sha1').update(toHash).digest('binary');
 const base64EncodedSignature = Buffer.from(sha1Hash, 'binary').toString('base64');
 
-console.log(base64EncodedSignature)
     const liqpayUrl = `https://www.liqpay.ua/api/3/checkout?data=${base64Encoded}&signature=${base64EncodedSignature}`;
 
-    console.log(liqpayUrl)
     
     res.status(200).json(liqpayUrl);
   } catch (error) {

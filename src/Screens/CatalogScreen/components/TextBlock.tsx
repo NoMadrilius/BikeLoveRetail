@@ -2,143 +2,93 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
-
-const DOT_TEXT = [
-  "мягкая амортизационная вилка, а в некоторых случаях и подвеска заднего колеса с ходом от 100 мм;",
-  "упрочненная заниженная вытянутая рама;",
-  "прямой руль;",
-  "мощные дисковые тормоза;",
-  "поднятая каретка;",
-  "толстые покрышки с объемным рисунком протектора;",
-  "переключатель скоростей, обеспечивающий даже пониженную передачу;",
-  "смещенная вперед посадка.",
-];
+import { useTranslation } from "react-i18next";
 
 const BoldText = ({ text }: any) => {
-  return (
-    <Text
-      color={colors.black}
-      size="40px"
-      fontStyle={fonts.f700}
-      margin="60px 0 25px 0"
-    >
-      {text}
-    </Text>
-  );
+	return (
+		<Text
+			color={colors.black}
+			size='40px'
+			fontStyle={fonts.f700}
+			margin='60px 0 25px 0'>
+			{text}
+		</Text>
+	);
 };
 const SimpleText = ({ text }: any) => {
-  return (
-    <>
-      <Text
-        color={colors.black}
-        size="16px"
-        fontStyle={fonts.f400}
-        margin="17px 0 0 0"
-      >
-        {text}
-      </Text>
-    </>
-  );
+	return (
+		<>
+			<Text
+				color={colors.black}
+				size='16px'
+				fontStyle={fonts.f400}
+				margin='17px 0 0 0'>
+				{text}
+			</Text>
+		</>
+	);
 };
 const BoldSmallText = ({ text }: any) => {
-  return (
-    <Text
-      color={colors.black}
-      size="16px"
-      fontStyle={fonts.f500}
-      margin="17px 0 0 0"
-    >
-      {text}
-    </Text>
-  );
+	return (
+		<Text
+			color={colors.black}
+			size='16px'
+			fontStyle={fonts.f500}
+			margin='17px 0 0 0'>
+			{text}
+		</Text>
+	);
 };
 
 const TextBlock = () => {
-  return (
-    <Wrapper>
-      <BoldText text={"Главные отличия горных велосипедов"} />
-      <SimpleText
-        text={
-          "  Этот велосипед предназначен для катания вне дорог и поэтому он имеет существенные отличия от городского, трекового и шоссейного. Кроме того, если последние типы велосипедов практически не изменялись в течение лет 50, то горный постоянно совершенствовался и современная модель существенно отличается от самой первой."
-        }
-      />
-      <SimpleText text={" MTB имеют следующие особенности:"} />
-      <List>
-        {DOT_TEXT.map((el, index) => (
-          <li key={index}>{el}</li>
-        ))}
-      </List>
-      <SimpleText
-        text={
-          "На протяжении долгого времени горные велосипеды имели только 2 стандарта колеса — 24 и 26 дюймов, но в 2010-2014 годах появились еще колеса 27,5 и 29 дюймов (найнеры), а вот маунтинбайки с колесами 24 дюйма используются сейчас по большей части подростками."
-        }
-      />
-      <SimpleText
-        text={
-          "Благодаря таким конструктивным особенностям эти велики имеют меньшее сопротивление качению на неровной поверхности, улучшенное сцепление с дорогой и соответственно отличаются высокой проходимостью по бездорожью. Но из-за широкой резины и подвески горные велосипеды имеют большой вес (до 19 кг), плохую аэродинамику и соответственно относительно низкую скорость во время езды по шоссе."
-        }
-      />
-      <BoldText text={"Типы горных велосипедов"} />
-      <SimpleText
-        text={
-          "Если вы решили купить горный велосипед, нужно разобраться в их видах. Всего их четыре."
-        }
-      />
-      <BoldSmallText text={"Ригидные"} />
-      <SimpleText
-        text={
-          "Первые ригид велосипеды выпускались с жесткой вилкой. Они имеют относительно невысокий вес и стоят недорого. Сегодня эта категория представлена детскими и циклокроссовыми моделями."
-        }
-      />
-      <BoldSmallText text={"Хардтейлы"} />
-      <SimpleText
-        text={
-          "Одни из самых популярных моделей. Их особенность — отсутствие заднего амортизатора и наличие переднего. В свою очередь они делятся на хардтейлд для кросс-кантри и экстремальные, предназначенные для трюкового катания street и dirt jumping."
-        }
-      />
-      <BoldSmallText text={"Двухподвесы"} />
-      <SimpleText
-        text={
-          "Из названия этого велосипеда сразу становятся понятны его особенности. Наличие задней и передней амортизации дает контроль над дорогой при любых погодных условиях. Также они позволяют проходить самые крутые повороты на высокой скорости. Они актуальны для повседневных поездок, участия в кросс-кантри и трейла. Модели для трейла прочнее кросс-кантрийного велика, но легче МТВ для фрирайда"
-        }
-      />
-      <BoldSmallText text={"Найнеры"} />
-      <SimpleText
-        text={
-          "По сути эти велосипеды просто отличаются размером колес, а не являются моделью для определенного вида езды."
-        }
-      />
-      <BoldText text={"Особенности выбора"} />
-      <SimpleText
-        text={
-          "Выбирая МТБ велосипед необходимо руководствоваться стилем катания. Если планируете по выходным накатывать по 20 км в соседнем лесу, то остановитесь на кантрийных моделя. А вот для спуска с гор и холмов нужны специальные прочные длинноходные байки весом 17-18 кг. Если же предпочитаете кататься в городе по ровным дорогам, лучше приобрести велосипед с блокировкой хода."
-        }
-      />
-      <SimpleText
-        text={
-          "Следующий важный фактор — диаметр колес. Чем больше колесо, тем у него выше накат и его сложнее повернуть. Если нужен юркий транспорт для извилистых трасс, выбирайте вариант с меньшим диаметром колеса. Также нужно учитывать свое телосложение. Если ваш рост 170 см и выше, лучше отказаться от найнеров и купить модель с меньшим диаметром колеса иначе будете испытывать дискомфорт во время поездок."
-        }
-      />
-      <BoldText text={"Где купить горный велосипед по доступной цене?"} />
-      <SimpleText
-        text={
-          "Хотите купить МТБ, но не знаете где? В интернет магазине «‎Велопланета» вы найдете огромный выбор фирменных велосипедов известных брендов. Удобный фильтр в каталоге позволит быстро отыскать модель с подходящими характеристиками, а качественные детальные фото — оценить дизайн транспорта."
-        }
-      />
-      <SimpleText
-        text={
-          "На сайте представлен только качественный оригинальный товар, а наш ассортимент регулярно пополняется. У нас есть совершенно новые модели и маунтинбайки, которые уже успели завоевать расположение аудитории. У нас есть детские и взрослые МТБ, мужские и женские модели. А наши менеджеры отлично разбираются в товаре и обязательно ответят на все вопросы, помогут оформить заказ!."
-        }
-      />
-    </Wrapper>
-  );
+	const { t } = useTranslation();
+	const DOT_TEXT = [
+		t("catalog.textBlock.dot1"),
+		t("catalog.textBlock.dot2"),
+		t("catalog.textBlock.dot3"),
+		t("catalog.textBlock.dot4"),
+		t("catalog.textBlock.dot5"),
+		t("catalog.textBlock.dot6"),
+		t("catalog.textBlock.dot7"),
+		t("catalog.textBlock.dot8"),
+	];
+	return (
+		<Wrapper>
+			<BoldText text={t("catalog.textBlock.boldText1")} />
+			<SimpleText text={t("catalog.textBlock.simpleText1")} />
+			<SimpleText text={t("catalog.textBlock.simpleText2")} />
+			<List>
+				{DOT_TEXT.map((el, index) => (
+					<li key={index}>{el}</li>
+				))}
+			</List>
+			<SimpleText text={t("catalog.textBlock.simpleText3")} />
+			<SimpleText text={t("catalog.textBlock.simpleText4")} />
+			<BoldText text={t("catalog.textBlock.boldText2")} />
+			<SimpleText text={t("catalog.textBlock.simpleText5")} />
+			<BoldSmallText text={t("catalog.textBlock.boldText3")} />
+			<SimpleText text={t("catalog.textBlock.simpleText6")} />
+			<BoldSmallText text={t("catalog.textBlock.boldText4")} />
+			<SimpleText text={t("catalog.textBlock.simpleText7")} />
+			<BoldSmallText text={t("catalog.textBlock.boldText5")} />
+			<SimpleText text={t("catalog.textBlock.simpleText8")} />
+			<BoldSmallText text={t("catalog.textBlock.boldText6")} />
+			<SimpleText text={t("catalog.textBlock.simpleText9")} />
+			<BoldText text={t("catalog.textBlock.boldText7")} />
+			<SimpleText text={t("catalog.textBlock.simpleText10")} />
+			<SimpleText text={t("catalog.textBlock.simpleText11")} />
+			<BoldText text={t("catalog.textBlock.boldText8")} />
+			<SimpleText text={t("catalog.textBlock.simpleText12")} />
+			<SimpleText text={t("catalog.textBlock.simpleText13")} />
+		</Wrapper>
+	);
 };
 export default TextBlock;
 
 const Wrapper = styled.div`
-  margin-top: 194px;
+	margin-top: 194px;
 `;
 const List = styled.ul`
-  color: ${colors.black};
-  font-family: ${fonts.f400.fontFamily};
+	color: ${colors.black};
+	font-family: ${fonts.f400.fontFamily};
 `;

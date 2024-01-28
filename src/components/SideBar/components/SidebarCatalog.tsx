@@ -1,5 +1,4 @@
 import { Text } from "@/components/Text/Text";
-import { TITLES } from "../Sidebar";
 import { ColumnContainer, Line, RowContainer } from "../SidebarStyles";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
@@ -53,7 +52,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 			setMainStep(0);
 		}
 	};
-
+	//TODO fix this
 	useEffect(() => {
 		catalogStore.fetchCategories();
 	}, []);

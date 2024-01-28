@@ -4,42 +4,43 @@ import { styled } from "styled-components";
 import { fonts } from "../../../../theme/fonts";
 import { colors } from "../../../../theme/colors";
 import { useRouter } from "next/router";
-
-const TABS = [
-	{
-		title: "Персональные данные",
-		step: 0,
-		img: "/images/account/icons/account.svg",
-		link: "",
-	},
-	{
-		title: "Заказы",
-		step: 1,
-		img: "/images/account/icons/invoice.svg",
-		link: "",
-	},
-	{
-		title: "Список желаний",
-		step: 2,
-		img: "/images/account/icons/heart.svg",
-		link: "/wish-list",
-	},
-	{
-		title: "Просмотренные товары",
-		step: 3,
-		img: "/images/account/icons/eye.svg",
-		link: "",
-	},
-	{
-		title: "Обратная связь",
-		step: 4,
-		img: "/images/account/icons/chat.svg",
-		link: "",
-	},
-];
+import { useTranslation } from "react-i18next";
 
 const Navigation = ({ setStep, step }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
+	const TABS = [
+		{
+			title: t("account.navigation.presonalData"),
+			step: 0,
+			img: "/images/account/icons/account.svg",
+			link: "",
+		},
+		{
+			title: t("account.navigation.orders"),
+			step: 1,
+			img: "/images/account/icons/invoice.svg",
+			link: "",
+		},
+		{
+			title: t("account.navigation.wishList"),
+			step: 2,
+			img: "/images/account/icons/heart.svg",
+			link: "/wish-list",
+		},
+		{
+			title: t("account.navigation.sawProducts"),
+			step: 3,
+			img: "/images/account/icons/eye.svg",
+			link: "",
+		},
+		{
+			title: t("account.navigation.feedBack"),
+			step: 4,
+			img: "/images/account/icons/chat.svg",
+			link: "",
+		},
+	];
 	const onClick = (step: number, link: string) => {
 		setStep(step);
 
@@ -51,8 +52,12 @@ const Navigation = ({ setStep, step }: any) => {
 	return (
 		<>
 			<Wrapper>
-				<Text color={colors.black} size='15px' fontStyle={fonts.f500}>
-					НАВИГАЦИЯ
+				<Text
+					color={colors.black}
+					size='15px'
+					fontStyle={fonts.f500}
+					textTransform='uppercase'>
+					{t("account.navigation.feedBack")}
 				</Text>
 				<ItemsWrapper>
 					{TABS.map((el, index) => (

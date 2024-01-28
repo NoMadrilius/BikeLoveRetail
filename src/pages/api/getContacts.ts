@@ -12,7 +12,6 @@ export default async function handler(
         
         try {
            const {token} = req.query
-            console.log(token)
           const response = await axiosInstance.get('/shop/getpublic',{
             headers:{
                 Authorization: `Bearer ${token}`

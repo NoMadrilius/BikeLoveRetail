@@ -12,8 +12,10 @@ import { useAuthStore } from "@/store/AuthStore";
 import { useProductStore } from "@/store/ProductStore";
 import { IOrderViewData } from "@/types/types";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 const AccountScreen = () => {
+	const { t } = useTranslation();
 	const road = [
 		{ title: "Личный кабинет", link: "" },
 		{ title: "Персональные данные", link: "" },
@@ -27,14 +29,17 @@ const AccountScreen = () => {
 	useEffect(() => {
 		setProducts(productStore.order);
 	}, [productStore.order]);
-	console.log(products);
 	const [step, setStep] = useState(0);
 	return (
 		<>
-			<UseMetaData title={"Аккаунт"} img={""} description={"йцуйцк12к"} />
+			<UseMetaData title={"Аккаунт"} img={""} description={"sadasdasd"} />
 			<BreadCrumbs road={road} />
-			<Text color={colors.black} size='40px' fontStyle={fonts.f500}>
-				ПЕРСОНАЛЬНЫЕ ДАННЫЕ
+			<Text
+				color={colors.black}
+				size='40px'
+				fontStyle={fonts.f500}
+				textTransform='uppercase'>
+				{t("account.personalData")}
 			</Text>
 
 			<MainWrapper>

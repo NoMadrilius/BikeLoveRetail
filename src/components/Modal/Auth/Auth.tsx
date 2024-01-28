@@ -13,8 +13,10 @@ import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
 import InputMask from "react-input-mask";
 import RenewPassword from "./components/RenewPassword";
+import { useTranslation } from "react-i18next";
 
 const Auth = () => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const authStore = useAuthStore();
 	const [step, setStep] = useState(0);
@@ -50,8 +52,8 @@ const Auth = () => {
 				setPasswordsError(false);
 			}, 3000);
 			return showToast({
-				info: "Пароли не совпадают",
-				title: "Ошибка",
+				info: t("auth.toast.passwordError"),
+				title: t("auth.toast.error"),
 				type: "error",
 			});
 		}
@@ -61,8 +63,8 @@ const Auth = () => {
 				setEmailError(false);
 			}, 3000);
 			return showToast({
-				info: "Некоректный E-mail",
-				title: "Ошибка",
+				info: t("auth.toast.emailError"),
+				title: t("auth.toast.error"),
 				type: "error",
 			});
 		}
@@ -115,7 +117,7 @@ const Auth = () => {
 						size='22px'
 						fontStyle={fonts.f600}
 						margin='0 auto 16px 0'>
-						ВХОД
+						{t("auth.enter")}
 					</Text>
 					<InputMask
 						mask='+380 99 999 99 99'
@@ -123,11 +125,11 @@ const Auth = () => {
 						onChange={(e) => setLoginPhone(e.target.value)}>
 						{/*@ts-ignore*/}
 						{(inputProps) => (
-							<InputField placeholder='Телефон' {...inputProps} />
+							<InputField placeholder={t("auth.tel")} {...inputProps} />
 						)}
 					</InputMask>
 					<InputField
-						placeholder='Пароль'
+						placeholder={t("auth.password")}
 						value={loginPassword}
 						onChange={(e) => setLoginPassword(e.target.value)}
 						type='password'
@@ -144,7 +146,7 @@ const Auth = () => {
 							}}
 						/>
 						<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-							Запомнить меня
+							{t("auth.rememberMe")}
 						</Text>
 						<Text
 							color={colors.grayMain}
@@ -153,12 +155,12 @@ const Auth = () => {
 							margin='0 0 0 auto'
 							func={() => setStep(2)}
 							hoverColor={colors.redMain}>
-							Напомнить пароль
+							{t("auth.remindPassword")}
 						</Text>
 					</RowContainer>
 					<Button disabled={loginDisabled} onClick={() => loginHandle()}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
-							{authStore.loadingLogin ? <Loader /> : "Войти"}
+							{authStore.loadingLogin ? <Loader /> : t("auth.enter")}
 						</Text>
 					</Button>
 					<Text
@@ -166,10 +168,9 @@ const Auth = () => {
 						size='13px'
 						fontStyle={fonts.f400}
 						margin='10px 0'>
-						Нажимая на эту кнопку я соглашаюсь с
+						{t("auth.pressOnThis")}
 						<span style={{ color: "black", cursor: "pointer" }}>
-							{" "}
-							публичной офертой
+							{t("auth.publicAff")}
 						</span>
 					</Text>
 					<RowContainer>
@@ -179,7 +180,7 @@ const Auth = () => {
 							size='14px'
 							fontStyle={fonts.f400}
 							margin='0 20px'>
-							ИЛИ
+							{t("auth.or")}
 						</Text>
 						<Line />
 					</RowContainer>
@@ -190,7 +191,7 @@ const Auth = () => {
 						func={() => setStep(1)}
 						margin='5px auto'
 						hoverColor={colors.redMain}>
-						Зарегистрироваться
+						{t("auth.toRegister")}
 					</Text>
 				</Wrapper>
 			)}
@@ -201,20 +202,20 @@ const Auth = () => {
 						size='22px'
 						fontStyle={fonts.f600}
 						margin='0 auto 16px 0'>
-						РЕГИСТАРЦИЯ
+						{t("auth.registration")}
 					</Text>
 					<InputField
-						placeholder='Имя'
+						placeholder={t("auth.name")}
 						value={regName}
 						onChange={(e) => setRegName(e.target.value)}
 					/>
 					<InputField
-						placeholder='Фамилия'
+						placeholder={t("auth.surname")}
 						value={regLastName}
 						onChange={(e) => setRegLastName(e.target.value)}
 					/>
 					<InputField
-						placeholder='Отчество'
+						placeholder={t("auth.patronomic")}
 						value={regPatronymic}
 						onChange={(e) => setRegPatronymic(e.target.value)}
 					/>
@@ -224,7 +225,7 @@ const Auth = () => {
 						onChange={(e) => setRegPhone(e.target.value)}>
 						{/*@ts-ignore*/}
 						{(inputProps) => (
-							<InputField placeholder='Телефон' {...inputProps} />
+							<InputField placeholder={t("auth.tel")} {...inputProps} />
 						)}
 					</InputMask>
 					<InputField
@@ -235,14 +236,14 @@ const Auth = () => {
 					/>
 					<InputField
 						error={passwordsError}
-						placeholder='Пароль'
+						placeholder={t("auth.password")}
 						value={regPassword}
 						onChange={(e) => setRegPassword(e.target.value)}
 						type='password'
 					/>
 					<InputField
 						error={passwordsError}
-						placeholder='Повторите пароль'
+						placeholder={t("auth.rePassword")}
 						value={regConfirmPassword}
 						onChange={(e) => setRegConfirmPassword(e.target.value)}
 						type='password'
@@ -259,7 +260,7 @@ const Auth = () => {
 							}}
 						/>
 						<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-							Запомнить меня
+							{t("auth.rememberMe")}
 						</Text>
 						<Text
 							color={colors.grayMain}
@@ -268,12 +269,12 @@ const Auth = () => {
 							margin='0 0 0 auto'
 							func={() => console.log("hello")}
 							hoverColor={colors.redMain}>
-							Напомнить пароль
+							{t("auth.remindPassword")}
 						</Text>
 					</RowContainer>
 					<Button onClick={() => registerHandle()} disabled={registerDisabled}>
 						<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
-							Зарегистрироваться
+							{t("auth.toRegister")}
 						</Text>
 					</Button>
 					<Text
@@ -281,9 +282,10 @@ const Auth = () => {
 						size='13px'
 						fontStyle={fonts.f400}
 						margin='10px 0'>
-						Нажимая на эту кнопку я соглашаюсь с
-						<span style={{ color: "black", cursor: "pointer" }}>
-							публичной офертой
+						{t("auth.pressOnThis")}
+						<span
+							style={{ color: "black", cursor: "pointer", marginLeft: "5px" }}>
+							{t("auth.publicAff")}
 						</span>
 					</Text>
 					<RowContainer>
@@ -293,7 +295,7 @@ const Auth = () => {
 							size='14px'
 							fontStyle={fonts.f400}
 							margin='0 20px'>
-							ИЛИ
+							{t("auth.or")}
 						</Text>
 						<Line />
 					</RowContainer>
@@ -304,7 +306,7 @@ const Auth = () => {
 						func={() => setStep(0)}
 						margin='5px auto'
 						hoverColor={colors.redMain}>
-						Я уже зарегистрирован
+						{t("auth.iamAlredyRegister")}
 					</Text>
 				</Wrapper>
 			)}

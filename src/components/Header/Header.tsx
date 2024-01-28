@@ -86,8 +86,6 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	const [wishData, setWishData] = useState<any>();
 	const [isAuth, setIsAuth] = useState(false);
 
-	console.log(categoriesVisible);
-
 	useEffect(() => {
 		categories.fetchCategories();
 		setCartData(cart.cart);
@@ -104,7 +102,6 @@ const Header: FC<Props> = ({ opacityBg }) => {
 			if (!_isAuth) {
 				try {
 					// Попытка обновить токен
-					console.log("success");
 					await authStore.refreshToken();
 				} catch (refreshError) {
 					// Обработка ошибки обновления токена
@@ -126,7 +123,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	]);
 
 	///
-	console.log(isAuth);
+
 	////
 
 	return (
@@ -145,7 +142,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 					<MenuTitle func={() => router.push("/about")} title={TITLES[1]} />
 					<MenuTitle func={() => router.push("/workshop")} title={TITLES[2]} />
 					<MenuTitle func={() => router.push("/blog")} title={TITLES[3]} />
-					<MenuTitle func={() => router.push("/about")} title={TITLES[4]} />
+					<MenuTitle func={() => router.push("/contacts")} title={TITLES[4]} />
 				</TitlesContainer>
 
 				<Input value={inputText} onChange={setInputText} />

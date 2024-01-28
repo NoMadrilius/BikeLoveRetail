@@ -12,8 +12,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const Step1 = ({ step }: any) => {
+	const { t } = useTranslation();
 	const [name, setName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -29,6 +31,27 @@ const Step1 = ({ step }: any) => {
 
 	const authStore = useAuthStore();
 	const [isAuth, setIsAuth] = useState(false);
+
+	const languageLabels: Record<string, string> = {
+		English: "en",
+		Russian: "ru",
+		Ukrainin: "ua",
+		"": "lang",
+	};
+	const genderLabels: Record<string, string> = {
+		Male: "male",
+		Female: "female",
+		"": "gender",
+	};
+
+	const selectedLang = () => {
+		const langKey = languageLabels[lang] || ""; // По умолчанию возвращаем пустую строку
+		return t(`account.step1.${langKey}`);
+	};
+	const selectedGender = () => {
+		const genderKey = genderLabels[gender] || ""; // По умолчанию возвращаем пустую строку
+		return t(`account.step1.${genderKey}`);
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -83,30 +106,31 @@ const Step1 = ({ step }: any) => {
 		setGender(gen);
 		setOpenSelectGender(false);
 	};
+
 	return (
 		<>
 			<Wrapper>
 				<Text color={colors.black} size='22px' fontStyle={fonts.f600}>
-					ОСНОВНЫЕ ДАННЫЕ
+					{t("account.step1.mainData")}
 				</Text>
 				<InputsContainer>
 					<InputField
-						placeholder='Прізвище'
+						placeholder={t("account.step1.surname")}
 						value={lastName}
 						onChange={(e) => setLastName(e.target.value)}
 					/>
 					<InputField
-						placeholder="Ім'я"
+						placeholder={t("account.step1.name")}
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
 					<InputField
-						placeholder='По батькові'
+						placeholder={t("account.step1.patronomic")}
 						value={patronymic}
 						onChange={(e) => setPatronymic(e.target.value)}
 					/>
 					<InputField
-						placeholder='Велосипед'
+						placeholder={t("account.step1.bike")}
 						value={bike}
 						onChange={(e) => setBike(e.target.value)}
 					/>
@@ -116,7 +140,7 @@ const Step1 = ({ step }: any) => {
 							color={gender ? colors.black : colors.grayBorder}
 							size='16px'
 							fontStyle={fonts.f400}>
-							{gender || "Стать"}
+							{selectedGender()}
 						</Text>
 						<Arrow
 							width={20}
@@ -133,7 +157,7 @@ const Step1 = ({ step }: any) => {
 										size='16px'
 										fontStyle={fonts.f400}
 										func={() => onClickSelectGender("Male")}>
-										Male
+										{t("account.step1.male")}
 									</Text>
 								</SelectItem>
 
@@ -143,7 +167,7 @@ const Step1 = ({ step }: any) => {
 										size='16px'
 										fontStyle={fonts.f400}
 										func={() => onClickSelectGender("Female")}>
-										Female
+										{t("account.step1.female")}
 									</Text>
 								</SelectItem>
 							</SelectArea>
@@ -155,7 +179,7 @@ const Step1 = ({ step }: any) => {
 							color={lang ? colors.black : colors.grayBorder}
 							size='16px'
 							fontStyle={fonts.f400}>
-							{lang || "Мова"}
+							{selectedLang()}
 						</Text>
 						<Arrow
 							width={20}
@@ -172,7 +196,7 @@ const Step1 = ({ step }: any) => {
 										size='16px'
 										fontStyle={fonts.f400}
 										func={() => onClickSelectLang("Ukrainin")}>
-										Ukrainian
+										{t("account.step1.ua")}
 									</Text>
 								</SelectItem>
 
@@ -182,7 +206,7 @@ const Step1 = ({ step }: any) => {
 										size='16px'
 										fontStyle={fonts.f400}
 										func={() => onClickSelectLang("English")}>
-										English
+										{t("account.step1.en")}
 									</Text>
 								</SelectItem>
 								<SelectItem>
@@ -191,7 +215,7 @@ const Step1 = ({ step }: any) => {
 										size='16px'
 										fontStyle={fonts.f400}
 										func={() => onClickSelectLang("Russian")}>
-										Russian
+										{t("account.step1.ru")}
 									</Text>
 								</SelectItem>
 							</SelectArea>
@@ -205,7 +229,7 @@ const Step1 = ({ step }: any) => {
 					/>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
-							label='Дата народження'
+							label={t("account.step1.birthDate")}
 							value={birthday || ""}
 							onChange={(newValue) => setBirthday(newValue)}
 						/>
@@ -216,7 +240,7 @@ const Step1 = ({ step }: any) => {
 					width={"188px"}
 					height={"56px"}
 					type={"default"}
-					label='Сохранить'
+					label={t("account.step1.save")}
 					func={() => updateInfo()}
 				/>
 			</Wrapper>

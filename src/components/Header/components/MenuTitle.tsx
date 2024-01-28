@@ -17,18 +17,15 @@ const MenuTitle: FC<Props> = ({ func, title, hover }) => {
 		if (hover) {
 			setClicked(true);
 			func(true);
-			console.log("success");
 		}
 		if (hover && clicked) {
 			func(false);
 			setClicked(false);
-			console.log("success");
 		}
 		if (!hover) {
 			func();
 		}
 	};
-	console.log(clicked);
 	return (
 		<Wrapper
 			onClick={() => click()}

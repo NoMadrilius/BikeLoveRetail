@@ -38,6 +38,7 @@ const SideBarAuth = ({ setVisible }: any) => {
 					// Попытка обновить токен
 					console.log("success");
 					await authStore.refreshToken();
+					setIsLoading(false);
 				} catch (refreshError) {
 					// Обработка ошибки обновления токена
 					console.log("Failed to refresh token:", refreshError);

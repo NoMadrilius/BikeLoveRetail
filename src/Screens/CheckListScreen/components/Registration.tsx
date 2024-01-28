@@ -12,12 +12,14 @@ import { showToast } from "@/helpers/alertService/alertService";
 import InputMask from "react-input-mask";
 import Loader from "@/helpers/Loader/Loader";
 import { IOrderData } from "@/types/types";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	setSendData: any;
 };
 
 const Registration: FC<Props> = ({ setSendData }) => {
+	const { t } = useTranslation();
 	const [activeTab, setActiveTab] = useState(0);
 	const [name, setName] = useState("");
 	const [surname, setSurname] = useState("");
@@ -137,8 +139,8 @@ const Registration: FC<Props> = ({ setSendData }) => {
 				setPasswordsError(false);
 			}, 3000);
 			return showToast({
-				info: "Пароли не совпадают",
-				title: "Ошибка",
+				info: t("auth.toast.passwordError"),
+				title: t("auth.toast.error"),
 				type: "error",
 			});
 		}
@@ -148,8 +150,8 @@ const Registration: FC<Props> = ({ setSendData }) => {
 				setEmailError(false);
 			}, 3000);
 			return showToast({
-				info: "Некоректный E-mail",
-				title: "Ошибка",
+				info: t("auth.toast.emailError"),
+				title: t("auth.toast.error"),
 				type: "error",
 			});
 		}
@@ -198,8 +200,12 @@ const Registration: FC<Props> = ({ setSendData }) => {
 	return (
 		<>
 			<Wrapper>
-				<Text color={colors.black} size='50px' fontStyle={fonts.f500}>
-					ОФОРМЛЕНИЕ ЗАКАЗА
+				<Text
+					color={colors.black}
+					size='50px'
+					fontStyle={fonts.f500}
+					textTransform='uppercase'>
+					{t("checkList.checkout")}
 				</Text>
 				<Header>
 					<NumberContainer>
@@ -213,15 +219,17 @@ const Registration: FC<Props> = ({ setSendData }) => {
 								color={activeTab === 0 ? colors.black : colors.grayMain}
 								size='22px'
 								fontStyle={fonts.f600}
-								func={() => setActiveTab(0)}>
-								Я НОВЫЙ ПОКУПЕЦЬ
+								func={() => setActiveTab(0)}
+								textTransform='uppercase'>
+								{t("checkList.newCustomer")}
 							</Text>
 							<Text
 								color={activeTab === 1 ? colors.black : colors.grayMain}
 								size='22px'
 								fontStyle={fonts.f600}
-								func={() => setActiveTab(1)}>
-								У МЕНЕ ВЖЕ Є АККАУНТ
+								func={() => setActiveTab(1)}
+								textTransform='uppercase'>
+								{t("checkList.oldCustomer")}
 							</Text>
 						</>
 					)}
@@ -230,24 +238,24 @@ const Registration: FC<Props> = ({ setSendData }) => {
 							color={activeTab === 2 ? colors.black : colors.grayMain}
 							size='22px'
 							fontStyle={fonts.f600}>
-							Покупець
+							{t("checkList.customer")}
 						</Text>
 					)}
 				</Header>
 				{activeTab === 0 && (
 					<InputsContainer>
 						<InputField
-							placeholder='Имя'
+							placeholder={t("account.step1.name")}
 							value={regData.regName}
 							onChange={(e) => inputHandler(e.target.value, "regName")}
 						/>
 						<InputField
-							placeholder='Фамилия'
+							placeholder={t("account.step1.surname")}
 							value={regData.regLastName}
 							onChange={(e) => inputHandler(e.target.value, "regLastName")}
 						/>
 						<InputField
-							placeholder='Отчество'
+							placeholder={t("account.step1.patronomic")}
 							value={regData.regPatronymic}
 							onChange={(e) => inputHandler(e.target.value, "regPatronymic")}
 						/>
@@ -257,7 +265,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 							onChange={(e) => inputHandler(e.target.value, "regPhone")}>
 							{/*@ts-ignore*/}
 							{(inputProps) => (
-								<InputField placeholder='Телефон' {...inputProps} />
+								<InputField placeholder={t("auth.tel")} {...inputProps} />
 							)}
 						</InputMask>
 						<InputField
@@ -275,7 +283,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 						/>
 						<InputField
 							error={passwordsError}
-							placeholder='Повторите пароль'
+							placeholder={t("auth.rePassword")}
 							value={regData.regConfirmPassword}
 							onChange={(e) =>
 								inputHandler(e.target.value, "regConfirmPassword")
@@ -287,7 +295,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 							onClick={() => registerHandle()}
 							disabled={registerDisabled}>
 							<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
-								Зарегистрироваться
+								{t("auth.toRegister")}
 							</Text>
 						</Button>
 					</InputsContainer>
@@ -301,7 +309,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 								onChange={(e) => setLoginPhone(e.target.value)}>
 								{/*@ts-ignore*/}
 								{(inputProps) => (
-									<InputField placeholder='Телефон' {...inputProps} />
+									<InputField placeholder={t("auth.tel")} {...inputProps} />
 								)}
 							</InputMask>
 							<InputField
@@ -312,7 +320,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 							/>
 							<Button disabled={loginDisabled} onClick={() => loginHandle()}>
 								<Text color={colors.white} size='15px' fontStyle={fonts.f400}>
-									{authStore.loadingLogin ? <Loader /> : "Войти"}
+									{authStore.loadingLogin ? <Loader /> : t("auth.enter")}
 								</Text>
 							</Button>
 						</InputsContainer>
@@ -321,17 +329,17 @@ const Registration: FC<Props> = ({ setSendData }) => {
 				{activeTab === 2 && (
 					<InputsContainer>
 						<InputField
-							placeholder="Ім'я"
+							placeholder={t("auth.name")}
 							value={redData.redName}
 							onChange={(e) => inputRedHandler(e.target.value, "redName")}
 						/>
 						<InputField
-							placeholder='Прізвище'
+							placeholder={t("auth.surname")}
 							value={redData.redLastName}
 							onChange={(e) => inputRedHandler(e.target.value, "redLastName")}
 						/>
 						<InputField
-							placeholder='По баькові'
+							placeholder={t("auth.patronomic")}
 							value={redData.redPatronymic}
 							onChange={(e) => inputRedHandler(e.target.value, "redPatronymic")}
 						/>
@@ -342,7 +350,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
 						/>
 						<Button red onClick={() => updateSelfInfo()} disabled={false}>
 							<Text color={colors.redMain} size='15px' fontStyle={fonts.f400}>
-								Редагувати
+								{t("auth.edit")}
 							</Text>
 						</Button>
 					</InputsContainer>

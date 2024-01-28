@@ -9,9 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     try {
-        console.log('success')
-       
-       
         const response = await axiosInstance.post(`/auth/refresh`, null, {
             withCredentials: true,
           })
