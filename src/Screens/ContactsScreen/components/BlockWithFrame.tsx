@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 type Props = {
 	sidebar?: boolean;
 };
-
+//TODO добавить переводы после утверждения лейаута
 const BlockWithFrame: FC<Props> = ({ sidebar }) => {
 	const [open, setOpen] = useState(false);
 	return (

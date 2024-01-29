@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { createContext, useContext } from 'react';
 
 class PublicStore {
-  public:[] = []
+  publicContacts:[] = []
 
 
   constructor() {
@@ -21,6 +21,7 @@ getContacts = async() => {
     try {
       const response = await axios.get(`/api/getContacts?token=${token}`);
         console.log(response.data)
+        this.publicContacts = response.data
     } catch (error) {
         console.log(error)
     }

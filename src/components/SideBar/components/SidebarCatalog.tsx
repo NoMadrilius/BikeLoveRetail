@@ -8,8 +8,10 @@ import { useCategoriesStore } from "@/store/CategoriesStore";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const catalogStore = useCategoriesStore();
 	const [id, setId] = useState<any>();
@@ -193,7 +195,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
 								fontStyle={fonts.f500}
 								hoverColor={colors.redHover}
 								func={() => onPressSmallChildren(childCategories[0])}>
-								Все в категории
+								{t("sidebar.catalog.allIn")}
 							</Text>
 							<Image
 								alt='Arrow Icon'
