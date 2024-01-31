@@ -1,6 +1,6 @@
 type RunMode = 'DEV' | 'PROD';
 
-const RUN_MODE: RunMode = 'DEV';
+const RUN_MODE: RunMode = 'PROD';
 
 const BASE_URL = {
   DEV: 'https://bikeshop.1gb.ua/api',
