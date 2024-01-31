@@ -229,20 +229,29 @@ const Step1 = ({ step }: any) => {
 					/>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DatePicker
+							sx={{ width: "100%" }}
 							label={t("account.step1.birthDate")}
 							value={birthday || ""}
 							onChange={(newValue) => setBirthday(newValue)}
 						/>
 					</LocalizationProvider>
 				</InputsContainer>
-
-				<ButtonCustom
-					width={"188px"}
-					height={"56px"}
-					type={"default"}
-					label={t("account.step1.save")}
-					func={() => updateInfo()}
-				/>
+				<ButtonsContainer>
+					<ButtonCustom
+						width={"188px"}
+						height={"56px"}
+						type={"default"}
+						label={t("account.step1.save")}
+						func={() => updateInfo()}
+					/>
+					<ButtonCustom
+						width={"188px"}
+						height={"56px"}
+						type={"default"}
+						label={"Выйти"}
+						func={() => authStore.logout()}
+					/>
+				</ButtonsContainer>
 			</Wrapper>
 		</>
 	);
@@ -265,6 +274,10 @@ const InputsContainer = styled.div`
 		width: 100%;
 		align-items: center;
 	}
+`;
+const ButtonsContainer = styled.div`
+	display: flex;
+	column-gap: 10px;
 `;
 const InputField = styled.input`
 	all: unset;

@@ -15,12 +15,41 @@ import SideBarAuth from "./components/SidebarAuth";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { TITLES, TITLES2 } from "./mock";
 
-const SideBar = ({ setVisible }: any) => {
+const SideBar = ({ setVisible, cartVisible }: any) => {
 	const { t } = useTranslation();
 	const router = useRouter();
 	const [step, setStep] = useState(0);
+
+	const openCart = () => {
+		cartVisible(true);
+		setVisible(false);
+	};
+	const TITLES = [
+		{ title: t("header.catalog"), openArrow: true },
+		{ title: t("header.about"), openArrow: true, href: "/about" },
+		{ title: t("header.workshop"), openArrow: true, href: "/workshop" },
+		{ title: t("header.blog"), openArrow: false, href: "/blog" },
+		{ title: t("header.contacts"), openArrow: false, href: "/contacts" },
+	];
+	const TITLES2 = [
+		{ title: t("cart.cart"), icon: "/images/home/icons/Cart.png", href: "#" },
+		{
+			title: t("header.about"),
+			icon: "/images/home/icons/Invoice.png",
+			href: "/about",
+		},
+		{
+			title: t("header.contacts"),
+			icon: "/images/home/icons/Heart.png",
+			href: "/contacts",
+		},
+		{
+			title: t("header.blog"),
+			icon: "/images/home/icons/Eye.png",
+			href: "/blog",
+		},
+	];
 
 	const goToLink = (href: string) => {
 		router.push(href);
@@ -49,16 +78,16 @@ const SideBar = ({ setVisible }: any) => {
 									style={{
 										justifyContent: "space-between",
 										alignItems: "center",
-									}}>
+									}}
+									onClick={() =>
+										index === 0 ? setStep(1) : el.href && goToLink(el.href)
+									}>
 									<Text
 										color={colors.black}
 										size='16px'
 										fontStyle={fonts.f500}
 										hoverColor={colors.redHover}
-										textTransform='uppercase'
-										func={() =>
-											index === 0 ? setStep(1) : el.href && goToLink(el.href)
-										}>
+										textTransform='uppercase'>
 										{el.title}
 									</Text>
 									{el.openArrow && (
@@ -81,7 +110,10 @@ const SideBar = ({ setVisible }: any) => {
 				<Line />
 				<ColumnContainer style={{ padding: "26px 0 46px 25px", rowGap: "7px" }}>
 					{TITLES2.map((el, index) => (
-						<RowContainer key={index} style={{ alignItems: "center" }}>
+						<RowContainer
+							key={index}
+							style={{ alignItems: "center" }}
+							onClick={() => (index === 0 ? openCart() : goToLink(el.href))}>
 							<SmallIconContainer>
 								<Image alt='Title Icon' width={13} height={13} src={el.icon} />
 							</SmallIconContainer>
@@ -91,7 +123,6 @@ const SideBar = ({ setVisible }: any) => {
 								fontStyle={fonts.f400}
 								hoverColor={colors.redHover}
 								margin='0 0 0 10px'
-								func={() => goToLink(el.href)}
 								textTransform='uppercase'>
 								{el.title}
 							</Text>

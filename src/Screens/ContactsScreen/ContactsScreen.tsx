@@ -8,30 +8,31 @@ import { useEffect } from "react";
 import axios from "axios";
 import axiosInstance from "@/api/axiosInstance";
 import { usePublickStore } from "@/store/PublicStore";
+import { useTranslation } from "react-i18next";
+import { observer } from "mobx-react";
 
 const ContactsScreen = () => {
+	const { t } = useTranslation();
 	const road = [{ title: "Котакты", link: "" }];
 	const publicStore = usePublickStore();
 
-	const click = () => {
-		try {
-			publicStore.getContacts();
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	useEffect(() => {
+		publicStore.getContacts();
+	}, []);
+
 	return (
 		<>
 			<>
 				<UseMetaData title={"Контакты"} img={""} description={""} />
 				<BreadCrumbs road={road} />
-				<button onClick={() => click()}>Click</button>
+
 				<Text
 					color={colors.black}
 					size='42px'
 					fontStyle={fonts.f500}
-					margin='0 0 40px 0'>
-					КОНТАКТЫ
+					margin='0 0 40px 0'
+					textTransform='uppercase'>
+					{t("contacts")}
 				</Text>
 				<BlockWithFrame />
 				<BlockWithFrame />
@@ -41,4 +42,4 @@ const ContactsScreen = () => {
 		</>
 	);
 };
-export default ContactsScreen;
+export default observer(ContactsScreen);

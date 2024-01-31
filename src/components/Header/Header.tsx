@@ -97,12 +97,15 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			const _isAuth = authStore.checkAuth();
+			console.log("success");
+			console.log(_isAuth);
 			//@ts-ignore
 			setIsAuth(_isAuth);
 			if (!_isAuth) {
 				try {
 					// Попытка обновить токен
 					await authStore.refreshToken();
+					console.log("success");
 				} catch (refreshError) {
 					// Обработка ошибки обновления токена
 					console.log("Failed to refresh token:", refreshError);
@@ -123,7 +126,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 	]);
 
 	///
-
+	console.log(isAuth);
 	////
 
 	return (
@@ -229,7 +232,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
 			{categoriesVisible && categories && (
 				<Categories setVisible={setCategoriesVisible} categories={categories} />
 			)}
-			{sideBarVisible && <SideBar setVisible={setSideBarVisible} />}
+			{sideBarVisible && (
+				<SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
+			)}
 			{cartVisible && <Cart setVisible={setCartVisible} />}
 			{gearVisible && (
 				<GearSelect onClick={selectCurrency} setVisible={setGearVisible} />

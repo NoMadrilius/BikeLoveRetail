@@ -115,8 +115,17 @@ class AuthStore {
     }
     logout = async() => {
         try {
-            const response = await axiosInstance.post('/auth/logout')
-            console.log(response)
+            
+            const response = await axiosInstance.post('/auth/logout',null,{
+                withCredentials: true,  
+            })
+            if(typeof localStorage !== 'undefined'){
+                localStorage.removeItem('AuthStore')
+            }
+            
+            await Router.push('/')
+            this.loginUserResponse ={}
+            this.tokenIsRefresh++
         } catch (error) {
             console.log(error)
         }
@@ -128,6 +137,7 @@ class AuthStore {
                 console.error("localStorage is not available.");
                 return;
             }
+            console.log('success');
     
             // Получаем текущий токен из localStorage
             const storedJson = localStorage.getItem("AuthStore");
@@ -137,6 +147,7 @@ class AuthStore {
             if(!authStoreData){
                 return
             }
+            console.log('success');
             const response = await axiosInstance.post(`/auth/refresh`, null, {
                 withCredentials: true,
             });

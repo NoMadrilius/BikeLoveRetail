@@ -12,8 +12,10 @@ import {
 	RowContainer,
 } from "../SidebarStyles";
 import Loader from "@/helpers/Loader/Loader";
+import { useTranslation } from "react-i18next";
 
 const SideBarAuth = ({ setVisible }: any) => {
+	const { t } = useTranslation();
 	const authStore = useAuthStore();
 	const [_isAuth, setIsAuth] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +92,7 @@ const SideBarAuth = ({ setVisible }: any) => {
 								fontStyle={fonts.f500}
 								hoverColor={colors.redHover}
 								func={() => goToAuth()}>
-								Вход
+								{t("sidebar.auth.enter")}
 							</Text>
 							<Text color={colors.black} size='16px' fontStyle={fonts.f500}>
 								|
@@ -101,11 +103,11 @@ const SideBarAuth = ({ setVisible }: any) => {
 								fontStyle={fonts.f500}
 								hoverColor={colors.redHover}
 								func={() => goToAuth()}>
-								Регистрация
+								{t("sidebar.auth.register")}
 							</Text>
 						</RowContainer>
 						<Text color={colors.black} size='13px' fontStyle={fonts.f400}>
-							Авторизуйтесь для получения расширеніх возможностей
+							{t("sidebar.auth.authFor")}
 						</Text>
 					</ColumnContainer>
 				</AuthContainer>
