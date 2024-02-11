@@ -15,11 +15,14 @@ export const Res1Container = styled.div<{ $hideOnDesktop?: boolean }>`
     display: ${(props) => (props.$hideOnDesktop ? "none" : "flex")};
   }
   @media (max-width: ${metrics.mobile}) {
-    padding: 47px 20px;
+    /* padding: 47px 20px; */
   }
 `;
 
-export const SocialContainer = styled.div<{ $hideOnDesktop?: boolean }>`
+export const SocialContainer = styled.div<{
+  $hideOnDesktop?: boolean;
+  $showOnMobile?: boolean;
+}>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -33,6 +36,13 @@ export const SocialContainer = styled.div<{ $hideOnDesktop?: boolean }>`
   @media (min-width: 1130px) {
     display: ${(props) => (props.$hideOnDesktop ? "none" : "flex")};
   }
+  @media (min-width: 768px) {
+    display: ${(props) => (props.$showOnMobile ? "none" : "flex")};
+  }
+  @media (max-width: 730px) {
+    display: ${(props) => (props.$hideOnDesktop ? "none" : "flex")};
+  }
+
   > Image {
     margin: 0;
   }
@@ -49,8 +59,14 @@ export const Wrapper = styled.div`
   padding: 47px 67px;
   @media (max-width: 1130px) {
   }
-  @media (min-width: ${metrics.mobile}) {
+
+  @media (max-width: 768px) {
+    align-items: normal;
+  }
+
+  @media (max-width: ${metrics.mobile}) {
     padding: 16px;
+    gap: 24px;
   }
 `;
 
@@ -69,7 +85,10 @@ export const Logo = styled(Image)<{ $hideOnDesktop?: boolean }>`
   }
 
   @media (max-width: ${metrics.mobile}) {
-    min-width: ${(props) => (props.$hideOnDesktop ? "none" : "flex")};
+  }
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.$hideOnDesktop ? "none" : "flex")};
   }
 `;
 
@@ -77,8 +96,14 @@ export const InfoAndWorkingHoursContainer = styled.div`
   display: flex;
   flex-grow: 1;
   width: 100%;
-
   justify-content: space-around;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    flex-grow: 0;
+    width: auto;
+    gap: 16px;
+    /* justify-content: center; */
+  }
 `;
 
 export const ContactInfo = styled.div`
@@ -96,9 +121,23 @@ export const PhoneNumber = styled.p`
   letter-spacing: 0.96px;
   text-align: center;
   margin-bottom: 8px;
-  @media (min-width: 1130px) {
+  @media (max-width: 1130px) {
     font-size: 16px;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
   }
 `;
 
-export const Email = styled(PhoneNumber)``;
+export const Email = styled(PhoneNumber)`
+  @media (max-width: 768px) {
+    max-width: 153px;
+    word-wrap: break-word;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  width: 138px;
+  height: 34px;
+  position: relative;
+`;
