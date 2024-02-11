@@ -23,11 +23,13 @@ const Footer = () => {
   const currentLang: "ua" | "ru" = i18next.language as "ua" | "ru";
 
   const rights = ["@ 2023", t("footer.allRights"), t("footer.publicAffert")];
+  const [isDesktop, setIsDesktop] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth < 1130);
+      setIsDesktop(window.innerWidth < 1130);
+      setIsMobile(window.innerWidth < 768);
     }
 
     window.addEventListener("resize", handleResize);
@@ -39,10 +41,13 @@ const Footer = () => {
   return (
     <S.Wrapper>
       <S.Res1Container>
-        <S.PhoneNumber>(093) 211-89-30</S.PhoneNumber>
+        {isDesktop ? (
+          <>
+            <S.PhoneNumber>(093) 211-89-30</S.PhoneNumber>
 
-        <S.Email>storebikelove@gmail.com</S.Email>
-
+            <S.Email>storebikelove@gmail.com</S.Email>
+          </>
+        ) : null}
         <S.Logo
           width={120}
           height={120}
@@ -55,7 +60,7 @@ const Footer = () => {
           }}
           src="/images/logo/logo.svg"
         />
-        {!isMobile &&
+        {!isDesktop &&
           rights.map((el, index) => (
             <Text
               key={index}
@@ -66,13 +71,29 @@ const Footer = () => {
               {el}
             </Text>
           ))}
-        <S.Logo
-          width={170}
-          height={42}
-          alt="Visa and MasterCard"
-          style={{ marginTop: 20 }}
-          src="/images/footer/visa_master.png"
-        />
+        <S.ImageContainer>
+          <S.Logo
+            fill
+            alt="Visa and MasterCard"
+            style={{ marginTop: 20, objectFit: "cover" }}
+            src="/images/footer/visa_master.png"
+          />
+        </S.ImageContainer>
+
+        {footerItems[currentLang].length - 1 && (
+          <S.SocialContainer $showOnMobile={true}>
+            {socialIcons.map((el, index) => (
+              <Image
+                width={25}
+                height={28}
+                alt="Social Icon"
+                src={el}
+                key={index}
+                style={{ cursor: "pointer" }}
+              />
+            ))}
+          </S.SocialContainer>
+        )}
       </S.Res1Container>
       <S.InfoAndWorkingHoursContainer>
         {footerItems[currentLang].map((el: any, index: any) => (
@@ -86,18 +107,48 @@ const Footer = () => {
             >
               {el.title}
             </Text>
-            {el.items.map((el: any, index: any) => (
-              <Text
-                key={index}
-                color={colors.white}
-                size="14px"
-                fontStyle={fonts.f400}
-                hoverColor={colors.redHover}
-              >
-                {el}
-              </Text>
-            ))}
-            {index === 0
+            {isMobile
+              ? index !== 1
+                ? el.items.map((el: any, indexInner: any) => {
+                    return (
+                      <Text
+                        key={indexInner}
+                        color={colors.white}
+                        size="14px"
+                        fontStyle={fonts.f400}
+                        hoverColor={colors.redHover}
+                      >
+                        {el}
+                      </Text>
+                    );
+                  })
+                : el.shortenFormData.map((el: any, indexInner: any) => {
+                    return (
+                      <Text
+                        key={indexInner}
+                        color={colors.white}
+                        size="14px"
+                        fontStyle={fonts.f400}
+                        hoverColor={colors.redHover}
+                      >
+                        {el}
+                      </Text>
+                    );
+                  })
+              : el.items.map((el: any, indexInner: any) => {
+                  return (
+                    <Text
+                      key={indexInner}
+                      color={colors.white}
+                      size="14px"
+                      fontStyle={fonts.f400}
+                      hoverColor={colors.redHover}
+                    >
+                      {el}
+                    </Text>
+                  );
+                })}
+            {isDesktop && index === 0
               ? footerItems[currentLang].length - 1 && (
                   <S.SocialContainer $hideOnDesktop={true}>
                     {socialIcons.map((el, index) => (
