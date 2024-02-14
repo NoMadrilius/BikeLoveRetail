@@ -9,9 +9,13 @@ type Props = {
   func: any;
   title: string;
   hover?: boolean;
+  activeMenu?: {
+    id: string | null;
+    rect: DOMRect | null;
+  };
 };
 
-const MenuTitle: FC<Props> = ({ func, title, hover }) => {
+const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
   const [clicked, setClicked] = useState(false);
   const click = () => {
     if (hover) {
@@ -26,42 +30,78 @@ const MenuTitle: FC<Props> = ({ func, title, hover }) => {
       func();
     }
   };
+
+  const handleClick = () => {
+    const rect = document?.getElementById(title)?.getBoundingClientRect();
+    setClicked((prev) => !prev);
+    func(title, rect);
+  };
+
   return (
     <Wrapper
-      onClick={() => click()}
-      {...(hover &&
-        !clicked && {
-          onMouseEnter: () => func(true),
-          onMouseLeave: () => func(false),
-        })}
+      id={title}
+      onClick={handleClick}
+
+      // {...(hover &&
+      //   !clicked && {
+      //     onMouseEnter: () => func(true),
+      //     onMouseLeave: () => func(false),
+      //   })}
     >
-      <Title>{title}</Title>
+      <Title
+        style={{
+          backgroundColor:
+            title === activeMenu?.id ? "rgb(255, 239, 239)" : "transparent",
+        }}
+        active={title === activeMenu?.id}
+      >
+        {title}
+        {title === activeMenu?.id ? <HorizontalLine /> : null}
+      </Title>
     </Wrapper>
   );
 };
 
 export default MenuTitle;
 
-const Title = styled.div`
-  font-size: 20px;
+const Title = styled.div<{ active: boolean }>`
+  font-size: 13px;
   font-family: ${fonts.f600.fontFamily};
   font-weight: ${fonts.f600.fontWeight};
-  color: ${colors.white};
-  transition: 0.3s; // Добавляем анимацию для плавного перехода стилей
+  color: ${(props) => (props.active ? "rgb(205, 9, 9)" : "white")};
+  padding: 15px;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+  transition: background-color 0.3s, color 0.3s;
+  text-transform: uppercase;
+  &:hover,
+  &.active {
+    background-color: ${colors.redMain}; // Red background on hover and when active
+    color: ${colors.white};
+  }
 `;
 
 const Wrapper = styled.div`
-  ${templates.centerContent};
-  padding: 10px;
-  border-radius: 8px;
+  display: inline-block; // To fit the content width
   cursor: pointer;
-  transition: 0.3s;
-
-  &:hover {
-    // Применяем стили для Title при наведении на Wrapper
-    ${Title} {
-      color: ${colors.redMain};
-      // другие стили при hover
-    }
+  position: relative;
+  &:not(.active):hover ${Title} {
+    color: ${colors.redMain}; // Change text color on hover when not active
   }
+
+  &.active ${Title} {
+    background-color: ${colors.redMain}; // Red background when active
+    color: ${colors.white};
+  }
+`;
+
+const HorizontalLine = styled.div`
+  width: 85%;
+  height: 1px;
+  border-top: solid 0.5px rgba(99, 99, 99, 0.15);
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  margin: auto;
+  transform: translate(10%, -50%);
 `;

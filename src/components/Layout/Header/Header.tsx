@@ -40,6 +40,11 @@ type Props = {
   opacityBg?: boolean;
 };
 
+interface ActiveMenuState {
+  id: string | null;
+  rect: DOMRect | null;
+}
+
 const Header: FC<Props> = ({ opacityBg }) => {
   const { t } = useTranslation();
 
@@ -85,6 +90,29 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [cartData, setCartData] = useState<any>();
   const [wishData, setWishData] = useState<any>();
   const [isAuth, setIsAuth] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<ActiveMenuState>({
+    id: null,
+    rect: null,
+  });
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Get the target element from the event
+      const target = event.target as HTMLElement;
+
+      // Check if the clicked element is inside the menu
+      // You should adjust the selector based on your menu's ID or class
+      const menuElement = document.getElementById("categories-component");
+
+      // If the clicked element is not inside the menu, close the menu
+      if (menuElement && !menuElement.contains(target)) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     categories.fetchCategories();
@@ -128,7 +156,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
   ///
   console.log(isAuth);
   ////
+  const openMenu = (id: string, rect: DOMRect) => {
+    setActiveMenu({ id, rect });
+    setCategoriesVisible(true);
+  };
 
+  // Handler to close the menu
+  const closeMenu = () => {
+    setActiveMenu({ id: null, rect: null });
+    setCategoriesVisible(false);
+  };
   return (
     <>
       <Wrapper opacityBg={opacityBg}>
@@ -141,7 +178,18 @@ const Header: FC<Props> = ({ opacityBg }) => {
         />
 
         <TitlesContainer>
-          <MenuTitle func={setCategoriesVisible} title={TITLES[0]} hover />
+          <MenuTitle
+            func={() => {
+              const element = document.getElementById(TITLES[0]);
+              if (element) {
+                const rect = element.getBoundingClientRect();
+                openMenu(TITLES[0], rect);
+              }
+            }}
+            activeMenu={activeMenu}
+            title={TITLES[0]}
+            hover={true}
+          />
           <MenuTitle func={() => router.push("/about")} title={TITLES[1]} />
           <MenuTitle func={() => router.push("/workshop")} title={TITLES[2]} />
           <MenuTitle func={() => router.push("/blog")} title={TITLES[3]} />
@@ -231,7 +279,11 @@ const Header: FC<Props> = ({ opacityBg }) => {
         />
       </Wrapper>
       {categoriesVisible && categories && (
-        <Categories setVisible={setCategoriesVisible} categories={categories} />
+        <Categories
+          setVisible={setCategoriesVisible}
+          categories={categories}
+          rect={activeMenu.rect}
+        />
       )}
       {sideBarVisible && (
         <SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
