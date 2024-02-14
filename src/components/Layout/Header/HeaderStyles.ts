@@ -33,6 +33,7 @@ export const Logo = styled(Image)`
 `;
 export const TitlesContainer = styled.div`
   ${templates.centerContent};
+  align-items: end;
   column-gap: 14px;
   justify-content: space-between;
   margin-right: auto;
