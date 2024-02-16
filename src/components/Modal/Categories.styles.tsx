@@ -11,15 +11,36 @@ export const HorizontalLine = styled.div<{ $isExpanded: boolean }>`
   width: 25px;
   height: 1px;
 
-  border-top: dotted 1px black;
+  border-top: solid 1px black;
 `;
 
-export const LeftBorder = styled.div<{ $isExpanded: boolean }>`
-  border-left: 1px dashed black;
+export const LeftBorder = styled.div<{
+  $isExpanded: boolean;
+  $lastChild: boolean;
+  $leftMargin?: number;
+}>`
+  border-left: 1px solid black;
   padding: ${(props) => (props.$isExpanded ? "10px 10px 10px 0" : "")};
+
   display: flex;
   align-items: center;
+  position: relative;
+  ${(props) =>
+    props.$lastChild &&
+    `
+  
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 50%;
+      border-left: 1px solid black;
+    }
+    border:none;
+  `};
 `;
+
 export const TitleIcon = styled.img<{ open: boolean }>`
   width: 20px;
   height: 20px;
@@ -33,7 +54,7 @@ export const Wrapper = styled.div<{
   display: flex;
   top: 90px;
   z-index: 5;
-  width: 100%;
+  /* width: 100%; */
 
   @media (max-width: ${metrics.desktop}) {
     /* padding: 0 24px; */
@@ -64,8 +85,9 @@ export const DetailsContainer = styled.div<{
   flex-wrap: wrap;
   border-radius: 10px;
   flex-direction: column;
-  position: relative;
+  position: absolute;
   top: ${(props) => `${props.$top}px`};
+  left: 300px;
   margin-left: 10px;
   background-color: rgb(231, 231, 231);
   overflow: scroll;
