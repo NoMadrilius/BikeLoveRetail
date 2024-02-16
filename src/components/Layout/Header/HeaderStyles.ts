@@ -1,8 +1,7 @@
-
 import { styled } from "styled-components";
-import { colors } from "../../../theme/colors";
-import { metrics } from "../../../theme/metrics";
-import { templates } from "../../../theme/templates";
+import { colors } from "../../../../theme/colors";
+import { metrics } from "../../../../theme/metrics";
+import { templates } from "../../../../theme/templates";
 import Image from "next/image";
 export const Wrapper = styled.div<{ opacityBg?: boolean }>`
   width: 100%;
@@ -33,37 +32,35 @@ export const Logo = styled(Image)`
   }
 `;
 export const TitlesContainer = styled.div`
-${templates.centerContent};
-column-gap: 14px;
-justify-content: space-between;
-margin-right: auto;
-@media (max-width: 1440px) {
+  ${templates.centerContent};
+  align-items: end;
+  column-gap: 14px;
+  justify-content: space-between;
+  margin-right: auto;
+  @media (max-width: 1440px) {
     column-gap: 10px;
   }
-@media (max-width: 1470px) {
-  display: none;
+  @media (max-width: 1470px) {
+    display: none;
   }
-
 `;
 export const IconsContainer = styled.div`
-${templates.centerContent};
-column-gap: 13px;
+  ${templates.centerContent};
+  column-gap: 13px;
 `;
 export const Icon = styled(Image)`
-width: 21px;
-cursor: pointer;
+  width: 21px;
+  cursor: pointer;
 `;
 export const BurgerIcon = styled(Image)`
-display: none;
-cursor: pointer;
-@media (max-width: 1470px) {
-  display: block;
+  display: none;
+  cursor: pointer;
+  @media (max-width: 1470px) {
+    display: block;
   }
 `;
 export const Trigger = styled.div`
-
-@media (max-width: 440px) {
-  display: none;
+  @media (max-width: 440px) {
+    display: none;
   }
-
 `;
