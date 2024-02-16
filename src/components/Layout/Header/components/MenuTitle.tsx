@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { styled } from "styled-components";
-import { templates } from "../../../../../theme/templates";
 import { colors } from "../../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
@@ -16,37 +15,25 @@ type Props = {
 };
 
 const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
-  const [clicked, setClicked] = useState(false);
-  const click = () => {
-    if (hover) {
-      setClicked(true);
-      func(true);
-    }
-    if (hover && clicked) {
-      func(false);
-      setClicked(false);
-    }
-    if (!hover) {
-      func();
-    }
-  };
+  const [hovered, setHovered] = useState(false);
 
-  const handleClick = () => {
+  const handleMouseEnter = () => {
     const rect = document?.getElementById(title)?.getBoundingClientRect();
-    setClicked((prev) => !prev);
+    setHovered(true);
     func(title, rect);
   };
+  console.log(hover);
 
   return (
     <Wrapper
       id={title}
-      onClick={handleClick}
-
-      // {...(hover &&
-      //   !clicked && {
-      //     onMouseEnter: () => func(true),
-      //     onMouseLeave: () => func(false),
-      //   })}
+      {...(hover && {
+        onMouseEnter: () => handleMouseEnter(),
+      })}
+      {...(!hover && {
+        onClick: () => handleMouseEnter(),
+      })}
+      className="menu-title"
     >
       <Title
         style={{
@@ -54,6 +41,7 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
             title === activeMenu?.id ? "rgb(255, 239, 239)" : "transparent",
         }}
         active={title === activeMenu?.id}
+        hovered={hover}
       >
         {title}
         {title === activeMenu?.id ? <HorizontalLine /> : null}
@@ -64,33 +52,34 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
 
 export default MenuTitle;
 
-const Title = styled.div<{ active: boolean }>`
+const Title = styled.div<{ active: boolean; hovered?: boolean }>`
   font-size: 13px;
   font-family: ${fonts.f600.fontFamily};
   font-weight: ${fonts.f600.fontWeight};
-  color: ${(props) => (props.active ? "rgb(205, 9, 9)" : "white")};
+  color: ${(props) => (props.active ? colors.redMain : "white")};
   padding: 15px;
   font-weight: 600;
   border-radius: 10px 10px 0 0;
   transition: background-color 0.3s, color 0.3s;
   text-transform: uppercase;
+  cursor: pointer;
   &:hover,
   &.active {
-    background-color: ${colors.redMain}; // Red background on hover and when active
+    background-color: ${colors.redMain};
     color: ${colors.white};
   }
 `;
 
 const Wrapper = styled.div`
-  display: inline-block; // To fit the content width
-  cursor: pointer;
+  display: inline-block;
   position: relative;
-  &:not(.active):hover ${Title} {
-    color: ${colors.redMain}; // Change text color on hover when not active
+
+  &:hover ${Title} {
+    color: ${colors.redMain};
   }
 
   &.active ${Title} {
-    background-color: ${colors.redMain}; // Red background when active
+    background-color: ${colors.redMain};
     color: ${colors.white};
   }
 `;

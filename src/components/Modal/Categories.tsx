@@ -73,8 +73,8 @@ const Categories = ({ setVisible, categories, rect }: any) => {
 
   return (
     <S.Wrapper
-      id="categories-component"
       style={style}
+      id="categories-component"
       onClick={(e: { stopPropagation: () => any }) => e.stopPropagation()}
     >
       <S.MainColumn>
@@ -142,9 +142,9 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                 {isExpanded && el.childrenIds && el.childrenIds !== "" && (
                   <>
                     {smallChildCategories(el)?.map(
-                      (child: any, childIndex: any) => {
+                      (child: any, childIndex: number, array: any[]) => {
                         const isExpanded = expandedSmallCategoryId === child.id;
-                        console.log(child.childrenIds !== "");
+                        const isLastChild = childIndex === array.length - 1;
 
                         return (
                           <>
@@ -152,6 +152,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                               <S.LeftBorder
                                 $isExpanded={child.childrenIds === ""}
                                 style={{ marginLeft: "10px" }}
+                                $lastChild={isLastChild}
                               >
                                 <S.HorizontalLine
                                   $isExpanded={child.childrenIds === ""}
@@ -185,27 +186,40 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                             {isExpanded && child.childrenIds !== "" && (
                               <>
                                 {smallChildCategories(child)?.map(
-                                  (childer: any, childerIndex: any) => (
-                                    <S.LeftBorder
-                                      $isExpanded={child.childrenIds !== ""}
-                                      style={{ marginLeft: "45px" }}
-                                      key={childerIndex}
-                                    >
-                                      <S.HorizontalLine
+                                  (
+                                    childer: any,
+                                    childerIndex: any,
+                                    array: any[]
+                                  ) => {
+                                    const isLastChild =
+                                      childerIndex === array.length - 1;
+
+                                    return (
+                                      <S.LeftBorder
                                         $isExpanded={child.childrenIds !== ""}
-                                      />
-                                      <Text
-                                        color={colors.black}
-                                        hoverColor={colors.redHover}
-                                        size="15px"
-                                        fontStyle={fonts.f400}
-                                        // margin="0 0 0 12px"
-                                        func={() => smallChildClick(childer.id)}
+                                        style={{ marginLeft: "45px" }}
+                                        key={childerIndex}
+                                        $leftMargin={0}
+                                        $lastChild={isLastChild}
                                       >
-                                        {childer.name}
-                                      </Text>
-                                    </S.LeftBorder>
-                                  )
+                                        <S.HorizontalLine
+                                          $isExpanded={child.childrenIds !== ""}
+                                        />
+                                        <Text
+                                          color={colors.black}
+                                          hoverColor={colors.redHover}
+                                          size="15px"
+                                          fontStyle={fonts.f400}
+                                          // margin="0 0 0 12px"
+                                          func={() =>
+                                            smallChildClick(childer.id)
+                                          }
+                                        >
+                                          {childer.name}
+                                        </Text>
+                                      </S.LeftBorder>
+                                    );
+                                  }
                                 )}
                               </>
                             )}
