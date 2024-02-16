@@ -96,22 +96,29 @@ const Header: FC<Props> = ({ opacityBg }) => {
   });
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
     const handleClickOutside = (event: MouseEvent) => {
-      // Get the target element from the event
+      if (!event.target) return;
       const target = event.target as HTMLElement;
-
-      // Check if the clicked element is inside the menu
-      // You should adjust the selector based on your menu's ID or class
-      const menuElement = document.getElementById("categories-component");
-
-      // If the clicked element is not inside the menu, close the menu
-      if (menuElement && !menuElement.contains(target)) {
-        closeMenu();
+      if (
+        !target.closest(".menu-title") &&
+        !target.closest("#categories-component")
+      ) {
+        timer = setTimeout(() => {
+          closeMenu();
+        }, 400);
+      } else {
+        clearTimeout(timer);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mouseover", handleClickOutside);
+    return () => {
+      document.removeEventListener("mouseover", handleClickOutside);
+
+      clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -157,12 +164,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
   console.log(isAuth);
   ////
   const openMenu = (id: string, rect: DOMRect) => {
+    console.log(1);
+
     setActiveMenu({ id, rect });
     setCategoriesVisible(true);
   };
 
   // Handler to close the menu
   const closeMenu = () => {
+    console.log(2);
+
     setActiveMenu({ id: null, rect: null });
     setCategoriesVisible(false);
   };
@@ -279,11 +290,14 @@ const Header: FC<Props> = ({ opacityBg }) => {
         />
       </Wrapper>
       {categoriesVisible && categories && (
-        <Categories
-          setVisible={setCategoriesVisible}
-          categories={categories}
-          rect={activeMenu.rect}
-        />
+        <>
+          <Overlay />
+          <Categories
+            setVisible={setCategoriesVisible}
+            categories={categories}
+            rect={activeMenu.rect}
+          />
+        </>
       )}
       {sideBarVisible && (
         <SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
@@ -326,4 +340,14 @@ const ResNumberWrapper = styled.div`
   @media (max-width: 870px) {
     display: none;
   }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 `;
