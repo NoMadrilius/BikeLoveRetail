@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import * as S from "./Categories.styles";
+import Link from "next/link";
 
 const Categories = ({ setVisible, categories, rect }: any) => {
   const [selectedTitle, setSelectedTitle] = useState(0);
@@ -31,21 +32,10 @@ const Categories = ({ setVisible, categories, rect }: any) => {
     return categories.categories?.filter((el: any) => ids.includes(el.id));
   };
 
-  const parentClick = (el: any, title: string) => {
-    if (el.childrenIds !== "") {
-      setSelectedTitle(el.id);
-      setCategoryTitle(title);
-    } else {
-      router.push(`/catalog/${el.id}`);
-      setVisible(false);
-    }
-  };
-  const childClick = (el: any) => {
-    router.push(`/catalog/${el.id}`);
+  const childClick = () => {
     setVisible(false);
   };
-  const smallChildClick = (id: number) => {
-    router.push(`/catalog/${id}`);
+  const smallChildClick = () => {
     setVisible(false);
   };
 
@@ -83,33 +73,55 @@ const Categories = ({ setVisible, categories, rect }: any) => {
             onClick={(e) => setSubmenuCategories(e.clientY - rect.bottom)}
             key={el.id}
           >
-            <Text
-              color={el.id === selectedTitle ? colors.redMain : colors.black}
-              hoverColor={colors.redHover}
-              size="15px"
-              fontStyle={fonts.f600}
-              func={() => parentClick(el, el.name)}
-              textTransform="uppercase"
-            >
-              {el.name}
-            </Text>
+            {el.childrenIds !== "" ? (
+              <Text
+                color={el.id === selectedTitle ? colors.redMain : colors.black}
+                hoverColor={colors.redHover}
+                size="15px"
+                fontStyle={fonts.f600}
+                func={() => {
+                  setSelectedTitle(el.id);
+                  setCategoryTitle(el.name);
+                }}
+                textTransform="uppercase"
+              >
+                {el.name}
+              </Text>
+            ) : (
+              <Link href={`/catalog/${el.id}`}>
+                <Text
+                  color={
+                    el.id === selectedTitle ? colors.redMain : colors.black
+                  }
+                  hoverColor={colors.redHover}
+                  size="15px"
+                  fontStyle={fonts.f600}
+                  func={() => setVisible(false)}
+                  textTransform="uppercase"
+                >
+                  {el.name}
+                </Text>
+              </Link>
+            )}
           </div>
         ))}
       </S.MainColumn>
-      {selectedTitle ? (
+      {selectedTitle && filteredCategory ? (
         <S.DetailsContainer
           $top={submenuCategories}
           $removePadding={selectedTitle}
         >
-          <Text
-            color={colors.black}
-            hoverColor={colors.redHover}
-            size="16px"
-            fontStyle={fonts.f600}
-            func={() => childClick(filteredCategory)}
-          >
-            {categoryTitle}
-          </Text>
+          <Link href={`/catalog/${filteredCategory?.id}`}>
+            <Text
+              color={colors.black}
+              hoverColor={colors.redHover}
+              size="16px"
+              fontStyle={fonts.f600}
+              func={() => childClick()}
+            >
+              {categoryTitle}
+            </Text>
+          </Link>
           {childCategories.map((el: any, index: any) => {
             const isExpanded = expandedCategoryId === el.id;
 
@@ -123,20 +135,36 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                       style={{ marginTop: "16px" }}
                     />
                   )}
-                  <Text
-                    color={colors.black}
-                    hoverColor={colors.redHover}
-                    size="15px"
-                    margin="16px 0 0 0"
-                    fontStyle={fonts.f400}
-                    func={() => {
-                      el.childrenIds && el.childrenIds !== ""
-                        ? setExpandedCategoryId(isExpanded ? null : el.id)
-                        : childClick(el);
-                    }}
-                  >
-                    {el.name}
-                  </Text>
+
+                  {el.childrenIds && el.childrenIds !== "" ? (
+                    <Text
+                      color={colors.black}
+                      hoverColor={colors.redHover}
+                      size="15px"
+                      margin="16px 0 0 0"
+                      fontStyle={fonts.f400}
+                      func={() => {
+                        setExpandedCategoryId(isExpanded ? null : el.id);
+                      }}
+                    >
+                      {el.name}
+                    </Text>
+                  ) : (
+                    <Link href={`/catalog/${el.id}`}>
+                      <Text
+                        color={colors.black}
+                        hoverColor={colors.redHover}
+                        size="15px"
+                        margin="16px 0 0 0"
+                        fontStyle={fonts.f400}
+                        func={() => {
+                          childClick();
+                        }}
+                      >
+                        {el.name}
+                      </Text>
+                    </Link>
+                  )}
                 </S.TitleWrapper>
 
                 {isExpanded && el.childrenIds && el.childrenIds !== "" && (
@@ -163,24 +191,40 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                                     src="/icons/catArrow.svg"
                                   />
                                 )}
-                                <Text
-                                  color={colors.black}
-                                  hoverColor={colors.redHover}
-                                  size="15px"
-                                  fontStyle={fonts.f400}
-                                  // margin="0 0 0 8px"
-                                  // func={() => smallChildClick(child.id)}
-                                  func={() => {
-                                    child.childrenIds &&
-                                    child.childrenIds !== ""
-                                      ? setExpandedSmallCategoryId(
-                                          isExpanded ? null : child.id
-                                        )
-                                      : childClick(child);
-                                  }}
-                                >
-                                  {child.name}
-                                </Text>
+                                {child.childrenIds &&
+                                child.childrenIds !== "" ? (
+                                  <Text
+                                    color={colors.black}
+                                    hoverColor={colors.redHover}
+                                    size="15px"
+                                    fontStyle={fonts.f400}
+                                    // margin="0 0 0 8px"
+                                    // func={() => smallChildClick(child.id)}
+                                    func={() => {
+                                      setExpandedSmallCategoryId(
+                                        isExpanded ? null : child.id
+                                      );
+                                    }}
+                                  >
+                                    {child.name}
+                                  </Text>
+                                ) : (
+                                  <Link href={`/catalog/${el.id}`}>
+                                    <Text
+                                      color={colors.black}
+                                      hoverColor={colors.redHover}
+                                      size="15px"
+                                      fontStyle={fonts.f400}
+                                      // margin="0 0 0 8px"
+                                      // func={() => smallChildClick(child.id)}
+                                      func={() => {
+                                        childClick();
+                                      }}
+                                    >
+                                      {child.name}
+                                    </Text>
+                                  </Link>
+                                )}
                               </S.LeftBorder>
                             </S.TitleWrapper>
                             {isExpanded && child.childrenIds !== "" && (
@@ -205,18 +249,18 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                                         <S.HorizontalLine
                                           $isExpanded={child.childrenIds !== ""}
                                         />
-                                        <Text
-                                          color={colors.black}
-                                          hoverColor={colors.redHover}
-                                          size="15px"
-                                          fontStyle={fonts.f400}
-                                          // margin="0 0 0 12px"
-                                          func={() =>
-                                            smallChildClick(childer.id)
-                                          }
-                                        >
-                                          {childer.name}
-                                        </Text>
+                                        <Link href={`/catalog/${childer.id}`}>
+                                          <Text
+                                            color={colors.black}
+                                            hoverColor={colors.redHover}
+                                            size="15px"
+                                            fontStyle={fonts.f400}
+                                            // margin="0 0 0 12px"
+                                            func={() => smallChildClick()}
+                                          >
+                                            {childer.name}
+                                          </Text>
+                                        </Link>
                                       </S.LeftBorder>
                                     );
                                   }

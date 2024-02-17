@@ -3,9 +3,11 @@ import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
+import Link from "next/link";
+import { Url } from "next/dist/shared/lib/router/router";
 
 type Props = {
-  func: any;
+  func?: any;
   title: string;
   hover?: boolean;
   activeMenu?: {
@@ -22,7 +24,6 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
     setHovered(true);
     func(title, rect);
   };
-  console.log(hover);
 
   return (
     <Wrapper
@@ -52,7 +53,7 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
 
 export default MenuTitle;
 
-const Title = styled.div<{ active: boolean; hovered?: boolean }>`
+const Title = styled.span<{ active: boolean; hovered?: boolean }>`
   font-size: 13px;
   font-family: ${fonts.f600.fontFamily};
   font-weight: ${fonts.f600.fontWeight};

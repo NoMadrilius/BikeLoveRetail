@@ -29,6 +29,7 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import GearSelect from "./components/GearSelect";
 import { useTranslation } from "react-i18next";
 import MenuTitle from "./components/MenuTitle";
+import Link from "next/link";
 
 const ICONS = [
   { id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -164,16 +165,12 @@ const Header: FC<Props> = ({ opacityBg }) => {
   console.log(isAuth);
   ////
   const openMenu = (id: string, rect: DOMRect) => {
-    console.log(1);
-
     setActiveMenu({ id, rect });
     setCategoriesVisible(true);
   };
 
   // Handler to close the menu
   const closeMenu = () => {
-    console.log(2);
-
     setActiveMenu({ id: null, rect: null });
     setCategoriesVisible(false);
   };
@@ -201,10 +198,18 @@ const Header: FC<Props> = ({ opacityBg }) => {
             title={TITLES[0]}
             hover={true}
           />
-          <MenuTitle func={() => router.push("/about")} title={TITLES[1]} />
-          <MenuTitle func={() => router.push("/workshop")} title={TITLES[2]} />
-          <MenuTitle func={() => router.push("/blog")} title={TITLES[3]} />
-          <MenuTitle func={() => router.push("/contacts")} title={TITLES[4]} />
+          <Link href="/about">
+            <MenuTitle title={TITLES[1]} />
+          </Link>
+          <Link href="/workshop">
+            <MenuTitle title={TITLES[2]} />
+          </Link>
+          <Link href="/blog">
+            <MenuTitle title={TITLES[3]} />
+          </Link>
+          <Link href="/contacts">
+            <MenuTitle title={TITLES[4]} />
+          </Link>
         </TitlesContainer>
 
         <Input value={inputText} onChange={setInputText} />
