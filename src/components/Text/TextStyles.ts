@@ -1,7 +1,6 @@
-
 import styled from "styled-components";
 
-export const TextStyle = styled.div<{
+export const TextStyle = styled.span<{
   color: string;
   hoverColor?: string;
   func?: () => void;
@@ -14,29 +13,29 @@ export const TextStyle = styled.div<{
   maxWidth?: string;
   textAlign?: string;
   whiteSpace?: boolean;
-  preline?: boolean
-  textTransform?: string
-  textDecoration?: string
+  preline?: boolean;
+  textTransform?: string;
+  textDecoration?: string;
 }>`
   max-width: ${(p) => p.maxWidth || "100%"};
-  text-transform: ${p => p.textTransform || 'none'} ;
+  text-transform: ${(p) => p.textTransform || "none"};
   color: ${(p) => p.color};
   font-size: ${(p) => p.size};
   font-family: ${(p) => p.fontStyle?.fontFamily};
   font-weight: ${(p) => p.fontStyle?.fontWeight};
   margin: ${(p) => p.margin};
-  text-decoration: ${p => p.textDecoration === 'trought' && `line-through ${p.color}`};
+  text-decoration: ${(p) =>
+    p.textDecoration === "trought" && `line-through ${p.color}`};
   text-align: ${(p) => p.textAlign || ""};
   cursor: ${(p) => (p.func || p.hoverColor ? "pointer" : "inherit")};
   transition: 0.3s;
-  white-space:  ${p => p.whiteSpace && 'nowrap'};
-  white-space: ${p => p.preline && 'pre-line'};
-z-index: 1;
+  white-space: ${(p) => p.whiteSpace && "nowrap"};
+  white-space: ${(p) => p.preline && "pre-line"};
+  z-index: 1;
   &:hover {
     color: ${(p) => (p.hoverColor || p.func ? p.hoverColor : p.color)};
   }
-  
-  
+
   @media (max-width: 500px) {
     font-size: calc(
       ${(props) => {
@@ -63,8 +62,8 @@ z-index: 1;
             return "11px";
           case "16px":
             return "14px";
-            case '15px':
-            return '15px';
+          case "15px":
+            return "15px";
           case "13px":
             return "13px";
 
