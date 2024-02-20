@@ -1,13 +1,11 @@
 import { LoginRequest, RegisterRequest } from "@/types/types";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
-import { apiUrls } from "./apiUrls";
 import axios from "axios";
 import * as jose from "jose";
 import { showToast } from "@/helpers/alertService/alertService";
 import Router from "next/router";
 import axiosInstance from "@/api/axiosInstance";
-import { CONFIG } from "../../config";
 
 class AuthStore {
   registerUserResponse: any = {};

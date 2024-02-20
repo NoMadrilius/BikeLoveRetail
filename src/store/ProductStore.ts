@@ -1,7 +1,5 @@
 import axios from "axios";
 import { makeAutoObservable } from "mobx";
-import { apiUrls } from "./apiUrls";
-import { Category } from "@/types/types";
 import { createContext, useContext } from "react";
 import { showToast } from "@/helpers/alertService/alertService";
 import axiosInstance from "@/api/axiosInstance";

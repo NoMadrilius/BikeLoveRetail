@@ -1,5 +1,4 @@
 // pages/api/checkout.js
-import axios from "axios";
 const crypto = require("crypto");
 const private_key = "sandbox_0dWwC9zTPiVKqBeLKLLwD08WZrEeI9Q3RJtY5JXm";
 

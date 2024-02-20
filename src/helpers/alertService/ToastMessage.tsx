@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { ToastMessageProps } from "../../types/types";
 import { styled } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";

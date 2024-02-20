@@ -1,5 +1,5 @@
 import { Text } from "@/components/Text/Text";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";

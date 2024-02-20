@@ -1,7 +1,6 @@
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import { styled } from "styled-components";
 import Slider from "@/components/Screens/HomeScreen/components/Slider";
-import { sliderData } from "@/mock/data";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { metrics } from "../../../../theme/metrics";
 import { useWishListStore } from "@/store/WishListStore";

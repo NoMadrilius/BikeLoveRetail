@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { Navigation, Pagination } from "swiper/modules";
 import { styled } from "styled-components";
-import Image from "next/image";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 
 const SliderProducts = ({ images }: any) => {

@@ -1,6 +1,4 @@
-import axios from "axios";
 import { makeAutoObservable } from "mobx";
-import { apiUrls } from "./apiUrls";
 import { createContext, useContext } from "react";
 import axiosInstance from "@/api/axiosInstance";
 

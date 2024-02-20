@@ -3,7 +3,6 @@ import { IProduct } from "@/types/types";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 import authStore from "./AuthStore";
-import axios from "axios";
 import axiosInstance from "@/api/axiosInstance";
 
 class CartStore {

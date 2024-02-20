@@ -1,5 +1,4 @@
-import Card from "@/components/Card/Card";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { styled } from "styled-components";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,11 +7,9 @@ import "swiper/css/navigation"; // Импорт стилей навигации 
 import "swiper/css/pagination"; // Импорт стилей пагинации Swiper
 import "swiper/css/effect-coverflow";
 import { Navigation, Pagination } from "swiper/modules";
-import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { metrics } from "../../../../../theme/metrics";
-import NewsItem from "@/components/NewsItem/NewsItem";
 import GalleryItem from "./GalleryItem";
 
 type Props = {

@@ -1,5 +1,5 @@
 import Card from "@/components/Card/Card";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { styled } from "styled-components";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

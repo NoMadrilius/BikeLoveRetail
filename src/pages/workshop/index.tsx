@@ -1,6 +1,5 @@
 import WorkshopScreen from "@/components/Screens/WorkshopScreen/WorkshopScreen";
 import { PaddingWrapper } from "../../../theme/templates";
-import { colors } from "../../../theme/colors";
 
 const Workshop = () => {
   return (

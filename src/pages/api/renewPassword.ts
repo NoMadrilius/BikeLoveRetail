@@ -9,10 +9,7 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const { phone } = req.body;
-      const body = {
-        phoneNumber: phone,
-        Type: "BinoCall",
-      };
+
       const response = await axiosInstance.post(
         `/auth/renewpassword?phoneNumber=${phone}&Type=BinoCall`
       );

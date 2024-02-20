@@ -2,7 +2,6 @@ import { Text } from "@/components/Text/Text";
 import { ColumnContainer, Line, RowContainer } from "../SidebarStyles";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
-import { CATEGORIES } from "@/mock/data";
 import { useEffect, useState } from "react";
 import { useCategoriesStore } from "@/store/CategoriesStore";
 import { observer } from "mobx-react";

@@ -1,5 +1,3 @@
-import { useCurrencyStore } from "@/store/CurrencyStore";
-
 export const prettyPrice = (price: string | number): any => {
   let currency;
   let selectedCurr;
@@ -46,6 +44,8 @@ export const prettyPrice = (price: string | number): any => {
         count++;
 
         if (count % 3 === 0 && i !== 0) {
+          // eslint-disable-next-line no-self-assign
+
           formattedPrice = formattedPrice;
         }
       }

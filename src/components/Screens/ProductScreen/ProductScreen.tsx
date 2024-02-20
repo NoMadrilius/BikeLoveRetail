@@ -12,7 +12,6 @@ import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
 import { useWishListStore } from "@/store/WishListStore";
 import {
-  ContainerWithBG,
   CustomP,
   FakeBlock,
   H1Name,
@@ -22,7 +21,6 @@ import {
   Res1Text,
   Res2Text,
   RowContainer,
-  SecondContainer,
   SliderContainer,
   Wrapper,
 } from "./ProductScreenStyles";
@@ -42,7 +40,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
   const wishStore = useWishListStore();
   const [activeTab, setActiveTab] = useState(0);
   const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [productInCart, setProductInCart] = useState<boolean>();
+  // const [productInCart, setProductInCart] = useState<boolean>();
   const [productInWishList, setProductInWishList] = useState<boolean>();
   const [prepareOptions, setPrepareOptions] = useState([]);
   const [selectedOptionsId, setSelectedOptionsId] = useState<number[]>([]);
@@ -83,7 +81,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
     link: "",
   });
   useEffect(() => {
-    setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
+    // setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
     setProductInWishList(
       wishStore.wishList?.some((i) => i.id === productData.product?.id)
     );

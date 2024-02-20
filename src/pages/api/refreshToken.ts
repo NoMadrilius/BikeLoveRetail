@@ -1,7 +1,7 @@
 // pages/api/refreshToken.ts
 
 import axiosInstance from "@/api/axiosInstance";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

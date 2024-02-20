@@ -32,5 +32,3 @@ const Discount: FC<Props> = ({ newPrice, oldPrice }) => {
 };
 
 export default Discount;
-
-const Wrapper = styled.div``;

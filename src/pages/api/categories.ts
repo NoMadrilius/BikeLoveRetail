@@ -1,7 +1,6 @@
 // pages/api/categories.js
 
 import axiosInstance from "@/api/axiosInstance";
-import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

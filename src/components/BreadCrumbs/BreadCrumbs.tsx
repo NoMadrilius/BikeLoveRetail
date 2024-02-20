@@ -4,7 +4,6 @@ import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { FC } from "react";
 import { metrics } from "../../../theme/metrics";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
