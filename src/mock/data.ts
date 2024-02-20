@@ -323,6 +323,12 @@ export const footerItems = {
     {
       title: "Інформація",
       items: ["Про нас", "Доставка та оплата", "Контакти", "Публічна оферта"],
+      links: [
+        "/about",
+        "/about/delivery",
+        "/contacts",
+        "/terms-of-public-offer",
+      ],
     },
     {
       title: "Режим роботи",
@@ -346,6 +352,12 @@ export const footerItems = {
         "Доставка и оплата",
         "Контакты",
         "Публичное предложение",
+      ],
+      links: [
+        "/about",
+        "/about/delivery",
+        "/contacts",
+        "/terms-of-public-offer",
       ],
     },
     {
