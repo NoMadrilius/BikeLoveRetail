@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import * as S from "./Footer.styles";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const socialIcons = [
   "/icons/social/viber.svg",
@@ -109,8 +110,20 @@ const Footer = () => {
             </Text>
             {isMobile
               ? index !== 1
-                ? el.items.map((el: any, indexInner: any) => {
-                    return (
+                ? el.items.map((link: any, indexInner: any) => {
+                    return el.links?.[indexInner] !== undefined ? (
+                      <Link href={el.links[indexInner]}>
+                        <Text
+                          key={indexInner}
+                          color={colors.white}
+                          size="14px"
+                          fontStyle={fonts.f400}
+                          hoverColor={colors.redHover}
+                        >
+                          {link}
+                        </Text>
+                      </Link>
+                    ) : (
                       <Text
                         key={indexInner}
                         color={colors.white}
@@ -118,7 +131,7 @@ const Footer = () => {
                         fontStyle={fonts.f400}
                         hoverColor={colors.redHover}
                       >
-                        {el}
+                        {link}
                       </Text>
                     );
                   })
@@ -135,8 +148,20 @@ const Footer = () => {
                       </Text>
                     );
                   })
-              : el.items.map((el: any, indexInner: any) => {
-                  return (
+              : el.items.map((link: any, indexInner: any) => {
+                  return el.links?.[indexInner] !== undefined ? (
+                    <Link href={el.links[indexInner]}>
+                      <Text
+                        key={indexInner}
+                        color={colors.white}
+                        size="14px"
+                        fontStyle={fonts.f400}
+                        hoverColor={colors.redHover}
+                      >
+                        {link}
+                      </Text>
+                    </Link>
+                  ) : (
                     <Text
                       key={indexInner}
                       color={colors.white}
@@ -144,7 +169,7 @@ const Footer = () => {
                       fontStyle={fonts.f400}
                       hoverColor={colors.redHover}
                     >
-                      {el}
+                      {link}
                     </Text>
                   );
                 })}

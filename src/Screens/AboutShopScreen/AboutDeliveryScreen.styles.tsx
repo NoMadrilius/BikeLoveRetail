@@ -26,7 +26,7 @@ export const Picture = styled.div<{ bg: string }>`
   align-items: start;
   flex-direction: column;
   row-gap: 43px;
-  padding: 0 0;
+  padding: 0 50px;
   background-color: rgba(54, 57, 36, 1);
   @media (max-width: 1000px) {
     padding: 0 40px;

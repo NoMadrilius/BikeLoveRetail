@@ -40,9 +40,9 @@ const Categories = ({ setVisible, categories, rect }: any) => {
   };
 
   const style = {
-    position: "absolute",
-    top: `${rect.bottom + window.scrollY - 1}px`,
-    left: `${rect.left + window.scrollX}px`,
+    // position: "absolute",
+    // top: `${rect.bottom + window.scrollY + 10}px`,
+    // left: `${rect.left + window.scrollX}px`,
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
 
   return (
     <S.Wrapper
-      style={style}
+      // style={style}
       id="categories-component"
       onClick={(e: { stopPropagation: () => any }) => e.stopPropagation()}
     >

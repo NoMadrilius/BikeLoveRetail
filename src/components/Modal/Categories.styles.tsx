@@ -52,7 +52,7 @@ export const Wrapper = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  top: 90px;
+  top: 69px;
   z-index: 5;
   /* width: 100%; */
 
