@@ -4,11 +4,11 @@ import { styled } from "styled-components";
 type Props = {};
 
 const Register: FC<Props> = () => {
-	return (
-		<>
-			<></>
-		</>
-	);
+  return (
+    <>
+      <></>
+    </>
+  );
 };
 
 export default Register;

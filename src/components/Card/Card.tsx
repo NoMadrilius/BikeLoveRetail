@@ -19,14 +19,12 @@ const Card: FC<Product> = ({
   colors,
   image,
   price,
-  oldPrice,
   sale,
   sizes,
   title,
   id,
   avaliability,
 }) => {
-  const router = useRouter();
   const wishStore = useWishListStore();
   const cart = useCartStore();
   const productInCart = cart.cart?.some((i) => i.id === id);

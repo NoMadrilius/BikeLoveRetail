@@ -1,11 +1,11 @@
-import CatalogScreen from "@/Screens/CatalogScreen/CatalogScreen";
+import CatalogScreen from "@/components/Screens/CatalogScreen/CatalogScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import axios from "axios";
 import Error from "next/error";
 import { colors } from "../../../theme/colors";
-import NotFound from "@/Screens/CatalogScreen/components/NotFound";
+import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 import axiosInstance from "@/api/axiosInstance";
 
 const groupOptions = (options: any) => {
