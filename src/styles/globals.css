@@ -53,15 +53,12 @@ p {
 
 div.swiper-button-prev,
 div.swiper-button-next {
-color: red;
+  color: red;
 }
-
 
 span.swiper-pagination-bullet {
-background-color: red;
+  background-color: red;
 }
-
-
 
 body {
   height: 100vh;

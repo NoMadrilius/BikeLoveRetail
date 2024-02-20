@@ -1,4 +1,4 @@
-import ProductScreen from "@/Screens/ProductScreen/ProductScreen";
+import ProductScreen from "@/components/Screens/ProductScreen/ProductScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 import axios from "axios";
 import { GetServerSideProps } from "next";

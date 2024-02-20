@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 const SvgComponent = (props) => (
   <svg
     {...props}
@@ -17,5 +17,5 @@ const SvgComponent = (props) => (
     />
     <circle cx={12} cy={16.5} r={1} fill="orange" />
   </svg>
-)
-export default SvgComponent
+);
+export default SvgComponent;

@@ -1,14 +1,14 @@
-import axios from 'axios';
-import { makeAutoObservable } from 'mobx';
-import { apiUrls } from './apiUrls';
-import { Category } from '@/types/types';
-import { createContext, useContext } from 'react';
+import axios from "axios";
+import { makeAutoObservable } from "mobx";
+import { apiUrls } from "./apiUrls";
+import { Category } from "@/types/types";
+import { createContext, useContext } from "react";
 
 class CategoriesStore {
-  categories: Category[] = []
-  loading = false
-  parentCategories: any = []
-  cardsByCategory = []
+  categories: Category[] = [];
+  loading = false;
+  parentCategories: any = [];
+  cardsByCategory = [];
   count = 0;
   rootStore: any;
 
@@ -16,18 +16,19 @@ class CategoriesStore {
     makeAutoObservable(this);
   }
 
-
   fetchCategories = async () => {
     try {
-      const response = await axios.get('/api/categories');
+      const response = await axios.get("/api/categories");
       this.categories = response.data;
-      response.data.sort((a:any, b:any) => b.sortOrder - a.sortOrder);
-      console.log(response.data)
-      const parentCategories = response.data.filter((item: any) => item.parentId === 0);
-   
+      response.data.sort((a: any, b: any) => b.sortOrder - a.sortOrder);
+      console.log(response.data);
+      const parentCategories = response.data.filter(
+        (item: any) => item.parentId === 0
+      );
+
       this.parentCategories = [...parentCategories];
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
     }
   };
 
@@ -45,22 +46,21 @@ class CategoriesStore {
       page,
       pageSize,
       filtersVariantIds,
-      sortingSettings
+      sortingSettings,
     };
 
     try {
       this.loading = true;
-      const response = await axios.post('/api/categories', request); // Изменение на ваш API endpoint для получения продуктов по категории
+      const response = await axios.post("/api/categories", request); // Изменение на ваш API endpoint для получения продуктов по категории
       this.cardsByCategory = response.data;
       this.loading = false;
       return response.data;
     } catch (error) {
-      console.error('Error fetching product cards:', error);
+      console.error("Error fetching product cards:", error);
       throw new Error(JSON.stringify(error));
     }
   };
 }
-
 
 const categoriesStore = new CategoriesStore();
 const StoreContext = createContext(categoriesStore);
