@@ -13,6 +13,7 @@ import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 type Props = {
   value: string;
@@ -47,35 +48,51 @@ const Input: FC<Props> = ({ onChange, value }) => {
       console.log("error", error);
     }
   };
-  console.log(previwData);
+
   useEffect(() => {
     getSearchPreview(value);
   }, [value]);
   useEffect(() => {
     onChange("");
   }, [router.pathname]);
+
+  const handleClickSearchIcon = () => {
+    if (value.trim() !== "") {
+      router.push(`/catalog?searchparam=${encodeURIComponent(value)}`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && value.trim() !== "") {
+      router.push(`/catalog?searchparam=${encodeURIComponent(value)}`);
+    }
+  };
   return (
     <>
       <Wrapper>
         <InputField
           placeholder={t("header.search")}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange(e.target.value)
+          }
           onFocus={() => setFocused(true)}
+          onKeyDown={handleKeyDown} // Add onKeyDown event handler
         />
         <SearchIcon
           width={20}
           height={20}
           alt="Search Icon"
           src="/images/home/searchIcon.svg"
+          onClick={handleClickSearchIcon} // Add onClick event handler
         />
         {previwData?.length && focused && value.length ? (
           <PreviewArea>
             {previwData?.map((el, index) => (
               <PreviewItemWrapper
+                href={`/product/${el.productId}`}
                 key={index}
                 onClick={() => {
-                  router.push(`/product/${el.productId}`);
                   setFocused(false);
                 }}
               >
@@ -143,7 +160,7 @@ const PreviewArea = styled.div`
   border-radius: 10px;
   padding: 10px;
 `;
-const PreviewItemWrapper = styled.div`
+const PreviewItemWrapper = styled(Link)`
   display: flex;
   align-items: center;
   padding: 10px 0;

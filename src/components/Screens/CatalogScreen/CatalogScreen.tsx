@@ -14,12 +14,19 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import NotFound from "./components/NotFound";
+import SearchBar from "./components/SearchBar";
 
-const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
+const CatalogScreen = ({
+  catalogData,
+  options,
+  totalPages,
+  showError,
+}: any) => {
   const { t } = useTranslation();
   const router = useRouter();
   const catId = router.query.id;
-  const numberTotal = catalogData.map((el: any) => el.product).length;
+  const numberTotal = catalogData?.map((el: any) => el.product).length;
   const [filterVisible, setFilterVisible] = useState(false);
   const catalogStore = useCategoriesStore();
 
@@ -27,9 +34,9 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
     ? catalogStore.categories.filter((el) => el.id === +catId!)
     : [];
 
-  const categoryPath = catalogData[0]?.productCategory.way.split("->");
+  const categoryPath = catalogData?.[0]?.productCategory?.way?.split("->");
   const breadCrumbs = categoryPath
-    .slice(-2)
+    ?.slice(-2)
     .map((category: any, index: any, array: any) => {
       let link = "/catalog/";
       if (index === 0) {
@@ -52,17 +59,21 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
         description={"asdasdasd"}
       />
       <Wrapper>
-        <BreadCrumbs road={breadCrumbs} />
-
-        <Text
-          color={colors.black}
-          size="42px"
-          fontStyle={fonts.f500}
-          textTransform="uppercase"
-          margin="0 0 50px 0"
-        >
-          {catalog[0]?.name}
-        </Text>
+        <CatalogHeader>
+          <BreadcrumbsWrapper>
+            <BreadCrumbs road={breadCrumbs} />
+            <Text
+              color={colors.black}
+              size="42px"
+              fontStyle={fonts.f500}
+              textTransform="uppercase"
+              margin="0 0 50px 0"
+            >
+              {catalog[0]?.name}
+            </Text>
+          </BreadcrumbsWrapper>
+          {showError ? <SearchBar /> : null}
+        </CatalogHeader>
 
         <RowContainer>
           <TriggerHidden2>
@@ -108,11 +119,16 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
           <TriggerHidden width="1000px">
             <Filter options={options} numberTotal={numberTotal} />
           </TriggerHidden>
-          <Products
-            items={catalogData}
-            loading={catalogStore.loading}
-            totalPages={totalPages}
-          />
+          {(catalogData === undefined || catalogData.length === 0) &&
+          showError ? (
+            <NotFound />
+          ) : (
+            <Products
+              items={catalogData}
+              loading={catalogStore.loading}
+              totalPages={totalPages}
+            />
+          )}
         </MainContainer>
         <TextBlock />
       </Wrapper>
@@ -163,4 +179,15 @@ const OptionContainer = styled.div`
   &:hover {
     background-color: ${colors.redBlur};
   }
+`;
+
+const BreadcrumbsWrapper = styled.div`
+  /* Add your breadcrumb styles here */
+`;
+
+const CatalogHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 50px 0 30px 0;
 `;
