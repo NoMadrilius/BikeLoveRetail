@@ -3,8 +3,9 @@ import { PaddingWrapper } from "../../../theme/templates";
 import { colors } from "../../../theme/colors";
 import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 import catalogStore, {useCatalogStore} from "@/store/CatalogStore";
+import {CatalogPageResponse} from "@/dataTransferObjects/response/CatalogPageResponse";
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context:any) => {
   const filtersVariantIds = context.query.filter
     ? context.query.filter.split(",").map(Number)
     : [];
@@ -21,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
 };
 
-const Page = (props: { iniState, query }) => {
+const Page = (props: { iniState:CatalogPageResponse, query:{id:number,page:number,filters:number[]} }) => {
   const state = useCatalogStore()
   state.setCatalogState(props.iniState)
   state.setQuery(props.query)

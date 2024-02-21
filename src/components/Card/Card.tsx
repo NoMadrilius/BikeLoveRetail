@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
-const Card: FC = (props:{p:ProductFullData}) => {
+const Card = (props:{p:ProductFullData}) => {
   const wishStore = useWishListStore();
   const cart = useCartStore();
 

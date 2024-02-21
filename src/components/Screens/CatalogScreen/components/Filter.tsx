@@ -53,7 +53,7 @@ const Filter = () => {
                         fontStyle={fonts.f400}
                         whiteSpace
                     >
-                      {option.optionName} :
+                      {option!.optionName} :
                     </Text>
                     <Text
                         color={colors.black}
@@ -62,7 +62,7 @@ const Filter = () => {
                         margin="0 0 0 auto"
                         textAlign="right"
                     >
-                      {option.name}
+                      {option!.name}
                     </Text>
                     <IconClose
                         src="/images/catalog/icons/close.png"

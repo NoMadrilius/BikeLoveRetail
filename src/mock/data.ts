@@ -1,5 +1,3 @@
-import { Product } from "@/types/types";
-
 export const byProposeData = [
   {
     title: "Title",
@@ -51,68 +49,6 @@ export const byProposeData = [
   },
 ];
 
-export const sliderData: Product[] = [
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray", "red"],
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-    sale: "30",
-  },
-  {
-    title: "Turbo Creo SL Expert",
-    image: "/mock/testCardByPropose.png",
-    price: "47800",
-    colors: ["black", "gray"],
-    sizes: ["12", "14", "16"],
-    sale: "30",
-  },
-];
 export const sliderTags = [
   "Тег 1",
   "Тег тег 2",

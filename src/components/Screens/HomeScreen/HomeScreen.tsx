@@ -9,7 +9,6 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import ByPropose from "./components/ByPropose";
-import { byProposeData, newsData, sliderData, sliderTags } from "@/mock/data";
 import { ResponsiveBlockGroup } from "./components/ResponsiveBlockGroup";
 import Subscribe from "./components/Subscribe";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";

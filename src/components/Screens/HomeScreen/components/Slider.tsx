@@ -56,7 +56,7 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
                 style={{ width: "auto", height: "100%" }}
                 key={index}
               >
-                {variant === "cards" && (
+                {/*variant === "cards" && (
                   <Card
                     title={el.product.name}
                     image={el.productImages[0]?.url || "/mock/NoPhoto.png"}
@@ -79,7 +79,7 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
                     oldPrice={el.oldRetailPrice}
                     id={el.id}
                   />
-                )}
+                )*/}
                 {variant === "news" && <NewsItem {...el} />}
               </SwiperSlide>
             ))}

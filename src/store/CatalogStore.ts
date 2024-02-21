@@ -8,7 +8,7 @@ class CatalogStore{
     catalogState:CatalogPageResponse|null = null
     loading:boolean = false
 
-    query:{id:number,page:number,filters:number[]}
+    query:{id:number,page:number,filters:number[]}={id:1,page:1,filters:[]}
 
     openedOptions:number[]=[]
 
@@ -26,7 +26,7 @@ class CatalogStore{
             sortingSettings: [],
         };
         this.loading = true
-        let data
+        let data : CatalogPageResponse = {} as CatalogPageResponse
         await PublicAPI.CatalogProductsByCategory(request).then((r)=>{
             data = r.data
         }).finally(()=>this.loading = false)
