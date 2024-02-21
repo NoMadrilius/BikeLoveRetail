@@ -30,7 +30,7 @@ const Card = (props:{p:ProductFullData}) => {
   }, [prod.retailPrice, currStore.selectedCurrency, currStore]);
 
   return (
-    <Wrapper href={`/product/${prod.id}`} off={false}>
+    <Wrapper href={`/product/${prod.id}`} off={prod.storageTotal>0}>
       {prod.oldRetailPrice>prod.retailPrice && (
         <SalePatch>
           <Text size="12px" color={colorsTheme.white} fontStyle={fonts.f500}>

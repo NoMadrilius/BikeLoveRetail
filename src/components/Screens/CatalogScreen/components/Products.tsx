@@ -6,7 +6,6 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import {useCatalogStore} from "@/store/CatalogStore";
 
 const Products: FC = () => {

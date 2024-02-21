@@ -14,6 +14,7 @@ import {useCatalogStore} from "@/store/CatalogStore";
 import {observe} from "mobx";
 import {observer} from "mobx-react";
 import Link from "next/link";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const Filter = () => {
   const { t } = useTranslation();
@@ -64,10 +65,11 @@ const Filter = () => {
                     >
                       {option!.name}
                     </Text>
+                    <Link href={GenerateLink('/catalog',{page:state.query.page, id:state.query.id, filter:state.query.filters.filter(n=>n!=el)})}>
                     <IconClose
                         src="/images/catalog/icons/close.png"
-                        onClick={() => {}}
                     />
+                    </Link>
                   </RowContainer>
               )
             })}
@@ -76,7 +78,7 @@ const Filter = () => {
                 {t("catalog.results")}
               </Text>
               <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-                {666}
+                {state.catalogState?.totalProducts}
               </Text>
             </RowContainer>
           </ColumnContainer>
@@ -88,7 +90,9 @@ const Filter = () => {
         return (
           <FieldWrapper key={index}>
             <RowContainer>
-              <Text color={colors.black} size="16px" fontStyle={fonts.f600}>
+              <Text color={colors.black} size="16px" fontStyle={fonts.f600} func={() => {
+                state.toggleOption(el.id)
+              }}>
                 {el.name}
               </Text>
               <Text
@@ -106,9 +110,9 @@ const Filter = () => {
             <SelectArea open={state.openedOptions.includes(el.id)}>
               <>
                 {variants.map((opt, itemIndex: number) => {
-                  let filtrs = [...state.query.filters,opt.id]
+                  let filters = [...state.query.filters,opt.id]
                   return (
-                      <Link href={`/catalog/${state.query.id}?page=${state.query.page}&filter=${filtrs.join('%2C')}`}>
+                      <Link href={GenerateLink('/catalog',{page:state.query.page, id:state.query.id, filter:filters})}>
                         <Text
                             key={itemIndex}
                             color={colors.black}
