@@ -14,9 +14,16 @@ type Props = {
     id: string | null;
     rect: DOMRect | null;
   };
+  categoriesVisible?: boolean;
 };
 
-const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
+const MenuTitle: FC<Props> = ({
+  func,
+  title,
+  hover,
+  activeMenu,
+  categoriesVisible,
+}) => {
   const handleMouseEnter = () => {
     const rect = document?.getElementById(title)?.getBoundingClientRect();
 
@@ -30,9 +37,14 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
         onMouseEnter: () => handleMouseEnter(),
       })}
     >
-      <Title active={title === activeMenu?.id} className="menu-title">
+      <Title
+        active={title === activeMenu?.id && categoriesVisible}
+        className="menu-title"
+      >
         {title}
-        {title === activeMenu?.id ? <HorizontalLine /> : null}
+        {title === activeMenu?.id && categoriesVisible ? (
+          <HorizontalLine />
+        ) : null}
       </Title>
     </Wrapper>
   );
@@ -40,7 +52,7 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
 
 export default MenuTitle;
 
-const Title = styled.span<{ active: boolean }>`
+const Title = styled.span<{ active?: boolean }>`
   font-size: 13px;
   font-family: ${fonts.f600.fontFamily};
   font-weight: ${fonts.f600.fontWeight};
