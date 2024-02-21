@@ -14,46 +14,49 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import catalogStore, {useCatalogStore} from "@/store/CatalogStore";
 
-const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
+const CatalogScreen = () => {
   const { t } = useTranslation();
+  const state = useCatalogStore()
   const router = useRouter();
   const catId = router.query.id;
-  const numberTotal = catalogData.map((el: any) => el.product).length;
+
   const [filterVisible, setFilterVisible] = useState(false);
-  const catalogStore = useCategoriesStore();
+  //const catalogStore = useCategoriesStore();
+  /*
+    const catalog = categoriesStore.categories
+      ? catalogStore.categories.filter((el) => el.id === +catId!)
+      : [];
 
-  const catalog = categoriesStore.categories
-    ? catalogStore.categories.filter((el) => el.id === +catId!)
-    : [];
+      const categoryPath = catalogData[0]?.productCategory.way.split("->");
 
-  const categoryPath = catalogData[0]?.productCategory.way.split("->");
-  const breadCrumbs = categoryPath
-    .slice(-2)
-    .map((category: any, index: any, array: any) => {
-      let link = "/catalog/";
-      if (index === 0) {
-        link += catalogData[0]?.productCategory.parentId;
-      } else if (index === 1) {
-        link += catalogData[0]?.productCategory.id;
-      }
+      const breadCrumbs = categoryPath
+        .slice(-2)
+        .map((category: any, index: any, array: any) => {
+          let link = "/catalog/";
+          if (index === 0) {
+            link += catalogData[0]?.productCategory.parentId;
+          } else if (index === 1) {
+            link += catalogData[0]?.productCategory.id;
+          }
 
-      return {
-        title: category,
-        link: link,
-      };
-    });
-
+          return {
+            title: category,
+            link: link,
+          };
+        });
+    */
   return (
     <>
       <UseMetaData
-        title={catalog[0]?.name}
+        title={"name"}
         img={""}
         description={"asdasdasd"}
       />
       <Wrapper>
-        <BreadCrumbs road={breadCrumbs} />
-
+        {//<BreadCrumbs road={breadCrumbs} />
+        }
         <Text
           color={colors.black}
           size="42px"
@@ -61,7 +64,10 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
           textTransform="uppercase"
           margin="0 0 50px 0"
         >
-          {catalog[0]?.name}
+          Название
+          {//catalog[0]?.name
+            }
+
         </Text>
 
         <RowContainer>
@@ -106,25 +112,23 @@ const CatalogScreen = ({ catalogData, options, totalPages }: any) => {
         </RowContainer>
         <MainContainer>
           <TriggerHidden width="1000px">
-            <Filter options={options} numberTotal={numberTotal} />
+            {<Filter />
+            }
           </TriggerHidden>
-          <Products
-            items={catalogData}
-            loading={catalogStore.loading}
-            totalPages={totalPages}
-          />
+          <Products/>
+
         </MainContainer>
         <TextBlock />
       </Wrapper>
       {filterVisible && (
         <BlurWrapper setModal={setFilterVisible}>
-          <Filter mobile options={options} numberTotal={numberTotal} />
+          <Filter/>
         </BlurWrapper>
       )}
     </>
   );
 };
-export default observer(CatalogScreen);
+export default CatalogScreen;
 
 const Wrapper = styled.div`
   padding: 60px 0;

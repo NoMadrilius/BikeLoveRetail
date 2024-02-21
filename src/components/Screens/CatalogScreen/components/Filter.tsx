@@ -10,135 +10,28 @@ import {
 import { templates } from "../../../../../theme/templates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import {useCatalogStore} from "@/store/CatalogStore";
+import {observe} from "mobx";
+import {observer} from "mobx-react";
+import Link from "next/link";
 
-const FILTER_ITEMS = [
-  {
-    title: "Подкатегория",
-    type: "string",
-    items: ["Все", "Кросс-кантри", "Трейл", "Скоростной спуск", "Дерт"],
-  },
-  {
-    title: "Опыт",
-    type: "string",
-    items: ["Все", "Кросс-кантри", "Трейл", "Скоростной спуск", "Дерт"],
-  },
-  { title: "Размер", type: "container", items: ["16", "12", "14", "20", "10"] },
-  {
-    title: "Цвет",
-    type: "color",
-    items: ["red", "yellow", "blue", "green", "black"],
-  },
-];
-
-const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
+const Filter = () => {
   const { t } = useTranslation();
+  const state = useCatalogStore();
   const router = useRouter();
-  const [currentFilters, setCurrentFilters] = useState<
-    { title: string; value: any }[]
-  >([]);
 
-  const [params, setParams] = useState<any>([]);
-  useEffect(() => {
-    const filterParam = router.query.filter;
-    if (filterParam) {
-      if (filterParam.includes(",")) {
-        const paramsArray = filterParam
-          //@ts-ignore
-          .split(",")
-          .map((param: any) => parseInt(param, 10));
-        setParams(paramsArray);
-      } else {
-        //@ts-ignore
-        const singleParam = parseInt(filterParam, 10);
-        setParams([singleParam]);
-      }
-    } else {
-      setCurrentFilters([]);
-      setParams([]);
+  let availableVariants = state.catalogState!.options.filter(n=>!state.catalogState!.filterSettings.includes(n.id))
+  const uniqueOptions = availableVariants.reduce((accumulator:{id:number,name:string}[], i) => {
+    let ent = accumulator.find(n=>n.id === i.optionId)
+    if (ent===undefined) {
+      accumulator.push({id:i.optionId,name:i.optionName});
     }
-  }, [router.query.filter, router]);
-
-  useEffect(() => {
-    if (params.length) {
-      const foundFilters: { title: string; value: string }[] = [];
-      options.forEach((el: any) => {
-        el.name.forEach((item: any) => {
-          if (params.includes(item.optionVariantId)) {
-            foundFilters.push({
-              title: el.optionName,
-              value: item.name,
-            });
-          }
-        });
-      });
-      console.log(foundFilters);
-
-      //   setCurrentFilters(foundFilters);
-    } else {
-      setCurrentFilters([]);
-    }
-  }, [params, options]);
-  const [isOpen, setIsOpen] = useState(
-    new Array(FILTER_ITEMS.length).fill(false)
-  );
-
-  const toggleSelectArea = (index: number) => {
-    const updatedIsOpen = [...isOpen];
-    updatedIsOpen[index] = !updatedIsOpen[index];
-    setIsOpen(updatedIsOpen);
-  };
-  const addItem = (title: string, value: string, optionVariantId: any) => {
-    setCurrentFilters((prev) => [...prev, { title: title, value: value }]);
-
-    const currentFilter = Array.isArray(router.query.filter)
-      ? router.query.filter
-      : typeof router.query.filter === "string"
-      ? router.query.filter.split(",")
-      : [];
-
-    const updatedFilter = [...currentFilter, optionVariantId].join(",");
-
-    router.push({
-      ...router,
-      query: {
-        ...router.query,
-        filter: updatedFilter,
-      },
-    });
-  };
-  const removeItem = (indexToRemove: number, optionVariantId: any) => {
-    const updatedFilters = currentFilters.filter(
-      (_, index) => index !== indexToRemove
-    );
-    setCurrentFilters(updatedFilters);
-    const currentFilter = Array.isArray(router.query.filter)
-      ? router.query.filter
-      : typeof router.query.filter === "string"
-      ? router.query.filter.split(",")
-      : [];
-
-    const updatedFilter = currentFilter
-      .filter((_, index) => index !== indexToRemove)
-      .join(",");
-
-    const query = { ...router.query };
-
-    if (updatedFilter) {
-      query.filter = updatedFilter;
-    } else {
-      delete query.filter;
-    }
-
-    router.push({
-      ...router,
-      query: query,
-    });
-  };
-  console.log(currentFilters);
+    return accumulator;
+  }, []);
 
   return (
-    <Wrapper mobile={mobile} onClick={(e) => e.stopPropagation()}>
-      {!!currentFilters.length && (
+    <Wrapper mobile={false} onClick={(e) => e.stopPropagation()}>
+      {!!state.catalogState!.filterSettings.length && (
         <>
           <Text
             color={colors.black}
@@ -150,86 +43,84 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
           </Text>
 
           <ColumnContainer style={{ rowGap: "12px", marginTop: "23px" }}>
-            {currentFilters.map((el, index) => (
-              <RowContainer key={index} style={{ columnGap: "29px" }}>
-                <Text
-                  color={colors.grayMain}
-                  size="16px"
-                  fontStyle={fonts.f400}
-                  whiteSpace
-                >
-                  {el.title} :
-                </Text>
-                <Text
-                  color={colors.black}
-                  size="16px"
-                  fontStyle={fonts.f500}
-                  margin="0 0 0 auto"
-                  textAlign="right"
-                >
-                  {el.value}
-                </Text>
-                <IconClose
-                  src="/images/catalog/icons/close.png"
-                  onClick={() => removeItem(index, el.value.optionVariantId)}
-                />
-              </RowContainer>
-            ))}
+            {state.catalogState!.filterSettings.map((el, index) => {
+              let option = state.catalogState!.options.find(n=>n.id === el)
+              return (
+                  <RowContainer key={index} style={{ columnGap: "29px" }}>
+                    <Text
+                        color={colors.grayMain}
+                        size="16px"
+                        fontStyle={fonts.f400}
+                        whiteSpace
+                    >
+                      {option.optionName} :
+                    </Text>
+                    <Text
+                        color={colors.black}
+                        size="16px"
+                        fontStyle={fonts.f500}
+                        margin="0 0 0 auto"
+                        textAlign="right"
+                    >
+                      {option.name}
+                    </Text>
+                    <IconClose
+                        src="/images/catalog/icons/close.png"
+                        onClick={() => {}}
+                    />
+                  </RowContainer>
+              )
+            })}
             <RowContainer style={{ columnGap: "29px", marginTop: "10px" }}>
               <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
                 {t("catalog.results")}
               </Text>
               <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-                {numberTotal}
+                {666}
               </Text>
             </RowContainer>
           </ColumnContainer>
         </>
       )}
 
-      {options?.map((el: any, index: number) => {
-        const uniqueNames = Array.from(
-          new Set(el.name.map((item: any) => item.name))
-        );
+      {uniqueOptions.map((el, index: number) => {
+        let variants = availableVariants.filter(n=>n.optionId === el.id)
         return (
           <FieldWrapper key={index}>
             <RowContainer>
               <Text color={colors.black} size="16px" fontStyle={fonts.f600}>
-                {el.optionName}
+                {el.name}
               </Text>
               <Text
                 color={colors.black}
                 size="16px"
                 fontStyle={fonts.f400}
                 margin="0 0 0 auto"
-                func={() => toggleSelectArea(index)}
+                func={() => {
+                  state.toggleOption(el.id)
+                }}
               >
                 +
               </Text>
             </RowContainer>
-            <SelectArea open={isOpen[index]}>
+            <SelectArea open={state.openedOptions.includes(el.id)}>
               <>
-                {uniqueNames.map((itemName: any, itemIndex: number) => {
-                  const uniqueItem = el.name.find(
-                    (item: any) => item.name === itemName
-                  );
+                {variants.map((opt, itemIndex: number) => {
+                  let filtrs = [...state.query.filters,opt.id]
                   return (
-                    <Text
-                      key={itemIndex}
-                      color={colors.black}
-                      size="16px"
-                      fontStyle={fonts.f400}
-                      hoverColor={colors.redHover}
-                      func={() =>
-                        addItem(
-                          el.optionName,
-                          uniqueItem.name,
-                          uniqueItem.optionVariantId
-                        )
-                      }
-                    >
-                      {uniqueItem.name}
-                    </Text>
+                      <Link href={`/catalog/${state.query.id}?page=${state.query.page}&filter=${filtrs.join('%2C')}`}>
+                        <Text
+                            key={itemIndex}
+                            color={colors.black}
+                            size="16px"
+                            fontStyle={fonts.f400}
+                            hoverColor={colors.redHover}
+                            func={() =>{}}
+                        >
+                          {opt.name}
+                        </Text>
+                      </Link>
+
                   );
                 })}
               </>
@@ -240,7 +131,8 @@ const Filter = ({ mobile, setVisible, options, numberTotal }: any) => {
     </Wrapper>
   );
 };
-export default Filter;
+
+export default observer(Filter);
 const Wrapper = styled.div<{ mobile: boolean }>`
   display: flex;
   flex-direction: column;

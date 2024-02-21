@@ -1,7 +1,6 @@
 "use client";
 import { styled } from "styled-components";
 import { FC, useEffect, useState } from "react";
-import { Product } from "@/types/types";
 import { Text } from "../Text/Text";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { fonts } from "../../../theme/fonts";
@@ -14,34 +13,28 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
-const Card: FC<Product> = ({
-  colors,
-  image,
-  price,
-  sale,
-  sizes,
-  title,
-  id,
-  avaliability,
-}) => {
+const Card: FC = (props:{p:ProductFullData}) => {
   const wishStore = useWishListStore();
   const cart = useCartStore();
-  const productInCart = cart.cart?.some((i) => i.id === id);
-  const productInWishList = wishStore.wishList?.some((i) => i.id === id);
+
+  const prod = props.p.product
+  const productInCart = cart.cart?.some((i) => i.id === prod.id);
+
+  const productInWishList = wishStore.wishList?.some((i) => i.id === prod.id);
   const currStore = useCurrencyStore();
   const [priceStr, setPriceStr] = useState<string>();
   useEffect(() => {
-    setPriceStr(price ? prettyPrice(price) : 0);
-  }, [price, currStore.selectedCurrency, currStore]);
+    setPriceStr(prod.retailPrice ? prettyPrice(prod.retailPrice) : 0);
+  }, [prod.retailPrice, currStore.selectedCurrency, currStore]);
 
   return (
-    <Wrapper href={`/product/${id}`} off={(avaliability as number) > 0}>
-      {/* {avaliability} */}
-      {sale && (
+    <Wrapper href={`/product/${prod.id}`} off={false}>
+      {prod.oldRetailPrice>prod.retailPrice && (
         <SalePatch>
           <Text size="12px" color={colorsTheme.white} fontStyle={fonts.f500}>
-            -{sale}%
+            -{99}%
           </Text>
         </SalePatch>
       )}
@@ -50,10 +43,10 @@ const Card: FC<Product> = ({
         alt="Product Image"
         // width={200}
         // height={100}
-        src={image || "/mock/NoPhoto.png"}
+        src={props.p.productImages[0]?.url || "/mock/NoPhoto.png"}
       />
       <ContainerRow>
-        {colors && colors.map((el, index) => <Color key={index} color={el} />)}
+        {/*colors && colors.map((el, index) => <Color key={index} color={el} />)}
         {sizes &&
           sizes.map((el, index) => (
             <Size key={index}>
@@ -65,7 +58,7 @@ const Card: FC<Product> = ({
                 {el}
               </Text>
             </Size>
-          ))}
+          ))*/}
       </ContainerRow>
       <Text
         size="16px"
@@ -73,7 +66,7 @@ const Card: FC<Product> = ({
         fontStyle={fonts.f600}
         margin="10px 0 0 0"
       >
-        {title}
+        {prod.name}
       </Text>
       <Text size="16px" color={colorsTheme.black} fontStyle={fonts.f400}>
         {priceStr}
@@ -113,7 +106,7 @@ const Card: FC<Product> = ({
     </Wrapper>
   );
 };
-export default observer(Card);
+export default Card;
 
 const Wrapper = styled(Link)<{ off: boolean }>`
   position: relative;

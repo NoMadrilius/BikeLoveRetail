@@ -1,14 +1,3 @@
-export type Product = {
-  title: string;
-  image: string;
-  price: string;
-  oldPrice?: string;
-  colors?: string[];
-  sizes?: string[];
-  sale?: string;
-  id?: number;
-  avaliability?: number;
-};
 export type INewsItem = {
   id: number;
   date: string;

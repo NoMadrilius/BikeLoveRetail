@@ -7,20 +7,11 @@ import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import {useCatalogStore} from "@/store/CatalogStore";
 
-type Props = {
-  items: any;
-  loading: boolean;
-  totalPages: any;
-};
-
-const Products: FC<Props> = ({ items, loading, totalPages }) => {
+const Products: FC = () => {
   const router = useRouter();
-  const products = items?.map((el: any) => ({
-    ...el.product,
-    img: el.productImages[0],
-    avaliability: el.productStorageQuantity[el.product?.id][1],
-  }));
+  const state = useCatalogStore()
   const [currentPage, setCurrentPage] = useState(1);
 
   const onPagiClick = (number: number) => {
@@ -36,7 +27,7 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
     if (direction === "left") {
       newPage = Math.max(currentPage - 1, 1);
     } else {
-      newPage = Math.min(currentPage + 1, totalPages);
+      newPage = Math.min(currentPage + 1, state.catalogState!.totalPages);
     }
 
     setCurrentPage(newPage);
@@ -48,22 +39,12 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
   return (
     <MainWrapper>
       <GridContainer>
-        {loading
+        {state.loading
           ? Array.from({ length: 6 }).map((_, index) => (
               <FakeCard key={index} />
             ))
-          : products?.map((el: any, index: any) => (
-              <Card
-                key={index}
-                title={el.name}
-                image={el.img?.url}
-                price={el.retailPrice}
-                colors={el.colors}
-                sizes={el.sizes}
-                sale={el.sale}
-                id={el.id}
-                avaliability={el.avaliability}
-              />
+          : state.catalogState!.products.map((value, index) => (
+              <Card key={index} p={value}/>
             ))}
       </GridContainer>
 
@@ -78,7 +59,7 @@ const Products: FC<Props> = ({ items, loading, totalPages }) => {
         >
           <path d="M6.25 0.375L1.25 6L6.25 11.625" />
         </HoverableSvg>
-        {Array.from({ length: totalPages }).map((x, index: number) => (
+        {Array.from({ length: state.catalogState!.totalPages }).map((x, index: number) => (
           <Text
             key={index}
             color={currentPage === index + 1 ? colors.black : colors.grayBorder}
