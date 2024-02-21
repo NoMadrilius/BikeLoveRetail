@@ -17,11 +17,9 @@ type Props = {
 };
 
 const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
-  const [hovered, setHovered] = useState(false);
-
   const handleMouseEnter = () => {
     const rect = document?.getElementById(title)?.getBoundingClientRect();
-    setHovered(true);
+
     func(title, rect);
   };
 
@@ -31,18 +29,8 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
       {...(hover && {
         onMouseEnter: () => handleMouseEnter(),
       })}
-      // {...(!hover && {
-      //   onClick: () => handleMouseEnter(),
-      // })}
-      className="menu-title"
     >
-      <Title
-        // style={{
-        //   backgroundColor:
-        //     title === activeMenu?.id ? "rgb(255, 239, 239)" : "transparent",
-        // }}
-        active={title === activeMenu?.id}
-      >
+      <Title active={title === activeMenu?.id} className="menu-title">
         {title}
         {title === activeMenu?.id ? <HorizontalLine /> : null}
       </Title>

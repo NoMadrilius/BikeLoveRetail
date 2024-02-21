@@ -20,6 +20,7 @@ export type TextPtops = {
   textAlign?: string;
   textTransform?: "uppercase" | "lowecase";
   textDecoration?: "trought";
+  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 export const Text: FC<TextPtops> = ({
@@ -36,9 +37,11 @@ export const Text: FC<TextPtops> = ({
   textTransform,
   textDecoration,
   preline,
+  onMouseEnter,
 }) => {
   return (
     <TextStyle
+      onMouseEnter={onMouseEnter}
       onClick={() => func && func()}
       textAlign={textAlign}
       size={size}
