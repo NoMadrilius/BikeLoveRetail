@@ -27,7 +27,7 @@ const BreadCrumbs: FC<Props> = ({ road }) => {
           style={{ cursor: "pointer" }}
           alt="House Icon"
         />
-        {road.map((el, index) => (
+        {road?.map((el, index) => (
           <Container key={index}>
             <Line />
 
@@ -57,7 +57,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   row-gap: 10px;
   align-items: center;
-  margin: 50px 0 30px 0;
+
   @media (max-width: ${metrics.mobile}) {
     margin: 43px 0 16px 0;
   }

@@ -1,12 +1,12 @@
-import CatalogScreen from "@/components/Screens/CatalogScreen/CatalogScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import axios from "axios";
 import Error from "next/error";
 import { colors } from "../../../theme/colors";
-import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 import axiosInstance from "@/api/axiosInstance";
+import CatalogScreen from "@/components/Screens/CatalogScreen/CatalogScreen";
+import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 
 const groupOptions = (options: any) => {
   return options.reduce((acc: any, option: any) => {
@@ -72,8 +72,6 @@ export const getServerSideProps = async (context: any) => {
 
 const Page = ({ data, options, totalPages }: any) => {
   const router = useRouter();
-  console.log(data);
-
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
