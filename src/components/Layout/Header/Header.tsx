@@ -114,9 +114,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
       }
     };
 
-    document.addEventListener("mouseover", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mouseover", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
 
       clearTimeout(timer);
     };
