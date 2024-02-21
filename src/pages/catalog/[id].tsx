@@ -1,90 +1,42 @@
-import CatalogScreen from "@/Screens/CatalogScreen/CatalogScreen";
+import CatalogScreen from "@/components/Screens/CatalogScreen/CatalogScreen";
 import { PaddingWrapper } from "../../../theme/templates";
-import { useRouter } from "next/router";
-import { observer } from "mobx-react";
-import axios from "axios";
-import Error from "next/error";
 import { colors } from "../../../theme/colors";
-import NotFound from "@/Screens/CatalogScreen/components/NotFound";
-import axiosInstance from "@/api/axiosInstance";
+import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
+import catalogStore, {useCatalogStore} from "@/store/CatalogStore";
+import {CatalogPageResponse} from "@/dataTransferObjects/response/CatalogPageResponse";
 
-const groupOptions = (options: any) => {
-  return options.reduce((acc: any, option: any) => {
-    const existingOption = acc.find(
-      (item: any) => item.optionName === option.optionName
-    );
-
-    if (existingOption) {
-      existingOption.name.push({
-        optionVariantId: option.optionVariantId,
-        name: option.name,
-      });
-    } else {
-      acc.push({
-        optionName: option.optionName,
-        name: [{ optionVariantId: option.optionVariantId, name: option.name }],
-      });
-    }
-
-    return acc;
-  }, []);
-};
-
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context:any) => {
   const filtersVariantIds = context.query.filter
     ? context.query.filter.split(",").map(Number)
     : [];
-
-  console.log(context.query);
-
   const page = context.query.page || 1;
-  try {
-    //catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
-    const request: any = {
-      categoryId: context.params.id,
-      storageId: 1,
-      page: page,
-      pageSize: 15,
-      filtersVariantIds: filtersVariantIds,
-      sortingSettings: [],
-    };
-    const response = await axiosInstance.post(
-      "/public/catalogproducts",
-      request
-    );
-    const data = response.data.products;
-    const options = groupOptions(data.flatMap((el: any) => el.productOptions));
-    const totalPages = response.data.totalPages;
 
-    return {
-      props: {
-        data,
-        options,
-        totalPages,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {},
-    };
-  }
+  let result = await catalogStore.loadStateCategory(context.params.id,page,filtersVariantIds)
+  return { props: { iniState:result, query:{id:context.query.id,page:page,filters:filtersVariantIds} } };
+
+  //catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
+
+  //const data = state.catalogState.products;
+  //const options = groupOptions(data.flatMap((el: any) => el.productOptions));
+  //const totalPages = state.catalogState.totalPages;
+
 };
 
-const Page = ({ data, options, totalPages }: any) => {
-  const router = useRouter();
-  console.log(data);
+const Page = (props: { iniState:CatalogPageResponse, query:{id:number,page:number,filters:number[]} }) => {
+  const state = useCatalogStore()
+  state.setCatalogState(props.iniState)
+  state.setQuery(props.query)
+
+  console.log(state.catalogState);
 
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
-        {data.length === 0 ? (
+        {state.catalogState === null ? (
           <NotFound />
         ) : (
           <CatalogScreen
-            catalogId={router.query.id!}
-            catalogData={data}
-            options={options}
-            totalPages={totalPages}
+
           />
         )}
       </PaddingWrapper>
@@ -92,4 +44,4 @@ const Page = ({ data, options, totalPages }: any) => {
   );
 };
 
-export default observer(Page);
+export default Page;

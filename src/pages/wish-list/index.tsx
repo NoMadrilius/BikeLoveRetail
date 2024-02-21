@@ -1,4 +1,4 @@
-import WishListScreen from "@/Screens/WishListScreen/WishListScreen";
+import WishListScreen from "@/components/Screens/WishListScreen/WishListScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 
 const WishList = () => {

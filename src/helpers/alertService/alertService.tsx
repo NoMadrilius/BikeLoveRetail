@@ -3,5 +3,5 @@ import { ToastMessageProps } from "@/types/types";
 import ToastMessage from "./ToastMessage";
 
 export const showToast = (props: ToastMessageProps) => {
-	toast(<ToastMessage {...props} />);
+  toast(<ToastMessage {...props} />);
 };

@@ -1,4 +1,4 @@
-import TermsOfPublicOfferScreen from "@/Screens/TermsOfPublicOfferScreen";
+import TermsOfPublicOfferScreen from "@/components/Screens/TermsOfPublicOfferScreen";
 import React from "react";
 import { PaddingWrapper } from "../../../theme/templates";
 

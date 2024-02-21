@@ -1,10 +1,8 @@
-import Footer from "@/components/Layout/Footer/Footer";
 import "@/styles/globals.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import { CONFIG } from "../../config";
-import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { ToastContainer } from "react-toastify";
 
 import PhoneWidget from "@/components/PhoneWidget/PhoneWidget";

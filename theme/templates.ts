@@ -18,19 +18,17 @@ export const templates = {
     display: flex;
     align-items: center;
   `,
-  
 };
 
 export const PaddingWrapper = styled.div`
-padding: 0 124px;
-background-color: white;
+  padding: 0 124px;
+  background-color: white;
   padding-top: 90px;
-  @media(max-width: ${metrics.desktop}){
+  @media (max-width: ${metrics.desktop}) {
     padding: 0 25px;
     padding-top: 90px;
-   
   }
-  @media(max-width: ${metrics.mobile}){
+  @media (max-width: ${metrics.mobile}) {
     padding: 0 20px;
     padding-top: 74px;
   }

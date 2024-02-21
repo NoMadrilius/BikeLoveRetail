@@ -17,11 +17,9 @@ type Props = {
 };
 
 const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
-  const [hovered, setHovered] = useState(false);
-
   const handleMouseEnter = () => {
     const rect = document?.getElementById(title)?.getBoundingClientRect();
-    setHovered(true);
+
     func(title, rect);
   };
 
@@ -31,19 +29,8 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
       {...(hover && {
         onMouseEnter: () => handleMouseEnter(),
       })}
-      {...(!hover && {
-        onClick: () => handleMouseEnter(),
-      })}
-      className="menu-title"
     >
-      <Title
-        style={{
-          backgroundColor:
-            title === activeMenu?.id ? "rgb(255, 239, 239)" : "transparent",
-        }}
-        active={title === activeMenu?.id}
-        hovered={hover}
-      >
+      <Title active={title === activeMenu?.id} className="menu-title">
         {title}
         {title === activeMenu?.id ? <HorizontalLine /> : null}
       </Title>
@@ -53,7 +40,7 @@ const MenuTitle: FC<Props> = ({ func, title, hover, activeMenu }) => {
 
 export default MenuTitle;
 
-const Title = styled.span<{ active: boolean; hovered?: boolean }>`
+const Title = styled.span<{ active: boolean }>`
   font-size: 13px;
   font-family: ${fonts.f600.fontFamily};
   font-weight: ${fonts.f600.fontWeight};
@@ -61,14 +48,16 @@ const Title = styled.span<{ active: boolean; hovered?: boolean }>`
   padding: 15px;
   font-weight: 600;
   border-radius: 10px 10px 0 0;
-  transition: background-color 0.3s, color 0.3s;
+  transition: color 0.3s ease-in-out;
   text-transform: uppercase;
+  background-color: ${(props) =>
+    props.active ? "rgb(255, 239, 239)" : "transparent"};
+
   cursor: pointer;
-  &:hover,
+  /* &:hover,
   &.active {
-    background-color: ${colors.redMain};
     color: ${colors.white};
-  }
+  } */
 `;
 
 const Wrapper = styled.div`
@@ -90,7 +79,7 @@ const HorizontalLine = styled.div`
   height: 1px;
   border-top: solid 0.5px rgba(99, 99, 99, 0.15);
   position: absolute;
-  bottom: 1px;
+  bottom: -11px;
   left: 0;
   margin: auto;
   transform: translate(10%, -50%);

@@ -20,7 +20,7 @@ export const LeftBorder = styled.div<{
   $leftMargin?: number;
 }>`
   border-left: 1px solid black;
-  padding: ${(props) => (props.$isExpanded ? "10px 10px 10px 0" : "")};
+  padding: ${(props) => (props.$isExpanded ? "5px 10px 5px 0" : "")};
 
   display: flex;
   align-items: center;
@@ -44,7 +44,8 @@ export const LeftBorder = styled.div<{
 export const TitleIcon = styled.img<{ open: boolean }>`
   width: 20px;
   height: 20px;
-  transform: ${(p) => (p.open ? "rotate(180deg)" : "rotate(0deg)")};
+  cursor: pointer;
+  transform: ${(p) => (p.open ? "rotate(0deg)" : "rotate(270deg)")};
 `;
 
 export const Wrapper = styled.div<{
@@ -52,7 +53,7 @@ export const Wrapper = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  top: 90px;
+  top: 69px;
   z-index: 5;
   /* width: 100%; */
 
@@ -73,7 +74,7 @@ export const MainColumn = styled.div`
   padding: 38px;
   row-gap: 20px;
   border-radius: 0 10px 10px 10px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 `;
 export const DetailsContainer = styled.div<{
   $top: number;
@@ -90,7 +91,7 @@ export const DetailsContainer = styled.div<{
   left: 300px;
   margin-left: 10px;
   background-color: rgb(231, 231, 231);
-  overflow: scroll;
+  /* overflow: scroll; */
   column-gap: 20px;
   padding: 15px;
 `;

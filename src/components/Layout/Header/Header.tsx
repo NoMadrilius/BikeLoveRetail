@@ -108,15 +108,15 @@ const Header: FC<Props> = ({ opacityBg }) => {
       ) {
         timer = setTimeout(() => {
           closeMenu();
-        }, 400);
+        }, 100);
       } else {
         clearTimeout(timer);
       }
     };
 
-    document.addEventListener("mouseover", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mouseover", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
 
       clearTimeout(timer);
     };
@@ -294,16 +294,22 @@ const Header: FC<Props> = ({ opacityBg }) => {
           onClick={() => setSideBarVisible(!sideBarVisible)}
         />
       </Wrapper>
-      {categoriesVisible && categories && (
+      {categoriesVisible ? (
         <>
-          <Overlay />
-          <Categories
-            setVisible={setCategoriesVisible}
-            categories={categories}
-            rect={activeMenu.rect}
-          />
+          <Overlay categoriesVisible={categoriesVisible} />
+          <CategoriesContainer
+            activeMenu={activeMenu}
+            categoriesVisible={categoriesVisible}
+          >
+            <Categories
+              setVisible={setCategoriesVisible}
+              categories={categories}
+              rect={activeMenu.rect}
+            />
+          </CategoriesContainer>
         </>
-      )}
+      ) : null}
+
       {sideBarVisible && (
         <SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
       )}
@@ -347,7 +353,7 @@ const ResNumberWrapper = styled.div`
   }
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ categoriesVisible: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -355,4 +361,25 @@ const Overlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
+  opacity: ${({ categoriesVisible }) => (categoriesVisible ? 1 : 0)};
+  transition: opacity 0.3s ease;
+`;
+
+const CategoriesContainer = styled.div<{
+  activeMenu: any;
+  categoriesVisible: any;
+}>`
+  position: absolute;
+  /* top: ${({ activeMenu }) =>
+    activeMenu.rect ? activeMenu.rect.bottom + "px" : "0"}; */
+  left: ${({ activeMenu }) =>
+    activeMenu.rect ? activeMenu.rect.left + "px" : "0"};
+  opacity: ${({ categoriesVisible }) => (categoriesVisible ? 1 : 0)};
+  /* visibility: ${({ categoriesVisible }) =>
+    categoriesVisible ? "visible" : "hidden"}; */
+  transition: all 0.3s ease-in-out;
+
+  /* Additional styles */
+  pointer-events: ${({ categoriesVisible }) =>
+    categoriesVisible ? "auto" : "none"};
 `;

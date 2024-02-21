@@ -1,13 +1,13 @@
-import CheckListScreen from "@/Screens/CheckListScreen/CheckListScreen";
+import CheckListScreen from "@/components/Screens/CheckListScreen/CheckListScreen";
 import { PaddingWrapper } from "../../../theme/templates";
 
 const CheckList = () => {
-	return (
-		<>
-			<PaddingWrapper>
-				<CheckListScreen />
-			</PaddingWrapper>
-		</>
-	);
+  return (
+    <>
+      <PaddingWrapper>
+        <CheckListScreen />
+      </PaddingWrapper>
+    </>
+  );
 };
 export default CheckList;

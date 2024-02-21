@@ -132,7 +132,8 @@ export const PhoneNumber = styled.p`
 export const Email = styled(PhoneNumber)`
   @media (max-width: 768px) {
     max-width: 153px;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
+    font-size: clamp(0.7rem, 1.5vw, 3.4vw);
   }
 `;
 
