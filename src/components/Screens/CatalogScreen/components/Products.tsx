@@ -6,11 +6,11 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { useRouter } from "next/router";
-import {useCatalogStore} from "@/store/CatalogStore";
+import { useCatalogStore } from "@/store/CatalogStore";
 
-const Products: FC = () => {
+const Products = () => {
   const router = useRouter();
-  const state = useCatalogStore()
+  const state = useCatalogStore();
   const [currentPage, setCurrentPage] = useState(1);
 
   const onPagiClick = (number: number) => {
@@ -43,7 +43,7 @@ const Products: FC = () => {
               <FakeCard key={index} />
             ))
           : state.catalogState!.products.map((value, index) => (
-              <Card key={index} p={value}/>
+              <Card key={index} p={value} />
             ))}
       </GridContainer>
 
@@ -58,17 +58,21 @@ const Products: FC = () => {
         >
           <path d="M6.25 0.375L1.25 6L6.25 11.625" />
         </HoverableSvg>
-        {Array.from({ length: state.catalogState!.totalPages }).map((x, index: number) => (
-          <Text
-            key={index}
-            color={currentPage === index + 1 ? colors.black : colors.grayBorder}
-            size="18"
-            fontStyle={currentPage === index + 1 ? fonts.f600 : fonts.f400}
-            func={() => onPagiClick(index + 1)}
-          >
-            {index + 1}
-          </Text>
-        ))}
+        {Array.from({ length: state.catalogState!.totalPages }).map(
+          (x, index: number) => (
+            <Text
+              key={index}
+              color={
+                currentPage === index + 1 ? colors.black : colors.grayBorder
+              }
+              size="18"
+              fontStyle={currentPage === index + 1 ? fonts.f600 : fonts.f400}
+              func={() => onPagiClick(index + 1)}
+            >
+              {index + 1}
+            </Text>
+          )
+        )}
         <HoverableSvgRight
           width="7"
           height="12"

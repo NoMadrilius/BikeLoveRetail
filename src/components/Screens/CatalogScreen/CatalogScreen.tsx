@@ -14,11 +14,11 @@ import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import catalogStore, {useCatalogStore} from "@/store/CatalogStore";
+import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 
 const CatalogScreen = () => {
   const { t } = useTranslation();
-  const state = useCatalogStore()
+  const state = useCatalogStore();
   const router = useRouter();
   const catId = router.query.id;
 
@@ -49,13 +49,10 @@ const CatalogScreen = () => {
     */
   return (
     <>
-      <UseMetaData
-        title={"name"}
-        img={""}
-        description={"asdasdasd"}
-      />
+      <UseMetaData title={"name"} img={""} description={"asdasdasd"} />
       <Wrapper>
-        {//<BreadCrumbs road={breadCrumbs} />
+        {
+          //<BreadCrumbs road={breadCrumbs} />
         }
         <Text
           color={colors.black}
@@ -65,9 +62,9 @@ const CatalogScreen = () => {
           margin="0 0 50px 0"
         >
           Название
-          {//catalog[0]?.name
-            }
-
+          {
+            //catalog[0]?.name
+          }
         </Text>
 
         <RowContainer>
@@ -111,18 +108,14 @@ const CatalogScreen = () => {
           </TriggerHidden>
         </RowContainer>
         <MainContainer>
-          <TriggerHidden width="1000px">
-            {<Filter />
-            }
-          </TriggerHidden>
-          <Products/>
-
+          <TriggerHidden width="1000px">{<Filter />}</TriggerHidden>
+          <Products />
         </MainContainer>
         <TextBlock />
       </Wrapper>
       {filterVisible && (
         <BlurWrapper setModal={setFilterVisible}>
-          <Filter/>
+          <Filter />
         </BlurWrapper>
       )}
     </>
