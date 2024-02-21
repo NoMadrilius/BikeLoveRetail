@@ -10,25 +10,30 @@ import {
 import { templates } from "../../../../../theme/templates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import {useCatalogStore} from "@/store/CatalogStore";
-import {observe} from "mobx";
-import {observer} from "mobx-react";
+import { useCatalogStore } from "@/store/CatalogStore";
+import { observe } from "mobx";
+import { observer } from "mobx-react";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/GenerateLink";
+import { GenerateLink } from "@/helpers/GenerateLink";
 
 const Filter = () => {
   const { t } = useTranslation();
   const state = useCatalogStore();
   const router = useRouter();
 
-  let availableVariants = state.catalogState!.options.filter(n=>!state.catalogState!.filterSettings.includes(n.id))
-  const uniqueOptions = availableVariants.reduce((accumulator:{id:number,name:string}[], i) => {
-    let ent = accumulator.find(n=>n.id === i.optionId)
-    if (ent===undefined) {
-      accumulator.push({id:i.optionId,name:i.optionName});
-    }
-    return accumulator;
-  }, []);
+  let availableVariants = state.catalogState!.options.filter(
+    (n) => !state.catalogState!.filterSettings.includes(n.id)
+  );
+  const uniqueOptions = availableVariants.reduce(
+    (accumulator: { id: number; name: string }[], i) => {
+      let ent = accumulator.find((n) => n.id === i.optionId);
+      if (ent === undefined) {
+        accumulator.push({ id: i.optionId, name: i.optionName });
+      }
+      return accumulator;
+    },
+    []
+  );
 
   return (
     <Wrapper mobile={false} onClick={(e) => e.stopPropagation()}>
@@ -45,33 +50,37 @@ const Filter = () => {
 
           <ColumnContainer style={{ rowGap: "12px", marginTop: "23px" }}>
             {state.catalogState!.filterSettings.map((el, index) => {
-              let option = state.catalogState!.options.find(n=>n.id === el)
+              let option = state.catalogState!.options.find((n) => n.id === el);
               return (
-                  <RowContainer key={index} style={{ columnGap: "29px" }}>
-                    <Text
-                        color={colors.grayMain}
-                        size="16px"
-                        fontStyle={fonts.f400}
-                        whiteSpace
-                    >
-                      {option!.optionName} :
-                    </Text>
-                    <Text
-                        color={colors.black}
-                        size="16px"
-                        fontStyle={fonts.f500}
-                        margin="0 0 0 auto"
-                        textAlign="right"
-                    >
-                      {option!.name}
-                    </Text>
-                    <Link href={GenerateLink('/catalog',{page:state.query.page, id:state.query.id, filter:state.query.filters.filter(n=>n!=el)})}>
-                    <IconClose
-                        src="/images/catalog/icons/close.png"
-                    />
-                    </Link>
-                  </RowContainer>
-              )
+                <RowContainer key={index} style={{ columnGap: "29px" }}>
+                  <Text
+                    color={colors.grayMain}
+                    size="16px"
+                    fontStyle={fonts.f400}
+                    whiteSpace
+                  >
+                    {option!.optionName} :
+                  </Text>
+                  <Text
+                    color={colors.black}
+                    size="16px"
+                    fontStyle={fonts.f500}
+                    margin="0 0 0 auto"
+                    textAlign="right"
+                  >
+                    {option!.name}
+                  </Text>
+                  <Link
+                    href={GenerateLink("/catalog", {
+                      page: state.query.page,
+                      id: state.query.id,
+                      filter: state.query.filters.filter((n) => n != el),
+                    })}
+                  >
+                    <IconClose src="/images/catalog/icons/close.png" />
+                  </Link>
+                </RowContainer>
+              );
             })}
             <RowContainer style={{ columnGap: "29px", marginTop: "10px" }}>
               <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
@@ -86,13 +95,18 @@ const Filter = () => {
       )}
 
       {uniqueOptions.map((el, index: number) => {
-        let variants = availableVariants.filter(n=>n.optionId === el.id)
+        let variants = availableVariants.filter((n) => n.optionId === el.id);
         return (
           <FieldWrapper key={index}>
             <RowContainer>
-              <Text color={colors.black} size="16px" fontStyle={fonts.f600} func={() => {
-                state.toggleOption(el.id)
-              }}>
+              <Text
+                color={colors.black}
+                size="16px"
+                fontStyle={fonts.f600}
+                func={() => {
+                  state.toggleOption(el.id);
+                }}
+              >
                 {el.name}
               </Text>
               <Text
@@ -101,7 +115,7 @@ const Filter = () => {
                 fontStyle={fonts.f400}
                 margin="0 0 0 auto"
                 func={() => {
-                  state.toggleOption(el.id)
+                  state.toggleOption(el.id);
                 }}
               >
                 +
@@ -110,21 +124,26 @@ const Filter = () => {
             <SelectArea open={state.openedOptions.includes(el.id)}>
               <>
                 {variants.map((opt, itemIndex: number) => {
-                  let filters = [...state.query.filters,opt.id]
+                  let filters = [...state.query.filters, opt.id];
                   return (
-                      <Link href={GenerateLink('/catalog',{page:state.query.page, id:state.query.id, filter:filters})}>
-                        <Text
-                            key={itemIndex}
-                            color={colors.black}
-                            size="16px"
-                            fontStyle={fonts.f400}
-                            hoverColor={colors.redHover}
-                            func={() =>{}}
-                        >
-                          {opt.name}
-                        </Text>
-                      </Link>
-
+                    <Link
+                      href={GenerateLink("/catalog", {
+                        page: state.query.page,
+                        id: state.query.id,
+                        filter: filters,
+                      })}
+                    >
+                      <Text
+                        key={itemIndex}
+                        color={colors.black}
+                        size="16px"
+                        fontStyle={fonts.f400}
+                        hoverColor={colors.redHover}
+                        func={() => {}}
+                      >
+                        {opt.name}
+                      </Text>
+                    </Link>
                   );
                 })}
               </>

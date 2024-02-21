@@ -194,6 +194,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
                 openMenu(TITLES[0], rect);
               }
             }}
+            categoriesVisible={categoriesVisible}
             activeMenu={activeMenu}
             title={TITLES[0]}
             hover={true}
