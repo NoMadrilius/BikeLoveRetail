@@ -5,7 +5,7 @@ const RUN_MODE: RunMode = "PROD";
 const BASE_URL = {
   DEV: "https://bikeshop.1gb.ua/api",
   //PROD: "http://localhost:5000/api",
-  PROD: "http://api.bikelove.com.ua/api",
+  PROD: "https://api.bikelove.com.ua/api",
 };
 const IMG_URL = {
   DEV: "http://localhost:3000/",
