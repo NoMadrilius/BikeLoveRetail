@@ -13,8 +13,10 @@ export function GenerateLink(baseURL: string, queryParams: any) {
         // Проверяем, является ли значение массивом
         if (Array.isArray(queryParams[key])) {
           // Если значение - массив, добавляем каждый элемент массива как отдельный параметр
-          queryString +=
-            `${encodeURIComponent(key)}=` + queryParams[key].join("%2C") + "&";
+          if(queryParams[key].length>0){
+            queryString +=
+                `${encodeURIComponent(key)}=` + queryParams[key].join("%2C") + "&";
+          }
         } else {
           // Если значение не массив, добавляем его как параметр
           queryString += `${encodeURIComponent(key)}=${encodeURIComponent(

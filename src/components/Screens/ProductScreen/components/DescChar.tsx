@@ -1,5 +1,4 @@
 import { ColumnContainer } from "@/components/SideBar/SidebarStyles";
-import { FC } from "react";
 import { styled } from "styled-components";
 import {
   CharacteristicContainer,
@@ -10,25 +9,16 @@ import {
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
+import {useState} from "react";
+import {useProductPageStore} from "@/store/ProductPageStore";
 
-type Props = {
-  activeTab: number;
-  setActiveTab: any;
-  productData: any;
-  options: any;
-};
+const DescChar = () => {
 
-const DescChar: FC<Props> = ({
-  activeTab,
-  setActiveTab,
-  options,
-  productData,
-}) => {
   const isImages = false;
+  const [activeTab, setActiveTab] = useState(0);
+  const state = useProductPageStore()
+  const productData = state.product!
 
-  ///
-
-  ///
   return (
     <>
       {isImages && (
@@ -109,7 +99,7 @@ const DescChar: FC<Props> = ({
             )}
             {activeTab === 1 && (
               <>
-                {options?.map((el: any, index: any) => {
+                {state.product?.productOptions?.map((el: any, index: any) => {
                   const matchingNames = el.name.filter((item: any) =>
                     item.id.includes(productData.product.id)
                   );
@@ -196,12 +186,7 @@ const DescChar: FC<Props> = ({
                   </Text>
                   <RowContainer style={{ width: "100%" }}>
                     <ColumnContainer style={{ width: "100%" }}>
-                      {options?.map((el: any, index: any) => {
-                        const matchingNames = el.name.filter((item: any) =>
-                          item.id.includes(productData.product.id)
-                        );
-
-                        if (matchingNames.length > 0) {
+                      {state.uniqueOptions.map((el, index) => {
                           return (
                             <CharacteristicContainer key={index} index={index}>
                               <Text
@@ -211,7 +196,7 @@ const DescChar: FC<Props> = ({
                                 hoverColor={colors.redHover}
                                 maxWidth="100%"
                               >
-                                {el.optionName}
+                                {el.name}
                               </Text>
                               <Text
                                 color={colors.black}
@@ -219,16 +204,12 @@ const DescChar: FC<Props> = ({
                                 fontStyle={fonts.f400}
                                 hoverColor={colors.redHover}
                               >
-                                {matchingNames
-                                  .map((item: any) => item.name)
-                                  .join(", ")}
+                                {state.uniqueVariants.filter(n=>n.optionId === el.id).map(n=>n.variantName).join(', ')}
                               </Text>
                             </CharacteristicContainer>
                           );
                         }
-
-                        return null; // If no matching names, don't render anything for this option
-                      })}
+                      )}
                     </ColumnContainer>
                   </RowContainer>
                 </ColumnContainer>
@@ -289,7 +270,7 @@ const DescChar: FC<Props> = ({
               )}
               {activeTab === 1 && (
                 <>
-                  {options?.map((el: any, index: any) => {
+                  {state.product?.productOptions?.map((el: any, index: any) => {
                     const matchingNames = el.name.filter((item: any) =>
                       item.id.includes(productData.product.id)
                     );

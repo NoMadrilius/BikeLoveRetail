@@ -20,14 +20,8 @@ export const getServerSideProps = async (context: any) => {
     props: {
       iniState: result,
       query: { id: context.query.id, page: page, filters: filtersVariantIds },
-    },
+    }
   };
-
-  //catalogStore.fetchProductCards(+catId!, 1, 1, 15, [], []);
-
-  //const data = state.catalogState.products;
-  //const options = groupOptions(data.flatMap((el: any) => el.productOptions));
-  //const totalPages = state.catalogState.totalPages;
 };
 
 const Page = (props: {

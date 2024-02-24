@@ -4,6 +4,7 @@ import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 import authStore from "./AuthStore";
 import axiosInstance from "@/api/axiosInstance";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 class WishListStore {
   wishList: IProduct[] = [];
@@ -74,7 +75,7 @@ class WishListStore {
     }
   }
 
-  addToWishList(product: IProduct, image: any) {
+  addToWishList(product: Product, image: any) {
     const existingProduct = this.wishList.find(
       (item) => item.id === product.id
     );

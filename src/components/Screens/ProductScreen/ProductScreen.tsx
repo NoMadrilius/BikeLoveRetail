@@ -34,52 +34,34 @@ import axios from "axios";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import SideBar from "./components/SideBar";
 import Image from "next/image";
+import {useProductPageStore} from "@/store/ProductPageStore";
 
-const ProductScreen = ({ productData, options, images }: any) => {
+const ProductScreen = () => {
   const cart = useCartStore();
+  const currStore = useCurrencyStore();
+  const state = useProductPageStore()
   const wishStore = useWishListStore();
-  const [activeTab, setActiveTab] = useState(0);
+
   const [sideBarOpen, setSideBarOpen] = useState(false);
-  // const [productInCart, setProductInCart] = useState<boolean>();
   const [productInWishList, setProductInWishList] = useState<boolean>();
-  const [prepareOptions, setPrepareOptions] = useState([]);
-  const [selectedOptionsId, setSelectedOptionsId] = useState<number[]>([]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const [filteredProductId, setFilteredProductId] = useState<any>();
   const [buttonVisible, setButtonVisible] = useState(false);
-  const currStore = useCurrencyStore();
   const [priceStr, setPriceStr] = useState<any>();
+
+  const productData = state.product!
+
+
+  /*
   useEffect(() => {
-    setPriceStr(
-      productData?.product?.retailPrice
-        ? prettyPrice(productData?.product?.retailPrice)
-        : 0
-    );
+    setPriceStr(prettyPrice(productData.product.retailPrice));
   }, [
     productData?.product?.retailPrice,
     currStore.selectedCurrency,
     currStore,
   ]);
-  const categoryPath = productData.productCategory.way.split("->");
-  const breadCrumbs = categoryPath
-    .slice(-2)
-    .map((category: any, index: any, array: any) => {
-      let link = "/catalog/";
-      if (index === 0) {
-        link += productData.productCategory.parentId;
-      } else if (index === 1) {
-        link += productData.productCategory.id;
-      }
 
-      return {
-        title: category,
-        link: link,
-      };
-    });
-  breadCrumbs.push({
-    title: productData.product.name,
-    link: "",
-  });
+
+
   useEffect(() => {
     // setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
     setProductInWishList(
@@ -92,7 +74,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
 
   const clickLike = () => {
     productInWishList
-      ? wishStore.removeFromWishList(productData.product?.id)
+      ? wishStore.removeFromWishList(productData.product.id)
       : wishStore.addToWishList(
           productData.product,
           productData.productImages[0]?.url
@@ -101,13 +83,13 @@ const ProductScreen = ({ productData, options, images }: any) => {
   useEffect(() => {
     if (productData.product) {
       if (selectedOptionsId.length === 0) {
-        const allOptions = options.map((option: any) => ({
+        const allOptions = productData.productOptions.map((option: any) => ({
           optionName: option.optionName,
           names: option.name,
         }));
         setPrepareOptions(allOptions);
       } else {
-        const filteredOptions = options.reduce((acc: any, option: any) => {
+        const filteredOptions = productData.productOptions.reduce((acc: any, option: any) => {
           const filteredNames = option.name.filter((name: any) =>
             selectedOptionsId.some((selectedId) => name.id.includes(selectedId))
           );
@@ -121,19 +103,22 @@ const ProductScreen = ({ productData, options, images }: any) => {
         setPrepareOptions(filteredOptions);
       }
     }
-  }, [productData.product, options, selectedOptionsId]);
-
+  }, [productData.product, productData.productOptions, selectedOptionsId]);
+ /*
   //выбераем id
   useEffect(() => {
     const selectedOptionsObjects = selectedOptions.map((selectedOption) => {
-      const matchingOption = options.find((option: any) =>
+      const matchingOption = productData.productOptions.find((option: any) =>
         option.name.some((name: any) => name.optionVariantId === selectedOption)
       );
+
       return matchingOption
         ? matchingOption.name.find(
             (name: any) => name.optionVariantId === selectedOption
           )
         : undefined;
+
+
     });
     if (selectedOptionsObjects.length === 0) {
       console.log("No matching ID found.");
@@ -148,10 +133,13 @@ const ProductScreen = ({ productData, options, images }: any) => {
     }, []);
 
     setFilteredProductId(commonIds[0]);
-  }, [selectedOptions, options]);
+  }, [selectedOptions, productData.productOptions]);
 
+  */
+
+  /*
   useEffect(() => {
-    const filteredOptions = options.filter(
+    const filteredOptions = productData.productOptions.filter(
       (option: any) => option.name.length > 1
     );
     const isOptionSelected = filteredOptions.every((option: any) => {
@@ -162,6 +150,8 @@ const ProductScreen = ({ productData, options, images }: any) => {
     });
     setButtonVisible(isOptionSelected);
   }, [prepareOptions, selectedOptions]);
+
+   */
   ///
 
   ///
@@ -189,12 +179,12 @@ const ProductScreen = ({ productData, options, images }: any) => {
   return (
     <>
       <UseMetaData
-        title={productData.product?.name}
-        img={images[0]?.url || undefined}
-        description={"ASDASD"}
+        title={productData.product.name}
+        img={productData.productImages[0]?.url || ""}
+        description={productData.productCard.description}
       />
       <Wrapper>
-        <BreadCrumbs road={breadCrumbs} />
+        <BreadCrumbs road={state.getBreadCrumbs()!} />
         <MainContainer>
           <Res2Text>
             <H1Name>{productData.product.name}</H1Name>
@@ -215,10 +205,10 @@ const ProductScreen = ({ productData, options, images }: any) => {
               </Text>
             </RowContainer>
           </Res2Text>
-          <SliderContainer images={images.length > 0 && images.length !== 1}>
+          <SliderContainer images={productData.productImages.length > 0 && productData.productImages.length !== 1}>
             <FakeBlock>
-              {images.length ? (
-                <SliderProducts images={images} />
+              {productData.productImages.length ? (
+                <SliderProducts images={productData.productImages} />
               ) : (
                 <Image
                   width={160}
@@ -257,16 +247,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
                 </Text>
               </RowContainer>
             </Res1Text>
-            <OptionsProduct
-              options={options}
-              productData={productData}
-              prepareOptions={prepareOptions}
-              selectedOptionsId={selectedOptionsId}
-              setSelectedOptionsId={setSelectedOptionsId}
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
-            />
-
+            <OptionsProduct/>
             <RowContainer style={{ alignItems: "center", marginTop: "27px" }}>
               <Text color={colors.black} size="14px" fontStyle={fonts.f500}>
                 Таблица размеров
@@ -358,7 +339,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
                   <CustomP>Заказ в 1 клик</CustomP>
                 </>
               </ButtonCustom>
-              <LikeBtn liked={!!productInWishList} onClick={() => clickLike()}>
+              <LikeBtn liked={!!productInWishList} onClick={()=>{}}>
                 <Image
                   width={22}
                   height={20}
@@ -370,14 +351,9 @@ const ProductScreen = ({ productData, options, images }: any) => {
           </InfoContainer>
           {/* ======Info Container===== */}
         </MainContainer>
-
-        <DescChar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          productData={productData}
-          options={options}
-        />
-
+        {
+        <DescChar/>
+        }
         <ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
           {/* <Slider
 						title={"байки из той серии"}
@@ -401,7 +377,7 @@ const ProductScreen = ({ productData, options, images }: any) => {
     </>
   );
 };
-export default observer(ProductScreen);
+export default ProductScreen;
 const ButtonsContainer = styled.div`
   display: flex;
   column-gap: 18px;

@@ -128,7 +128,7 @@ const Filter = () => {
                   return (
                     <Link
                       href={GenerateLink("/catalog", {
-                        page: state.query.page,
+                        page: 1,
                         id: state.query.id,
                         filter: filters,
                       })}
