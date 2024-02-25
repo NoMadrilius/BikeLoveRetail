@@ -37,6 +37,7 @@
     "jose": "^5.2.0",
     "liqpay": "^0.0.1",
     "mobx": "^6.12.0",
+    "mobx-persist-store": "^1.1.4",
     "mobx-react": "^9.1.0",
     "next": "14.0.3",
     "next-unused": "^0.0.6",

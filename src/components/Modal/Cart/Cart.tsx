@@ -9,25 +9,23 @@ import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import CartItem from "./CartItem";
 import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
-import { IProduct } from "@/types/types";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 const Cart = ({ setVisible }: any) => {
   const { t } = useTranslation();
   const cartStore = useCartStore();
   const router = useRouter();
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     setCart(cartStore.cart);
   }, [cartStore]);
   useEffect(() => {
-    setTotalPrice(
-      cart.reduce((acc, item) => acc + item.retailPrice * item.quantity, 0)
-    );
+    //setTotalPrice(cart.reduce((acc, item) => acc + item.retailPrice * item.quantity, 0));
   }, [cart, cartStore.cart]);
   const updateTotalPrice = (priceChange: number) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);

@@ -13,6 +13,7 @@ import { useProductStore } from "@/store/ProductStore";
 import { IOrderViewData } from "@/types/types";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 const AccountScreen = () => {
   const { t } = useTranslation();
@@ -22,7 +23,12 @@ const AccountScreen = () => {
   ];
   const productStore = useProductStore();
   const [products, setProducts] = useState<IOrderViewData[]>([]);
+    const router = useRouter()
+  const authStore = useAuthStore()
 
+    useEffect(()=>{
+        if(!authStore.isAuth) router.push('/')
+    },[])
   useEffect(() => {
     productStore.getOrder();
   }, [productStore]);

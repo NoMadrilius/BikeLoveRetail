@@ -10,11 +10,12 @@ import PayInfo from "./components/PayInfo";
 import ListItems from "./components/ListItems";
 import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
-import { IOrderData, IProduct } from "@/types/types";
+import { IOrderData } from "@/types/types";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 const CheckListScreen = () => {
   const { t } = useTranslation();
@@ -35,11 +36,12 @@ const CheckListScreen = () => {
   });
 
   const cartStore = useCartStore();
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
   const currStore = useCurrencyStore();
   const [priceStr, setPriceStr] = useState<any>();
   const price = cart.reduce(
-    (acc, item) => acc + item.retailPrice * item.quantity,
+    (acc, item) => acc + item.retailPrice //* item.quantity
+      ,
     0
   );
   useEffect(() => {

@@ -1,12 +1,12 @@
 import { showToast } from "@/helpers/alertService/alertService";
-import { IProduct } from "@/types/types";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 import authStore from "./AuthStore";
 import axiosInstance from "@/api/axiosInstance";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 class CartStore {
-  cart: IProduct[] = [];
+  cart: Product[] = [];
   authStore: any;
 
   constructor(authStore: any) {
@@ -16,6 +16,7 @@ class CartStore {
   }
 
   initializeCart() {
+    /*
     if (typeof window !== "undefined") {
       authStore.getLoginUserResponse();
       if (authStore.loginUserResponse.user?.id) {
@@ -24,6 +25,7 @@ class CartStore {
         this.initializeCartFromLocalStorage();
       }
     }
+     */
   }
 
   initializeCartFromLocalStorage() {
@@ -60,7 +62,7 @@ class CartStore {
       localStorage.setItem("cart", JSON.stringify(this.cart));
     }
   }
-  saveProductToServer(product: IProduct) {
+  saveProductToServer(product: Product) {
     try {
       axiosInstance.post(
         `/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=1`
@@ -70,9 +72,9 @@ class CartStore {
     }
   }
 
-  addToCart(product: IProduct, image: any) {
+  addToCart(product: Product, image: any) {
     const existingProduct = this.cart.find((item) => item.id === product.id);
-    if (authStore.loginUserResponse.user?.id) {
+    if (authStore.user?.id) {
       this.saveProductToServer(product);
     }
 
@@ -83,7 +85,7 @@ class CartStore {
         type: "warn",
       });
     } else {
-      this.cart.push({ ...product, quantity: 1, image: image });
+      //this.cart.push({ ...product, quantity: 1, image: image });
       showToast({
         info: product.name,
         title: "Товар добавлен",
@@ -95,7 +97,7 @@ class CartStore {
 
   updateProductQuantity(productId: number, newQuantity: number) {
     const productToUpdate = this.cart.find((item) => item.id === productId);
-    if (authStore.loginUserResponse?.user?.id) {
+    if (authStore.user?.id) {
       try {
         axiosInstance.post(
           `/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`
@@ -106,8 +108,8 @@ class CartStore {
     }
 
     if (productToUpdate) {
-      productToUpdate.quantity = newQuantity;
-      if (authStore.loginUserResponse?.user?.id) {
+      //productToUpdate.quantity = newQuantity;
+      if (authStore.user?.id) {
       } else {
         this.saveCartToLocalStorage();
       }
@@ -134,6 +136,7 @@ class CartStore {
     }
   }
   removeAllFromCart = () => {
+    /*
     const updatedCart = this.cart.map((el) => {
       const newQuantity = el.quantity + 1;
       const newId = el.id;
@@ -153,6 +156,8 @@ class CartStore {
     if (typeof window !== "undefined") {
       localStorage.removeItem("cart");
     }
+
+     */
   };
 }
 
