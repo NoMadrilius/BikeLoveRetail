@@ -60,9 +60,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [inputText, setInputText] = useState("");
   const [categoriesVisible, setCategoriesVisible] = useState(false);
   const [sideBarVisible, setSideBarVisible] = useState(false);
-  const [cartVisible, setCartVisible] = useState(false);
   const [gearVisible, setGearVisible] = useState(false);
   const router = useRouter();
+
+  const cartStore = useCartStore()
   useEffect(() => {
     currensyStore.getCurrency();
     currensyStore.selectCurrensy(currensyStore.selectedCurrency);
@@ -75,7 +76,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
       router.push("/wish-list");
     }
     if (id === 2) {
-      setCartVisible(true);
+      cartStore.setVisible(true);
     }
     if (id === 3) {
       setGearVisible(!gearVisible);
@@ -278,9 +279,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
       ) : null}
 
       {sideBarVisible && (
-        <SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
+        <SideBar setVisible={setSideBarVisible} cartVisible={cartStore.setVisible} />
       )}
-      {cartVisible && <Cart setVisible={setCartVisible} />}
+      {cartStore.visible && <Cart/>}
       {gearVisible && (
         <GearSelect onClick={selectCurrency} setVisible={setGearVisible} />
       )}

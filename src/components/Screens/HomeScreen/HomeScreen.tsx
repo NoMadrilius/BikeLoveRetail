@@ -20,6 +20,8 @@ import { useTranslation } from "react-i18next";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useAuthStore } from "@/store/AuthStore";
 import { ITEMS } from "./mock";
+import {useRouter} from "next/router";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const HomeScreen = () => {
   const productStore = useProductStore();

@@ -8,22 +8,20 @@ class CatalogStore{
     catalogState:CatalogPageResponse|null = null
     loading:boolean = false
 
-    query:{id:number,page:number,filters:number[]}={id:1,page:1,filters:[]}
-
     openedOptions:number[]=[]
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    async loadStateCategory(categoryId:number, page:number, filters:number[]){
+    async loadStateCategory(categoryId:number, page:number, filters:number[], sort:string[]){
         const request: CatalogProductsByCategoryRequest = {
             categoryId: categoryId,
             storageId: 1,
             page: page,
             pageSize: 15,
             filtersVariantIds: filters,
-            sortingSettings: [],
+            sortingSettings: sort,
         };
         this.loading = true
         let data : CatalogPageResponse = {} as CatalogPageResponse
@@ -40,10 +38,6 @@ class CatalogStore{
     toggleOption(id:number){
         if(this.openedOptions.includes(id)) this.openedOptions=this.openedOptions.filter(n=>n != id)
         else this.openedOptions.push(id)
-    }
-
-    setQuery(v:{id:number,page:number,filters:number[]}){
-        this.query = v
     }
 }
 

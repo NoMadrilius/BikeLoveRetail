@@ -19,7 +19,7 @@ import { GenerateLink } from "@/helpers/GenerateLink";
 const Filter = () => {
   const { t } = useTranslation();
   const state = useCatalogStore();
-  const router = useRouter();
+  const r = useRouter();
 
   let availableVariants = state.catalogState!.options.filter(
     (n) => !state.catalogState!.filterSettings.includes(n.id)
@@ -71,11 +71,7 @@ const Filter = () => {
                     {option!.name}
                   </Text>
                   <Link
-                    href={GenerateLink("/catalog", {
-                      page: state.query.page,
-                      id: state.query.id,
-                      filter: state.query.filters.filter((n) => n != el),
-                    })}
+                    href={GenerateLink(r, {queryParameters:{filter: state.catalogState!.filterSettings.filter((n) => n != el)}})}
                   >
                     <IconClose src="/images/catalog/icons/close.png" />
                   </Link>
@@ -124,14 +120,10 @@ const Filter = () => {
             <SelectArea open={state.openedOptions.includes(el.id)}>
               <>
                 {variants.map((opt, itemIndex: number) => {
-                  let filters = [...state.query.filters, opt.id];
+                  let filters = [...state.catalogState!.filterSettings, opt.id];
                   return (
                     <Link
-                      href={GenerateLink("/catalog", {
-                        page: 1,
-                        id: state.query.id,
-                        filter: filters,
-                      })}
+                      href={GenerateLink(r,{queryParameters:{filter:filters, page:1}})}
                     >
                       <Text
                         key={itemIndex}

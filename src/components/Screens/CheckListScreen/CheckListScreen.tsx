@@ -35,35 +35,9 @@ const CheckListScreen = () => {
     products: [],
   });
 
-  const cartStore = useCartStore();
-  const [cart, setCart] = useState<Product[]>([]);
+  const st = useCartStore();
   const currStore = useCurrencyStore();
-  const [priceStr, setPriceStr] = useState<any>();
-  const price = cart.reduce(
-    (acc, item) => acc + item.retailPrice //* item.quantity
-      ,
-    0
-  );
-  useEffect(() => {
-    setPriceStr(price ? prettyPrice(price) : 0);
-  }, [price, currStore.selectedCurrency, currStore]);
 
-  useEffect(() => {
-    setCart(cartStore.cart);
-
-    const mappedProducts = cartStore?.cart?.map((product: any) => ({
-      productId: product.categoryId,
-      description: "",
-      quantity: product.quantity,
-      discountId: 0,
-    }));
-
-    // @ts-ignore
-    setSendData((prevData) => ({
-      ...prevData,
-      products: mappedProducts,
-    }));
-  }, [cartStore?.cart]);
   return (
     <>
       <UseMetaData
@@ -90,10 +64,10 @@ const CheckListScreen = () => {
             >
               {t("checkList.orderContents")}
             </Text>
-            {cart && (
+            {st.cart && (
               <>
-                {cart?.map((el, index) => (
-                  <ListItems data={el} key={index} />
+                {st.cart.map((el, index) => (
+                  <ListItems data={el.product} key={index} />
                 ))}
               </>
             )}
@@ -113,7 +87,7 @@ const CheckListScreen = () => {
                 fontStyle={fonts.f400}
                 margin="0 0 0 auto"
               >
-                {priceStr}
+                {st.totalPrice}
               </Text>
             </TotalPrice>
           </Right>

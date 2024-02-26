@@ -37,145 +37,20 @@ import Image from "next/image";
 import {useProductPageStore} from "@/store/ProductPageStore";
 
 const ProductScreen = () => {
-  const cart = useCartStore();
-  const currStore = useCurrencyStore();
+
   const state = useProductPageStore()
-  const wishStore = useWishListStore();
+  const cart = useCartStore()
 
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [productInWishList, setProductInWishList] = useState<boolean>();
-  const [filteredProductId, setFilteredProductId] = useState<any>();
-  const [buttonVisible, setButtonVisible] = useState(false);
   const [priceStr, setPriceStr] = useState<any>();
 
   const productData = state.product!
 
-
-  /*
-  useEffect(() => {
-    setPriceStr(prettyPrice(productData.product.retailPrice));
-  }, [
-    productData?.product?.retailPrice,
-    currStore.selectedCurrency,
-    currStore,
-  ]);
-
-
-
-  useEffect(() => {
-    // setProductInCart(cart.cart?.some((i) => i.id === productData.product?.id));
-    setProductInWishList(
-      wishStore.wishList?.some((i) => i.id === productData.product?.id)
-    );
-  }, [
-    cart.cart?.map((item) => item.id),
-    wishStore.wishList?.map((item) => item.id),
-  ]);
-
-  const clickLike = () => {
-    productInWishList
-      ? wishStore.removeFromWishList(productData.product.id)
-      : wishStore.addToWishList(
-          productData.product,
-          productData.productImages[0]?.url
-        );
-  };
-  useEffect(() => {
-    if (productData.product) {
-      if (selectedOptionsId.length === 0) {
-        const allOptions = productData.productOptions.map((option: any) => ({
-          optionName: option.optionName,
-          names: option.name,
-        }));
-        setPrepareOptions(allOptions);
-      } else {
-        const filteredOptions = productData.productOptions.reduce((acc: any, option: any) => {
-          const filteredNames = option.name.filter((name: any) =>
-            selectedOptionsId.some((selectedId) => name.id.includes(selectedId))
-          );
-
-          if (filteredNames.length > 0) {
-            acc.push({ optionName: option.optionName, names: filteredNames });
-          }
-
-          return acc;
-        }, []);
-        setPrepareOptions(filteredOptions);
-      }
-    }
-  }, [productData.product, productData.productOptions, selectedOptionsId]);
- /*
-  //выбераем id
-  useEffect(() => {
-    const selectedOptionsObjects = selectedOptions.map((selectedOption) => {
-      const matchingOption = productData.productOptions.find((option: any) =>
-        option.name.some((name: any) => name.optionVariantId === selectedOption)
-      );
-
-      return matchingOption
-        ? matchingOption.name.find(
-            (name: any) => name.optionVariantId === selectedOption
-          )
-        : undefined;
-
-
-    });
-    if (selectedOptionsObjects.length === 0) {
-      console.log("No matching ID found.");
-      return;
-    }
-    const commonIds = selectedOptionsObjects.reduce((intersection, obj) => {
-      if (intersection.length === 0) {
-        return obj.id;
-      } else {
-        return intersection.filter((id: any) => obj.id.includes(id));
-      }
-    }, []);
-
-    setFilteredProductId(commonIds[0]);
-  }, [selectedOptions, productData.productOptions]);
-
-  */
-
-  /*
-  useEffect(() => {
-    const filteredOptions = productData.productOptions.filter(
-      (option: any) => option.name.length > 1
-    );
-    const isOptionSelected = filteredOptions.every((option: any) => {
-      return option.name.some((name: any) =>
-        //@ts-ignore
-        selectedOptions.includes(name.optionVariantId)
-      );
-    });
-    setButtonVisible(isOptionSelected);
-  }, [prepareOptions, selectedOptions]);
-
-   */
-  ///
-
-  ///
   const onClickCart = () => {
-    if (buttonVisible) {
-      get();
-    } else {
-      showToast({ info: "Выберите опции", title: "Внимание", type: "warn" });
-    }
+    cart.addToCart(state.possibleProducts[0],state.product!)
   };
-  const get = async () => {
-    const id = filteredProductId || productData.product.id;
-    try {
-      const response = await axios.get(`/api/products/${id}`);
-      const product = response.data;
-      cart?.addToCart(product.product, product.productImages[0]?.url);
-    } catch (error) {
-      showToast({
-        info: "Что-то пошло не так",
-        title: "Внимание",
-        type: "error",
-      });
-    }
-  };
+
   return (
     <>
       <UseMetaData
@@ -248,6 +123,7 @@ const ProductScreen = () => {
               </RowContainer>
             </Res1Text>
             <OptionsProduct/>
+            {/*
             <RowContainer style={{ alignItems: "center", marginTop: "27px" }}>
               <Text color={colors.black} size="14px" fontStyle={fonts.f500}>
                 Таблица размеров
@@ -265,6 +141,7 @@ const ProductScreen = () => {
                 }}
               />
             </RowContainer>
+            */}
             <Discount
               oldPrice={productData.product.oldRetailPrice}
               newPrice={productData.product.retailPrice}
@@ -311,8 +188,14 @@ const ProductScreen = () => {
                 width={"191px"}
                 height={"56px"}
                 func={() => onClickCart()}
-                funcIfDisable={() => onClickCart()}
-                buttonActive={buttonVisible}
+                funcIfDisable={() => {
+                  showToast({
+                    info: "Оберіть усі опції",
+                    title: "Не всі опції обрано",
+                    type: "error",
+                  });
+                }}
+                buttonActive={state.possibleProducts.length === 1}
               >
                 <>
                   <Image
@@ -377,7 +260,7 @@ const ProductScreen = () => {
     </>
   );
 };
-export default ProductScreen;
+export default observer(ProductScreen);
 const ButtonsContainer = styled.div`
   display: flex;
   column-gap: 18px;

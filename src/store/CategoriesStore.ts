@@ -21,7 +21,6 @@ class CategoriesStore {
       const response = await axios.get("/api/categories");
       this.categories = response.data;
       response.data.sort((a: any, b: any) => b.sortOrder - a.sortOrder);
-      console.log(response.data);
       const parentCategories = response.data.filter(
         (item: any) => item.parentId === 0
       );

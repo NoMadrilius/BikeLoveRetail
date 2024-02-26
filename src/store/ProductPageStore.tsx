@@ -7,11 +7,12 @@ import {Text} from "@/components/Text/Text";
 import {colors} from "../../theme/colors";
 import {fonts} from "../../theme/fonts";
 import {ProductOptionVariantBind} from "@/dataTransferObjects/entities/ProductOptionVariantBind";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 class ProductPageStore{
     product:ProductFullData|null = null
     selectedVariants:number[] = []
-    possibleProducts:number[] = []
+    possibleProducts:Product[] = []
     specifications:ProductOptionVariantBind[] = []
 
     activeVariants:number[] = []
@@ -37,12 +38,15 @@ class ProductPageStore{
         if(p){
             this.initializeActiveVariants()
             this.initializeOptionAndVariants()
-            this.initializePossibleProducts()
+            this.updatePossibleProducts()
         }
     }
 
-    initializePossibleProducts(){
-        this.product!.productOptions.filter(n=>this.selectedVariants.includes(n.optionVariantId))//////????????????
+    updatePossibleProducts(){
+        this.possibleProducts = this.product!.bindedProducts.filter(p=>{
+            let optBinds = this.product!.productOptions.filter(n=>n.productId === p.id).map(n=>n.optionVariantId)
+            return this.selectedVariants.every(n=>optBinds.includes(n))
+        })
     }
     initializeActiveVariants(){
         if(this.selectedVariants.length === 0) this.activeVariants = Array.from(new Set(this.product!.productOptions.map(n=>n.optionVariantId)))

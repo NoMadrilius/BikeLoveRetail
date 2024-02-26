@@ -7,9 +7,11 @@ import { RowContainer, SizeContainer } from "../ProductScreenStyles";
 import {useProductPageStore} from "@/store/ProductPageStore";
 import Link from "next/link";
 import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
 
 const OptionsProduct = () => {
 
+  const r = useRouter()
   const state = useProductPageStore()
   const product = state.product!
 
@@ -17,6 +19,8 @@ const OptionsProduct = () => {
     <>
       {state.uniqueOptions.map((el, index) =>
       {
+        let variants = state.uniqueVariants.filter(n=>n.optionId === el.id)
+        if(variants.length > 1)
           return(
         <div key={index}>
             <Text
@@ -28,11 +32,11 @@ const OptionsProduct = () => {
               {el.name}
             </Text>
           <RowContainer style={{ gap: "8px", width: "60%", flexWrap: "wrap" }}>
-            {state.uniqueVariants.filter(n=>n.optionId === el.id).map((variant, idx: number) =>
+            {variants.map((variant, idx: number) =>
             {
                 if(!state.selectedVariants.includes(variant.variantId))
                   return (
-                      <Link href={GenerateLink('/product',{id:product.product.id, options:state.addVariant(variant)})}>
+                      <Link href={GenerateLink(r,{queryParameters:{options:state.addVariant(variant)}})}>
                           {state.getVariantButton(variant)}
                       </Link>)
                 else return state.getVariantButton(variant)

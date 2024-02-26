@@ -1,167 +1,70 @@
 import { showToast } from "@/helpers/alertService/alertService";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
-import authStore from "./AuthStore";
-import axiosInstance from "@/api/axiosInstance";
 import {Product} from "@/dataTransferObjects/entities/Product";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
+import {makePersistable} from "mobx-persist-store";
 
 class CartStore {
-  cart: Product[] = [];
-  authStore: any;
+  cart: {product:Product, fullData:ProductFullData, quantity:number}[] = [];
+  visible:boolean = false;
+  totalPrice:number = 0;
 
-  constructor(authStore: any) {
+  constructor() {
     makeAutoObservable(this);
-    this.authStore = authStore;
-    this.initializeCart();
+    if(typeof window !== "undefined")
+      makePersistable(this, {
+        name: "cartStore",
+        properties: ["cart"],
+        storage:window.localStorage
+      });
+
+    this.updateTotalPrice()
   }
-
-  initializeCart() {
-    /*
-    if (typeof window !== "undefined") {
-      authStore.getLoginUserResponse();
-      if (authStore.loginUserResponse.user?.id) {
-        this.initializeCartFromServer();
-      } else {
-        this.initializeCartFromLocalStorage();
-      }
-    }
-     */
+  setVisible(v:boolean){
+    this.visible = v
   }
-
-  initializeCartFromLocalStorage() {
-    if (typeof window !== "undefined") {
-      const savedCart = localStorage.getItem("cart");
-      if (savedCart) {
-        this.cart = JSON.parse(savedCart);
-      }
-    }
+  updateTotalPrice(){
+    this.totalPrice = this.cart.reduce((acc, item) => acc + item.product.retailPrice * item.quantity, 0)
   }
-
-  initializeCartFromServer = async () => {
-    try {
-      const response = await axiosInstance.get(
-        `/public/getcart?ClientId=${this.authStore.loginUserResponse.user?.id}`
-      );
-      this.cart = [];
-      this.cart = response.data.map((item: any) => ({
-        ...item.product.product,
-        quantity: item.quantity,
-        image: item.product.productImages[0]?.url || null,
-      }));
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-    }
-  };
-
-  getLoginUserResponseFromAuthStore() {
-    return this.authStore.getLoginUserResponse();
-  }
-
-  saveCartToLocalStorage() {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cart", JSON.stringify(this.cart));
-    }
-  }
-  saveProductToServer(product: Product) {
-    try {
-      axiosInstance.post(
-        `/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}&Quantity=1`
-      );
-    } catch (error) {
-      console.log("error saveProductToServer");
-    }
-  }
-
-  addToCart(product: Product, image: any) {
-    const existingProduct = this.cart.find((item) => item.id === product.id);
-    if (authStore.user?.id) {
-      this.saveProductToServer(product);
-    }
-
-    if (existingProduct) {
+  addToCart(product: Product, FullData:ProductFullData) {
+    if (this.cart.find(n=>n.product.id === product.id)) {
       showToast({
-        info: `${existingProduct.name}`,
+        info: `${product.name}`,
         title: "Товар уже в корзине",
         type: "warn",
       });
     } else {
-      //this.cart.push({ ...product, quantity: 1, image: image });
+      this.cart.push({product:product, fullData:FullData, quantity:1});
       showToast({
         info: product.name,
         title: "Товар добавлен",
         type: "success",
       });
     }
-    this.saveCartToLocalStorage();
+    this.updateTotalPrice()
   }
 
   updateProductQuantity(productId: number, newQuantity: number) {
-    const productToUpdate = this.cart.find((item) => item.id === productId);
-    if (authStore.user?.id) {
-      try {
-        axiosInstance.post(
-          `/public/addcart?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productToUpdate?.id}&Quantity=${newQuantity}`
-        );
-      } catch (error) {
-        console.log("error saveProductToServer");
-      }
-    }
+    const productToUpdate = this.cart.find((item) => item.product.id === productId);
 
     if (productToUpdate) {
-      //productToUpdate.quantity = newQuantity;
-      if (authStore.user?.id) {
-      } else {
-        this.saveCartToLocalStorage();
-      }
+      productToUpdate.quantity = newQuantity;
     }
+    this.updateTotalPrice()
   }
 
   removeFromCart(productId: number) {
-    const index = this.cart.findIndex((item) => item.id === productId);
-
-    if (index !== -1) {
-      this.cart.splice(index, 1);
-      showToast({
-        info: "Товар удален из корзины",
-        title: "Товар удален",
-        type: "success",
-      });
-      this.saveCartToLocalStorage();
-    } else {
-      showToast({
-        info: "Товар не найден в корзине",
-        title: "Товар не найден",
-        type: "warn",
-      });
-    }
+    this.cart = this.cart.filter(n=>n.product.id != productId)
+    this.updateTotalPrice()
   }
   removeAllFromCart = () => {
-    /*
-    const updatedCart = this.cart.map((el) => {
-      const newQuantity = el.quantity + 1;
-      const newId = el.id;
-      return { id: newId, quantity: newQuantity };
-    });
-    try {
-      updatedCart.forEach((product) => {
-        axiosInstance.post(
-          `/public/addcart?ClientId=${
-            this.authStore.loginUserResponse.user?.id
-          }&ProductId=${product.id}&Quantity=${0}`
-        );
-      });
-    } catch (error) {
-      console.log("error saveProductToServer", error);
-    }
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("cart");
-    }
-
-     */
+    this.cart = []
+    this.updateTotalPrice()
   };
 }
 
-const cartStore = new CartStore(authStore);
+const cartStore = new CartStore();
 const StoreContext = createContext(cartStore);
 
 export const useCartStore = () => useContext(StoreContext);

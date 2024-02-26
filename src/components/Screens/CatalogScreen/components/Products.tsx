@@ -13,6 +13,7 @@ import {GenerateLink} from "@/helpers/GenerateLink";
 const Products = () => {
   const state = useCatalogStore();
   const r = useRouter();
+
   return (
     <MainWrapper>
       <GridContainer>
@@ -26,7 +27,7 @@ const Products = () => {
       </GridContainer>
 
       <PagiContainer>
-        <Pagination selected={state.catalogState!.page} pageList={Array.from({length: state.catalogState!.totalPages}, (_, i) => i + 1).map((n)=>GenerateLink("/catalog", {page:n, id:state.catalogState!.category!.id, filter:state.catalogState!.filterSettings}))} />
+        <Pagination selected={state.catalogState!.page} pageList={Array.from({length: state.catalogState!.totalPages}, (_, i) => i + 1).map((n)=>GenerateLink(r,{queryParameters:{page:n}}))} />
       </PagiContainer>
     </MainWrapper>
   );

@@ -14,7 +14,6 @@ export const getServerSideProps = async (context: any) => {
 const ProductItem = (props:{product:ProductFullData, options:number[]}) => {
   let state = useProductPageStore()
   state.setData(props.product,props.options)
-    console.log('state:',props.product)
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>

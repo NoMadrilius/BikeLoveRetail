@@ -14,44 +14,34 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import {Product} from "@/dataTransferObjects/entities/Product";
 
-const Cart = ({ setVisible }: any) => {
+const Cart = () => {
+
   const { t } = useTranslation();
+
   const cartStore = useCartStore();
   const router = useRouter();
-  const [cart, setCart] = useState<Product[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    setCart(cartStore.cart);
-  }, [cartStore]);
-  useEffect(() => {
-    //setTotalPrice(cart.reduce((acc, item) => acc + item.retailPrice * item.quantity, 0));
-  }, [cart, cartStore.cart]);
-  const updateTotalPrice = (priceChange: number) => {
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + priceChange);
-  };
   const goTo = () => {
     router.push("/checklist");
-    setVisible(false);
+    cartStore.setVisible(false);
   };
+
   return (
-    <BlurWrapper setModal={setVisible}>
+    <BlurWrapper setModal={cartStore.setVisible}>
       <ContentWrapper onClick={(e) => e.stopPropagation()}>
         <CloseButton
           src="/icons/close_black.png"
-          onClick={() => setVisible(false)}
+          onClick={() => cartStore.setVisible(false)}
         />
         <Text color={colors.black} size="22px" fontStyle={fonts.f600}>
           {t("cart.cart")}
         </Text>
 
         <ItemsContainer>
-          {cartStore.cart?.map((el, index) => (
+          {cartStore.cart.map((el, index) => (
             <CartItem
               key={index}
-              product={el}
-              updateTotalPrice={updateTotalPrice}
-              setVisible={setVisible}
+              d={el}
             />
           ))}
         </ItemsContainer>
@@ -62,7 +52,7 @@ const Cart = ({ setVisible }: any) => {
               height={"56px"}
               type={"white"}
               label={t("cart.continueBuy")}
-              func={() => setVisible(false)}
+              func={() => cartStore.setVisible(false)}
             />
 
             <InfoContainer>
@@ -109,7 +99,7 @@ const Cart = ({ setVisible }: any) => {
                 whiteSpace
                 margin="0 0 0 60px"
               >
-                {prettyPrice(totalPrice)}
+                {prettyPrice(cartStore.totalPrice)}
               </Text>
             </RowContainer>
             <ButtonCustom
