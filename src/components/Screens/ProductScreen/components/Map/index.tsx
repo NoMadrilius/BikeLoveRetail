@@ -38,9 +38,22 @@ const Map = ({ shopData }: { shopData: ShopData[] }) => {
         {shopData.map((geo) => {
           const [latitude, longitude] = geo.geoData.split(",");
 
+          if (!geo.workForTakeout) {
+            return (
+              <OverlayView
+                position={{ lat: +latitude, lng: +longitude }}
+                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+              >
+                <StyledMarkerContainer $isRedBorder={true}>
+                  <CompanyTitle>BikeLove</CompanyTitle>
+                  <Availibility $isRedText={true}>Не в наявності</Availibility>
+                </StyledMarkerContainer>
+              </OverlayView>
+            );
+          }
           return (
             <OverlayView
-              position={center}
+              position={{ lat: +latitude, lng: +longitude }}
               mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             >
               <StyledMarkerContainer>
@@ -57,8 +70,11 @@ const Map = ({ shopData }: { shopData: ShopData[] }) => {
 
 export default Map;
 
-const StyledMarkerContainer = styled.div`
-  border: 2px solid rgb(109, 234, 95);
+const StyledMarkerContainer = styled.div<{
+  $isRedBorder?: boolean;
+}>`
+  border: 2px solid
+    ${(props) => (props.$isRedBorder ? "red" : "rgb(109, 234, 95)")};
   background-color: rgb(75, 75, 75);
   padding: 10px;
   font-weight: bold;
@@ -73,9 +89,11 @@ const StyledMarkerContainer = styled.div`
 const CompanyTitle = styled.span`
   color: white;
   font-size: 24px;
+  letter-spacing: 2.5px;
 `;
 
-const Availibility = styled.p`
-  color: rgb(109, 234, 95);
-  font-size: 16px;
+const Availibility = styled.p<{ $isRedText?: boolean }>`
+  color: ${(props) => (props.$isRedText ? "red" : "rgb(109, 234, 95)")};
+  letter-spacing: 1px;
+  font-size: 15px;
 `;

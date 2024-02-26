@@ -7,6 +7,7 @@ export type ShopData = {
   phone: string;
   storageId: number;
   geoData: string;
+  workForTakeout: boolean;
 };
 
 const useShopData = (): [ShopData[], boolean, Error | null] => {
