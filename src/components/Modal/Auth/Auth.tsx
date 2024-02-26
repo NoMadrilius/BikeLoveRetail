@@ -20,7 +20,6 @@ const Auth = () => {
   const router = useRouter();
   const authStore = useAuthStore();
   const [step, setStep] = useState(0);
-  const [ok, setOk] = useState(false);
   /// Login Data
   const [loginPhone, setLoginPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -93,7 +92,7 @@ const Auth = () => {
   };
 
   const loginDisabled =
-    !loginPassword.length || !isLoginPhoneValid || authStore.loadingLogin;
+    !loginPassword.length || !isLoginPhoneValid || authStore.loading;
 
   const registerDisabled =
     !regEmail ||
@@ -102,7 +101,7 @@ const Auth = () => {
     !isRegPhoneValid ||
     !regPassword ||
     !regConfirmPassword ||
-    authStore?.loadingRegister;
+    authStore?.loading;
   return (
     <>
       <UseMetaData
@@ -165,7 +164,7 @@ const Auth = () => {
           </RowContainer>
           <Button disabled={loginDisabled} onClick={() => loginHandle()}>
             <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
-              {authStore.loadingLogin ? <Loader /> : t("auth.enter")}
+              {authStore.loading ? <Loader /> : t("auth.enter")}
             </Text>
           </Button>
           <Text

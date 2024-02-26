@@ -5,15 +5,15 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { metrics } from "../../../../theme/metrics";
 import { useWishListStore } from "@/store/WishListStore";
 import { useEffect, useState } from "react";
-import { IProduct } from "@/types/types";
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { templates } from "../../../../theme/templates";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 const WishListScreen = () => {
   const wishStore = useWishListStore();
-  const [wishList, setWishList] = useState<IProduct[]>();
+  const [wishList, setWishList] = useState<Product[]>();
   const road = [
     { title: "Личный кабинет", link: "/account" },
     { title: "Список желайний", link: "/" },

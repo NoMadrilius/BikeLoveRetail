@@ -1,21 +1,21 @@
 import { showToast } from "@/helpers/alertService/alertService";
-import { IProduct } from "@/types/types";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 import authStore from "./AuthStore";
 import axiosInstance from "@/api/axiosInstance";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 class WishListStore {
-  wishList: IProduct[] = [];
-  authStore: any;
+  wishList: Product[] = [];
+  authStore = authStore
 
-  constructor(authStore: any) {
+  constructor() {
     makeAutoObservable(this);
-    this.authStore = authStore;
     this.initializeWishList();
   }
 
   initializeWishList() {
+    /*
     if (typeof window !== "undefined") {
       authStore.getLoginUserResponse();
       console.log(authStore.getLoginUserResponse());
@@ -25,6 +25,8 @@ class WishListStore {
         this.initializeWishListFromLocalStorage();
       }
     }
+
+     */
   }
 
   initializeWishListFromLocalStorage() {
@@ -32,13 +34,14 @@ class WishListStore {
       const savedWishList = localStorage.getItem("wishList");
       if (savedWishList) {
         this.wishList = JSON.parse(savedWishList);
+
       }
     }
   }
   initializeWishListFromServer = async () => {
     try {
       const response = await axiosInstance.get(
-        `/public/getfav?ClientId=${this.authStore.loginUserResponse.user?.id}`
+        `/public/getfav?ClientId=${this.authStore.user?.id}`
       );
       this.wishList = [];
       this.wishList = response.data.map((item: any) => ({
@@ -58,7 +61,7 @@ class WishListStore {
   saveWishListToServer(product: any) {
     try {
       axiosInstance.post(
-        `/public/addfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${product.id}`
+        `/public/addfav?ClientId=${this.authStore.user?.id}&ProductId=${product.id}`
       );
     } catch (error) {
       console.log("error saveProductToServer");
@@ -67,18 +70,18 @@ class WishListStore {
   removeWishListItemFromServer(productId: any) {
     try {
       axiosInstance.delete(
-        `/public/delfav?ClientId=${this.authStore.loginUserResponse.user?.id}&ProductId=${productId}`
+        `/public/delfav?ClientId=${this.authStore.user?.id}&ProductId=${productId}`
       );
     } catch (error) {
       console.log("error saveProductToServer");
     }
   }
 
-  addToWishList(product: IProduct, image: any) {
+  addToWishList(product: Product, image: any) {
     const existingProduct = this.wishList.find(
       (item) => item.id === product.id
     );
-    if (authStore.loginUserResponse.user?.id) {
+    if (authStore.user?.id) {
       this.saveWishListToServer(product);
     }
 
@@ -89,7 +92,7 @@ class WishListStore {
         type: "warn",
       });
     } else {
-      this.wishList.push({ ...product, quantity: 1, image: image });
+      //this.wishList.push({ ...product, quantity: 1, image: image });
       showToast({
         info: "Товар добавлен в список желаний",
         title: "Товар добавлен",
@@ -100,7 +103,7 @@ class WishListStore {
   }
   removeFromWishList(productId: number) {
     const index = this.wishList.findIndex((item) => item.id === productId);
-    if (authStore.loginUserResponse.user?.id) {
+    if (authStore.user?.id) {
       this.removeWishListItemFromServer(productId);
     }
     if (index !== -1) {
@@ -121,7 +124,7 @@ class WishListStore {
   }
 }
 
-const wishListStore = new WishListStore(authStore);
+const wishListStore = new WishListStore();
 const StoreContext = createContext(wishListStore);
 
 export const useWishListStore = () => useContext(StoreContext);

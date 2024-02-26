@@ -1,109 +1,33 @@
 import ProductScreen from "@/components/Screens/ProductScreen/ProductScreen";
 import { PaddingWrapper } from "../../../theme/templates";
-import axios from "axios";
-import { GetServerSideProps } from "next";
 import { colors } from "../../../theme/colors";
-import axiosInstance from "@/api/axiosInstance";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
+import {
+  productPageStore,
+  useProductPageStore,
+} from "@/store/ProductPageStore";
 
-interface Option {
-  optionVariantId: number;
-  name: string;
-  icon: string | null;
-  id: any;
-  optionName?: any;
-  productId?: any;
-}
-
-interface GroupedOption {
-  optionName: string;
-  name: Option[];
-}
-
-const groupOptions = (options: Option[]): GroupedOption[] => {
-  const groupedOptionsMap = options.reduce<{ [key: string]: GroupedOption }>(
-    (acc, option) => {
-      const existingOption = acc[option.optionName];
-      const { optionVariantId, id, productId } = option;
-
-      if (existingOption) {
-        const existingVariant = existingOption.name.find(
-          (item) => item.optionVariantId === optionVariantId
-        );
-
-        if (existingVariant) {
-          const index = existingOption.name.indexOf(existingVariant);
-          existingOption.name[index].id.push(productId);
-        } else {
-          existingOption.name.push({
-            optionVariantId,
-            name: option.name,
-            icon: option.icon || null,
-            id: [productId],
-          });
-        }
-      } else {
-        acc[option.optionName] = {
-          optionName: option.optionName,
-          name: [
-            {
-              optionVariantId,
-              name: option.name,
-              icon: option.icon || null,
-              id: [productId],
-            },
-          ],
-        };
-      }
-
-      return acc;
-    },
-    {}
-  );
-
-  const groupedOptions: GroupedOption[] = Object.values(groupedOptionsMap);
-
-  return groupedOptions;
+export const getServerSideProps = async (context: any) => {
+  let prod = await productPageStore.getProduct(context.query.id);
+  let options: number[] = context.query.options
+    ? context.query.options.split(",").map(Number)
+    : [];
+  return { props: { product: prod, options: options } };
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-}: any) => {
-  try {
-    const { id } = params;
-    const response = await axiosInstance.get(`/public/getproductcardbyid`, {
-      params: {
-        productId: +id,
-      },
-    });
-    const productData = response.data;
-    const options = groupOptions(productData.productOptions);
+const ProductItem = (props: {
+  product: ProductFullData;
+  options: number[];
+}) => {
+  let state = useProductPageStore();
+  state.setData(props.product, props.options);
 
-    return {
-      props: {
-        productData,
-        options,
-        images: productData.productImages,
-      },
-    };
-  } catch (error) {
-    console.error("Ошибка при получении данных:", error);
-    return {
-      props: {},
-    };
-  }
-};
-
-const ProductItem = ({ productData, options, images }: any) => {
-  console.log(productData);
+  console.log(props.product);
 
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
-        <ProductScreen
-          productData={productData}
-          options={options}
-          images={images}
-        />
+        {props.product ? <ProductScreen /> : null}
       </PaddingWrapper>
     </>
   );

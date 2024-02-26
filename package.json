@@ -38,6 +38,7 @@
     "jose": "^5.2.0",
     "liqpay": "^0.0.1",
     "mobx": "^6.12.0",
+    "mobx-persist-store": "^1.1.4",
     "mobx-react": "^9.1.0",
     "next": "14.0.3",
     "next-unused": "^0.0.6",
@@ -49,7 +50,9 @@
     "react-icons": "^5.0.1",
     "react-id-swiper": "^4.0.0",
     "react-input-mask": "^2.0.4",
+    "react-paginate": "^8.2.0",
     "react-toastify": "^9.1.3",
+    "sass": "^1.71.1",
     "styled-components": "^6.1.8",
     "swiper": "^11.0.5"
   },

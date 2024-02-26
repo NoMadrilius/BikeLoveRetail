@@ -61,10 +61,7 @@ const CatalogScreen = () => {
           textTransform="uppercase"
           margin="0 0 50px 0"
         >
-          Название
-          {
-            //catalog[0]?.name
-          }
+          {state.catalogState?.category?.name}
         </Text>
 
         <RowContainer>

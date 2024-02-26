@@ -17,8 +17,6 @@ import { useTranslation } from "react-i18next";
 const SideBarAuth = ({ setVisible }: any) => {
   const { t } = useTranslation();
   const authStore = useAuthStore();
-  const [_isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const goToAuth = () => {
@@ -29,54 +27,29 @@ const SideBarAuth = ({ setVisible }: any) => {
     router.push("/account");
     setVisible(false);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const _isAuth = authStore.checkAuth();
-      //@ts-ignore
-      setIsAuth(_isAuth);
-      if (!_isAuth) {
-        try {
-          // Попытка обновить токен
-          console.log("success");
-          await authStore.refreshToken();
-          setIsLoading(false);
-        } catch (refreshError) {
-          // Обработка ошибки обновления токена
-          console.log("Failed to refresh token:", refreshError);
-          setIsLoading(false);
-        }
 
-        // После обновления токена, обновляем данные корзины и списка желаемого
-      } else {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [router.pathname]);
   return (
     <>
-      {isLoading ? (
+      {authStore.loading ? (
         <Loader />
-      ) : _isAuth ? (
+      ) : authStore.isAuth ? (
         <AuthContainer
           style={{ justifyContent: "start", cursor: "pointer" }}
           onClick={() => goToAcc()}
         >
           <IconContainer style={{ marginRight: "8px" }}>
             <Text color={colors.white} size="16px" fontStyle={fonts.f500}>
-              {authStore.loginUserResponse?.user?.firstName.substring(0, 1)}
+              {authStore.user?.firstName.substring(0, 1)}
             </Text>
           </IconContainer>
           <ColumnContainer style={{ marginLeft: "14px" }}>
             <RowContainer style={{ columnGap: "14px" }}>
               <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
-                {authStore.loginUserResponse?.user?.firstName}
+                {authStore.user?.firstName}
               </Text>
             </RowContainer>
             <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-              {authStore.loginUserResponse?.user?.phoneNumber}
+              {authStore.user?.phoneNumber}
             </Text>
           </ColumnContainer>
         </AuthContainer>

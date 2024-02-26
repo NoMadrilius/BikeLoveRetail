@@ -60,9 +60,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [inputText, setInputText] = useState("");
   const [categoriesVisible, setCategoriesVisible] = useState(false);
   const [sideBarVisible, setSideBarVisible] = useState(false);
-  const [cartVisible, setCartVisible] = useState(false);
   const [gearVisible, setGearVisible] = useState(false);
   const router = useRouter();
+
+  const cartStore = useCartStore()
   useEffect(() => {
     currensyStore.getCurrency();
     currensyStore.selectCurrensy(currensyStore.selectedCurrency);
@@ -75,7 +76,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
       router.push("/wish-list");
     }
     if (id === 2) {
-      setCartVisible(true);
+      cartStore.setVisible(true);
     }
     if (id === 3) {
       setGearVisible(!gearVisible);
@@ -90,7 +91,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const authStore = useAuthStore();
   const [cartData, setCartData] = useState<any>();
   const [wishData, setWishData] = useState<any>();
-  const [isAuth, setIsAuth] = useState(false);
+
   const [activeMenu, setActiveMenu] = useState<ActiveMenuState>({
     id: null,
     rect: null,
@@ -129,41 +130,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
   useEffect(() => {
     setWishData(wish.wishList);
   }, [wish, router.pathname]);
-  // Проверка на авторизацию
-  useEffect(() => {
-    const fetchData = async () => {
-      const _isAuth = authStore.checkAuth();
-      console.log("success");
-      console.log(_isAuth);
-      //@ts-ignore
-      setIsAuth(_isAuth);
-      if (!_isAuth) {
-        try {
-          // Попытка обновить токен
-          await authStore.refreshToken();
-          console.log("success");
-        } catch (refreshError) {
-          // Обработка ошибки обновления токена
-          console.log("Failed to refresh token:", refreshError);
-        }
 
-        // После обновления токена, обновляем данные корзины и списка желаемого
-      } else {
-        cart.initializeCartFromServer();
-        wish.initializeWishListFromServer();
-      }
-    };
-
-    fetchData();
-  }, [
-    router.pathname,
-    authStore?.loginUserResponse?.user?.id,
-    authStore.tokenIsRefresh,
-  ]);
-
-  ///
-  console.log(isAuth);
-  ////
   const openMenu = (id: string, rect: DOMRect) => {
     setActiveMenu({ id, rect });
     setCategoriesVisible(true);
@@ -262,15 +229,15 @@ const Header: FC<Props> = ({ opacityBg }) => {
           />
         </IconsContainer>
         <Trigger>
-          {isAuth ? (
+          {authStore.isAuth ? (
             <UserContainer onClick={() => router.push("/account")}>
               <UserAvatar>
-                {authStore.loginUserResponse?.user?.firstName.substring(0, 1)}
+                {authStore.user?.firstName.substring(0, 1)}
               </UserAvatar>
               <Text color={colors.white} size="13px" fontStyle={fonts.f500}>
-                {authStore.loginUserResponse?.user?.firstName}
+                {authStore.user?.firstName}
                 <br />
-                {authStore.loginUserResponse?.user?.lastName}
+                {authStore.user?.lastName}
               </Text>
             </UserContainer>
           ) : (
@@ -312,9 +279,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
       ) : null}
 
       {sideBarVisible && (
-        <SideBar setVisible={setSideBarVisible} cartVisible={setCartVisible} />
+        <SideBar setVisible={setSideBarVisible} cartVisible={cartStore.setVisible} />
       )}
-      {cartVisible && <Cart setVisible={setCartVisible} />}
+      {cartStore.visible && <Cart/>}
       {gearVisible && (
         <GearSelect onClick={selectCurrency} setVisible={setGearVisible} />
       )}

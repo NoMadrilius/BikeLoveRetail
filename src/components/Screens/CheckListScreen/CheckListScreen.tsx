@@ -10,11 +10,12 @@ import PayInfo from "./components/PayInfo";
 import ListItems from "./components/ListItems";
 import { useCartStore } from "@/store/CartStore";
 import { useEffect, useState } from "react";
-import { IOrderData, IProduct } from "@/types/types";
+import { IOrderData } from "@/types/types";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 const CheckListScreen = () => {
   const { t } = useTranslation();
@@ -34,34 +35,9 @@ const CheckListScreen = () => {
     products: [],
   });
 
-  const cartStore = useCartStore();
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const st = useCartStore();
   const currStore = useCurrencyStore();
-  const [priceStr, setPriceStr] = useState<any>();
-  const price = cart.reduce(
-    (acc, item) => acc + item.retailPrice * item.quantity,
-    0
-  );
-  useEffect(() => {
-    setPriceStr(price ? prettyPrice(price) : 0);
-  }, [price, currStore.selectedCurrency, currStore]);
 
-  useEffect(() => {
-    setCart(cartStore.cart);
-
-    const mappedProducts = cartStore?.cart?.map((product: any) => ({
-      productId: product.categoryId,
-      description: "",
-      quantity: product.quantity,
-      discountId: 0,
-    }));
-
-    // @ts-ignore
-    setSendData((prevData) => ({
-      ...prevData,
-      products: mappedProducts,
-    }));
-  }, [cartStore?.cart]);
   return (
     <>
       <UseMetaData
@@ -88,10 +64,10 @@ const CheckListScreen = () => {
             >
               {t("checkList.orderContents")}
             </Text>
-            {cart && (
+            {st.cart && (
               <>
-                {cart?.map((el, index) => (
-                  <ListItems data={el} key={index} />
+                {st.cart.map((el, index) => (
+                  <ListItems data={el.product} key={index} />
                 ))}
               </>
             )}
@@ -111,7 +87,7 @@ const CheckListScreen = () => {
                 fontStyle={fonts.f400}
                 margin="0 0 0 auto"
               >
-                {priceStr}
+                {st.totalPrice}
               </Text>
             </TotalPrice>
           </Right>
