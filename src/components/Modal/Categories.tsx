@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import * as S from "./Categories.styles";
 import Link from "next/link";
+import { LinkItem } from "../LinkItem";
 
 const Categories = ({ setVisible, categories, rect }: any) => {
   const [selectedTitle, setSelectedTitle] = useState(0);
@@ -34,10 +35,8 @@ const Categories = ({ setVisible, categories, rect }: any) => {
   const handleCategoryClick = (categoryId: number) => {
     setExpandedCategories((prevExpanded) => {
       if (prevExpanded.includes(categoryId)) {
-        // If category is already expanded, collapse it
         return prevExpanded.filter((id) => id !== categoryId);
       } else {
-        // If category is not expanded, expand it
         return [...prevExpanded, categoryId];
       }
     });
@@ -50,9 +49,10 @@ const Categories = ({ setVisible, categories, rect }: any) => {
     >
       <S.MainColumn>
         {categories?.parentCategories?.map((el: any) => (
-          <div key={el.id}>
+          <S.ListItem key={el.id}>
             {el.childrenIds !== "" ? (
-              <Text
+              <LinkItem
+                href={`/catalog/${el?.id}`}
                 color={el.id === selectedTitle ? colors.redMain : colors.black}
                 hoverColor={colors.redHover}
                 size="15px"
@@ -65,24 +65,21 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                 }}
               >
                 {el.name}
-              </Text>
+              </LinkItem>
             ) : (
-              <Link href={`/catalog/${el.id}`}>
-                <Text
-                  color={
-                    el.id === selectedTitle ? colors.redMain : colors.black
-                  }
-                  hoverColor={colors.redHover}
-                  size="15px"
-                  fontStyle={fonts.f600}
-                  func={() => setVisible(false)}
-                  textTransform="uppercase"
-                >
-                  {el.name}
-                </Text>
-              </Link>
+              <LinkItem
+                href={`/catalog/${el.id}`}
+                color={el.id === selectedTitle ? colors.redMain : colors.black}
+                hoverColor={colors.redHover}
+                size="15px"
+                fontStyle={fonts.f600}
+                func={() => setVisible(false)}
+                textTransform="uppercase"
+              >
+                {el.name}
+              </LinkItem>
             )}
-          </div>
+          </S.ListItem>
         ))}
       </S.MainColumn>
       {selectedTitle && filteredCategory ? (
@@ -90,8 +87,9 @@ const Categories = ({ setVisible, categories, rect }: any) => {
           $top={submenuCategories}
           $removePadding={selectedTitle}
         >
-          <Link href={`/catalog/${filteredCategory?.id}`}>
-            <Text
+          <S.ListItem>
+            <LinkItem
+              href={`/catalog/${filteredCategory?.id}`}
               color={colors.black}
               hoverColor={colors.redHover}
               size="16px"
@@ -99,8 +97,9 @@ const Categories = ({ setVisible, categories, rect }: any) => {
               func={() => childClick()}
             >
               {categoryTitle}
-            </Text>
-          </Link>
+            </LinkItem>
+          </S.ListItem>
+
           {childCategories.map((el: any, index: any) => {
             const isExpanded = expandedCategories.includes(el.id);
 
@@ -133,28 +132,39 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                       {el.name}
                     </Text>
                   ) : (
-                    <Link
+                    <LinkItem
                       href={`/catalog/${el.id}`}
                       style={{ marginTop: "8px" }}
+                      color={colors.black}
+                      hoverColor={colors.redHover}
+                      size="15px"
+                      margin="16px 0 0 0"
+                      fontStyle={fonts.f400}
+                      func={() => {
+                        childClick();
+                      }}
                     >
-                      <Text
-                        color={colors.black}
-                        hoverColor={colors.redHover}
-                        size="15px"
-                        margin="16px 0 0 0"
-                        fontStyle={fonts.f400}
-                        func={() => {
-                          childClick();
-                        }}
-                      >
-                        {el.name}
-                      </Text>
-                    </Link>
+                      {el.name}
+                    </LinkItem>
                   )}
                 </S.TitleWrapper>
 
                 {isExpanded && el.childrenIds && el.childrenIds !== "" && (
                   <>
+                    <S.ListItem>
+                      <LinkItem
+                        href={`/catalog/${el.id}`}
+                        func={() => setVisible(false)}
+                        color={colors.black}
+                        hoverColor={colors.redHover}
+                        size="15px"
+                        fontStyle={fonts.f400}
+                        margin="0 0 0 8px"
+                      >
+                        Все в категорії
+                      </LinkItem>
+                    </S.ListItem>
+
                     {smallChildCategories(el)?.map(
                       (child: any, childIndex: number, array: any[]) => {
                         const isExpanded = expandedCategories.includes(
@@ -164,57 +174,55 @@ const Categories = ({ setVisible, categories, rect }: any) => {
 
                         return (
                           <>
-                            <S.TitleWrapper key={childIndex}>
-                              <S.LeftBorder
+                            <S.LeftBorder
+                              key={childIndex}
+                              $isExpanded={child.childrenIds === ""}
+                              style={{ marginLeft: "10px" }}
+                              $lastChild={isLastChild}
+                            >
+                              <S.HorizontalLine
                                 $isExpanded={child.childrenIds === ""}
-                                style={{ marginLeft: "10px" }}
-                                $lastChild={isLastChild}
-                              >
-                                <S.HorizontalLine
-                                  $isExpanded={child.childrenIds === ""}
+                              />
+                              {child.childrenIds !== "" && (
+                                <S.TitleIcon
+                                  open={isExpanded}
+                                  src="/icons/catArrow.svg"
+                                  onClick={(
+                                    e: React.MouseEvent<HTMLDivElement>
+                                  ) => {
+                                    e.stopPropagation();
+                                    handleCategoryClick(child.id);
+                                  }}
                                 />
-                                {child.childrenIds !== "" && (
-                                  <S.TitleIcon
-                                    open={isExpanded}
-                                    src="/icons/catArrow.svg"
-                                    onClick={(
-                                      e: React.MouseEvent<HTMLDivElement>
-                                    ) => {
-                                      e.stopPropagation();
-                                      handleCategoryClick(child.id);
-                                    }}
-                                  />
-                                )}
-                                {child.childrenIds &&
-                                child.childrenIds !== "" ? (
-                                  <Text
-                                    color={colors.black}
-                                    hoverColor={colors.redHover}
-                                    size="15px"
-                                    fontStyle={fonts.f400}
-                                    func={() => {
-                                      handleCategoryClick(child.id);
-                                    }}
-                                  >
-                                    {child.name}
-                                  </Text>
-                                ) : (
-                                  <Link href={`/catalog/${el.id}`}>
-                                    <Text
-                                      color={colors.black}
-                                      hoverColor={colors.redHover}
-                                      size="15px"
-                                      fontStyle={fonts.f400}
-                                      func={() => {
-                                        childClick();
-                                      }}
-                                    >
-                                      {child.name}
-                                    </Text>
-                                  </Link>
-                                )}
-                              </S.LeftBorder>
-                            </S.TitleWrapper>
+                              )}
+                              {child.childrenIds && child.childrenIds !== "" ? (
+                                <Text
+                                  color={colors.black}
+                                  hoverColor={colors.redHover}
+                                  size="15px"
+                                  fontStyle={fonts.f400}
+                                  func={() => {
+                                    handleCategoryClick(child.id);
+                                  }}
+                                >
+                                  {child.name}
+                                </Text>
+                              ) : (
+                                <LinkItem
+                                  href={`/catalog/${el.id}`}
+                                  color={colors.black}
+                                  hoverColor={colors.redHover}
+                                  size="15px"
+                                  fontStyle={fonts.f400}
+                                  func={() => {
+                                    childClick();
+                                  }}
+                                >
+                                  {child.name}
+                                </LinkItem>
+                              )}
+                            </S.LeftBorder>
+
                             {isExpanded && child.childrenIds !== "" && (
                               <>
                                 {smallChildCategories(child)?.map(
@@ -237,17 +245,16 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                                         <S.HorizontalLine
                                           $isExpanded={child.childrenIds !== ""}
                                         />
-                                        <Link href={`/catalog/${childer.id}`}>
-                                          <Text
-                                            color={colors.black}
-                                            hoverColor={colors.redHover}
-                                            size="15px"
-                                            fontStyle={fonts.f400}
-                                            func={() => childClick()}
-                                          >
-                                            {childer.name}
-                                          </Text>
-                                        </Link>
+                                        <LinkItem
+                                          href={`/catalog/${childer.id}`}
+                                          color={colors.black}
+                                          hoverColor={colors.redHover}
+                                          size="15px"
+                                          fontStyle={fonts.f400}
+                                          func={() => childClick()}
+                                        >
+                                          {childer.name}
+                                        </LinkItem>
                                       </S.LeftBorder>
                                     );
                                   }

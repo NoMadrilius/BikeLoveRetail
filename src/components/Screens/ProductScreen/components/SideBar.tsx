@@ -1,20 +1,34 @@
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import { FC } from "react";
-import { keyframes, styled } from "styled-components";
+import { css, keyframes, styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
 import BlockWithFrame from "@/components/Screens/ContactsScreen/components/BlockWithFrame";
 import Image from "next/image";
+import useShopData from "@/helpers/hooks/useShopData";
+import Map from "./Map";
 
 type Props = {
   setVisible: any;
 };
 
-const SideBar: FC<Props> = ({ setVisible }) => {
+const SideBar = ({ setVisible }: Props) => {
+  const [shopData, loading, error] = useShopData();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <BlurWrapper setModal={setVisible}>
-      <Wrapper onClick={(e) => e.stopPropagation()}>
+      <Wrapper
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+      >
         <Icon
           width={18}
           height={18}
@@ -30,17 +44,23 @@ const SideBar: FC<Props> = ({ setVisible }) => {
         >
           НАЛИЧИЕ В МАГАЗИНАХ
         </Text>
-        <Text
+        {/* <Text
           color={colors.black}
           size="16px"
           fontStyle={fonts.f400}
           margin="0 0 40px 0"
         >
           Ваш город
-        </Text>
-        <BlockWithFrame sidebar />
-        <BlockWithFrame sidebar />
-        <BlockWithFrame sidebar />
+        </Text> */}
+        <AvailabilityContainer>
+          {shopData &&
+            shopData.map((shop) => (
+              <BlockWithFrame key={shop.id} shopData={shop} sidebar />
+            ))}
+        </AvailabilityContainer>
+        <FrameWrapper2>
+          <Map shopData={shopData} />
+        </FrameWrapper2>
       </Wrapper>
     </BlurWrapper>
   );
@@ -59,13 +79,21 @@ const slideInAnimation = keyframes`
 
 const Wrapper = styled.div`
   position: relative;
-  width: 360px;
+  width: 100%;
+  max-width: 670px;
   background-color: ${colors.white};
   height: 100vh;
   margin-left: auto;
   padding: 62px 15px;
   animation: ${slideInAnimation} 0.4s ease-out;
 `;
+
+const AvailabilityContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+`;
+
 const Icon = styled(Image)`
   position: absolute;
   top: 20px;
@@ -73,4 +101,10 @@ const Icon = styled(Image)`
   width: 18px;
   height: 18px;
   cursor: pointer;
+`;
+
+const FrameWrapper2 = styled.div`
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
 `;

@@ -1,30 +1,9 @@
 "use client";
-import React, { CSSProperties, FC } from "react";
-import { TextStyle } from "./TextStyles";
+import React, { FC } from "react";
+import { LinkItemStyle } from "./LinkItem.styles";
+import { LinkItemProps } from "./types";
 
-export type TextPtops = {
-  children: React.ReactNode;
-  color: string;
-  whiteSpace?: boolean;
-  preline?: boolean;
-  hoverColor?: string;
-  func?: () => void;
-
-  size?: string;
-  fontStyle?: {
-    fontFamily: string;
-    fontWeight: string;
-  };
-  margin?: string;
-  maxWidth?: string;
-  textAlign?: string;
-  textTransform?: "uppercase" | "lowecase";
-  textDecoration?: "trought";
-  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  style?: CSSProperties;
-};
-
-export const Text: FC<TextPtops> = ({
+export const LinkItem: FC<LinkItemProps> = ({
   children,
   color,
   size,
@@ -40,9 +19,11 @@ export const Text: FC<TextPtops> = ({
   preline,
   onMouseEnter,
   style,
+  href,
 }) => {
   return (
-    <TextStyle
+    <LinkItemStyle
+      href={href}
       style={style}
       onMouseEnter={onMouseEnter}
       onClick={() => func && func()}
@@ -60,6 +41,6 @@ export const Text: FC<TextPtops> = ({
       textDecoration={textDecoration}
     >
       {children}
-    </TextStyle>
+    </LinkItemStyle>
   );
 };

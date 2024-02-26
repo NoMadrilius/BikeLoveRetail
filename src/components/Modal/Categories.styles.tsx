@@ -2,9 +2,10 @@ import { CSSProperties, styled } from "styled-components";
 import { colors } from "../../../theme/colors";
 import { metrics } from "../../../theme/metrics";
 
-export const TitleWrapper = styled.div`
+export const TitleWrapper = styled.li`
   display: flex;
   position: relative;
+  color: black;
 `;
 
 export const HorizontalLine = styled.div<{ $isExpanded: boolean }>`
@@ -14,13 +15,13 @@ export const HorizontalLine = styled.div<{ $isExpanded: boolean }>`
   border-top: solid 1px black;
 `;
 
-export const LeftBorder = styled.div<{
+export const LeftBorder = styled.li<{
   $isExpanded: boolean;
   $lastChild: boolean;
   $leftMargin?: number;
 }>`
   border-left: 1px solid black;
-  padding: ${(props) => (props.$isExpanded ? "5px 10px 5px 0" : "")};
+  padding: ${(props) => (props.$isExpanded ? "0 10px 0 0" : "")};
 
   display: flex;
   align-items: center;
@@ -65,7 +66,7 @@ export const Wrapper = styled.div<{
     top: 74px;
   }
 `;
-export const MainColumn = styled.div`
+export const MainColumn = styled.ul`
   display: flex;
   flex-direction: column;
   background-color: ${colors.redBlur};
@@ -75,8 +76,14 @@ export const MainColumn = styled.div`
   row-gap: 20px;
   border-radius: 0 10px 10px 10px;
   /* overflow-y: auto; */
+  margin: 0;
 `;
-export const DetailsContainer = styled.div<{
+
+export const ListItem = styled.li`
+  list-style: none;
+`;
+
+export const DetailsContainer = styled.ul<{
   $top: number;
   $removePadding: number;
 }>`
