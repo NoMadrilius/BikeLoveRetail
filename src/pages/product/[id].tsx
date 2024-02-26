@@ -21,10 +21,13 @@ const ProductItem = (props: {
 }) => {
   let state = useProductPageStore();
   state.setData(props.product, props.options);
+
+  console.log(props.product);
+
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
-        {props.product ? <ProductScreen /> : <></>}
+        {props.product ? <ProductScreen /> : null}
       </PaddingWrapper>
     </>
   );
