@@ -28,12 +28,12 @@ class ProductStore {
   };
 
   fetchForYou = async () => {
-    console.log(authStore.loginUserResponse?.user?.id);
+    console.log(authStore.user?.id);
 
-    if (authStore.loginUserResponse?.user?.id) {
+    if (authStore.user?.id) {
       try {
         const response = await axiosInstance.get(
-          `/public/foryou?ClientId=${authStore.loginUserResponse?.user?.id}`
+          `/public/foryou?ClientId=${authStore.user?.id}`
         );
         this.forYou = response.data;
       } catch (error) {
@@ -42,12 +42,12 @@ class ProductStore {
     }
   };
   fetchSales = async () => {
-    console.log(authStore.loginUserResponse?.user?.id);
+    console.log(authStore.user?.id);
 
-    if (authStore.loginUserResponse?.user?.id) {
+    if (authStore.user?.id) {
       try {
         const response = await axiosInstance.get(
-          `/public/sales?ClientId=${authStore.loginUserResponse?.user?.id}`
+          `/public/sales?ClientId=${authStore.user?.id}`
         );
         this.sales = response.data;
       } catch (error) {

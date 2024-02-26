@@ -7,34 +7,13 @@ import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { useRouter } from "next/router";
 import { useCatalogStore } from "@/store/CatalogStore";
+import Pagination from "@/components/Pagination/Pagination";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const Products = () => {
-  const router = useRouter();
   const state = useCatalogStore();
-  const [currentPage, setCurrentPage] = useState(1);
+  const r = useRouter();
 
-  const onPagiClick = (number: number) => {
-    setCurrentPage(number);
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: number },
-    });
-  };
-  const onPagiArrowClick = (direction: "left" | "right") => {
-    let newPage;
-
-    if (direction === "left") {
-      newPage = Math.max(currentPage - 1, 1);
-    } else {
-      newPage = Math.min(currentPage + 1, state.catalogState!.totalPages);
-    }
-
-    setCurrentPage(newPage);
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, page: newPage },
-    });
-  };
   return (
     <MainWrapper>
       <GridContainer>
@@ -48,41 +27,7 @@ const Products = () => {
       </GridContainer>
 
       <PagiContainer>
-        <HoverableSvg
-          width="7"
-          height="12"
-          viewBox="0 0 7 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => onPagiArrowClick("left")}
-        >
-          <path d="M6.25 0.375L1.25 6L6.25 11.625" />
-        </HoverableSvg>
-        {Array.from({ length: state.catalogState!.totalPages }).map(
-          (x, index: number) => (
-            <Text
-              key={index}
-              color={
-                currentPage === index + 1 ? colors.black : colors.grayBorder
-              }
-              size="18"
-              fontStyle={currentPage === index + 1 ? fonts.f600 : fonts.f400}
-              func={() => onPagiClick(index + 1)}
-            >
-              {index + 1}
-            </Text>
-          )
-        )}
-        <HoverableSvgRight
-          width="7"
-          height="12"
-          viewBox="0 0 7 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => onPagiArrowClick("right")}
-        >
-          <path d="M6.25 0.375L1.25 6L6.25 11.625" />
-        </HoverableSvgRight>
+        <Pagination selected={state.catalogState!.page} pageList={Array.from({length: state.catalogState!.totalPages}, (_, i) => i + 1).map((n)=>GenerateLink(r,{queryParameters:{page:n}}))} />
       </PagiContainer>
     </MainWrapper>
   );
@@ -99,33 +44,6 @@ const PagiContainer = styled.div`
   column-gap: 20px;
   margin: 0 auto;
   margin-top: 50px;
-`;
-const HoverableSvg = styled.svg`
-  cursor: pointer;
-  path {
-    stroke: #aeaeae;
-    transition: stroke 0.3s ease;
-  }
-
-  &:hover {
-    path {
-      stroke: black;
-    }
-  }
-`;
-const HoverableSvgRight = styled.svg`
-  cursor: pointer;
-  transform: rotate(180deg);
-  path {
-    stroke: #aeaeae;
-    transition: stroke 0.3s ease;
-  }
-
-  &:hover {
-    path {
-      stroke: black;
-    }
-  }
 `;
 
 const GridContainer = styled.div`

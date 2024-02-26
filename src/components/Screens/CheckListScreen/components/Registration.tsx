@@ -4,8 +4,6 @@ import { Text } from "@/components/Text/Text";
 
 import { FC, useEffect, useState } from "react";
 
-import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
-import { useRouter } from "next/router";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import { showToast } from "@/helpers/alertService/alertService";
@@ -71,60 +69,26 @@ const Registration: FC<Props> = ({ setSendData }) => {
     setRedData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const user = authStore.user!
+
   useEffect(() => {
     if (activeTab === 1 && isAuth) {
-      setName(authStore.loginUserResponse.user.firstName);
-      setSurname(authStore.loginUserResponse.user.lastName);
-      setSecondName(authStore.loginUserResponse.user.patronymic);
-      setPhone(authStore.loginUserResponse.user.phoneNumber);
-      setEmail(authStore.loginUserResponse.user.email);
+      setName(user.firstName);
+      setSurname(user.lastName);
+      setSecondName(user.patronymic);
+      setPhone(user.phoneNumber);
+      setEmail(user.email);
     }
     if (activeTab === 2 && isAuth) {
       setRedData({
-        redEmail: authStore.loginUserResponse.user.email,
-        redLastName: authStore.loginUserResponse.user.lastName,
-        redName: authStore.loginUserResponse.user.firstName,
-        redPatronymic: authStore.loginUserResponse.user.patronymic,
+        redEmail: user.email,
+        redLastName: user.lastName,
+        redName: user.firstName,
+        redPatronymic: user.patronymic,
       });
     }
   }, [activeTab, authStore]);
-  const checkIsAuth = () => {
-    const fetchData = async () => {
-      const _isAuth = authStore.checkAuth();
-      //@ts-ignore
-      setIsAuth(_isAuth);
-      if (!_isAuth) {
-        try {
-          // Попытка обновить токен
-          console.log("success");
-          setActiveTab(0);
-          await authStore.refreshToken();
-        } catch (refreshError) {
-          // Обработка ошибки обновления токена
-          console.log("Failed to refresh token:", refreshError);
-        }
 
-        // После обновления токена, обновляем данные корзины и списка желаемого
-      } else {
-        setActiveTab(2);
-      }
-    };
-
-    fetchData();
-  };
-  useEffect(() => {
-    setSendData((prevSendData: IOrderData) => ({
-      ...prevSendData,
-      order: {
-        ...prevSendData.order,
-        clientId: authStore?.loginUserResponse?.user?.id,
-      },
-    }));
-  }, [authStore?.loginUserResponse?.user?.id]);
-
-  useEffect(() => {
-    checkIsAuth();
-  }, [authStore]);
 
   const updateSelfInfo = () => {
     const body = {
@@ -183,7 +147,6 @@ const Registration: FC<Props> = ({ setSendData }) => {
         },
         true
       );
-      checkIsAuth();
     } catch (error) {
       console.log(error);
     }
@@ -196,9 +159,9 @@ const Registration: FC<Props> = ({ setSendData }) => {
     !isRegPhoneValid ||
     !regData.regPassword ||
     !regData.regConfirmPassword ||
-    authStore?.loadingRegister;
+    authStore.loading;
   const loginDisabled =
-    !loginPassword.length || !isLoginPhoneValid || authStore.loadingLogin;
+    !loginPassword.length || !isLoginPhoneValid || authStore.loading;
 
   return (
     <>
@@ -330,7 +293,7 @@ const Registration: FC<Props> = ({ setSendData }) => {
               />
               <Button disabled={loginDisabled} onClick={() => loginHandle()}>
                 <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
-                  {authStore.loadingLogin ? <Loader /> : t("auth.enter")}
+                  {authStore.loading ? <Loader /> : t("auth.enter")}
                 </Text>
               </Button>
             </InputsContainer>

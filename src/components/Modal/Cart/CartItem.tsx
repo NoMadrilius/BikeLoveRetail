@@ -5,47 +5,42 @@ import { fonts } from "../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { templates } from "../../../../theme/templates";
 import { FC, useState } from "react";
-import { IProduct } from "@/types/types";
 import { useCartStore } from "@/store/CartStore";
 import { observer } from "mobx-react";
 import { useWishListStore } from "@/store/WishListStore";
 import { useRouter } from "next/router";
+import {Product} from "@/dataTransferObjects/entities/Product";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
-type Props = {
-  product: any;
-  updateTotalPrice: any;
-  setVisible: any;
-};
-
-const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
-  const cartStore = useCartStore();
+const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:number}}) => {
+  const state = useCartStore();
   const wishStore = useWishListStore();
   const router = useRouter();
+  const id = p.d.product.id
+  const product = p.d.product
+  const q = p.d.quantity
 
   const counterHandler = (symbol: string) => {
     if (symbol === "plus") {
-      cartStore.updateProductQuantity(product.id, product.quantity + 1);
-      updateTotalPrice(product.retailPrice);
+      state.updateProductQuantity(id, q + 1);
     }
-    if (symbol === "minus" && product.quantity > 1) {
-      cartStore.updateProductQuantity(product.id, product.quantity - 1);
-      updateTotalPrice(-product.retailPrice);
+    if (symbol === "minus" && q > 1) {
+      state.updateProductQuantity(id, q - 1);
     }
   };
   const removeItem = () => {
-    cartStore.removeFromCart(product.id);
-    updateTotalPrice(-product.retailPrice * product.quantity);
+    state.removeFromCart(id);
   };
   const likeItem = () => {
-    wishStore.addToWishList(product, product.image || null);
+    wishStore.addToWishList(p.d.product, null);
   };
 
   const productInWishList = wishStore.wishList?.some(
-    (i) => i.id === product?.id
+    (i) => i.id === id
   );
   const goToProduct = () => {
-    router.push(`/product/${product.id}`);
-    setVisible(false);
+    router.push(`/product/${id}`);
+    state.setVisible(false);
   };
   return (
     <Wrapper>
@@ -54,14 +49,14 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
         {productInWishList ? (
           <Icon
             src="/images/card/heart-red.svg"
-            onClick={() => wishStore?.removeFromWishList(product.id)}
+            onClick={() => wishStore?.removeFromWishList(id)}
           />
         ) : (
           <Icon src="/images/card/heart.svg" onClick={() => likeItem()} />
         )}
       </Options>
       <Picture
-        src={product.image || "/mock/NoPhoto.png"}
+        src={"/mock/NoPhoto.png"}
         onClick={() => goToProduct()}
       />
       <InfoContainer>
@@ -83,12 +78,12 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
               fontStyle={fonts.f400}
               textDecoration="trought"
             >
-              {prettyPrice(product?.oldRetailPrice)}
+              {prettyPrice(product.oldRetailPrice)}
             </Text>
           )}
 
           <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-            {prettyPrice(product?.retailPrice)}
+            {prettyPrice(product.retailPrice)}
           </Text>
         </InfoBottomContainer>
       </InfoContainer>
@@ -104,7 +99,7 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
           </Text>
           <CounterBox>
             <Text color={colors.black} size="17px" fontStyle={fonts.f400}>
-              {product.quantity}
+              {q}
             </Text>
           </CounterBox>
           <Text
@@ -123,7 +118,7 @@ const CartItem: FC<Props> = ({ product, updateTotalPrice, setVisible }) => {
           maxWidth="146px"
           whiteSpace
         >
-          {prettyPrice(product.quantity * product.retailPrice)}
+          {prettyPrice(q* product.retailPrice)}
         </Text>
       </RightContainer>
     </Wrapper>

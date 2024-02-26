@@ -30,7 +30,8 @@ const Step1 = ({ step }: any) => {
   const [gender, setGender] = useState<"Male" | "Female" | string>("");
 
   const authStore = useAuthStore();
-  const [isAuth, setIsAuth] = useState(false);
+
+  const user = authStore.user!
 
   const languageLabels: Record<string, string> = {
     English: "en",
@@ -53,37 +54,17 @@ const Step1 = ({ step }: any) => {
     return t(`account.step1.${genderKey}`);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const _isAuth = authStore.checkAuth();
-      //@ts-ignore
-      setIsAuth(_isAuth);
-      if (!_isAuth) {
-        try {
-          // Попытка обновить токен
-          console.log("success");
-          await authStore.refreshToken();
-        } catch (refreshError) {
-          // Обработка ошибки обновления токена
-          console.log("Failed to refresh token:", refreshError);
-        }
 
-        // После обновления токена, обновляем данные корзины и списка желаемого
-      }
-    };
-
-    fetchData();
-  }, []);
   useEffect(() => {
-    if (isAuth) {
-      setName(authStore.loginUserResponse.user.firstName);
-      setEmail(authStore.loginUserResponse.user.email);
-      setLastName(authStore.loginUserResponse.user.lastName);
-      setBike(authStore.loginUserResponse.user.bike);
-      setPatronymic(authStore.loginUserResponse.user.patronymic);
-      setBirthday(dayjs(authStore.loginUserResponse.user.birth));
+    if (authStore.isAuth) {
+      setName(user.firstName);
+      setEmail(user.email);
+      setLastName(user.lastName);
+      setBike(user.bike);
+      setPatronymic(user.patronymic);
+      setBirthday(dayjs(user.birth));
     }
-  }, [isAuth, step, authStore.loginUserResponse.user]);
+  }, [authStore.isAuth, step, authStore.user]);
 
   const updateInfo = async () => {
     const body = {

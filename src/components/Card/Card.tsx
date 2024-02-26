@@ -20,7 +20,7 @@ const Card = (props:{p:ProductFullData}) => {
   const cart = useCartStore();
 
   const prod = props.p.product
-  const productInCart = cart.cart?.some((i) => i.id === prod.id);
+  const productInCart = cart.cart.some((i) => i.product.id === prod.id);
 
   const productInWishList = wishStore.wishList?.some((i) => i.id === prod.id);
   const currStore = useCurrencyStore();
