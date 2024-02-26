@@ -1,88 +1,91 @@
+import { FC, useState } from "react";
 import { Text } from "@/components/Text/Text";
-import { css, styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import { FC, useState } from "react";
+import styled, { css } from "styled-components";
+import { ShopData } from "@/helpers/hooks/useShopData";
 
 type Props = {
+  shopData: ShopData;
   sidebar?: boolean;
 };
-//TODO добавить переводы после утверждения лейаута
-const BlockWithFrame: FC<Props> = ({ sidebar }) => {
+
+const BlockWithFrame = ({ shopData, sidebar }: Props) => {
   const [open, setOpen] = useState(false);
+
   return (
     <MainWrapper sidebar={sidebar}>
       <Wrapper>
-        <Text
-          color={colors.black}
-          size="16px"
-          fontStyle={fonts.f600}
-          whiteSpace
-        >
-          г. Киев
-          <br />
-          Веломагази Bikelove
-          <br />
-          ул. Данила Щербаковского
-        </Text>
-        <HiddenText sidebar={sidebar}>
+        <BlockInfo>
           <Text
             color={colors.black}
-            size="15px"
+            size="16px"
             fontStyle={fonts.f400}
             whiteSpace
           >
-            Режим роботи
-            <br />
-            ПН-ПТ: 10:00-18:00
-            <br />
-            СБ-ВС: 10:00-18:00
+            Веломагазин {shopData.name}
           </Text>
-        </HiddenText>
-        <OpenArrow
+          <Text
+            color={colors.black}
+            size="16px"
+            fontStyle={fonts.f400}
+            whiteSpace
+          >
+            {shopData.address.split(", ")[0]}. {shopData.address.split(", ")[1]}
+          </Text>
+        </BlockInfo>
+        <Text
+          color={colors.black}
+          size="15px"
+          fontStyle={fonts.f400}
+          whiteSpace
+          style={{ lineHeight: "24px" }}
+        >
+          Режим роботи
+          <br />
+          ПН-ПТ: 10:00-18:00
+          <br />
+          СБ-ВС: 10:00-18:00
+        </Text>
+        {/* <HiddenText sidebar={sidebar}></HiddenText> */}
+        {/* <OpenArrow
           src="/images/contacts/arrow.svg"
           open={open}
           sidebar={sidebar}
           onClick={() => setOpen(!open)}
-        />
-        <FrameWrapper sidebar={sidebar}>
+        /> */}
+        {/* <FrameWrapper sidebar={sidebar}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2538.9874851367085!2d30.4052962!3d50.4785767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0186deb2bb%3A0xa0965395ee27686a!2z0YPQuy4g0JTQsNC90LjQu9CwINCp0LXRgNCx0LDQutC40LLRgdC60L7Qs9C-LCA1OSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1702890029350!5m2!1sru!2sua"
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2538.9874851367085!2d30.4052962!3d50.4785767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0186deb2bb%3A0xa0965395ee27686a!2z0YPQuy4g0JTQsNC90LjQu9CwINCp0LXRgNCx0LDQutC40LLRgdC60L7Qs9C-LCA1OSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1702890029350!5m2!1sru!2sua`}
             width="100%"
             height="248"
             style={{ border: 0 }}
             loading="lazy"
           ></iframe>
-        </FrameWrapper>
+        </FrameWrapper> */}
       </Wrapper>
-      {open && (
+      {/* {open && (
         <FrameWrapper2>
-          <Text
-            color={colors.black}
-            size="15px"
-            fontStyle={fonts.f400}
-            whiteSpace
-            margin="0 0 20px 0"
-          >
-            Режим роботи
-            <br />
-            ПН-ПТ: 10:00-18:00
-            <br />
-            СБ-ВС: 10:00-18:00
-          </Text>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2538.9874851367085!2d30.4052962!3d50.4785767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0186deb2bb%3A0xa0965395ee27686a!2z0YPQuy4g0JTQsNC90LjQu9CwINCp0LXRgNCx0LDQutC40LLRgdC60L7Qs9C-LCA1OSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1702890029350!5m2!1sru!2sua"
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2538.9874851367085!2d30.4052962!3d50.4785767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0186deb2bb%3A0xa0965395ee27686a!2z0YPQuy4g0JTQsNC90LjQu9CwINCp0LXRgNCx0LDQutC40LLRgdC60L7Qs9C-LCA1OSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1702890029350!5m2!1sru!2sua`}
             width="100%"
             height="248"
             style={{ border: 0 }}
             loading="lazy"
           ></iframe>
         </FrameWrapper2>
-      )}
+      )} */}
     </MainWrapper>
   );
 };
+
 export default BlockWithFrame;
+
+const BlockInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 
 const MainWrapper = styled.div<{ sidebar?: boolean }>`
   display: flex;

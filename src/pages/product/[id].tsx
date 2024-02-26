@@ -94,6 +94,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 const ProductItem = ({ productData, options, images }: any) => {
+  console.log(productData);
+
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>

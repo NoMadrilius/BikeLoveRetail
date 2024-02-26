@@ -35,9 +35,9 @@ const ContactsScreen = () => {
         >
           {t("contacts")}
         </Text>
+        {/* <BlockWithFrame />
         <BlockWithFrame />
-        <BlockWithFrame />
-        <BlockWithFrame />
+        <BlockWithFrame /> */}
         <div style={{ paddingBottom: "100px" }}></div>
       </>
     </>

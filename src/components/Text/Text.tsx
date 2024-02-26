@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { CSSProperties, FC } from "react";
 import { TextStyle } from "./TextStyles";
 
 export type TextPtops = {
@@ -21,6 +21,7 @@ export type TextPtops = {
   textTransform?: "uppercase" | "lowecase";
   textDecoration?: "trought";
   onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  style?: CSSProperties;
 };
 
 export const Text: FC<TextPtops> = ({
@@ -38,9 +39,11 @@ export const Text: FC<TextPtops> = ({
   textDecoration,
   preline,
   onMouseEnter,
+  style,
 }) => {
   return (
     <TextStyle
+      style={style}
       onMouseEnter={onMouseEnter}
       onClick={() => func && func()}
       textAlign={textAlign}
