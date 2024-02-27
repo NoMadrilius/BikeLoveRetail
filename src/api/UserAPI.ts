@@ -6,5 +6,8 @@ import {SelfUpdateRequest} from "@/dataTransferObjects/request/SelfUpdateRequest
 export const UserAPI = {
     SelfUpdate(data:SelfUpdateRequest):Promise<AxiosResponse<User>>{
         return axiosInstance.put("/user/selfupdate",data);
+    },
+    GetSelf():Promise<AxiosResponse<User>>{
+        return axiosInstance.get("/user/getself");
     }
 }

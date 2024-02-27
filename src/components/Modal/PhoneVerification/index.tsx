@@ -1,45 +1,21 @@
 import { useState, useEffect } from "react";
-import axiosInstance from "@/api/axiosInstance";
 import * as S from "./index.styles";
-import usePhoneNumberConfirmed from "@/helpers/hooks/usePhoneNumberConfirmed";
+import {useAuthStore} from "@/store/AuthStore";
+import {AuthAPI} from "@/api/AuthAPI";
 
 const PhoneVerification = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
-  const [accessToken, setAccessToken] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
-  const phoneNumberConfirmed = usePhoneNumberConfirmed();
 
-  useEffect(() => {
-    try {
-      const authStoreData = JSON.parse(localStorage.getItem("AuthStore") || "");
-      if (authStoreData && authStoreData.accessToken && authStoreData.user) {
-        setAccessToken(authStoreData.accessToken);
-        setPhoneNumber(authStoreData.user.phoneNumber);
-      } else {
-        console.error("Invalid AuthStore data format:", authStoreData);
-      }
-    } catch (error) {
-      console.error("Error parsing AuthStore data:", error);
-    }
-  }, []);
+  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
+
+  const st = useAuthStore()
 
   const handleButtonClick = () => {
-    axiosInstance
-      .post("/auth/selfverif?verifType=BinoCall", null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
+    AuthAPI.SelfVerification().then((response) => {
         // Request successful, show verification inputs
         setShowVerification(true);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
   const handleInputChange = (index: number, value: string) => {
@@ -50,25 +26,13 @@ const PhoneVerification = () => {
 
   const handleSendNumbers = () => {
     const code = verificationCode.join("");
-    axiosInstance
-      .post(`/auth/confirmselfverif?verifType=BinoCall&code=${code}`, null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-
+    AuthAPI.ConfirmSelfVerification(code).then((response) => {
         setShowVerification(false);
         setConfirmationSuccess(true);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   };
 
-  return !phoneNumberConfirmed ? (
+  return (st.isAuth && !st.user!.phoneNumberConfirmed) ? (
     <S.Container>
       <>
         {showVerification ? (
@@ -93,7 +57,7 @@ const PhoneVerification = () => {
           </>
         ) : (
           <>
-            <S.Text>{`Будь ласка, підтвердіть свій номер ${phoneNumber}`}</S.Text>
+            <S.Text>{`Будь ласка, підтвердіть свій номер ${st.user!.phoneNumber}`}</S.Text>
             <S.GetCodeButton onClick={handleButtonClick}>
               Отримати код
             </S.GetCodeButton>

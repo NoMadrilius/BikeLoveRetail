@@ -29,7 +29,7 @@ const GearSelect: FC<Props> = ({ onClick, setVisible }) => {
   };
 
   return (
-    <BlurWrapper setModal={setVisible}>
+    <BlurWrapper>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         <SelectField>
           <Text

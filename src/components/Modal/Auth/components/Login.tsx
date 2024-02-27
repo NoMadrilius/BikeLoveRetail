@@ -11,7 +11,7 @@ import {useAuthStore} from "@/store/AuthStore";
 import {useTranslation} from "react-i18next";
 import {observer} from "mobx-react";
 
-const Login = () => {
+const Login = (p:{reloc?:boolean}) => {
     const { t } = useTranslation();
     const st = useAuthStore();
 
@@ -74,7 +74,7 @@ const Login = () => {
                     {t("auth.remindPassword")}
                 </Text>
             </RowContainer>
-            <Button disabled={loginDisabled} onClick={()=>{st.login(false)}}>
+            <Button disabled={loginDisabled} onClick={()=>{st.login(p.reloc)}}>
                 <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
                     {st.loading ? <Loader /> : t("auth.enter")}
                 </Text>
@@ -133,9 +133,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  margin: 120px auto;
-  margin-bottom: 0;
-  padding-bottom: 120px;
   @media (max-width: 600px) {
     width: 100%;
     padding: 30px 15px;

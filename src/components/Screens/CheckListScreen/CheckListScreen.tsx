@@ -50,7 +50,7 @@ const CheckListScreen = () => {
 
         <Container>
           <Left>
-            <Registration setSendData={setSendData} />
+            <Registration/>
             <DeliveryInfo setSendData={setSendData} />
             <PayInfo setSendData={setSendData} data={sendData} />
           </Left>

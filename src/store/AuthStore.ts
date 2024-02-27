@@ -10,6 +10,7 @@ import {LoginRequest} from "@/dataTransferObjects/request/LoginRequest";
 import {SelfUpdateRequest} from "@/dataTransferObjects/request/SelfUpdateRequest";
 import {UserAPI} from "@/api/UserAPI";
 import i18next from "i18next";
+import {router} from "next/client";
 
 class AuthStore {
   isAuth:boolean = false;
@@ -44,6 +45,15 @@ class AuthStore {
       properties: ["isAuth", "user", "accessToken", "step"],
       storage:window.localStorage
     });
+    this.initialize()
+  }
+
+  initialize(){
+    if(this.isAuth){
+      UserAPI.GetSelf().then(r=>{
+        this.user = r.data
+      })
+    }
   }
 
   register = async (noRelocate?: boolean) => {
@@ -109,7 +119,6 @@ class AuthStore {
     })
 
   };
-
   login = async (noRelocate?: boolean) => {
     let request:LoginRequest  ={
       phone:this.loginPhone.replace(/\s/g, ""),
@@ -145,22 +154,23 @@ class AuthStore {
       Router.push("/");
     })
   };
-  refreshToken = async () => {
+  refreshToken = async (os:()=>void, of:()=>void) => {
     await AuthAPI.Refresh().then(r=>{
       this.accessToken = r.data.accessToken
       this.isAuth = true
       this.loading = true
+      os()
     }).catch(e=>{
       this.isAuth = false
       this.accessToken = null
+      of()
+      showToast({
+        info: "Сессия устарела, повторите вход",
+        title: "Войдите",
+        type: "error",
+      });
+
     }).finally(()=>{this.loading = false})
-    /*
-    showToast({
-      info: "Авторизуйтесь знову",
-      title: "Сесія застаріла",
-      type: "error",
-    });
-     */
   };
 
   selfUpdate = async (request: SelfUpdateRequest) => {

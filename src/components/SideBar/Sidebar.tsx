@@ -57,7 +57,7 @@ const SideBar = ({ setVisible, cartVisible }: any) => {
   };
 
   return (
-    <BlurWrapper setModal={setVisible}>
+    <BlurWrapper>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         {step === 0 && (
           <>

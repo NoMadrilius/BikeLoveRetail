@@ -90,7 +90,7 @@ const SliderProducts = ({ images }: any) => {
         ))}
       </Swiper>
       {modalIsOpen && (
-        <BlurWrapper setModal={setModalIsOpen}>
+        <BlurWrapper>
           <ModalImg src={imgInModal} />
         </BlurWrapper>
       )}

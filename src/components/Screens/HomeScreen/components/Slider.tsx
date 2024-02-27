@@ -91,6 +91,7 @@ const Slider: FC<Props> = ({ items, tags, title, variant }) => {
 };
 
 export default Slider;
+
 const TagsContainer = styled.div`
   display: flex;
   width: 50%;

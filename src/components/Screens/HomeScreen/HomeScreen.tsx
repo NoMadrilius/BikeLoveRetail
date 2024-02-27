@@ -25,7 +25,6 @@ import {GenerateLink} from "@/helpers/GenerateLink";
 
 const HomeScreen = () => {
   const productStore = useProductStore();
-  const currencyStore = useCurrencyStore();
   const handleScrollToBottom = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
@@ -37,10 +36,7 @@ const HomeScreen = () => {
     productStore.fetchForYou();
   }, []);
   const { t } = useTranslation();
-  const authStore = useAuthStore();
-  const refresh = () => {
-    authStore.refreshToken();
-  };
+
   return (
     <>
       <UseMetaData title={"Home"} img={""} description={"asd"} />

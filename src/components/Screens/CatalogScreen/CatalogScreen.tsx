@@ -111,7 +111,7 @@ const CatalogScreen = () => {
         <TextBlock />
       </Wrapper>
       {filterVisible && (
-        <BlurWrapper setModal={setFilterVisible}>
+        <BlurWrapper>
           <Filter />
         </BlurWrapper>
       )}
