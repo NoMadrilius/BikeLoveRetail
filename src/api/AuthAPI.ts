@@ -1,7 +1,5 @@
-import {CatalogPageResponse} from "@/dataTransferObjects/response/CatalogPageResponse";
 import axiosInstance from "@/api/axiosInstance";
 import {LoginResponse} from "@/dataTransferObjects/response/LoginResponse";
-import {RegisterResponse} from "@/dataTransferObjects/response/RegisterResponse";
 import {LoginRequest} from "@/dataTransferObjects/request/LoginRequest";
 import {RegisterRequest} from "@/dataTransferObjects/request/RegisterRequest";
 import {AxiosResponse} from "axios";
@@ -11,8 +9,8 @@ export const AuthAPI = {
     Login(data:LoginRequest):Promise<AxiosResponse<LoginResponse>>{
         return axiosInstance.post<LoginResponse>("/auth/login", data)
     },
-    Register(data:RegisterRequest):Promise<AxiosResponse<RegisterResponse>>{
-        return axiosInstance.post<RegisterResponse>("/auth/register", data);
+    Register(data:RegisterRequest):Promise<AxiosResponse<LoginResponse>>{
+        return axiosInstance.post<LoginResponse>("/auth/register", data);
     },
 
     Refresh():Promise<AxiosResponse<RefreshResponse>>{

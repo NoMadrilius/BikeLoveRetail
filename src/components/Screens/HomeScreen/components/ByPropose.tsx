@@ -8,6 +8,7 @@ import { metrics } from "../../../../../theme/metrics";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 type Props = {
   items: {
@@ -35,30 +36,32 @@ const ByPropose: FC<Props> = ({ items }) => {
         </Text>
         <GridContainer>
           {items.map((el, index) => (
-            <CardWrapper key={index} onClick={() => router.push(el.link)}>
-              <Picture
-                width={200}
-                height={100}
-                alt="Propose Image"
-                src={el.picture}
-              />
-              <Text
-                color={colors.black}
-                size="16px"
-                fontStyle={fonts.f500}
-                margin="0 auto 0 0"
-              >
-                {el.title}
-              </Text>
-              <Text
-                color={colors.grayMain}
-                size="12px"
-                fontStyle={fonts.f500}
-                margin="0 auto 0 0"
-              >
-                {el.count} {t("home.items.bikes")}
-              </Text>
-            </CardWrapper>
+            <Link href={el.link||"/"}>
+              <CardWrapper key={index}>
+                <Picture
+                    width={200}
+                    height={100}
+                    alt="Propose Image"
+                    src={el.picture}
+                />
+                <Text
+                    color={colors.black}
+                    size="16px"
+                    fontStyle={fonts.f500}
+                    margin="0 auto 0 0"
+                >
+                  {el.title}
+                </Text>
+                <Text
+                    color={colors.grayMain}
+                    size="12px"
+                    fontStyle={fonts.f500}
+                    margin="0 auto 0 0"
+                >
+                  {el.count} {t("home.items.bikes")}
+                </Text>
+              </CardWrapper>
+            </Link>
           ))}
         </GridContainer>
       </Wrapper>

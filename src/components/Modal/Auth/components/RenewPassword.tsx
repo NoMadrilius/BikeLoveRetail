@@ -2,19 +2,15 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import { css, keyframes, styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import axios from "axios";
 import { showToast } from "@/helpers/alertService/alertService";
 import { templates } from "../../../../../theme/templates";
 import { Text } from "@/components/Text/Text";
 import InputMask from "react-input-mask";
 import Loader from "@/helpers/Loader/Loader";
 import axiosInstance from "@/api/axiosInstance";
+import {useAuthStore} from "@/store/AuthStore";
 
-type Props = {
-  setMainStep: any;
-};
-
-const RenewPassword: FC<Props> = ({ setMainStep }) => {
+const RenewPassword= () => {
   const [step, setStep] = useState<"number" | "code" | "password">("number");
   const [error, setError] = useState(false);
   const [number, setNumber] = useState("");
@@ -24,6 +20,8 @@ const RenewPassword: FC<Props> = ({ setMainStep }) => {
   const [loading, setLoading] = useState(false);
 
   const [newPsswordInputVisible, setNewPsswordInputVisible] = useState(false);
+
+  const st = useAuthStore()
 
   const requestCodeDisabled = number.replace(/[^0-9]/g, "").length >= 12;
   const onClickRequestCode = async () => {
@@ -61,7 +59,7 @@ const RenewPassword: FC<Props> = ({ setMainStep }) => {
         title: "Успешно",
         type: "success",
       });
-      setMainStep(0);
+      st.setStep(0);
     } catch (error) {
       console.log(error);
       setLoading(false);

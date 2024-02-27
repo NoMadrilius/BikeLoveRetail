@@ -122,34 +122,10 @@ const Registration: FC<Props> = ({ setSendData }) => {
         type: "error",
       });
     }
-    try {
-      authStore.register(
-        {
-          email: regData.regEmail,
-          firstName: regData.regName,
-          lastName: regData.regLastName,
-          password: regData.regPassword,
-          patronymic: regData.regPatronymic,
-          phone: regData.regPhone.replace(/\s/g, ""),
-        },
-        true
-      );
-    } catch (error) {
-      console.log(error);
-    }
+
   };
   const loginHandle = async () => {
-    try {
-      await authStore.login(
-        {
-          password: loginPassword,
-          phone: loginPhone.replace(/\s/g, ""),
-        },
-        true
-      );
-    } catch (error) {
-      console.log(error);
-    }
+
   };
 
   const registerDisabled =

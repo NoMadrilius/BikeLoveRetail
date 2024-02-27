@@ -1,10 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
-import axios from "axios";
-import * as jose from "jose";
 import { showToast } from "@/helpers/alertService/alertService";
 import Router from "next/router";
-import axiosInstance from "@/api/axiosInstance";
 import {makePersistable} from "mobx-persist-store";
 import {User} from "@/dataTransferObjects/entities/User";
 import {RegisterRequest} from "@/dataTransferObjects/request/RegisterRequest";
@@ -12,6 +9,7 @@ import {AuthAPI} from "@/api/AuthAPI";
 import {LoginRequest} from "@/dataTransferObjects/request/LoginRequest";
 import {SelfUpdateRequest} from "@/dataTransferObjects/request/SelfUpdateRequest";
 import {UserAPI} from "@/api/UserAPI";
+import i18next from "i18next";
 
 class AuthStore {
   isAuth:boolean = false;
@@ -20,20 +18,78 @@ class AuthStore {
   accessToken:string|null=null;
   loading: boolean = false;
 
+  /// Login Data
+  loginPhone = ""
+  loginPassword = ""
+
+  /// Register Data
+  regName= ""
+  regLastName= ""
+  regPatronymic= ""
+  regEmail= ""
+  regPhone= ""
+  regPassword= ""
+  regConfirmPassword= ""
+
+  step = 0
+
+  emailError = false
+  passwordsError = false
+
   constructor() {
     makeAutoObservable(this);
     if(typeof window !== "undefined")
     makePersistable(this, {
       name: "authStore",
-      properties: ["isAuth", "user"],
+      properties: ["isAuth", "user", "accessToken", "step"],
       storage:window.localStorage
     });
   }
 
-  register = async (request: RegisterRequest, noRelocate?: boolean) => {
+  register = async (noRelocate?: boolean) => {
+
+    const validateEmail = (email: string) => {
+      const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegExp.test(email);
+    };
+
+    if (this.regPassword !== this.regConfirmPassword) {
+      this.passwordsError = true
+      setTimeout(() => {
+        this.passwordsError = false
+      }, 3000);
+      return showToast({
+        info: i18next.t("auth.toast.passwordError"),
+        title: i18next.t("auth.toast.error"),
+        type: "error",
+      });
+    }
+    if (!validateEmail(this.regEmail)) {
+      this.emailError = true
+      setTimeout(() => {
+        this.emailError = false
+      }, 3000);
+      return showToast({
+        info: i18next.t("auth.toast.emailError"),
+        title: i18next.t("auth.toast.error"),
+        type: "error",
+      });
+    }
+
+    let request:RegisterRequest = {
+      firstName: this.regName,
+      lastName: this.regLastName,
+      patronymic: this.regPatronymic,
+      email: this.regEmail,
+      phone: this.regPhone.replace(/\s/g, ""),
+      password: this.regPassword
+    }
+
     this.loading = true;
     await AuthAPI.Register(request).then(r=>{
-      //this.user = r.data.user
+      this.isAuth = true
+      this.user = r.data.user
+      this.accessToken = r.data.accessToken
       if (!noRelocate) {
         Router.push("/");
       }
@@ -53,7 +109,12 @@ class AuthStore {
     })
 
   };
-  login = async (request: LoginRequest, noRelocate?: boolean) => {
+
+  login = async (noRelocate?: boolean) => {
+    let request:LoginRequest  ={
+      phone:this.loginPhone.replace(/\s/g, ""),
+      password:this.loginPassword
+    }
     this.loading = true
     await AuthAPI.Login(request).then(r=>{
       this.isAuth = true
@@ -120,6 +181,18 @@ class AuthStore {
     }).finally(()=>this.loading = false)
   };
 
+  setLoginPhone(v:string){this.loginPhone = v}
+  setLoginPassword(v:string){this.loginPassword = v}
+
+  setRegName(v:string){this.regName = v}
+  setRegLastName(v:string){this.regLastName = v}
+  setRegPatronymic(v:string){this.regPatronymic = v}
+  setRegEmail(v:string){this.regEmail = v}
+  setRegPhone(v:string){this.regPhone = v}
+  setRegPassword(v:string){this.regPassword = v}
+  setRegConfirmPassword(v:string){this.regConfirmPassword = v}
+
+  setStep(v:number){this.step = v}
 }
 
 const authStore = new AuthStore();
