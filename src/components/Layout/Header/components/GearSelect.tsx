@@ -30,7 +30,7 @@ const GearSelect: FC<Props> = ({ onClick}) => {
   };
 
   return (
-    <BlurWrapper>
+    <BlurWrapper onClick={()=>as.setIsOpenSettings(false)}>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         <SelectField>
           <Text

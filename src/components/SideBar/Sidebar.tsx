@@ -61,7 +61,7 @@ const SideBar = () => {
   };
 
   return (
-    <BlurWrapper>
+    <BlurWrapper onClick={()=>{as.setIsOpenSidebar(false)}}>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         {step === 0 && (
           <>

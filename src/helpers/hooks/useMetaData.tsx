@@ -4,7 +4,7 @@ import { CONFIG } from "../../../config";
 import {useRouter} from "next/router";
 type Props = {
   title: string;
-  img: string;
+  img?: string|undefined;
   description: string;
 };
 export const UseMetaData: FC<Props> = ({ title, img, description }) => {

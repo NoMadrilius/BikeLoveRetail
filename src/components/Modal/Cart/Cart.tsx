@@ -27,7 +27,7 @@ const Cart = () => {
   };
 
   return (
-    <BlurWrapper>
+    <BlurWrapper onClick={()=>{cartStore.setVisible(false);}}>
       <ContentWrapper onClick={(e) => e.stopPropagation()}>
         <CloseButton
           src="/icons/close_black.png"

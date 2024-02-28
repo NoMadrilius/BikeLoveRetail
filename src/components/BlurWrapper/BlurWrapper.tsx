@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { templates } from "../../../theme/templates";
 import { colors } from "../../../theme/colors";
 
-const BlurWrapper= (p:{ children : any }) => {
-  return <Wrapper>{p.children}</Wrapper>;
+const BlurWrapper= (p:any) => {
+  return <Wrapper {...p}/>;
 };
 export default BlurWrapper;
 

@@ -160,22 +160,21 @@ class AuthStore {
       Router.push("/");
     })
   };
-  refreshToken = async (os:()=>void, of:()=>void) => {
-    await AuthAPI.Refresh().then(r=>{
+  refreshToken = async () => {
+    AuthAPI.Refresh().then(r=>{
       this.accessToken = r.data.accessToken
       this.isAuth = true
       this.loading = true
-      os()
+      return Promise.resolve(r)
     }).catch(e=>{
-      this.isAuth = false
-      this.accessToken = null
-      of()
+      //this.isAuth = false
+      //this.accessToken = null
       showToast({
         info: "Сессия устарела, повторите вход",
         title: "Войдите",
         type: "error",
       });
-
+      return Promise.reject(e)
     }).finally(()=>{this.loading = false})
   };
 
