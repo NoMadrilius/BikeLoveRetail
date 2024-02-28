@@ -24,7 +24,7 @@ axiosInstance.interceptors.response.use(function (response) {
   console.log('Response:',response)
   return response;
 }, (error: AxiosError) => {
-  console.warn('Ошибка:', error.response?.data)
+  console.warn('Ошибка:', error)
   return Promise.reject(error);
 });
 
