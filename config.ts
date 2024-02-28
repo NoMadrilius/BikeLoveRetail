@@ -2,9 +2,9 @@ type RunMode = "DEV" | "PROD";
 
 const RUN_MODE: RunMode = "PROD";
 
+const BASE_URL_SERVER = "http://localhost:5000/api"
 const BASE_URL = {
   DEV: "https://bikeshop.1gb.ua/api",
-  //PROD: "http://localhost:5000/api",
   PROD: "https://api.bikelove.com.ua/api",
 };
 const IMG_URL = {
@@ -15,6 +15,7 @@ const IMG_URL = {
 const AUTH0_REDIRECT = BASE_URL[RUN_MODE];
 
 export const CONFIG = {
+  BASE_URL_SERVER:BASE_URL_SERVER,
   BASE_URL: BASE_URL[RUN_MODE],
   IMG_URL: IMG_URL[RUN_MODE],
   AUTH0: {

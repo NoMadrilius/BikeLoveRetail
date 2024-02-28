@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import * as S from "./index.styles";
-import {useAuthStore} from "@/store/AuthStore";
+import authStore, {useAuthStore} from "@/store/AuthStore";
 import {AuthAPI} from "@/api/AuthAPI";
+import {observer} from "mobx-react";
 
 const PhoneVerification = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
 
-  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
 
   const st = useAuthStore()
 
@@ -28,7 +28,6 @@ const PhoneVerification = () => {
     const code = verificationCode.join("");
     AuthAPI.ConfirmSelfVerification(code).then((response) => {
         setShowVerification(false);
-        setConfirmationSuccess(true);
       })
   };
 
@@ -68,4 +67,4 @@ const PhoneVerification = () => {
   ) : null;
 };
 
-export default PhoneVerification;
+export default observer(PhoneVerification);

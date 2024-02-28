@@ -10,7 +10,6 @@ import {LoginRequest} from "@/dataTransferObjects/request/LoginRequest";
 import {SelfUpdateRequest} from "@/dataTransferObjects/request/SelfUpdateRequest";
 import {UserAPI} from "@/api/UserAPI";
 import i18next from "i18next";
-import {router} from "next/client";
 
 class AuthStore {
   isAuth:boolean = false;
@@ -39,19 +38,26 @@ class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
-    if(typeof window !== "undefined")
-    makePersistable(this, {
-      name: "authStore",
-      properties: ["isAuth", "user", "accessToken", "step"],
-      storage:window.localStorage
-    });
-    this.initialize()
+    if(typeof window !== "undefined"){
+      makePersistable(this, {
+        name: "authStore",
+        properties: ["isAuth", "user", "accessToken", "step"],
+        storage:window.localStorage
+      }).finally(()=>{
+        this.initialize()
+      });
+
+    }
   }
 
   initialize(){
+    console.log('authIniting', this.isAuth)
     if(this.isAuth){
       UserAPI.GetSelf().then(r=>{
+        console.log('uodRes:',r)
         this.user = r.data
+      }).catch(()=>{
+        //this.isAuth = false
       })
     }
   }
