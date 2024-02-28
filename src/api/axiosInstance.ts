@@ -5,7 +5,7 @@ import {AxiosError} from "axios/index";
 
 const axiosInstance : AxiosInstance = axios.create({
   //baseURL: typeof window === 'undefined' ? CONFIG.BASE_URL_SERVER : CONFIG.BASE_URL,
-  baseURL: "http://localhost:5000/api",
+  baseURL: "http://host.docker.internal:5000/api",
   headers: {
     "Content-Type": "application/json",
   },
