@@ -7,25 +7,26 @@ import { fonts } from "../../../../../theme/fonts";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import {useAppStore} from "@/store/AppStore";
 
 type Props = {
   onClick: any;
-  setVisible: any;
 };
 
-const GearSelect: FC<Props> = ({ onClick, setVisible }) => {
+const GearSelect: FC<Props> = ({ onClick}) => {
   const currStore = useCurrencyStore();
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const [openLang, setOpenLang] = useState(false);
+  const as = useAppStore()
 
   const clickCurr = (curr: string) => {
     onClick(curr);
-    setVisible(false);
+    as.setIsOpenSettings(false)
   };
   const clickLang = (lang: string) => {
     i18n.changeLanguage(lang);
-    setVisible(false);
+    as.setIsOpenSettings(false)
   };
 
   return (
