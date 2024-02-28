@@ -4,8 +4,7 @@ import authStore from "@/store/AuthStore";
 import {AxiosError} from "axios/index";
 
 const axiosInstance : AxiosInstance = axios.create({
-  //baseURL: typeof window === 'undefined' ? CONFIG.BASE_URL_SERVER : CONFIG.BASE_URL,
-  baseURL: "http://host.docker.internal:5000/api",
+  baseURL: typeof window === 'undefined' ? CONFIG.BASE_URL_SERVER : CONFIG.BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
