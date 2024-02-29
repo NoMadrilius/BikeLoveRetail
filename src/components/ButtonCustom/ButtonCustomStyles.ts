@@ -3,7 +3,7 @@ import { fonts } from "../../../theme/fonts";
 import { templates } from "../../../theme/templates";
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div<{
+export const Wrapper = styled.button<{
   buttonActive?: boolean;
   width: string;
   height: string;

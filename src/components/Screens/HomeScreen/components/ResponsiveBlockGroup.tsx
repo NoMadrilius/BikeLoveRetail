@@ -6,6 +6,7 @@ import { fonts } from "../../../../../theme/fonts";
 import { Children } from "react";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { useTranslation } from "react-i18next";
+import { Paragraph, SecondaryTitle, Subtitle } from "../HomeScreenStyles";
 
 const GROUP1 = [
   {
@@ -66,23 +67,33 @@ const Block = ({ title, subTitle, bgColor, bg, size, children }: any) => {
 
 export const ResponsiveBlockGroup = ({ variant }: any) => {
   const { t } = useTranslation();
+
   return (
     <MainWrapper>
       {variant === "1" && (
         <>
           <Container>
-            <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+            <SecondaryTitle $fontStyle={fonts.f500}>
               {t("home.blockGroups.text1")}
-            </Text>
+            </SecondaryTitle>
             <ContainerRow>
               <Block {...GROUP1[0]} />
               <Block {...GROUP1[1]}>
-                <Text color={colors.white} size="39px" fontStyle={fonts.f700}>
+                <Subtitle
+                  color={colors.white}
+                  $fontSize="39px"
+                  $fontWeight="700"
+                >
                   {t("home.blockGroups.text2")}
-                </Text>
-                <Text color={colors.white} size="19px" fontStyle={fonts.f500}>
+                </Subtitle>
+
+                <Paragraph
+                  $color={colors.white}
+                  $fontSize="19px"
+                  $fontStyle={fonts.f500}
+                >
                   {t("home.blockGroups.text3")}
-                </Text>
+                </Paragraph>
                 <Input placeholder={t("home.blockGroups.text12")} />
                 <ButtonCustom
                   width={"264px"}
@@ -98,17 +109,26 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
       {variant === "2" && (
         <>
           <Container>
-            <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+            <SecondaryTitle $fontStyle={fonts.f500}>
               {t("home.blockGroups.text4")}
-            </Text>
+            </SecondaryTitle>
             <ContainerRow>
               <Block {...GROUP2[0]}>
-                <Text color={colors.white} size="39px" fontStyle={fonts.f700}>
+                <Subtitle
+                  color={colors.white}
+                  $fontSize="39px"
+                  $fontWeight="700"
+                >
                   {t("home.blockGroups.text5")}
-                </Text>
-                <Text color={colors.white} size="19px" fontStyle={fonts.f500}>
+                </Subtitle>
+
+                <Paragraph
+                  $color={colors.white}
+                  $fontSize="19px"
+                  $fontStyle={fonts.f500}
+                >
                   {t("home.blockGroups.text6")}
-                </Text>
+                </Paragraph>
                 <Text
                   color={"rgba(255, 255, 255, 0.5)"}
                   size="16px"
@@ -120,17 +140,21 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
               <Block {...GROUP2[1]} />
             </ContainerRow>
             <Block {...GROUP2[2]}>
-              <Text color={colors.white} size="39px" fontStyle={fonts.f700}>
+              <SecondaryTitle
+                $fontSize="39px"
+                $color="white"
+                $fontStyle={fonts.f700}
+              >
                 {t("home.blockGroups.text9")}
-              </Text>
-              <Text
-                color={colors.white}
-                size="21px"
-                fontStyle={fonts.f500}
-                preline
+              </SecondaryTitle>
+
+              <Paragraph
+                $color={colors.white}
+                $fontSize="21px"
+                $fontStyle={fonts.f500}
               >
                 {t("home.blockGroups.text8")}
-              </Text>
+              </Paragraph>
               <ButtonCustom
                 width={"264px"}
                 height={"50px"}
@@ -144,9 +168,13 @@ export const ResponsiveBlockGroup = ({ variant }: any) => {
       {variant === "3" && (
         <>
           <Block {...GROUP2[3]}>
-            <Text color={colors.white} size="39px" fontStyle={fonts.f700}>
+            <SecondaryTitle
+              $fontSize="39px"
+              $color="white"
+              $fontStyle={fonts.f700}
+            >
               {t("home.blockGroups.text10")}
-            </Text>
+            </SecondaryTitle>
             <Text
               color={colors.white}
               size="21px"
@@ -197,7 +225,7 @@ const BlockWrapper = styled.div<{
     padding: 24px 24px 24px 24px;
   }
 `;
-const MainWrapper = styled.div`
+const MainWrapper = styled.section`
   margin-top: 31px;
   @media (max-width: ${metrics.mobile}) {
     margin-top: 30px;

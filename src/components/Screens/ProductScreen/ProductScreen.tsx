@@ -34,21 +34,20 @@ import axios from "axios";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import SideBar from "./components/SideBar";
 import Image from "next/image";
-import {useProductPageStore} from "@/store/ProductPageStore";
+import { useProductPageStore } from "@/store/ProductPageStore";
 
 const ProductScreen = () => {
-
-  const state = useProductPageStore()
-  const cart = useCartStore()
+  const state = useProductPageStore();
+  const cart = useCartStore();
 
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [productInWishList, setProductInWishList] = useState<boolean>();
   const [priceStr, setPriceStr] = useState<any>();
 
-  const productData = state.product!
+  const productData = state.product!;
 
   const onClickCart = () => {
-    cart.addToCart(state.possibleProducts[0],state.product!)
+    cart.addToCart(state.possibleProducts[0], state.product!);
   };
 
   return (
@@ -80,7 +79,12 @@ const ProductScreen = () => {
               </Text>
             </RowContainer>
           </Res2Text>
-          <SliderContainer images={productData.productImages.length > 0 && productData.productImages.length !== 1}>
+          <SliderContainer
+            images={
+              productData.productImages.length > 0 &&
+              productData.productImages.length !== 1
+            }
+          >
             <FakeBlock>
               {productData.productImages.length ? (
                 <SliderProducts images={productData.productImages} />
@@ -122,7 +126,7 @@ const ProductScreen = () => {
                 </Text>
               </RowContainer>
             </Res1Text>
-            <OptionsProduct/>
+            <OptionsProduct />
             {/*
             <RowContainer style={{ alignItems: "center", marginTop: "27px" }}>
               <Text color={colors.black} size="14px" fontStyle={fonts.f500}>
@@ -222,7 +226,7 @@ const ProductScreen = () => {
                   <CustomP>Заказ в 1 клик</CustomP>
                 </>
               </ButtonCustom>
-              <LikeBtn liked={!!productInWishList} onClick={()=>{}}>
+              <LikeBtn liked={!!productInWishList} onClick={() => {}}>
                 <Image
                   width={22}
                   height={20}
@@ -234,9 +238,7 @@ const ProductScreen = () => {
           </InfoContainer>
           {/* ======Info Container===== */}
         </MainContainer>
-        {
-        <DescChar/>
-        }
+        <DescChar />
         <ColumnContainer style={{ rowGap: "100px", margin: "100px 0" }}>
           {/* <Slider
 						title={"байки из той серии"}

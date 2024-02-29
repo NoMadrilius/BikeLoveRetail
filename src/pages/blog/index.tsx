@@ -3,11 +3,9 @@ import { PaddingWrapper } from "../../../theme/templates";
 
 const Blog = () => {
   return (
-    <>
-      <PaddingWrapper>
-        <BlogScreen />
-      </PaddingWrapper>
-    </>
+    <PaddingWrapper>
+      <BlogScreen />
+    </PaddingWrapper>
   );
 };
 export default Blog;

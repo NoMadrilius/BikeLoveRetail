@@ -7,6 +7,11 @@ import DeliveryInfo from "./DeliveryInfo";
 import PaymentOptions from "./PaymentOptions";
 import { useTranslation } from "react-i18next";
 import * as S from "./AboutDeliveryScreen.styles";
+import {
+  MainTitle,
+  Paragraph,
+  SecondaryTitle,
+} from "../HomeScreen/HomeScreenStyles";
 
 const AboutDeliveryScreen = () => {
   const { t } = useTranslation();
@@ -20,34 +25,39 @@ const AboutDeliveryScreen = () => {
     <>
       <UseMetaData title={t("delivery.title")} img={""} description={""} />
       <BreadCrumbs road={road} />
-      <Text
-        color={colors.black}
-        size="42px"
-        fontStyle={fonts.f500}
-        textTransform="uppercase"
+
+      <MainTitle
+        $color={colors.black}
+        $fontSize="42px"
+        $fontStyle={fonts.f500}
+        $textTransform="uppercase"
       >
         {t("delivery.heading")}
-      </Text>
+      </MainTitle>
       <S.RowContainer>
         <S.Picture bg="/images/about/delivery/image1.png">
-          <Text color={colors.white} size="28px" fontStyle={fonts.f700}>
+          <SecondaryTitle
+            $color="white"
+            $fontSize="28px"
+            $fontStyle={fonts.f700}
+          >
             {t("delivery.importantToKnow")}
-          </Text>
-          <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
+          </SecondaryTitle>
+
+          <Paragraph
+            color={colors.white}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
             {t("delivery.importantToKnowDescription")}
-          </Text>
+          </Paragraph>
         </S.Picture>
         <S.Picture bg="/images/about/delivery/image2.png"></S.Picture>
       </S.RowContainer>
       <S.TextContainer>
-        <Text
-          color={colors.black}
-          size="28px"
-          fontStyle={fonts.f600}
-          textAlign="center"
-        >
+        <SecondaryTitle $color="black" $fontSize="28px" $fontStyle={fonts.f600}>
           {t("delivery.fastReliableProfessional")}
-        </Text>
+        </SecondaryTitle>
         {/* <Text
           color={colors.black}
           size="16px"

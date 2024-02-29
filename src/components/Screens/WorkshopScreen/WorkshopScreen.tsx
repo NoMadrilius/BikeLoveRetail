@@ -6,6 +6,23 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { styled } from "styled-components";
 import Slider from "./components/Slider";
 import { sliderGallery } from "@/mock/data";
+import {
+  LiItem,
+  MainTitle,
+  Paragraph,
+  SecondaryTitle,
+} from "../HomeScreen/HomeScreenStyles";
+import ServiceComponent from "./components/ServiceComponent";
+
+const servicesItems = [
+  "заменить велокамеру;",
+  "подкачать колеса;",
+  "смазать цепь;",
+  "настроить трансмиссию;",
+  "перебрать амортизационную вилку;",
+  "заменить сломанную деталь и др.",
+  "В работе мы используем только фирменный специализированный инструмент и расходные материалы таких известных производителей как Park Tool и IceToolz",
+];
 
 const WorkshopScreen = () => {
   const road = [{ title: "Мастерская", link: "" }];
@@ -13,129 +30,136 @@ const WorkshopScreen = () => {
     <>
       <UseMetaData title={"Мастерская"} img={""} description={""} />
       <BreadCrumbs road={road} />
-      <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+
+      <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
         МАСТРЕСКАЯ
-      </Text>
+      </MainTitle>
       <RowContainer>
         <Picture>
-          <Text
-            color={colors.white}
-            size="28px"
-            fontStyle={fonts.f700}
-            textTransform="uppercase"
+          <SecondaryTitle
+            $color="white"
+            $fontSize="28px"
+            $fontStyle={fonts.f700}
+            $textTransform="uppercase"
           >
             мы не только продаем велосипеды
-          </Text>
-          <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
+          </SecondaryTitle>
+
+          <Paragraph
+            color={colors.white}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
             В каждом магазине есть полноценная веломастерская, в которой мы
             оказываем услуги гарантийного и послегарантийного обслуживания и
             ремонта велосипедов. Преимуществом пользуются клиенты, которые
             приобрели велосипед в сети магазинов
-          </Text>
+          </Paragraph>
         </Picture>
-        <Picture bg="/images/workshop/image2.png"></Picture>
+        <Picture bg="/images/workshop/image2.png" />
       </RowContainer>
-      <Text
-        color={colors.black}
-        size="40px"
-        fontStyle={fonts.f700}
-        margin="65px 0 25px 0"
+
+      <SecondaryTitle
+        $color="black"
+        $fontSize="40px"
+        $fontStyle={fonts.f700}
+        $margin="65px 0 25px 0"
       >
         О мастерской
-      </Text>
-      <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-        В каждом магазине есть полноценная веломастерская, в которой мы
-        оказываем услуги гарантийного и послегарантийного обслуживания и ремонта
-        велосипедов.
-        <br />
-        <br /> Все веломастерские работают по предварительной записи.
-        Преимуществом пользуются клиенты, которые приобрели велосипед в сети
-        магазинов . Для получения услуг, предусмотренных гарантией, необходимое
-        наличие документа на велосипед (паспорт и чек).
-        <br />
-        <br /> Покупали не у нас, но хотите сделать техническое обслуживание
-        велосипеда или ремонт? Нет ничего проще! Вам необходимо позвонить в
-        магазин &quot;Велопланета&quot;, согласовать удобное время и привезти
-        свой байк в нашу мастерскую. Обратите внимание, что велосипеды
-        принимаются в работу только в чистом виде.
-      </Text>
-      <Text
-        color={colors.black}
-        size="40px"
-        fontStyle={fonts.f700}
-        margin="65px 0 25px 0"
+      </SecondaryTitle>
+      <ParagraphContainer>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          В каждом магазине есть полноценная веломастерская, в которой мы
+          оказываем услуги гарантийного и послегарантийного обслуживания и
+          ремонта велосипедов.
+        </Paragraph>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          Все веломастерские работают по предварительной записи. Преимуществом
+          пользуются клиенты, которые приобрели велосипед в сети магазинов . Для
+          получения услуг, предусмотренных гарантией, необходимое наличие
+          документа на велосипед (паспорт и чек).
+        </Paragraph>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          Покупали не у нас, но хотите сделать техническое обслуживание
+          велосипеда или ремонт? Нет ничего проще! Вам необходимо позвонить в
+          магазин &quot;Велопланета&quot;, согласовать удобное время и привезти
+          свой байк в нашу мастерскую. Обратите внимание, что велосипеды
+          принимаются в работу только в чистом виде.
+        </Paragraph>
+      </ParagraphContainer>
+
+      <SecondaryTitle
+        $color="black"
+        $fontSize="40px"
+        $fontStyle={fonts.f700}
+        $margin="65px 0 25px 0"
       >
         Гарантируем бесплатное техническое обслуживание
-      </Text>
-      <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-        Мы предлагаем техобслуживание в течение месяца с момента покупки для
-        велосипедов, приобретенных в магазинах наших магазинов!
-        <br />
-        <br />
-        Если клиент не обращался к нам за это время, за ним сохраняется право на
-        один бесплатный комплекс «диагностика+обслуживание» велосипеда в течение
-        года с момента покупки.
-        <br />
-        <br />
-        На все последующие ТО в течение первого года со дня покупки действует
-        скидка 50%. А после первого года – скидка 30%*.
-        <br />
-        <br />В мастерскую необходимо обращаться:
-      </Text>
-      <Text
-        color={colors.black}
-        size="40px"
-        fontStyle={fonts.f700}
-        margin="55px 0 25px 0"
-      >
-        Ремонт и обслуживание велосипедов:
-      </Text>
-      <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-        <ul>
-          <li>заменить велокамеру;</li>
-          <li>подкачать колеса;</li>
-          <li>смазать цепь;</li>
-          <li>настроить трансмиссию;</li>
-          <li>перебрать амортизационную вилку;</li>
-          <li>заменить сломанную деталь и др.</li>
-          <li>
-            В работе мы используем только фирменный специализированный
-            инструмент и расходные материалы таких известных производителей как
-            Park Tool и IceToolz
-          </li>
-        </ul>
-      </Text>
-      <Text
-        color={colors.black}
-        size="40px"
-        fontStyle={fonts.f700}
-        margin="55px 0 25px 0"
-      >
-        Услуги, которые не входят в гарантийный сервис:
-      </Text>
-      <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-        <ul>
-          <li>заменить велокамеру;</li>
-          <li>подкачать колеса;</li>
-          <li>смазать цепь;</li>
-          <li>настроить трансмиссию;</li>
-          <li>перебрать амортизационную вилку;</li>
-          <li>заменить сломанную деталь и др.</li>
-          <li>
-            В работе мы используем только фирменный специализированный
-            инструмент и расходные материалы таких известных производителей как
-            Park Tool и IceToolz
-          </li>
-        </ul>
-      </Text>
-      <Text
-        color={colors.black}
-        size="42px"
-        fontStyle={fonts.f500}
-        margin="74px 0 0 0"
+      </SecondaryTitle>
+
+      <ParagraphContainer>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          Мы предлагаем техобслуживание в течение месяца с момента покупки для
+          велосипедов, приобретенных в магазинах наших магазинов!
+        </Paragraph>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          Если клиент не обращался к нам за это время, за ним сохраняется право
+          на один бесплатный комплекс «диагностика+обслуживание» велосипеда в
+          течение года с момента покупки.
+        </Paragraph>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          На все последующие ТО в течение первого года со дня покупки действует
+          скидка 50%. А после первого года – скидка 30%*.
+        </Paragraph>
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
+          В мастерскую необходимо обращаться:
+        </Paragraph>
+      </ParagraphContainer>
+
+      <ServiceComponent
+        title="Ремонт и обслуживание велосипедов:"
+        items={servicesItems}
+      />
+      <ServiceComponent
+        title="Услуги, которые не входят в гарантийный сервис:"
+        items={servicesItems}
+      />
+      <SecondaryTitle
+        $color="black"
+        $fontSize="42px"
+        $fontStyle={fonts.f500}
+        $margin="74px 0 0 0"
       >
         ГАЛЕРЕЯ РАБОТ
-      </Text>
+      </SecondaryTitle>
 
       <Slider items={sliderGallery} variant="large" />
       <Slider items={sliderGallery} variant="small" />
@@ -182,4 +206,10 @@ const Picture = styled.div<{ bg?: string }>`
     height: 367px;
     padding: 0 25px;
   }
+`;
+
+const ParagraphContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;

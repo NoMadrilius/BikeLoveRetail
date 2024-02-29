@@ -3,6 +3,7 @@ import {
   BgImage,
   IconBottom,
   MainContainer,
+  MainTitle,
   Wrapper,
 } from "./HomeScreenStyles";
 import { Text } from "@/components/Text/Text";
@@ -20,8 +21,8 @@ import { useTranslation } from "react-i18next";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useAuthStore } from "@/store/AuthStore";
 import { ITEMS } from "./mock";
-import {useRouter} from "next/router";
-import {GenerateLink} from "@/helpers/GenerateLink";
+import { useRouter } from "next/router";
+import { GenerateLink } from "@/helpers/GenerateLink";
 
 const HomeScreen = () => {
   const productStore = useProductStore();
@@ -44,18 +45,18 @@ const HomeScreen = () => {
   return (
     <>
       <UseMetaData title={"Home"} img={""} description={"asd"} />
+
       <Wrapper>
         <BgImage bgImage="/images/home/bannerImage.png">
           <MainContainer>
-            <Text
+            <MainTitle
+              $fontSize="54px"
               color={colors.white}
-              size="54px"
-              margin="20% 0"
-              fontStyle={fonts.f500}
-              preline
+              $fontStyle={fonts.f500}
+              $margin="20% 0"
             >
               {t("home.mainText")}
-            </Text>
+            </MainTitle>
           </MainContainer>
           <IconBottom
             alt="Arrow Scroll Bottom"
@@ -69,20 +70,20 @@ const HomeScreen = () => {
           <ByPropose items={ITEMS} />
 
           <ResponsiveBlockGroup variant="1" />
-          {productStore?.forYou.length && (
+          {productStore?.forYou.length ? (
             <Slider
               title={t("home.forYou")}
               items={productStore?.forYou}
               variant="cards"
             />
-          )}
-          {productStore?.sales.length && (
+          ) : null}
+          {productStore?.sales.length ? (
             <Slider
               title={t("home.popularAcc")}
               items={productStore?.sales}
               variant="cards"
             />
-          )}
+          ) : null}
 
           <ResponsiveBlockGroup variant="2" />
           {/*<Slider

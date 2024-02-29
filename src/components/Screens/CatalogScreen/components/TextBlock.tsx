@@ -88,7 +88,7 @@ const TextBlock = () => {
 };
 export default TextBlock;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   margin-top: 194px;
 `;
 const List = styled.ul`

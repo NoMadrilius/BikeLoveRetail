@@ -9,6 +9,7 @@ import i18next from "i18next";
 import * as S from "./Footer.styles";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Subtitle } from "@/components/Screens/HomeScreen/HomeScreenStyles";
 
 const socialIcons = [
   "/icons/social/viber.svg",
@@ -99,15 +100,15 @@ const Footer = () => {
       <S.InfoAndWorkingHoursContainer>
         {footerItems[currentLang].map((el: any, index: any) => (
           <S.ItemsContainer key={index}>
-            <Text
-              color={colors.white}
-              size="24px"
-              fontStyle={fonts.f400}
-              textTransform="uppercase"
-              margin="0 0 20px 0"
+            <Subtitle
+              $color={colors.white}
+              $fontSize="24px"
+              $fontStyle={fonts.f400}
+              $textTransform="uppercase"
+              $margin="0 0 20px 0"
             >
               {el.title}
-            </Text>
+            </Subtitle>
             {isMobile
               ? index !== 1
                 ? el.items.map((link: any, indexInner: any) => {

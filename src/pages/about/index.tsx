@@ -3,11 +3,9 @@ import { PaddingWrapper } from "../../../theme/templates";
 
 const About = () => {
   return (
-    <>
-      <PaddingWrapper>
-        <AboutShopScreen />
-      </PaddingWrapper>
-    </>
+    <PaddingWrapper>
+      <AboutShopScreen />
+    </PaddingWrapper>
   );
 };
 export default About;

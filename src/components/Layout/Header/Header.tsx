@@ -63,7 +63,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const [gearVisible, setGearVisible] = useState(false);
   const router = useRouter();
 
-  const cartStore = useCartStore()
+  const cartStore = useCartStore();
   useEffect(() => {
     currensyStore.getCurrency();
     currensyStore.selectCurrensy(currensyStore.selectedCurrency);
@@ -142,7 +142,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
     setCategoriesVisible(false);
   };
   return (
-    <>
+    <header>
       <Wrapper opacityBg={opacityBg}>
         <Logo
           width={70}
@@ -279,13 +279,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
       ) : null}
 
       {sideBarVisible && (
-        <SideBar setVisible={setSideBarVisible} cartVisible={cartStore.setVisible} />
+        <SideBar
+          setVisible={setSideBarVisible}
+          cartVisible={cartStore.setVisible}
+        />
       )}
-      {cartStore.visible && <Cart/>}
+      {cartStore.visible && <Cart />}
       {gearVisible && (
         <GearSelect onClick={selectCurrency} setVisible={setGearVisible} />
       )}
-    </>
+    </header>
   );
 };
 export default observer(Header);

@@ -3,11 +3,9 @@ import { PaddingWrapper } from "../../../theme/templates";
 
 const Workshop = () => {
   return (
-    <div>
-      <PaddingWrapper>
-        <WorkshopScreen />
-      </PaddingWrapper>
-    </div>
+    <PaddingWrapper>
+      <WorkshopScreen />
+    </PaddingWrapper>
   );
 };
 export default Workshop;

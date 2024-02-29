@@ -31,7 +31,7 @@ export const Logo = styled(Image)`
     width: 64px;
   }
 `;
-export const TitlesContainer = styled.div`
+export const TitlesContainer = styled.nav`
   ${templates.centerContent};
   align-items: end;
   column-gap: 14px;

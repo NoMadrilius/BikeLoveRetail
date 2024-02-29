@@ -48,7 +48,7 @@ export const SocialContainer = styled.div<{
   }
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.footer`
   width: 100%;
 
   align-items: center;
