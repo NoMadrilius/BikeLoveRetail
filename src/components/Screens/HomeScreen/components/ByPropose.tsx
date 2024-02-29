@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
+import { SecondaryTitle } from "../HomeScreenStyles";
 
 type Props = {
   items: {
@@ -26,37 +27,33 @@ const ByPropose: FC<Props> = ({ items }) => {
   return (
     <>
       <Wrapper>
-        <Text
-          color={colors.black}
-          size="42px"
-          fontStyle={fonts.f500}
-          margin="0 auto 0 0"
-        >
+        <SecondaryTitle $fontStyle={fonts.f500} $fontSize="42px" color="black">
           {t("home.items.title")}
-        </Text>
+        </SecondaryTitle>
+
         <GridContainer>
           {items.map((el, index) => (
-            <Link href={el.link||"/"}>
+            <Link href={el.link || "/"}>
               <CardWrapper key={index}>
                 <Picture
-                    width={200}
-                    height={100}
-                    alt="Propose Image"
-                    src={el.picture}
+                  width={200}
+                  height={100}
+                  alt="Propose Image"
+                  src={el.picture}
                 />
                 <Text
-                    color={colors.black}
-                    size="16px"
-                    fontStyle={fonts.f500}
-                    margin="0 auto 0 0"
+                  color={colors.black}
+                  size="16px"
+                  fontStyle={fonts.f500}
+                  margin="0 auto 0 0"
                 >
                   {el.title}
                 </Text>
                 <Text
-                    color={colors.grayMain}
-                    size="12px"
-                    fontStyle={fonts.f500}
-                    margin="0 auto 0 0"
+                  color={colors.grayMain}
+                  size="12px"
+                  fontStyle={fonts.f500}
+                  margin="0 auto 0 0"
                 >
                   {el.count} {t("home.items.bikes")}
                 </Text>
@@ -70,7 +67,7 @@ const ByPropose: FC<Props> = ({ items }) => {
 };
 export default ByPropose;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   margin-top: 120px;
   @media (max-width: ${metrics.mobile}) {
     margin-top: 60px;

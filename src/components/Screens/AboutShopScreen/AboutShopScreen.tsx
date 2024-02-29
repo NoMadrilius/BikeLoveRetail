@@ -5,6 +5,11 @@ import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
 import { templates } from "../../../../theme/templates";
+import {
+  MainTitle,
+  Paragraph,
+  SecondaryTitle,
+} from "../HomeScreen/HomeScreenStyles";
 
 const AboutShopScreen = () => {
   const road = [{ title: "Магазин", link: "/" }];
@@ -12,19 +17,27 @@ const AboutShopScreen = () => {
     <>
       <UseMetaData title={"Магазин"} img={""} description={"йцуфв"} />
       <BreadCrumbs road={road} />
-      <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+      <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
         МАГАЗИН
-      </Text>
+      </MainTitle>
       <RowContainer>
         <Picture bg="/images/about/image1.png">
-          <Text color={colors.white} size="40px" fontStyle={fonts.f700}>
+          <SecondaryTitle
+            $color="white"
+            $fontSize="40px"
+            $fontStyle={fonts.f700}
+          >
             WHY WORK FOR US
-          </Text>
-          <Text color={colors.white} size="18px" fontStyle={fonts.f400}>
+          </SecondaryTitle>
+          <Paragraph
+            color={colors.white}
+            $fontSize="18px"
+            $fontStyle={fonts.f400}
+          >
             Если и есть нечто, что объединяет всех, кто работает в нашей
             компании, так это вера в то, что велосипеды реально могут влиять на
             жизни людей
-          </Text>
+          </Paragraph>
         </Picture>
         <Picture bg="/images/about/image2.png"></Picture>
       </RowContainer>
@@ -37,57 +50,78 @@ const AboutShopScreen = () => {
         МЫ ВЕРИМ,
         <br /> ЧТО ВЕЛОСПОРТ МЕНЯЕТ ЖИЗНЬ
       </Text>
-      <Text
-        color={colors.black}
-        size="16px"
-        fontStyle={fonts.f600}
-        textAlign="center"
-        margin="25px 0 0 0 "
+      <Paragraph
+        $color={colors.black}
+        $fontSize="16px"
+        $fontStyle={fonts.f600}
+        $margin="25px 0 0 0"
+        $maxWidth="80%"
       >
         Вот почему мы находимся в постоянном поиске кадров из совершенно разных
         дисциплин, которые хотели бы быть причастны к тому, чтобы делать
-        велоспорт
-        <br /> популярным среди всё большего числа людей.
-      </Text>
+        велоспорт популярным среди всё большего числа людей.
+      </Paragraph>
       <RowTextContainer>
-        <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-          В период прохождения таких супермногодневок как &quot;Тур де
-          Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
-          новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
-          если да - то какие - это очень сложный вопрос. Но факт в том - что
-          текущее состояние дел не идет на пользу велоспорту в целом. Мы
-          приводим кусок интервью Валерий Карпина - президента профессиональной
-          испанской велокоманды Karpin Galicia - кореспонденту издания
-          СпортЭкспресс.
-          <br />
-          <br />В период прохождения таких супермногодневок как &quot;Тур де
-          Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
-          новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
-          если да - то какие - это очень сложный вопрос. Но факт в том - что
-          текущее состояние дел не идет на пользу велоспорту в целом. Мы
-          приводим кусок интервью Валерий Карпина - президента профессиональной
-          испанской велокоманды Karpin Galicia - кореспонденту издания
-          СпортЭкспресс.
-        </Text>
-        <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-          В период прохождения таких супермногодневок как &quot;Тур де
-          Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
-          новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
-          если да - то какие - это очень сложный вопрос. Но факт в том - что
-          текущее состояние дел не идет на пользу велоспорту в целом. Мы
-          приводим кусок интервью Валерий Карпина - президента профессиональной
-          испанской велокоманды Karpin Galicia - кореспонденту издания
-          СпортЭкспресс.
-          <br />
-          <br />В период прохождения таких супермногодневок как &quot;Тур де
-          Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
-          новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
-          если да - то какие - это очень сложный вопрос. Но факт в том - что
-          текущее состояние дел не идет на пользу велоспорту в целом. Мы
-          приводим кусок интервью Валерий Карпина - президента профессиональной
-          испанской велокоманды Karpin Galicia - кореспонденту издания
-          СпортЭкспресс.
-        </Text>
+        <ParagraphContainer>
+          <Paragraph
+            $color={colors.black}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
+            В период прохождения таких супермногодневок как &quot;Тур де
+            Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
+            новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
+            если да - то какие - это очень сложный вопрос. Но факт в том - что
+            текущее состояние дел не идет на пользу велоспорту в целом. Мы
+            приводим кусок интервью Валерий Карпина - президента
+            профессиональной испанской велокоманды Karpin Galicia -
+            кореспонденту издания СпортЭкспресс.
+          </Paragraph>
+          <Paragraph
+            $color={colors.black}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
+            В период прохождения таких супермногодневок как &quot;Тур де
+            Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
+            новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
+            если да - то какие - это очень сложный вопрос. Но факт в том - что
+            текущее состояние дел не идет на пользу велоспорту в целом. Мы
+            приводим кусок интервью Валерий Карпина - президента
+            профессиональной испанской велокоманды Karpin Galicia -
+            кореспонденту издания СпортЭкспресс.
+          </Paragraph>
+        </ParagraphContainer>
+        <ParagraphContainer>
+          <Paragraph
+            $color={colors.black}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
+            В период прохождения таких супермногодневок как &quot;Тур де
+            Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
+            новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
+            если да - то какие - это очень сложный вопрос. Но факт в том - что
+            текущее состояние дел не идет на пользу велоспорту в целом. Мы
+            приводим кусок интервью Валерий Карпина - президента
+            профессиональной испанской велокоманды Karpin Galicia -
+            кореспонденту издания СпортЭкспресс.
+          </Paragraph>
+          <Paragraph
+            $color={colors.black}
+            $fontSize="16px"
+            $fontStyle={fonts.f400}
+          >
+            В период прохождения таких супермногодневок как &quot;Тур де
+            Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
+            новой силой вспышивают допинговые скандалы. Нужны ли допинг тесты -
+            если да - то какие - это очень сложный вопрос. Но факт в том - что
+            текущее состояние дел не идет на пользу велоспорту в целом. Мы
+            приводим кусок интервью Валерий Карпина - президента
+            профессиональной испанской велокоманды Karpin Galicia -
+            кореспонденту издания СпортЭкспресс.
+          </Paragraph>
+        </ParagraphContainer>
       </RowTextContainer>
       <PictureLarge src="/images/about/large.png" />
       <></>
@@ -153,4 +187,9 @@ const PictureLarge = styled.img`
   @media (max-width: 900px) {
     margin-bottom: 85px;
   }
+`;
+const ParagraphContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;

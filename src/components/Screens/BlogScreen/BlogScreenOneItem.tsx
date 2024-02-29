@@ -6,6 +6,7 @@ import { newsData } from "@/mock/data";
 import { styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
+import { MainTitle, Paragraph } from "../HomeScreen/HomeScreenStyles";
 
 const BlogScreenOneItem = ({ id }: any) => {
   const item = newsData.find((item) => item.id === +id);
@@ -23,23 +24,29 @@ const BlogScreenOneItem = ({ id }: any) => {
         description={""}
       />
       <BreadCrumbs road={road} />
-      <Text
-        color={colors.black}
-        size="40px"
-        fontStyle={fonts.f700}
-        margin="0 0 30px 0"
+
+      <MainTitle
+        $color={colors.black}
+        $fontSize="40px"
+        $fontStyle={fonts.f700}
+        $margin="0 0 30px 0"
       >
         {item?.title}
-      </Text>
+      </MainTitle>
       <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
         {item?.date}
       </Text>
 
       <RowContainer>
         <Picture src={item?.image} />
-        <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
+
+        <Paragraph
+          $color={colors.black}
+          $fontSize="16px"
+          $fontStyle={fonts.f400}
+        >
           {item?.description}
-        </Text>
+        </Paragraph>
       </RowContainer>
       <div style={{ paddingBottom: "100px" }}></div>
     </>

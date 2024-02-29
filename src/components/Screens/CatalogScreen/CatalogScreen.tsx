@@ -15,6 +15,8 @@ import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
+import { MainTitle, SecondaryTitle } from "../HomeScreen/HomeScreenStyles";
+import DropdownOption from "./components/Dropdown";
 
 const CatalogScreen = () => {
   const { t } = useTranslation();
@@ -54,15 +56,16 @@ const CatalogScreen = () => {
         {
           //<BreadCrumbs road={breadCrumbs} />
         }
-        <Text
-          color={colors.black}
-          size="42px"
-          fontStyle={fonts.f500}
-          textTransform="uppercase"
-          margin="0 0 50px 0"
+
+        <MainTitle
+          $color={colors.black}
+          $fontSize="42px"
+          $fontStyle={fonts.f500}
+          $margin="0 0 50px 0"
+          $textTransform="uppercase"
         >
           {state.catalogState?.category?.name}
-        </Text>
+        </MainTitle>
 
         <RowContainer>
           <TriggerHidden2>
@@ -91,17 +94,7 @@ const CatalogScreen = () => {
             </Text>
           </OptionContainer>
           <TriggerHidden width="500px">
-            <OptionContainer>
-              <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-                {t("catalog.fromPrice")}
-              </Text>
-              <Image
-                alt="Eye Icon"
-                width={16}
-                height={16}
-                src="/images/home/icons/Eye.png"
-              />
-            </OptionContainer>
+            <DropdownOption />
           </TriggerHidden>
         </RowContainer>
         <MainContainer>
@@ -120,14 +113,14 @@ const CatalogScreen = () => {
 };
 export default CatalogScreen;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   padding: 60px 0;
 `;
-const MainContainer = styled.div`
+const MainContainer = styled.section`
   display: flex;
   column-gap: 40px;
 `;
-const TriggerHidden = styled.div<{ width: string }>`
+const TriggerHidden = styled.aside<{ width: string }>`
   display: block;
   @media (max-width: ${(p) => p.width}) {
     display: none;

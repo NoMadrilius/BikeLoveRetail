@@ -7,6 +7,7 @@ import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
 import { useTranslation } from "react-i18next";
+import { SecondaryTitle } from "../HomeScreenStyles";
 
 type Props = {
   bg: string;
@@ -16,15 +17,10 @@ const Subscribe: FC<Props> = ({ bg }) => {
   const { t } = useTranslation();
   return (
     <Wrapper bg={bg}>
-      <Text
-        size="40px"
-        fontStyle={fonts.f700}
-        color={colors.white}
-        maxWidth="100%"
-        preline
-      >
+      <SecondaryTitle $fontSize="40px" $color="white" $fontStyle={fonts.f700}>
         {t("home.subscribe.1")}
-      </Text>
+      </SecondaryTitle>
+
       <InputWrapper>
         <InputField placeholder="E-mail" />
         <RespContainer>
@@ -51,7 +47,7 @@ const Subscribe: FC<Props> = ({ bg }) => {
 };
 export default Subscribe;
 
-const Wrapper = styled.div<{ bg: string }>`
+const Wrapper = styled.section<{ bg: string }>`
   ${templates.centerContent};
   justify-content: space-between;
   margin-top: 120px;

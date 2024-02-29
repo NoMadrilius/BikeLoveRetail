@@ -5,13 +5,9 @@ import { PaddingWrapper } from "../../../theme/templates";
 const OneItem = () => {
   const router = useRouter();
   return (
-    <>
-      <>
-        <PaddingWrapper>
-          <BlogScreenOneItem id={router.query.id} />
-        </PaddingWrapper>
-      </>
-    </>
+    <PaddingWrapper>
+      <BlogScreenOneItem id={router.query.id} />
+    </PaddingWrapper>
   );
 };
 export default OneItem;

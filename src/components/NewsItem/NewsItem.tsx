@@ -7,6 +7,7 @@ import { INewsItem } from "@/types/types";
 import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { Paragraph, Subtitle } from "../Screens/HomeScreen/HomeScreenStyles";
 
 const NewsItem: FC<INewsItem> = ({
   date,
@@ -29,17 +30,17 @@ const NewsItem: FC<INewsItem> = ({
         {date}
       </Text>
       <Picture src={image} blog={!!blog} />
-      <Text
-        color={colors.black}
-        size="24px"
-        fontStyle={fonts.f600}
-        margin="20px 0 8px 0"
+      <Subtitle
+        $color={colors.black}
+        $fontSize="24px"
+        $fontStyle={fonts.f600}
+        $margin="20px 0 8px 0"
       >
         {title}
-      </Text>
-      <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
+      </Subtitle>
+      <Paragraph $color={colors.black} $fontSize="16px" $fontStyle={fonts.f400}>
         {description}
-      </Text>
+      </Paragraph>
       <Text
         color={colors.grayBorder}
         size="13px"
@@ -54,12 +55,13 @@ const NewsItem: FC<INewsItem> = ({
 };
 export default NewsItem;
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  width: 430px;
+  width: 100%;
+  /* max-width: 430px; */
   cursor: pointer;
   @media (max-width: ${metrics.mobile}) {
     width: 322px;

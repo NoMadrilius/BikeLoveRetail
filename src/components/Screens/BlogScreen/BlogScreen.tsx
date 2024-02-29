@@ -7,6 +7,7 @@ import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
+import { MainTitle } from "../HomeScreen/HomeScreenStyles";
 
 const BlogScreen = () => {
   const road = [{ title: "Велоблог", link: "" }];
@@ -14,21 +15,24 @@ const BlogScreen = () => {
     <>
       <UseMetaData title={"Блог"} img={""} description={""} />
       <BreadCrumbs road={road} />
-      <Text color={colors.black} size="42px" fontStyle={fonts.f500}>
+
+      <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
         ВЕЛОБЛОГ
-      </Text>
-      <GridContainer>
-        {newsData.map((el, index) => (
-          <NewsItem {...el} blog key={index} />
-        ))}
-      </GridContainer>
+      </MainTitle>
+      {newsData.length !== 0 ? (
+        <GridContainer>
+          {newsData.map((el, index) => (
+            <NewsItem {...el} blog key={index} />
+          ))}
+        </GridContainer>
+      ) : null}
       <div style={{ paddingBottom: "90px" }}></div>
     </>
   );
 };
 export default BlogScreen;
 
-const GridContainer = styled.div`
+const GridContainer = styled.section`
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, minmax(250px, 1fr));

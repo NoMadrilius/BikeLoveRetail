@@ -3,11 +3,9 @@ import { PaddingWrapper } from "../../../../theme/templates";
 
 const AboutDelivery = () => {
   return (
-    <>
-      <PaddingWrapper>
-        <AboutDeliveryScreen />
-      </PaddingWrapper>
-    </>
+    <PaddingWrapper>
+      <AboutDeliveryScreen />
+    </PaddingWrapper>
   );
 };
 export default AboutDelivery;

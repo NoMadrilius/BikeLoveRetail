@@ -20,7 +20,7 @@ export const templates = {
   `,
 };
 
-export const PaddingWrapper = styled.div`
+export const PaddingWrapper = styled.main`
   padding: 0 124px;
   background-color: white;
   padding-top: 90px;

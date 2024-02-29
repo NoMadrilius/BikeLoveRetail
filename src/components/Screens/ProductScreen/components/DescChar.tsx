@@ -9,15 +9,15 @@ import {
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import {useState} from "react";
-import {useProductPageStore} from "@/store/ProductPageStore";
+import { useState } from "react";
+import { useProductPageStore } from "@/store/ProductPageStore";
+import { SecondaryTitle } from "../../HomeScreen/HomeScreenStyles";
 
 const DescChar = () => {
-
   const isImages = false;
   const [activeTab, setActiveTab] = useState(0);
-  const state = useProductPageStore()
-  const productData = state.product!
+  const state = useProductPageStore();
+  const productData = state.product!;
 
   return (
     <>
@@ -54,14 +54,14 @@ const DescChar = () => {
                 marginBottom: "33px",
               }}
             >
-              <Text
-                color={activeTab === 0 ? colors.black : colors.grayMain}
-                size="40px"
-                fontStyle={fonts.f500}
-                func={() => setActiveTab(0)}
+              <SecondaryTitle
+                $color={activeTab === 0 ? "black" : "#8B8B8B"}
+                $fontSize="40px"
+                $fontStyle={fonts.f500}
+                onClick={() => setActiveTab(0)}
               >
                 Описание
-              </Text>
+              </SecondaryTitle>
               <Text
                 color={activeTab === 1 ? colors.black : colors.grayMain}
                 size="40px"
@@ -144,15 +144,14 @@ const DescChar = () => {
             <SecondContainer style={{ width: "100%", columnGap: "60px" }}>
               <RowContainer style={{ width: "100%", marginTop: "60px" }}>
                 <ColumnContainer style={{ width: "100%" }}>
-                  <Text
-                    color={colors.black}
-                    size="40px"
-                    fontStyle={fonts.f500}
-                    func={() => setActiveTab(0)}
+                  <SecondaryTitle
+                    $color="black"
+                    $fontSize="40px"
+                    $fontStyle={fonts.f500}
+                    onClick={() => setActiveTab(0)}
                   >
                     Описание
-                  </Text>
-
+                  </SecondaryTitle>
                   <Text
                     color={colors.black}
                     size="16px"
@@ -176,40 +175,42 @@ const DescChar = () => {
                   </Text>
                 </ColumnContainer>
                 <ColumnContainer style={{ width: "100%" }}>
-                  <Text
-                    color={colors.black}
-                    size="40px"
-                    fontStyle={fonts.f500}
-                    func={() => setActiveTab(1)}
+                  <SecondaryTitle
+                    $color="black"
+                    $fontSize="40px"
+                    $fontStyle={fonts.f500}
+                    onClick={() => setActiveTab(1)}
                   >
                     Характеристики
-                  </Text>
+                  </SecondaryTitle>
                   <RowContainer style={{ width: "100%" }}>
                     <ColumnContainer style={{ width: "100%" }}>
                       {state.uniqueOptions.map((el, index) => {
-                          return (
-                            <CharacteristicContainer key={index} index={index}>
-                              <Text
-                                color={colors.black}
-                                size="15px"
-                                fontStyle={fonts.f400}
-                                hoverColor={colors.redHover}
-                                maxWidth="100%"
-                              >
-                                {el.name}
-                              </Text>
-                              <Text
-                                color={colors.black}
-                                size="15px"
-                                fontStyle={fonts.f400}
-                                hoverColor={colors.redHover}
-                              >
-                                {state.uniqueVariants.filter(n=>n.optionId === el.id).map(n=>n.variantName).join(', ')}
-                              </Text>
-                            </CharacteristicContainer>
-                          );
-                        }
-                      )}
+                        return (
+                          <CharacteristicContainer key={index} index={index}>
+                            <Text
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              hoverColor={colors.redHover}
+                              maxWidth="100%"
+                            >
+                              {el.name}
+                            </Text>
+                            <Text
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              hoverColor={colors.redHover}
+                            >
+                              {state.uniqueVariants
+                                .filter((n) => n.optionId === el.id)
+                                .map((n) => n.variantName)
+                                .join(", ")}
+                            </Text>
+                          </CharacteristicContainer>
+                        );
+                      })}
                     </ColumnContainer>
                   </RowContainer>
                 </ColumnContainer>

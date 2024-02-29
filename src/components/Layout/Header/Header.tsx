@@ -30,7 +30,7 @@ import GearSelect from "./components/GearSelect";
 import { useTranslation } from "react-i18next";
 import MenuTitle from "./components/MenuTitle";
 import Link from "next/link";
-import {useAppStore} from "@/store/AppStore";
+import { useAppStore } from "@/store/AppStore";
 
 const ICONS = [
   { id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -60,11 +60,11 @@ const Header: FC<Props> = ({ opacityBg }) => {
   const currensyStore = useCurrencyStore();
   const [inputText, setInputText] = useState("");
 
-  const as = useAppStore()
+  const as = useAppStore();
 
   const router = useRouter();
 
-  const cartStore = useCartStore()
+  const cartStore = useCartStore();
   useEffect(() => {
     currensyStore.getCurrency();
     currensyStore.selectCurrensy(currensyStore.selectedCurrency);
@@ -134,16 +134,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
 
   const openMenu = (id: string, rect: DOMRect) => {
     setActiveMenu({ id, rect });
-    as.setIsOpenCategories(true)
+    as.setIsOpenCategories(true);
   };
 
   // Handler to close the menu
   const closeMenu = () => {
     setActiveMenu({ id: null, rect: null });
-    as.setIsOpenCategories(false)
+    as.setIsOpenCategories(false);
   };
   return (
-    <>
+    <header>
       <Wrapper opacityBg={opacityBg}>
         <Logo
           width={70}
@@ -279,14 +279,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
         </>
       ) : null}
 
-      {as.isOpenSidebar && (
-        <SideBar/>
-      )}
-      {cartStore.visible && <Cart/>}
-      {as.isOpenSettings && (
-        <GearSelect onClick={selectCurrency}/>
-      )}
-    </>
+      {as.isOpenSidebar && <SideBar />}
+      {cartStore.visible && <Cart />}
+      {as.isOpenSettings && <GearSelect onClick={selectCurrency} />}
+    </header>
   );
 };
 export default observer(Header);
