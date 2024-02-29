@@ -5,14 +5,20 @@ import { colors } from "../../../../../../theme/colors";
 import Image from "next/image";
 import { Text } from "@/components/Text/Text";
 import { useTranslation } from "react-i18next";
+import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
+import s from '../CatalogScreen.module.scss'
+import Link from "next/link";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
 
-const Dropdown = ({ items }: { items: string[] }) => {
+const Dropdown = (items : { items: {name:string, code:string}[] }) => {
+    const r = useRouter()
   return (
-    <DropdownContent>
-      {items.map((item, index) => (
-        <DropdownItem key={index}>{item}</DropdownItem>
+    <div className={s.drop_down_content}>
+      {items.items.map((item, index) => (
+        <Link href={GenerateLink(r,{queryParameters:{sort:item.code}})} className={s.item} key={index}>{item.name}</Link>
       ))}
-    </DropdownContent>
+    </div>
   );
 };
 
@@ -24,24 +30,29 @@ const DropdownOption = () => {
     setIsOpen(!isOpen);
   };
 
-  const options = ["Option 1", "Option 2", "Option 3"];
+  const options = [
+      {name:"Від дорощих",code:"SortByRetailPriceDescend"},
+      {name:"Від дешевших",code:"SortByRetailPriceAscend"},
+      {name:"За популярністю",code:"SortByPopularityDescend"},
+      {name:"Зі знижкою",code:"SortByDiscountDescend"}
+  ];
 
   return (
-    <DropdownContainer>
-      <OptionContainer onClick={handleToggleDropdown}>
-        <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-          {t("catalog.fromPrice")}
-        </Text>
-        <RotatingImage
-          alt="Eye Icon"
-          width={16}
-          height={16}
-          src="/icons/catArrow.svg"
-          $isOpen={isOpen}
-        />
-      </OptionContainer>
-      {isOpen && <Dropdown items={options} />}
-    </DropdownContainer>
+      <div className={s.drop_down_container}>
+        <OptionContainer onClick={handleToggleDropdown}>
+          <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
+            {t("catalog.fromPrice")}
+          </Text>
+          <RotatingImage
+              alt="Eye Icon"
+              width={16}
+              height={16}
+              src="/icons/catArrow.svg"
+              $isOpen={isOpen}
+          />
+        </OptionContainer>
+        {isOpen && <Dropdown items={options} />}
+      </div>
   );
 };
 
@@ -57,33 +68,6 @@ const OptionContainer = styled.div`
   transition: 0.3s;
   &:hover {
     background-color: ${colors.redBlur};
-  }
-`;
-
-const DropdownContainer = styled.div`
-  position: relative;
-`;
-
-const DropdownContent = styled.div`
-  position: absolute;
-  width: 100%;
-  top: calc(100% + 5px);
-  left: 0;
-  background-color: white;
-  border: 1px solid ${colors.grayMain};
-  border-radius: 5px;
-  overflow: hidden;
-  z-index: 999;
-`;
-
-const DropdownItem = styled.div`
-  cursor: pointer;
-  padding: 8px 12px;
-  color: #000000;
-  font-size: 13px;
-  font-weight: 400;
-  &:hover {
-    background-color: ${colors.grayBg};
   }
 `;
 

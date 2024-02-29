@@ -29,7 +29,6 @@ const WorkshopScreen = () => {
   return (
     <>
       <UseMetaData title={"Мастерская"} img={""} description={""} />
-      <BreadCrumbs road={road} />
 
       <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
         МАСТРЕСКАЯ

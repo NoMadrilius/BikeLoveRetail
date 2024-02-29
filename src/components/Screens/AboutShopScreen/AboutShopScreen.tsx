@@ -16,7 +16,6 @@ const AboutShopScreen = () => {
   return (
     <>
       <UseMetaData title={"Магазин"} img={""} description={"йцуфв"} />
-      <BreadCrumbs road={road} />
       <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
         МАГАЗИН
       </MainTitle>

@@ -4,7 +4,7 @@ export interface ProductCategory{
     updatedAt: string;
     enabled: boolean;
     name: string;
-    iconUrl: string;
+    iconUrl?: string;
     way: string;
     childrenIds: string;
     parentId: number;
@@ -12,4 +12,7 @@ export interface ProductCategory{
     isRetailVisible: boolean;
     isB2BVisible: boolean;
     sortOrder: number;
+
+    metaDescription?:string
+    metaTitle?:string
 }

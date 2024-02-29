@@ -27,7 +27,6 @@ const WishListScreen = () => {
       <UseMetaData title={"Wish List"} img={""} description={"sdasd"} />
 
       <Wrapper>
-        <BreadCrumbs road={road} />
         <Slider title={"список желаний"} items={wishList} variant={"wish"} />
         {!wishList?.length && (
           <EmptyContainer style={{ paddingBottom: "300px" }}>

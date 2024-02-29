@@ -24,8 +24,6 @@ const AboutDeliveryScreen = () => {
   return (
     <>
       <UseMetaData title={t("delivery.title")} img={""} description={""} />
-      <BreadCrumbs road={road} />
-
       <MainTitle
         $color={colors.black}
         $fontSize="42px"

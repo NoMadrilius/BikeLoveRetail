@@ -23,8 +23,6 @@ const BlogScreenOneItem = ({ id }: any) => {
         img={""}
         description={""}
       />
-      <BreadCrumbs road={road} />
-
       <MainTitle
         $color={colors.black}
         $fontSize="40px"

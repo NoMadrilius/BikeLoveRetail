@@ -1,15 +1,13 @@
 import axios from "axios";
 import { makeAutoObservable } from "mobx";
-import { Category } from "@/types/types";
 import { createContext, useContext } from "react";
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 
 class CategoriesStore {
-  categories: Category[] = [];
+  categories: ProductCategory[] = [];
   loading = false;
   parentCategories: any = [];
   cardsByCategory = [];
-  count = 0;
-  rootStore: any;
 
   constructor() {
     makeAutoObservable(this);

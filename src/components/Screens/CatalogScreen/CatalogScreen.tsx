@@ -17,6 +17,8 @@ import { useTranslation } from "react-i18next";
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { MainTitle, SecondaryTitle } from "../HomeScreen/HomeScreenStyles";
 import DropdownOption from "./components/Dropdown";
+import {nameCategoryMetaTemplate} from "@/helpers/metaTamplates/nameCategoryMetaTemplate";
+import {descriptionCategoryMetaTemplate} from "@/helpers/metaTamplates/descriptionCategoryMetaTemplate";
 
 const CatalogScreen = () => {
   const { t } = useTranslation();
@@ -25,36 +27,19 @@ const CatalogScreen = () => {
   const catId = router.query.id;
 
   const [filterVisible, setFilterVisible] = useState(false);
-  //const catalogStore = useCategoriesStore();
-  /*
-    const catalog = categoriesStore.categories
-      ? catalogStore.categories.filter((el) => el.id === +catId!)
-      : [];
 
-      const categoryPath = catalogData[0]?.productCategory.way.split("->");
-
-      const breadCrumbs = categoryPath
-        .slice(-2)
-        .map((category: any, index: any, array: any) => {
-          let link = "/catalog/";
-          if (index === 0) {
-            link += catalogData[0]?.productCategory.parentId;
-          } else if (index === 1) {
-            link += catalogData[0]?.productCategory.id;
-          }
-
-          return {
-            title: category,
-            link: link,
-          };
-        });
-    */
   return (
     <>
-      <UseMetaData title={"name"} img={""} description={"asdasdasd"} />
+      {state.catalogState!.category &&
+          //@ts-ignore
+          <UseMetaData title={((state.catalogState!.category.metaTitle || nameCategoryMetaTemplate(state.catalogState!.category.name))+ state.catalogState!.page != 1 ?` - Сторінка ${state.catalogState!.page.toString()}`:'')}
+                       img={state.catalogState!.category.iconUrl}
+              //@ts-ignore
+                       description={((state.catalogState!.category.metaDescription || descriptionCategoryMetaTemplate(state.catalogState!.category.name))+ state.catalogState!.page != 1 ? ` - Сторінка ${state.catalogState!.page.toString()}`:'')} />
+      }
       <Wrapper>
-        {
-          //<BreadCrumbs road={breadCrumbs} />
+        {state.catalogState!.category &&
+          <BreadCrumbs categoryId={state.catalogState!.category.id}/>
         }
 
         <MainTitle

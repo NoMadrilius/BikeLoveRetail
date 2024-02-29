@@ -25,7 +25,7 @@ const SideBar = ({ setVisible }: Props) => {
   }
 
   return (
-    <BlurWrapper>
+    <BlurWrapper onClick={()=>{setVisible(false)}}>
       <Wrapper
         onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
       >

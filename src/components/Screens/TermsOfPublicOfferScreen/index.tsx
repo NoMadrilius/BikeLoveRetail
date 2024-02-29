@@ -19,7 +19,6 @@ const TermsOfPublicOfferScreen = () => {
   return (
     <>
       <UseMetaData title={t("delivery.title")} img={""} description={""} />
-      <BreadCrumbs road={road} />
 
       <MainTitle
         $color={colors.black}

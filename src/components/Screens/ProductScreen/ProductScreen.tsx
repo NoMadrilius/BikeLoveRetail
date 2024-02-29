@@ -55,17 +55,12 @@ const ProductScreen = () => {
   return (
     <>
       <UseMetaData
-        title={nameProductMetaTemplate(
-          productData.product.metaTitle || productData.product.name
-        )}
+        title={productData.product.metaTitle || nameProductMetaTemplate(productData.product.name)}
         img={productData.productImages[0]?.url}
-        description={descriptionProductMetaTemplate(
-          productData.product.metaDescription ||
-            productData.productCard.description
-        )}
+        description={productData.product.metaDescription ||descriptionProductMetaTemplate(productData.product.name)}
       />
       <Wrapper>
-        <BreadCrumbs road={state.getBreadCrumbs()!} />
+        <BreadCrumbs product={productData.product} categoryId={productData.product.categoryId}/>
         <MainContainer>
           <Res2Text>
             <H1Name>{productData.product.name}</H1Name>

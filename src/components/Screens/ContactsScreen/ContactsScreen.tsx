@@ -24,8 +24,6 @@ const ContactsScreen = () => {
     <>
       <>
         <UseMetaData title={"Контакты"} img={""} description={""} />
-        <BreadCrumbs road={road} />
-
         <Text
           color={colors.black}
           size="42px"

@@ -46,8 +46,6 @@ const CheckListScreen = () => {
         description={"Оформление заказа Оформление заказа Оформление заказа"}
       />
       <Wrapper>
-        <BreadCrumbs road={road} />
-
         <Container>
           <Left>
             <Registration/>

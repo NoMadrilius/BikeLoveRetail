@@ -39,7 +39,6 @@ const AccountScreen = () => {
   return (
     <>
       <UseMetaData title={"Аккаунт"} img={""} description={"sadasdasd"} />
-      <BreadCrumbs road={road} />
       <Text
         color={colors.black}
         size="40px"
