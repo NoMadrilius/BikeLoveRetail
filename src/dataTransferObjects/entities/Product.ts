@@ -29,4 +29,7 @@ export interface Product{
     b2BVisibility: boolean;
     userCreated: string;
     userUpdated: string;
+
+    metaDescription?:string
+    metaTitle?:string
 }

@@ -30,6 +30,7 @@ import GearSelect from "./components/GearSelect";
 import { useTranslation } from "react-i18next";
 import MenuTitle from "./components/MenuTitle";
 import Link from "next/link";
+import { useAppStore } from "@/store/AppStore";
 
 const ICONS = [
   { id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -58,9 +59,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
   ];
   const currensyStore = useCurrencyStore();
   const [inputText, setInputText] = useState("");
-  const [categoriesVisible, setCategoriesVisible] = useState(false);
-  const [sideBarVisible, setSideBarVisible] = useState(false);
-  const [gearVisible, setGearVisible] = useState(false);
+
+  const as = useAppStore();
+
   const router = useRouter();
 
   const cartStore = useCartStore();
@@ -79,7 +80,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
       cartStore.setVisible(true);
     }
     if (id === 3) {
-      setGearVisible(!gearVisible);
+      as.setIsOpenSettings(!as.isOpenSettings);
     }
   };
   const selectCurrency = (currency: string) => {
@@ -133,13 +134,13 @@ const Header: FC<Props> = ({ opacityBg }) => {
 
   const openMenu = (id: string, rect: DOMRect) => {
     setActiveMenu({ id, rect });
-    setCategoriesVisible(true);
+    as.setIsOpenCategories(true);
   };
 
   // Handler to close the menu
   const closeMenu = () => {
     setActiveMenu({ id: null, rect: null });
-    setCategoriesVisible(false);
+    as.setIsOpenCategories(false);
   };
   return (
     <header>
@@ -161,7 +162,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
                 openMenu(TITLES[0], rect);
               }
             }}
-            categoriesVisible={categoriesVisible}
+            categoriesVisible={as.isOpenCategories}
             activeMenu={activeMenu}
             title={TITLES[0]}
             hover={true}
@@ -259,18 +260,18 @@ const Header: FC<Props> = ({ opacityBg }) => {
           height={20}
           alt="Burger Icon"
           src="/images/home/icons/burger.svg"
-          onClick={() => setSideBarVisible(!sideBarVisible)}
+          onClick={() => as.setIsOpenSidebar(!as.isOpenSidebar)}
         />
       </Wrapper>
-      {categoriesVisible ? (
+      {as.isOpenCategories ? (
         <>
-          <Overlay categoriesVisible={categoriesVisible} />
+          <Overlay categoriesVisible={as.isOpenCategories} />
           <CategoriesContainer
             activeMenu={activeMenu}
-            categoriesVisible={categoriesVisible}
+            categoriesVisible={as.isOpenCategories}
           >
             <Categories
-              setVisible={setCategoriesVisible}
+              setVisible={as.setIsOpenCategories}
               categories={categories}
               rect={activeMenu.rect}
             />
@@ -278,16 +279,9 @@ const Header: FC<Props> = ({ opacityBg }) => {
         </>
       ) : null}
 
-      {sideBarVisible && (
-        <SideBar
-          setVisible={setSideBarVisible}
-          cartVisible={cartStore.setVisible}
-        />
-      )}
+      {as.isOpenSidebar && <SideBar />}
       {cartStore.visible && <Cart />}
-      {gearVisible && (
-        <GearSelect onClick={selectCurrency} setVisible={setGearVisible} />
-      )}
+      {as.isOpenSettings && <GearSelect onClick={selectCurrency} />}
     </header>
   );
 };

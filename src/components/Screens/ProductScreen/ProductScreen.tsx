@@ -35,6 +35,8 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import SideBar from "./components/SideBar";
 import Image from "next/image";
 import { useProductPageStore } from "@/store/ProductPageStore";
+import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
+import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
 
 const ProductScreen = () => {
   const state = useProductPageStore();
@@ -53,9 +55,14 @@ const ProductScreen = () => {
   return (
     <>
       <UseMetaData
-        title={productData.product.name}
-        img={productData.productImages[0]?.url || ""}
-        description={productData.productCard.description}
+        title={nameProductMetaTemplate(
+          productData.product.metaTitle || productData.product.name
+        )}
+        img={productData.productImages[0]?.url}
+        description={descriptionProductMetaTemplate(
+          productData.product.metaDescription ||
+            productData.productCard.description
+        )}
       />
       <Wrapper>
         <BreadCrumbs road={state.getBreadCrumbs()!} />

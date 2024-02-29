@@ -1,15 +1,9 @@
 import styled from "styled-components";
 import { templates } from "../../../theme/templates";
-import { FC } from "react";
 import { colors } from "../../../theme/colors";
 
-type Props = {
-  children: React.ReactNode;
-  setModal: any;
-};
-
-const BlurWrapper: FC<Props> = ({ children, setModal }) => {
-  return <Wrapper onClick={() => setModal(false)}>{children}</Wrapper>;
+const BlurWrapper= (p:any) => {
+  return <Wrapper {...p}/>;
 };
 export default BlurWrapper;
 

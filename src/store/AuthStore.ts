@@ -38,12 +38,28 @@ class AuthStore {
 
   constructor() {
     makeAutoObservable(this);
-    if(typeof window !== "undefined")
-    makePersistable(this, {
-      name: "authStore",
-      properties: ["isAuth", "user", "accessToken", "step"],
-      storage:window.localStorage
-    });
+    if(typeof window !== "undefined"){
+      makePersistable(this, {
+        name: "authStore",
+        properties: ["isAuth", "user", "accessToken", "step"],
+        storage:window.localStorage
+      }).finally(()=>{
+        this.initialize()
+      });
+
+    }
+  }
+
+  initialize(){
+    console.log('authIniting', this.isAuth)
+    if(this.isAuth){
+      UserAPI.GetSelf().then(r=>{
+        console.log('uodRes:',r)
+        this.user = r.data
+      }).catch(()=>{
+        //this.isAuth = false
+      })
+    }
   }
 
   register = async (noRelocate?: boolean) => {
@@ -109,7 +125,6 @@ class AuthStore {
     })
 
   };
-
   login = async (noRelocate?: boolean) => {
     let request:LoginRequest  ={
       phone:this.loginPhone.replace(/\s/g, ""),
@@ -146,21 +161,21 @@ class AuthStore {
     })
   };
   refreshToken = async () => {
-    await AuthAPI.Refresh().then(r=>{
+    AuthAPI.Refresh().then(r=>{
       this.accessToken = r.data.accessToken
       this.isAuth = true
       this.loading = true
+      return Promise.resolve(r)
     }).catch(e=>{
-      this.isAuth = false
-      this.accessToken = null
+      //this.isAuth = false
+      //this.accessToken = null
+      showToast({
+        info: "Сессия устарела, повторите вход",
+        title: "Войдите",
+        type: "error",
+      });
+      return Promise.reject(e)
     }).finally(()=>{this.loading = false})
-    /*
-    showToast({
-      info: "Авторизуйтесь знову",
-      title: "Сесія застаріла",
-      type: "error",
-    });
-     */
   };
 
   selfUpdate = async (request: SelfUpdateRequest) => {

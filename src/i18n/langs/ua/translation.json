@@ -194,7 +194,7 @@
     "checkout": "Оформлення замовлення",
     "newCustomer": "Я новий покупець",
     "oldCustomer": "У мене вже є аккаунт",
-    "customer": "покупець"
+    "customer": "Клієнт:"
   },
   "sidebar": {
     "auth": {

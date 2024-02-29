@@ -15,16 +15,20 @@ import SideBarAuth from "./components/SidebarAuth";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import {useAppStore} from "@/store/AppStore";
 
-const SideBar = ({ setVisible, cartVisible }: any) => {
+const SideBar = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const [step, setStep] = useState(0);
 
+  const as = useAppStore()
+
   const openCart = () => {
-    cartVisible(true);
-    setVisible(false);
+    as.setIsCartVisible(true)
+    as.setIsOpenSidebar(false)
   };
+
   const TITLES = [
     { title: t("header.catalog"), openArrow: true },
     { title: t("header.about"), openArrow: true, href: "/about" },
@@ -53,11 +57,11 @@ const SideBar = ({ setVisible, cartVisible }: any) => {
 
   const goToLink = (href: string) => {
     router.push(href);
-    setVisible(false);
+    as.setIsOpenSidebar(false)
   };
 
   return (
-    <BlurWrapper setModal={setVisible}>
+    <BlurWrapper onClick={()=>{as.setIsOpenSidebar(false)}}>
       <Wrapper onClick={(e) => e.stopPropagation()}>
         {step === 0 && (
           <>
@@ -70,7 +74,7 @@ const SideBar = ({ setVisible, cartVisible }: any) => {
               BIKELOVE
             </Text>
 
-            <SideBarAuth setVisible={setVisible} />
+            <SideBarAuth setVisible={as.setIsOpenSidebar} />
             <ColumnContainer
               style={{ rowGap: "20px", padding: "23px 26px 33px" }}
             >
@@ -109,7 +113,7 @@ const SideBar = ({ setVisible, cartVisible }: any) => {
           </>
         )}
         {step === 1 && (
-          <SidebarCatalog setMainStep={setStep} setVisible={setVisible} />
+          <SidebarCatalog setMainStep={setStep} setVisible={as.setIsOpenSidebar} />
         )}
         <Line />
         <ColumnContainer style={{ padding: "26px 0 46px 25px", rowGap: "7px" }}>

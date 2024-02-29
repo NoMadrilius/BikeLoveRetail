@@ -14,130 +14,14 @@ import { useTranslation } from "react-i18next";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { templates } from "../../../../../theme/templates";
+import Register from "@/components/Modal/Auth/components/Register";
+import Login from "@/components/Modal/Auth/components/Login";
+import RenewPassword from "@/components/Modal/Auth/components/RenewPassword";
 
-type Props = {
-  setSendData: any;
-};
-
-const Registration: FC<Props> = ({ setSendData }) => {
+const Registration= () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState(0);
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [secondName, setSecondName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [verifPassword, setVerifPassword] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
-  /// Login Data
-  const [loginPhone, setLoginPhone] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  /// Register Data
-  const [regData, setRegData] = useState({
-    regName: "",
-    regLastName: "",
-    regPatronymic: "",
-    regEmail: "",
-    regPhone: "",
-    regPassword: "",
-    regConfirmPassword: "",
-  });
-  /// Red Data
-  const [redData, setRedData] = useState({
-    redName: "",
-    redLastName: "",
-    redPatronymic: "",
-    redEmail: "",
-  });
-  //errors
-  const [passwordsError, setPasswordsError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const validateEmail = (email: string) => {
-    const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegExp.test(email);
-  };
-  const isLoginPhoneValid = loginPhone.replace(/[^0-9]/g, "").length >= 12;
-  const isRegPhoneValid = regData.regPhone.replace(/[^0-9]/g, "").length >= 12;
 
-  const authStore = useAuthStore();
-
-  const inputHandler = (value: string, name: string) => {
-    setRegData((prev) => ({ ...prev, [name]: value }));
-  };
-  const inputRedHandler = (value: string, name: string) => {
-    setRedData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const user = authStore.user!
-
-  useEffect(() => {
-    if (activeTab === 1 && isAuth) {
-      setName(user.firstName);
-      setSurname(user.lastName);
-      setSecondName(user.patronymic);
-      setPhone(user.phoneNumber);
-      setEmail(user.email);
-    }
-    if (activeTab === 2 && isAuth) {
-      setRedData({
-        redEmail: user.email,
-        redLastName: user.lastName,
-        redName: user.firstName,
-        redPatronymic: user.patronymic,
-      });
-    }
-  }, [activeTab, authStore]);
-
-
-  const updateSelfInfo = () => {
-    const body = {
-      email: redData.redEmail,
-      firstName: redData.redName,
-      lastName: redData.redLastName,
-      patronymic: redData.redPatronymic,
-    };
-    authStore.selfUpdate(body);
-  };
-  const registerHandle = () => {
-    if (regData.regPassword !== regData.regConfirmPassword) {
-      setPasswordsError(true);
-      setTimeout(() => {
-        setPasswordsError(false);
-      }, 3000);
-      return showToast({
-        info: t("auth.toast.passwordError"),
-        title: t("auth.toast.error"),
-        type: "error",
-      });
-    }
-    if (!validateEmail(regData.regEmail)) {
-      setEmailError(true);
-      setTimeout(() => {
-        setEmailError(false);
-      }, 3000);
-      return showToast({
-        info: t("auth.toast.emailError"),
-        title: t("auth.toast.error"),
-        type: "error",
-      });
-    }
-
-  };
-  const loginHandle = async () => {
-
-  };
-
-  const registerDisabled =
-    !regData.regEmail ||
-    !regData.regName ||
-    !regData.regLastName ||
-    !isRegPhoneValid ||
-    !regData.regPassword ||
-    !regData.regConfirmPassword ||
-    authStore.loading;
-  const loginDisabled =
-    !loginPassword.length || !isLoginPhoneValid || authStore.loading;
+  const st = useAuthStore();
 
   return (
     <>
@@ -156,31 +40,31 @@ const Registration: FC<Props> = ({ setSendData }) => {
               1
             </Text>
           </NumberContainer>
-          {!isAuth && (
+          {!st.isAuth && (
             <>
               <Text
-                color={activeTab === 0 ? colors.black : colors.grayMain}
+                color={st.step === 0 ? colors.black : colors.grayMain}
                 size="22px"
                 fontStyle={fonts.f600}
-                func={() => setActiveTab(0)}
+                func={() => st.setStep(0)}
                 textTransform="uppercase"
               >
                 {t("checkList.newCustomer")}
               </Text>
               <Text
-                color={activeTab === 1 ? colors.black : colors.grayMain}
+                color={st.step === 1 ? colors.black : colors.grayMain}
                 size="22px"
                 fontStyle={fonts.f600}
-                func={() => setActiveTab(1)}
+                func={() => st.setStep(1)}
                 textTransform="uppercase"
               >
                 {t("checkList.oldCustomer")}
               </Text>
             </>
           )}
-          {isAuth && (
+          {st.isAuth && (
             <Text
-              color={activeTab === 2 ? colors.black : colors.grayMain}
+              color={st.step === 2 ? colors.black : colors.grayMain}
               size="22px"
               fontStyle={fonts.f600}
             >
@@ -188,122 +72,15 @@ const Registration: FC<Props> = ({ setSendData }) => {
             </Text>
           )}
         </Header>
-        {activeTab === 0 && (
-          <InputsContainer>
-            <InputField
-              placeholder={t("account.step1.name")}
-              value={regData.regName}
-              onChange={(e) => inputHandler(e.target.value, "regName")}
-            />
-            <InputField
-              placeholder={t("account.step1.surname")}
-              value={regData.regLastName}
-              onChange={(e) => inputHandler(e.target.value, "regLastName")}
-            />
-            <InputField
-              placeholder={t("account.step1.patronomic")}
-              value={regData.regPatronymic}
-              onChange={(e) => inputHandler(e.target.value, "regPatronymic")}
-            />
-            <InputMask
-              mask="+380 99 999 99 99"
-              value={regData.regPhone}
-              onChange={(e) => inputHandler(e.target.value, "regPhone")}
-            >
-              {/*@ts-ignore*/}
-              {(inputProps) => (
-                <InputField placeholder={t("auth.tel")} {...inputProps} />
-              )}
-            </InputMask>
-            <InputField
-              error={emailError}
-              placeholder="Email"
-              value={regData.regEmail}
-              onChange={(e) => inputHandler(e.target.value, "regEmail")}
-            />
-            <InputField
-              error={passwordsError}
-              placeholder="Пароль"
-              value={regData.regPassword}
-              onChange={(e) => inputHandler(e.target.value, "regPassword")}
-              type="password"
-            />
-            <InputField
-              error={passwordsError}
-              placeholder={t("auth.rePassword")}
-              value={regData.regConfirmPassword}
-              onChange={(e) =>
-                inputHandler(e.target.value, "regConfirmPassword")
-              }
-              type="password"
-            />
+        {
+          st.isAuth?<div style={{color:'black'}}>
+            Kekw
+          </div>:<>
+              st.step === 0 && <Register reloc/>
+              st.step === 1 && (<Login reloc/>)
+              st.step === 2 && (<RenewPassword/>)</>
+        }
 
-            <Button
-              onClick={() => registerHandle()}
-              disabled={registerDisabled}
-            >
-              <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
-                {t("auth.toRegister")}
-              </Text>
-            </Button>
-          </InputsContainer>
-        )}
-        {activeTab === 1 && (
-          <>
-            <InputsContainer>
-              <InputMask
-                mask="+380 99 999 99 99"
-                value={loginPhone}
-                onChange={(e) => setLoginPhone(e.target.value)}
-              >
-                {/*@ts-ignore*/}
-                {(inputProps) => (
-                  <InputField placeholder={t("auth.tel")} {...inputProps} />
-                )}
-              </InputMask>
-              <InputField
-                placeholder="Пароль"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                type="password"
-              />
-              <Button disabled={loginDisabled} onClick={() => loginHandle()}>
-                <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
-                  {authStore.loading ? <Loader /> : t("auth.enter")}
-                </Text>
-              </Button>
-            </InputsContainer>
-          </>
-        )}
-        {activeTab === 2 && (
-          <InputsContainer>
-            <InputField
-              placeholder={t("auth.name")}
-              value={redData.redName}
-              onChange={(e) => inputRedHandler(e.target.value, "redName")}
-            />
-            <InputField
-              placeholder={t("auth.surname")}
-              value={redData.redLastName}
-              onChange={(e) => inputRedHandler(e.target.value, "redLastName")}
-            />
-            <InputField
-              placeholder={t("auth.patronomic")}
-              value={redData.redPatronymic}
-              onChange={(e) => inputRedHandler(e.target.value, "redPatronymic")}
-            />
-            <InputField
-              placeholder="E-mail"
-              value={redData.redEmail}
-              onChange={(e) => inputRedHandler(e.target.value, "redPatronymic")}
-            />
-            <Button red onClick={() => updateSelfInfo()} disabled={false}>
-              <Text color={colors.redMain} size="15px" fontStyle={fonts.f400}>
-                {t("auth.edit")}
-              </Text>
-            </Button>
-          </InputsContainer>
-        )}
       </Wrapper>
     </>
   );

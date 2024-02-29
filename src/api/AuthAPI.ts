@@ -17,6 +17,13 @@ export const AuthAPI = {
         return axiosInstance.post<RefreshResponse>("/public/refresh");
     },
     Logout():Promise<AxiosResponse>{
-        return axiosInstance.post("/public/catalogproducts");
+        return axiosInstance.post("/public/logout");
+    },
+
+    SelfVerification():Promise<AxiosResponse>{
+        return axiosInstance.post("/auth/selfverif?verifType=BinoCall");
+    },
+    ConfirmSelfVerification(code:string):Promise<AxiosResponse>{
+        return axiosInstance.post(`/auth/confirmselfverif?verifType=BinoCall&code=${code}`);
     }
 }
