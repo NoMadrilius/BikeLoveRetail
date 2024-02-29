@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { MainTitle, SecondaryTitle } from "../HomeScreen/HomeScreenStyles";
+import DropdownOption from "./components/Dropdown";
 
 const CatalogScreen = () => {
   const { t } = useTranslation();
@@ -93,17 +94,7 @@ const CatalogScreen = () => {
             </Text>
           </OptionContainer>
           <TriggerHidden width="500px">
-            <OptionContainer>
-              <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-                {t("catalog.fromPrice")}
-              </Text>
-              <Image
-                alt="Eye Icon"
-                width={16}
-                height={16}
-                src="/images/home/icons/Eye.png"
-              />
-            </OptionContainer>
+            <DropdownOption />
           </TriggerHidden>
         </RowContainer>
         <MainContainer>
