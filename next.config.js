@@ -3,6 +3,15 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: '',
+        port: '',
+        pathname: '/img/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

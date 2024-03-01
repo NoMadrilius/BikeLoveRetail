@@ -41,7 +41,7 @@ const DropdownOption = () => {
       <div className={s.drop_down_container}>
         <OptionContainer onClick={handleToggleDropdown}>
           <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
-            {t("catalog.fromPrice")}
+            Не обрано
           </Text>
           <RotatingImage
               alt="Eye Icon"

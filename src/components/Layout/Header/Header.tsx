@@ -31,6 +31,7 @@ import { useTranslation } from "react-i18next";
 import MenuTitle from "./components/MenuTitle";
 import Link from "next/link";
 import { useAppStore } from "@/store/AppStore";
+import {Currency} from "@/dataTransferObjects/entities/Currency";
 
 const ICONS = [
   { id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -57,20 +58,12 @@ const Header: FC<Props> = ({ opacityBg }) => {
     t("header.blog"),
     t("header.contacts"),
   ];
-  const currensyStore = useCurrencyStore();
+
   const [inputText, setInputText] = useState("");
 
   const as = useAppStore();
-
   const router = useRouter();
-
   const cartStore = useCartStore();
-  useEffect(() => {
-    currensyStore.getCurrency();
-    currensyStore.selectCurrensy(currensyStore.selectedCurrency);
-  }, []);
-
-  const path = router.pathname;
 
   const onClickIcons = (id: number) => {
     if (id === 1) {
@@ -83,9 +76,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
       as.setIsOpenSettings(!as.isOpenSettings);
     }
   };
-  const selectCurrency = (currency: string) => {
-    currensyStore.selectCurrensy(currency);
-  };
+
   const categories = useCategoriesStore();
   const cart = useCartStore();
   const wish = useWishListStore();
@@ -281,7 +272,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
 
       {as.isOpenSidebar && <SideBar />}
       {cartStore.visible && <Cart />}
-      {as.isOpenSettings && <GearSelect onClick={selectCurrency} />}
+      {as.isOpenSettings && <GearSelect/>}
     </header>
   );
 };

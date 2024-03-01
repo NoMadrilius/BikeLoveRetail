@@ -30,7 +30,6 @@ import Discount from "./components/Discount";
 import OptionsProduct from "./components/Options";
 import DescChar from "./components/DescChar";
 import { showToast } from "@/helpers/alertService/alertService";
-import axios from "axios";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import SideBar from "./components/SideBar";
 import Image from "next/image";
@@ -41,10 +40,10 @@ import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descript
 const ProductScreen = () => {
   const state = useProductPageStore();
   const cart = useCartStore();
+  const cur = useCurrencyStore()
 
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [productInWishList, setProductInWishList] = useState<boolean>();
-  const [priceStr, setPriceStr] = useState<any>();
 
   const productData = state.product!;
 
@@ -159,7 +158,7 @@ const ProductScreen = () => {
               fontStyle={fonts.f500}
               margin="16px 0 0 0"
             >
-              {priceStr}
+              {cur.useCurrency(productData.product.retailPrice)}
             </Text>
             <RowContainer
               onClick={() => setSideBarOpen(true)}

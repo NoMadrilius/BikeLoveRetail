@@ -24,10 +24,7 @@ const Card = (props:{p:ProductFullData}) => {
 
   const productInWishList = wishStore.wishList?.some((i) => i.id === prod.id);
   const currStore = useCurrencyStore();
-  const [priceStr, setPriceStr] = useState<string>();
-  useEffect(() => {
-    setPriceStr(prod.retailPrice ? prettyPrice(prod.retailPrice) : 0);
-  }, [prod.retailPrice, currStore.selectedCurrency, currStore]);
+
 
   return (
     <Wrapper href={`/product/${prod.id}`} off={prod.storageTotal>0}>
@@ -69,7 +66,7 @@ const Card = (props:{p:ProductFullData}) => {
         {prod.name}
       </Text>
       <Text size="16px" color={colorsTheme.black} fontStyle={fonts.f400}>
-        {priceStr}
+        {currStore.useCurrency(prod.retailPrice)}
       </Text>
       <ContainerRow>
         {productInWishList ? (

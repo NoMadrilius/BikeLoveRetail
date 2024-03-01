@@ -9,21 +9,16 @@ import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
 
-type Props = {
-  onClick: any;
-};
+const GearSelect = () => {
 
-const GearSelect: FC<Props> = ({ onClick}) => {
-  const currStore = useCurrencyStore();
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+
   const [openLang, setOpenLang] = useState(false);
+
+  const currStore = useCurrencyStore();
   const as = useAppStore()
 
-  const clickCurr = (curr: string) => {
-    onClick(curr);
-    as.setIsOpenSettings(false)
-  };
   const clickLang = (lang: string) => {
     i18n.changeLanguage(lang);
     as.setIsOpenSettings(false)
@@ -39,31 +34,24 @@ const GearSelect: FC<Props> = ({ onClick}) => {
             size="18px"
             margin="0 auto 0 10px"
           >
-            {currStore?.selectedCurrency}
+            {currStore.selectedCurrency?.name}
           </Text>
           <Icon src="/icons/catArrow.svg" onClick={() => setOpen(!open)} />
           {open && (
             <SelectArea style={{ zIndex: "6" }}>
-              <Text
-                color={colors.black}
-                size="18px"
-                fontStyle={fonts.f500}
-                func={() => clickCurr("UAH")}
-                hoverColor={colors.redMain}
-                margin="5px 0 0 0"
-              >
-                UAH
-              </Text>
-              <Text
-                color={colors.black}
-                size="18px"
-                fontStyle={fonts.f500}
-                func={() => clickCurr("USD")}
-                hoverColor={colors.redMain}
-                margin="5px 0 0 0"
-              >
-                USD
-              </Text>
+              {
+                currStore.currencies.map(n=>
+                    <Text
+                        color={colors.black}
+                        size="18px"
+                        fontStyle={fonts.f500}
+                        func={() => {currStore.setCurrency(n.id)}}
+                        hoverColor={colors.redMain}
+                        margin="5px 0 0 0"
+                    >
+                      {n.name}
+                    </Text>)
+              }
             </SelectArea>
           )}
         </SelectField>
@@ -152,4 +140,6 @@ const SelectArea = styled.div`
   padding: 10px;
   position: absolute;
   border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
 `;

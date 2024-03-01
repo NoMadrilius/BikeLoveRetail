@@ -1,65 +1,47 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
 import axiosInstance from "@/api/axiosInstance";
+import {Currency} from "@/dataTransferObjects/entities/Currency";
+import {makePersistable} from "mobx-persist-store";
+import {CurrenciesAPI} from "@/api/CurrenciesAPI";
 
 class CurrencyStore {
-  currency = [];
-  selectedCurrency: string = "UAH";
+  currencies : Currency[] = [];
+  selectedCurrency: Currency|null = null;
+  useCurrency:(v:number)=>string = ()=>{return '0 UHA'}
 
   constructor() {
     makeAutoObservable(this);
-    this.loadCurrencyFromLocalStorage();
-    this.loadSelectedCurrencyFromLocalStorage();
-  }
+    if(typeof window !== "undefined"){
+      makePersistable(this, {
+        name: "authStore",
+        properties: ["currencies", "selectedCurrency", "useCurrency"],
+        storage:window.localStorage
+      }).finally(()=>{
+        this.initialize()
+      });
 
-  getCurrency = async () => {
-    if (typeof window !== "undefined") {
-      try {
-        const storedCurrency = localStorage.getItem("currency");
-        if (storedCurrency) {
-          this.currency = JSON.parse(storedCurrency);
-        } else {
-          const response = await axiosInstance.get("/currency/getpublic");
-          this.currency = response.data;
-          console.log(response.data);
-
-          localStorage.setItem("currency", JSON.stringify(this.currency));
-        }
-      } catch (error) {
-        console.log("Error fetching currency:", error);
-      }
-    }
-  };
-
-  loadCurrencyFromLocalStorage() {
-    if (typeof window !== "undefined") {
-      const storedCurrency = localStorage.getItem("currency");
-      if (storedCurrency) {
-        this.currency = JSON.parse(storedCurrency);
-      }
     }
   }
 
-  selectCurrensy(currency?: string) {
-    if (currency) {
-      this.selectedCurrency = currency;
-    }
+ async initialize() {
+   await CurrenciesAPI.GetPublic().then(r => {
+     this.currencies = r.data
+   })
+   if(this.selectedCurrency === null){
+     this.setCurrency(2)
+   }
+ }
 
-    if (typeof window !== "undefined") {
-      localStorage.setItem(
-        "selectedCurrency",
-        JSON.stringify(currency || "UAH")
-      );
-    }
-  }
-  loadSelectedCurrencyFromLocalStorage() {
-    if (typeof window !== "undefined") {
-      const localCurrency = localStorage.getItem("selectedCurrency");
-      if (localCurrency) {
-        this.selectedCurrency = JSON.parse(localCurrency);
-      }
-    }
-  }
+ setCurrency(currencyId:number){
+    let cur = this.currencies.find(n=>n.id === currencyId)
+   if(cur){
+     this.selectedCurrency = cur
+     this.useCurrency = (v)=>{return (v*cur!.coefficient).toFixed(2).toString()+cur!.symbol}
+   }
+ }
+
+
 }
 
 const currencyStore = new CurrencyStore();

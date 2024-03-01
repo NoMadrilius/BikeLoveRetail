@@ -27,15 +27,18 @@ const CatalogScreen = () => {
   const catId = router.query.id;
 
   const [filterVisible, setFilterVisible] = useState(false);
+  let page = state.catalogState!.page != 1 ?` - Сторінка ${state.catalogState!.page.toString()}`:''
 
+  let title = (state.catalogState!.category?.metaTitle || nameCategoryMetaTemplate(state.catalogState!.category!.name)) + page
+  let desc = (state.catalogState!.category?.metaDescription || descriptionCategoryMetaTemplate(state.catalogState!.category!.name)) + page
+  console.log(title)
   return (
     <>
       {state.catalogState!.category &&
-          //@ts-ignore
-          <UseMetaData title={((state.catalogState!.category.metaTitle || nameCategoryMetaTemplate(state.catalogState!.category.name))+ state.catalogState!.page != 1 ?` - Сторінка ${state.catalogState!.page.toString()}`:'')}
+
+          <UseMetaData title={title}
                        img={state.catalogState!.category.iconUrl}
-              //@ts-ignore
-                       description={((state.catalogState!.category.metaDescription || descriptionCategoryMetaTemplate(state.catalogState!.category.name))+ state.catalogState!.page != 1 ? ` - Сторінка ${state.catalogState!.page.toString()}`:'')} />
+                       description={desc} />
       }
       <Wrapper>
         {state.catalogState!.category &&

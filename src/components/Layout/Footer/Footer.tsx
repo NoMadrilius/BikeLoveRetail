@@ -12,12 +12,12 @@ import Link from "next/link";
 import { Subtitle } from "@/components/Screens/HomeScreen/HomeScreenStyles";
 
 const socialIcons = [
-  "/icons/social/viber.svg",
-  "/icons/social/tg.svg",
-  "/icons/social/inst.svg",
-  "/icons/social/fb.svg",
-  "/icons/social/tiktok.svg",
-  "/icons/social/youtube.svg",
+    //{i:"/icons/social/viber.svg", a:"https://www.instagram.com/blcofficial/"},
+    {i:"/icons/social/tg.svg", a:"https://t.me/blc_shop"},
+    {i:"/icons/social/inst.svg", a:"https://www.instagram.com/blcofficial/"},
+    //{i:"/icons/social/fb.svg", a:"https://www.instagram.com/blcofficial/"},
+    //{i:"/icons/social/tiktok.svg", a:"https://www.instagram.com/blcofficial/"},
+    //{i:"/icons/social/youtube.svg", a:"https://www.instagram.com/blcofficial/"},
 ];
 
 const Footer = () => {
@@ -85,14 +85,16 @@ const Footer = () => {
         {footerItems[currentLang].length - 1 && (
           <S.SocialContainer $showOnMobile={true}>
             {socialIcons.map((el, index) => (
+                <Link href={el.a}>
               <Image
                 width={25}
                 height={28}
                 alt="Social Icon"
-                src={el}
+                src={el.i}
                 key={index}
                 style={{ cursor: "pointer" }}
               />
+                </Link>
             ))}
           </S.SocialContainer>
         )}
@@ -178,14 +180,16 @@ const Footer = () => {
               ? footerItems[currentLang].length - 1 && (
                   <S.SocialContainer $hideOnDesktop={true}>
                     {socialIcons.map((el, index) => (
+                        <Link href={el.a}>
                       <Image
                         width={25}
                         height={28}
                         alt="Social Icon"
-                        src={el}
+                        src={el.i}
                         key={index}
                         style={{ cursor: "pointer" }}
                       />
+                        </Link>
                     ))}
                   </S.SocialContainer>
                 )
@@ -201,14 +205,16 @@ const Footer = () => {
         {footerItems[currentLang].length - 1 && (
           <S.SocialContainer>
             {socialIcons.map((el, index) => (
+                <Link href={"/"}>
               <Image
                 width={51}
                 height={51}
                 alt="Social Icon"
-                src={el}
+                src={el.i}
                 key={index}
                 style={{ cursor: "pointer" }}
               />
+                </Link>
             ))}
           </S.SocialContainer>
         )}
