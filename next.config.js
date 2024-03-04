@@ -3,6 +3,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  /*
   images: {
     remotePatterns: [
       {
@@ -12,6 +13,8 @@ const nextConfig = {
       },
     ],
   },
+
+   */
 };
 
 module.exports = nextConfig;
