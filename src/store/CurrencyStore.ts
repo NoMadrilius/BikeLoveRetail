@@ -30,6 +30,8 @@ class CurrencyStore {
    })
    if(this.selectedCurrency === null){
      this.setCurrency(2)
+   }else{
+     this.useCurrency = (v)=>{return (v*this.selectedCurrency!.coefficient).toFixed(2).toString()+this.selectedCurrency!.symbol}
    }
  }
 

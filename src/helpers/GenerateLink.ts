@@ -4,12 +4,13 @@ interface NewParameters {
   basePath?: string;
   queryParameters?: { [key: string]: string | number | boolean | null |number[]} | null;
   slug?:string;
+  doNotSaveParams?:boolean
 }
 
 export function GenerateLink(router: ReturnType<typeof useRouter>, newParams: NewParameters): string {
-  const { basePath, queryParameters, slug } = newParams;
+  const { basePath, queryParameters, slug,doNotSaveParams } = newParams;
 
-  let newPath = basePath || router.asPath;
+  let newPath = basePath || router.asPath.split('?')[0];
 
 
   if(newPath[0] != '/') newPath = '/'+newPath
@@ -17,7 +18,7 @@ export function GenerateLink(router: ReturnType<typeof useRouter>, newParams: Ne
   let query = new URLSearchParams();
 
   // Add existing query parameters to the new query
-  for (const [key, value] of Object.entries(router.query)) {if(value!=undefined)query.set(key, value.toString());}
+  if(!doNotSaveParams) for (const [key, value] of Object.entries(router.query)) {if(value!=undefined)query.set(key, value.toString());}
 
   if(basePath === undefined && slug != undefined){
     const lastIndex = newPath.lastIndexOf('/');

@@ -10,6 +10,7 @@ import {useCategoriesStore} from "@/store/CategoriesStore";
 import {observer} from "mobx-react";
 import Link from "next/link";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
   const router = useRouter();
@@ -20,12 +21,12 @@ const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
   let lastCatParent:ProductCategory|undefined = cat
 
   while(lastCatParent != undefined){
-      road.unshift({title:lastCatParent.name, link:"/catalog/"+lastCatParent.id})
+      road.unshift({title:lastCatParent.name, link:GenerateLink(router, {basePath:"/catalog", slug:lastCatParent.transliterationName, queryParameters:{id:lastCatParent.id}, doNotSaveParams:true})})
       lastCatParent = st.categories.find(n=>n.id === lastCatParent?.parentId);
   }
 
   if(p.product != undefined){
-      road.push({title:p.product.name, link:"/product/"+p.product.id})
+      road.push({title:p.product.name, link:GenerateLink(router, {basePath:"/product", slug:p.product.transliteration, queryParameters:{id:p.product.id}, doNotSaveParams:true})})
   }
 
   return (
