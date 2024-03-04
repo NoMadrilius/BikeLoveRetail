@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(function (config) {
 axiosInstance.interceptors.response.use(function (response) {
   return response;
 }, (error: AxiosError) => {
-  console.warn('Ошибка:', error)
+  //console.warn('Ошибка:', error)
 
   if (error.response?.status !== 401) {
     return Promise.reject(error);

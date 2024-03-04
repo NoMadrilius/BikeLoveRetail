@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import * as S from "./Categories.styles";
 import Link from "next/link";
 import { LinkItem } from "../LinkItem";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
 
 const Categories = ({ setVisible, categories, rect }: any) => {
   const [selectedTitle, setSelectedTitle] = useState(0);
@@ -13,6 +15,8 @@ const Categories = ({ setVisible, categories, rect }: any) => {
 
   const [submenuCategories, setSubmenuCategories] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState("");
+
+  const r = useRouter()
 
   const filteredCategory = categories.parentCategories.filter(
     (el: any) => el.id === selectedTitle
@@ -52,7 +56,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
           <S.ListItem key={el.id}>
             {el.childrenIds !== "" ? (
               <LinkItem
-                href={`/catalog/${el?.id}`}
+                href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:el.id}, slug:el.transliterationName})}
                 color={el.id === selectedTitle ? colors.redMain : colors.black}
                 hoverColor={colors.redHover}
                 size="15px"
@@ -89,7 +93,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
         >
           <S.ListItem>
             <LinkItem
-              href={`/catalog/${filteredCategory?.id}`}
+              href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:filteredCategory.id}, slug:filteredCategory.transliterationName})}
               color={colors.black}
               hoverColor={colors.redHover}
               size="16px"
@@ -133,7 +137,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                     </Text>
                   ) : (
                     <LinkItem
-                      href={`/catalog/${el.id}`}
+                      href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:el.id}, slug:el.transliterationName})}
                       style={{ marginTop: "8px" }}
                       color={colors.black}
                       hoverColor={colors.redHover}
@@ -153,7 +157,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                   <>
                     <S.ListItem>
                       <LinkItem
-                        href={`/catalog/${el.id}`}
+                        href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:el.id}, slug:el.transliterationName})}
                         func={() => setVisible(false)}
                         color={colors.black}
                         hoverColor={colors.redHover}
@@ -209,7 +213,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                                 </Text>
                               ) : (
                                 <LinkItem
-                                  href={`/catalog/${el.id}`}
+                                  href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:el.id}, slug:el.transliterationName})}
                                   color={colors.black}
                                   hoverColor={colors.redHover}
                                   size="15px"
@@ -246,7 +250,7 @@ const Categories = ({ setVisible, categories, rect }: any) => {
                                           $isExpanded={child.childrenIds !== ""}
                                         />
                                         <LinkItem
-                                          href={`/catalog/${childer.id}`}
+                                          href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:childer.id}, slug:childer.transliterationName})}
                                           color={colors.black}
                                           hoverColor={colors.redHover}
                                           size="15px"

@@ -14,6 +14,7 @@ import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const Card = (props:{p:ProductFullData}) => {
   const wishStore = useWishListStore();
@@ -24,10 +25,10 @@ const Card = (props:{p:ProductFullData}) => {
 
   const productInWishList = wishStore.wishList?.some((i) => i.id === prod.id);
   const currStore = useCurrencyStore();
-
+  const r = useRouter()
 
   return (
-    <Wrapper href={`/product/${prod.id}`} off={prod.storageTotal>0}>
+    <Wrapper href={GenerateLink(r, {basePath:'/product', queryParameters:{id:prod.id}, slug:prod.transliteration})} off={prod.storageTotal>0}>
       {prod.oldRetailPrice>prod.retailPrice && (
         <SalePatch>
           <Text size="12px" color={colorsTheme.white} fontStyle={fonts.f500}>

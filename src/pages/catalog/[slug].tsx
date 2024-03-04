@@ -17,8 +17,10 @@ export const getServerSideProps = async (context: any) => {
 
   const page = context.query.page || 1;
 
+  console.log('Id:',context.query)
+
   let result = await catalogStore.loadStateCategory(
-    context.params.id,
+    context.query.id,
     page,
     filtersVariantIds, sort
   );

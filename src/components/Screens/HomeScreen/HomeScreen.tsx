@@ -6,7 +6,6 @@ import {
   MainTitle,
   Wrapper,
 } from "./HomeScreenStyles";
-import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import ByPropose from "./components/ByPropose";
@@ -18,11 +17,10 @@ import { observer } from "mobx-react";
 import { useEffect } from "react";
 import Slider from "./components/Slider";
 import { useTranslation } from "react-i18next";
-import { useCurrencyStore } from "@/store/CurrencyStore";
-import { useAuthStore } from "@/store/AuthStore";
-import { ITEMS } from "./mock";
-import { useRouter } from "next/router";
-import { GenerateLink } from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useCategoriesStore} from "@/store/CategoriesStore";
+import i18next from "i18next";
 
 const HomeScreen = () => {
   const productStore = useProductStore();
@@ -31,6 +29,58 @@ const HomeScreen = () => {
       window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
     }
   };
+  const r = useRouter()
+  const c = useCategoriesStore()
+  const ITEMS = [
+    {
+      title: i18next.t("home.items.1"),
+      picture: "/images/home/byPropose/1.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:166}, slug:c.categories.find(n=>n.id === 166)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.2"),
+      picture: "/images/home/byPropose/2.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:170}, slug:c.categories.find(n=>n.id === 170)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.3"),
+      picture: "/images/home/byPropose/3.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:168}, slug:c.categories.find(n=>n.id === 168)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.4"),
+      picture: "/images/home/byPropose/4.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:169}, slug:c.categories.find(n=>n.id === 169)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.5"),
+      picture: "/images/home/byPropose/5.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:164}, slug:c.categories.find(n=>n.id === 164)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.6"),
+      picture: "/images/home/byPropose/6.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:165}, slug:c.categories.find(n=>n.id === 165)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.7"),
+      picture: "/images/home/byPropose/7.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:171}, slug:c.categories.find(n=>n.id === 171)?.transliterationName}),
+      count: 250,
+    },
+    {
+      title: i18next.t("home.items.8"),
+      picture: "/images/home/byPropose/8.png",
+      link: GenerateLink(r, {basePath:'/catalog', queryParameters:{id:197}, slug:c.categories.find(n=>n.id === 197)?.transliterationName}),
+      count: 250,
+    },
+  ];
 
   useEffect(() => {
     productStore.fetchSales();

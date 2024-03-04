@@ -1,10 +1,6 @@
 import { keyframes, styled } from "styled-components";
 import { metrics } from "../../../../../theme/metrics";
-import { FC, useState } from "react";
 import Card from "@/components/Card/Card";
-import { Text } from "@/components/Text/Text";
-import { colors } from "../../../../../theme/colors";
-import { fonts } from "../../../../../theme/fonts";
 import { useRouter } from "next/router";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Pagination from "@/components/Pagination/Pagination";

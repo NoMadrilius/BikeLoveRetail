@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /auth/*
+Disallow: /checklist/*
+Disallow: /wish-list/*
+Disallow: *filter=
+
+User-agent: Googlebot
+Disallow: /auth/*
+Disallow: /checklist/*
+Disallow: /wish-list/*
+Disallow: *filter=
+
+Sitemap: https://bikelove.com.ua/sitemap.xml
+User-agent: GPTBot
+Disallow: /

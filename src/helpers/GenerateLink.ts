@@ -3,11 +3,11 @@ import {useRouter} from "next/router";
 interface NewParameters {
   basePath?: string;
   queryParameters?: { [key: string]: string | number | boolean | null |number[]} | null;
-  id?:string|number|null;
+  slug?:string;
 }
 
 export function GenerateLink(router: ReturnType<typeof useRouter>, newParams: NewParameters): string {
-  const { basePath, queryParameters, id } = newParams;
+  const { basePath, queryParameters, slug } = newParams;
 
   let newPath = basePath || router.asPath;
 
@@ -19,22 +19,16 @@ export function GenerateLink(router: ReturnType<typeof useRouter>, newParams: Ne
   // Add existing query parameters to the new query
   for (const [key, value] of Object.entries(router.query)) {if(value!=undefined)query.set(key, value.toString());}
 
-  if(basePath === undefined && query.has('id')){
+  if(basePath === undefined && slug != undefined){
     const lastIndex = newPath.lastIndexOf('/');
     if (lastIndex !== -1) {
       newPath = newPath.substring(0, lastIndex + 1);
     }
   }
 
-  if(id === undefined){
-    if(query.has('id')){
-      if(newPath[newPath.length-1] != '/') newPath+='/'
-      newPath+=query.get('id')
-      query.delete('id')
-    }
-  }else{
+  if(slug != undefined){
     if(newPath[newPath.length-1] != '/') newPath+='/'
-    newPath+=id;
+    newPath+=slug;
   }
 
   if(newPath[newPath.length-1] === '/') newPath = newPath.slice(0, -1)
@@ -56,6 +50,8 @@ export function GenerateLink(router: ReturnType<typeof useRouter>, newParams: Ne
         }
       }
     }
+
+    if (query.has('slug')) query.delete("slug");
 
     const queryString = query.toString();
     if (queryString) {

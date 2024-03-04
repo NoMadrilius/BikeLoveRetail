@@ -32,4 +32,5 @@ export interface Product{
 
     metaDescription?:string
     metaTitle?:string
+    transliteration:string
 }

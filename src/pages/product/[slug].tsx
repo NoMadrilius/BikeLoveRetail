@@ -7,7 +7,7 @@ import {
   useProductPageStore,
 } from "@/store/ProductPageStore";
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context:any) => {
   let prod = await productPageStore.getProduct(context.query.id);
   let options: number[] = context.query.options
     ? context.query.options.split(",").map(Number)

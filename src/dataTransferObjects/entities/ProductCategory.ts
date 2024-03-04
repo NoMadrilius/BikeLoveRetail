@@ -15,4 +15,7 @@ export interface ProductCategory{
 
     metaDescription?:string
     metaTitle?:string
+
+    transliterationName:string
+    transliterationWay:string
 }
