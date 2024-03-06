@@ -11,7 +11,7 @@ import {useAuthStore} from "@/store/AuthStore";
 import {useTranslation} from "react-i18next";
 import {observer} from "mobx-react";
 
-const Login = (p:{reloc?:boolean}) => {
+const Login = (p:{onSubmit?:()=>void, simplified?:boolean}) => {
     const { t } = useTranslation();
     const st = useAuthStore();
 
@@ -49,32 +49,34 @@ const Login = (p:{reloc?:boolean}) => {
                 }
                 type="password"
             />
-            <RowContainer style={{ margin: "10px 0" }}>
-                <Checkbox
-                    {...label}
-                    defaultChecked
-                    sx={{
-                        color: colors.redMain,
-                        "&.Mui-checked": {
+            {p.simplified||
+                <RowContainer style={{margin: "10px 0"}}>
+                    <Checkbox
+                        {...label}
+                        defaultChecked
+                        sx={{
                             color: colors.redMain,
-                        },
-                    }}
-                />
-                <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
-                    {t("auth.rememberMe")}
-                </Text>
-                <Text
-                    color={colors.grayMain}
-                    size="13px"
-                    fontStyle={fonts.f400}
-                    margin="0 0 0 auto"
-                    func={() => st.setStep(2)}
-                    hoverColor={colors.redMain}
-                >
-                    {t("auth.remindPassword")}
-                </Text>
-            </RowContainer>
-            <Button disabled={loginDisabled} onClick={()=>{st.login(p.reloc)}}>
+                            "&.Mui-checked": {
+                                color: colors.redMain,
+                            },
+                        }}
+                    />
+                    <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
+                        {t("auth.rememberMe")}
+                    </Text>
+                    <Text
+                        color={colors.grayMain}
+                        size="13px"
+                        fontStyle={fonts.f400}
+                        margin="0 0 0 auto"
+                        func={() => st.setStep(2)}
+                        hoverColor={colors.redMain}
+                    >
+                        {t("auth.remindPassword")}
+                    </Text>
+                </RowContainer>
+            }
+            <Button disabled={loginDisabled} onClick={()=>{st.login(()=>{p.onSubmit&&p.onSubmit()})}}>
                 <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
                     {st.loading ? <Loader /> : t("auth.enter")}
                 </Text>
@@ -90,28 +92,31 @@ const Login = (p:{reloc?:boolean}) => {
               {t("auth.publicAff")}
             </span>
             </Text>
-            <RowContainer>
-                <Line />
+            {p.simplified||<>
+                <RowContainer>
+                    <Line/>
+                    <Text
+                        color={colors.black}
+                        size="14px"
+                        fontStyle={fonts.f400}
+                        margin="0 20px"
+                    >
+                        {t("auth.or")}
+                    </Text>
+                    <Line/>
+                </RowContainer>
                 <Text
-                    color={colors.black}
-                    size="14px"
-                    fontStyle={fonts.f400}
-                    margin="0 20px"
-                >
-                    {t("auth.or")}
-                </Text>
-                <Line />
-            </RowContainer>
-            <Text
                 color={colors.grayMain}
                 size="14px"
                 fontStyle={fonts.f400}
                 func={() => st.setStep(1)}
                 margin="5px auto"
                 hoverColor={colors.redMain}
-            >
-                {t("auth.toRegister")}
-            </Text>
+                >
+            {t("auth.toRegister")}
+                </Text>
+            </>
+            }
         </Wrapper>
     );
 };
@@ -167,6 +172,7 @@ const RowContainer = styled.div`
 `;
 const Button = styled.button`
   ${templates.centerContent};
+  margin-top: 10px;
   width: 368px;
   height: 50px;
   border-radius: 5px;

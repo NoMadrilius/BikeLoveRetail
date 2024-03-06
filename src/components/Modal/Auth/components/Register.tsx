@@ -9,8 +9,9 @@ import {templates} from "../../../../../theme/templates";
 import {useAuthStore} from "@/store/AuthStore";
 import {useTranslation} from "react-i18next";
 import {observer} from "mobx-react";
+import {useRouter} from "next/router";
 
-const Register= (p:{reloc?:boolean}) => {
+const Register= (p:{onSubmit?:()=>void, simplified?:boolean}) => {
     const { t } = useTranslation();
     const st = useAuthStore();
     const isRegPhoneValid = st.regPhone.replace(/[^0-9]/g, "").length >= 12;
@@ -95,32 +96,34 @@ const Register= (p:{reloc?:boolean}) => {
               }
               type="password"
           />
-          <RowContainer style={{ margin: "10px 0" }}>
-              <Checkbox
-                  {...label}
-                  defaultChecked
-                  sx={{
-                      color: colors.redMain,
-                      "&.Mui-checked": {
+          { p.simplified ||
+              <RowContainer style={{margin: "10px 0"}}>
+                  <Checkbox
+                      {...label}
+                      defaultChecked
+                      sx={{
                           color: colors.redMain,
-                      },
-                  }}
-              />
-              <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
-                  {t("auth.rememberMe")}
-              </Text>
-              <Text
-                  color={colors.grayMain}
-                  size="13px"
-                  fontStyle={fonts.f400}
-                  margin="0 0 0 auto"
-                  func={() => console.log("hello")}
-                  hoverColor={colors.redMain}
-              >
-                  {t("auth.remindPassword")}
-              </Text>
-          </RowContainer>
-          <Button onClick={()=>{st.register(p.reloc)}} disabled={registerDisabled}>
+                          "&.Mui-checked": {
+                              color: colors.redMain,
+                          },
+                      }}
+                  />
+                  <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
+                      {t("auth.rememberMe")}
+                  </Text>
+                  <Text
+                      color={colors.grayMain}
+                      size="13px"
+                      fontStyle={fonts.f400}
+                      margin="0 0 0 auto"
+                      func={() => console.log("hello")}
+                      hoverColor={colors.redMain}
+                  >
+                      {t("auth.remindPassword")}
+                  </Text>
+              </RowContainer>
+          }
+          <Button onClick={()=>{st.register(()=>{p.onSubmit&&p.onSubmit()})}} disabled={registerDisabled}>
               <Text color={colors.white} size="15px" fontStyle={fonts.f400}>
                   {t("auth.toRegister")}
               </Text>
@@ -138,28 +141,32 @@ const Register= (p:{reloc?:boolean}) => {
               {t("auth.publicAff")}
             </span>
           </Text>
-          <RowContainer>
-              <Line />
+          {p.simplified ||
+              <>
+              <RowContainer>
+                  <Line/>
+                  <Text
+                      color={colors.black}
+                      size="14px"
+                      fontStyle={fonts.f400}
+                      margin="0 20px"
+                  >
+                      {t("auth.or")}
+                  </Text>
+                  <Line/>
+              </RowContainer>
               <Text
-                  color={colors.black}
-                  size="14px"
-                  fontStyle={fonts.f400}
-                  margin="0 20px"
-              >
-                  {t("auth.or")}
-              </Text>
-              <Line />
-          </RowContainer>
-          <Text
               color={colors.grayMain}
               size="14px"
               fontStyle={fonts.f400}
               func={() => st.setStep(0)}
               margin="5px auto"
               hoverColor={colors.redMain}
-          >
-              {t("auth.iamAlredyRegister")}
-          </Text>
+              >
+          {t("auth.iamAlredyRegister")}
+              </Text>
+              </>
+          }
       </Wrapper>
   );
 };
@@ -216,6 +223,7 @@ const RowContainer = styled.div`
 `;
 const Button = styled.button`
   ${templates.centerContent};
+  margin-top: 10px;
   width: 368px;
   height: 50px;
   border-radius: 5px;

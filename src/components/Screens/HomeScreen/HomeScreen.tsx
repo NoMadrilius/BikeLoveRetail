@@ -19,8 +19,8 @@ import Slider from "./components/Slider";
 import { useTranslation } from "react-i18next";
 import {useRouter} from "next/router";
 import {GenerateLink} from "@/helpers/GenerateLink";
-import {useCategoriesStore} from "@/store/CategoriesStore";
 import i18next from "i18next";
+import {useAppStore} from "@/store/AppStore";
 
 const HomeScreen = () => {
   const productStore = useProductStore();
@@ -30,7 +30,7 @@ const HomeScreen = () => {
     }
   };
   const r = useRouter()
-  const c = useCategoriesStore()
+  const c = useAppStore()
   const ITEMS = [
     {
       title: i18next.t("home.items.1"),
@@ -90,7 +90,7 @@ const HomeScreen = () => {
 
   return (
     <>
-      <UseMetaData title={"Home"} img={""} description={"asd"} />
+      <UseMetaData title={"Найкрайщий магазин велосипедів BikeLove"} img={""} description={"asd"} />
 
       <Wrapper>
         <BgImage bgImage="/images/home/bannerImage.png">

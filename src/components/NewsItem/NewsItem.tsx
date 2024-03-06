@@ -3,12 +3,19 @@ import { Text } from "../Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { FC } from "react";
-import { INewsItem } from "@/types/types";
 import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { Paragraph, Subtitle } from "../Screens/HomeScreen/HomeScreenStyles";
 
+export interface  INewsItem{
+    date:string
+    title:string
+    description:string
+    image:string
+    blog:boolean
+    id:number
+}
 const NewsItem: FC<INewsItem> = ({
   date,
   title,

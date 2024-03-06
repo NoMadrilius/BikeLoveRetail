@@ -6,16 +6,16 @@ import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import {Product} from "@/dataTransferObjects/entities/Product";
-import {useCategoriesStore} from "@/store/CategoriesStore";
 import {observer} from "mobx-react";
 import Link from "next/link";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {GenerateLink} from "@/helpers/GenerateLink";
+import {useAppStore} from "@/store/AppStore";
 
 const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
   const router = useRouter();
   let road:[{title:string, link:string}] = [] as unknown as [{title:string, link:string}];
-  const st = useCategoriesStore();
+  const st = useAppStore();
 
   const cat = st.categories.find(n=>n.id === p.categoryId);
   let lastCatParent:ProductCategory|undefined = cat

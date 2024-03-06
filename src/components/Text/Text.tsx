@@ -22,6 +22,7 @@ export type TextPtops = {
   textDecoration?: "trought";
   onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
   style?: CSSProperties;
+  suppressHydrationWarning?:boolean
 };
 
 export const Text: FC<TextPtops> = ({
@@ -39,7 +40,7 @@ export const Text: FC<TextPtops> = ({
   textDecoration,
   preline,
   onMouseEnter,
-  style,
+  style,suppressHydrationWarning
 }) => {
   return (
     <TextStyle
@@ -58,6 +59,7 @@ export const Text: FC<TextPtops> = ({
       whiteSpace={whiteSpace}
       textTransform={textTransform}
       textDecoration={textDecoration}
+      suppressHydrationWarning = {suppressHydrationWarning}
     >
       {children}
     </TextStyle>

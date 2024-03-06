@@ -3,16 +3,16 @@ import { ColumnContainer, Line, RowContainer } from "../SidebarStyles";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { useEffect, useState } from "react";
-import { useCategoriesStore } from "@/store/CategoriesStore";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import {useAppStore} from "@/store/AppStore";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();
   const router = useRouter();
-  const catalogStore = useCategoriesStore();
+  const as = useAppStore();
   const [id, setId] = useState<any>();
   const [title, setTitle] = useState<any>("Каталог");
   const [titlesHistory, setTitlesHistory] = useState<string[]>(["Каталог"]);
@@ -53,11 +53,12 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
       setMainStep(0);
     }
   };
+
   //TODO fix this
   useEffect(() => {
-    catalogStore.fetchCategories();
+    //catalogStore.fetchCategories();
   }, []);
-  const filteredCategory = catalogStore.parentCategories.filter(
+  const filteredCategory = as.categories.filter(
     (el: any) => el.id === id
   )[0];
   const childrenId =
@@ -65,7 +66,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
       ? filteredCategory.childrenIds.split(";").map(Number)
       : [];
 
-  const childCategories = catalogStore.categories?.filter((el: any) =>
+  const childCategories = as.categories.filter((el: any) =>
     childrenId.includes(el.id)
   );
   const smallChildCategories = () => {
@@ -73,7 +74,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
       childCategories && childCategories[0]?.childrenIds
         ? childCategories[0]?.childrenIds.split(";").map(Number)
         : [];
-    return catalogStore.categories?.filter((el: any) => ids.includes(el.id));
+    return as.categories.filter((el: any) => ids.includes(el.id));
   };
   ///
   ///
@@ -116,7 +117,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
       <ColumnContainer style={{ rowGap: "20px", padding: "23px 26px 33px" }}>
         {step === 0 && (
           <>
-            {catalogStore?.parentCategories?.map((el: any, index: any) => (
+            {as.categories.map((el: any, index: any) => (
               <RowContainer
                 key={index}
                 style={{

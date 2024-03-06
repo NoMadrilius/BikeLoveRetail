@@ -5,8 +5,8 @@ import { colors } from "../../../../../../theme/colors";
 import { fonts } from "../../../../../../theme/fonts";
 import { FC, useState } from "react";
 import Item from "./Item";
-import { IOrderViewData } from "@/types/types";
 import { useTranslation } from "react-i18next";
+import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 
 const testData = [
   {
@@ -33,7 +33,7 @@ const testData = [
   },
 ];
 type Props = {
-  data: IOrderViewData[];
+  data: OrderFullData[];
 };
 
 const Step2: FC<Props> = ({ data }) => {

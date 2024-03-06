@@ -5,9 +5,11 @@ import RenewPassword from "./components/RenewPassword";
 import Login from "@/components/Modal/Auth/components/Login";
 import Register from "@/components/Modal/Auth/components/Register";
 import {styled} from "styled-components";
+import {useRouter} from "next/router";
 
 const Auth = () => {
   const authStore = useAuthStore();
+  const r =useRouter()
 
   return (
     <Wrapper>
@@ -16,8 +18,8 @@ const Auth = () => {
         img={""}
         description={""}
       />
-      {authStore.step === 0 && <Login/>}
-      {authStore.step === 1 && <Register/>}
+      {authStore.step === 0 && <Login onSubmit={()=>r.push('/')}/>}
+      {authStore.step === 1 && <Register onSubmit={()=>r.push('/')}/>}
       {authStore.step === 2 && <RenewPassword/>}
     </Wrapper>
   );

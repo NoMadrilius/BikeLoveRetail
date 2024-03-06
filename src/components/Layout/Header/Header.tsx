@@ -1,4 +1,3 @@
-"use client";
 import { FC, useEffect, useState } from "react";
 import {
   BurgerIcon,
@@ -14,24 +13,22 @@ import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import Input from "./components/Input";
 import { ButtonCustom } from "../../ButtonCustom/ButtonCustom";
-import Categories from "../../Modal/Categories";
 import SideBar from "../../SideBar/Sidebar";
 import { useRouter } from "next/router";
 import Cart from "../../Modal/Cart/Cart";
-import { useCategoriesStore } from "@/store/CategoriesStore";
 import { styled } from "styled-components";
 import { templates } from "../../../../theme/templates";
 import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
-import { useWishListStore } from "@/store/WishListStore";
 import { useAuthStore } from "@/store/AuthStore";
-import { useCurrencyStore } from "@/store/CurrencyStore";
 import GearSelect from "./components/GearSelect";
 import { useTranslation } from "react-i18next";
 import MenuTitle from "./components/MenuTitle";
 import Link from "next/link";
 import { useAppStore } from "@/store/AppStore";
-import {Currency} from "@/dataTransferObjects/entities/Currency";
+import Categories from "@/components/Modal/Categories";
+import CartIcon from "@/components/Layout/Header/components/CartIcon";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const ICONS = [
   { id: 1, icon: "/images/home/icons/icon1.svg" },
@@ -48,20 +45,22 @@ interface ActiveMenuState {
   rect: DOMRect | null;
 }
 
-const Header: FC<Props> = ({ opacityBg }) => {
+const Header: FC<Props> = ({ opacityBg }) =>{
+
   const { t } = useTranslation();
 
   const TITLES = [
-    t("header.catalog"),
-    t("header.about"),
-    t("header.workshop"),
-    t("header.blog"),
-    t("header.contacts"),
+    t("header.catalog").toString(),
+    t("header.about").toString(),
+    t("header.workshop").toString(),
+    t("header.blog").toString(),
+    t("header.contacts").toString(),
   ];
 
   const [inputText, setInputText] = useState("");
 
   const as = useAppStore();
+  const cart = useCartStore()
   const router = useRouter();
   const cartStore = useCartStore();
 
@@ -77,12 +76,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
     }
   };
 
-  const categories = useCategoriesStore();
-  const cart = useCartStore();
-  const wish = useWishListStore();
   const authStore = useAuthStore();
-  const [cartData, setCartData] = useState<any>();
-  const [wishData, setWishData] = useState<any>();
 
   const [activeMenu, setActiveMenu] = useState<ActiveMenuState>({
     id: null,
@@ -115,13 +109,6 @@ const Header: FC<Props> = ({ opacityBg }) => {
     };
   }, []);
 
-  useEffect(() => {
-    categories.fetchCategories();
-    setCartData(cart.cart);
-  }, [cart.cart, router.pathname]);
-  useEffect(() => {
-    setWishData(wish.wishList);
-  }, [wish, router.pathname]);
 
   const openMenu = (id: string, rect: DOMRect) => {
     setActiveMenu({ id, rect });
@@ -133,9 +120,10 @@ const Header: FC<Props> = ({ opacityBg }) => {
     setActiveMenu({ id: null, rect: null });
     as.setIsOpenCategories(false);
   };
+
   return (
     <header>
-      <Wrapper opacityBg={opacityBg}>
+      <Wrapper opacityBg={opacityBg as boolean}>
         <Logo
           width={70}
           height={70}
@@ -161,7 +149,7 @@ const Header: FC<Props> = ({ opacityBg }) => {
           <Link href="/about">
             <MenuTitle title={TITLES[1]} />
           </Link>
-          <Link href="/workshop">
+          <Link href={GenerateLink(router,{basePath:'/workshop'})}>
             <MenuTitle title={TITLES[2]} />
           </Link>
           <Link href="/blog">
@@ -188,30 +176,16 @@ const Header: FC<Props> = ({ opacityBg }) => {
               src={ICONS[0].icon}
               onClick={() => onClickIcons(ICONS[0].id)}
             />
-            {wishData?.length ? (
+            {[]?.length ? (
               <Counter>
                 <Text color={colors.white} size="13px" fontStyle={fonts.f500}>
-                  {wishData?.length}
+                  {[]?.length}
                 </Text>
               </Counter>
             ) : null}
           </CounterContainer>
-          <CounterContainer>
-            <Icon
-              width={23}
-              height={23}
-              alt="Header Icon"
-              src={ICONS[1].icon}
-              onClick={() => onClickIcons(ICONS[1].id)}
-            />
-            {cartData?.length ? (
-              <Counter>
-                <Text color={colors.white} size="13px" fontStyle={fonts.f500}>
-                  {cartData?.length}
-                </Text>
-              </Counter>
-            ) : null}
-          </CounterContainer>
+          {<CartIcon/>
+          }
           <Icon
             width={23}
             height={23}
@@ -254,21 +228,8 @@ const Header: FC<Props> = ({ opacityBg }) => {
           onClick={() => as.setIsOpenSidebar(!as.isOpenSidebar)}
         />
       </Wrapper>
-      {as.isOpenCategories ? (
-        <>
-          <Overlay categoriesVisible={as.isOpenCategories} />
-          <CategoriesContainer
-            activeMenu={activeMenu}
-            categoriesVisible={as.isOpenCategories}
-          >
-            <Categories
-              setVisible={as.setIsOpenCategories}
-              categories={categories}
-              rect={activeMenu.rect}
-            />
-          </CategoriesContainer>
-        </>
-      ) : null}
+
+        <Categories activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
 
       {as.isOpenSidebar && <SideBar />}
       {cartStore.visible && <Cart />}
@@ -309,33 +270,6 @@ const ResNumberWrapper = styled.div`
   }
 `;
 
-const Overlay = styled.div<{ categoriesVisible: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  opacity: ${({ categoriesVisible }) => (categoriesVisible ? 1 : 0)};
-  transition: opacity 0.3s ease;
-`;
 
-const CategoriesContainer = styled.div<{
-  activeMenu: any;
-  categoriesVisible: any;
-}>`
-  position: absolute;
-  /* top: ${({ activeMenu }) =>
-    activeMenu.rect ? activeMenu.rect.bottom + "px" : "0"}; */
-  left: ${({ activeMenu }) =>
-    activeMenu.rect ? activeMenu.rect.left + "px" : "0"};
-  opacity: ${({ categoriesVisible }) => (categoriesVisible ? 1 : 0)};
-  /* visibility: ${({ categoriesVisible }) =>
-    categoriesVisible ? "visible" : "hidden"}; */
-  transition: all 0.3s ease-in-out;
 
-  /* Additional styles */
-  pointer-events: ${({ categoriesVisible }) =>
-    categoriesVisible ? "auto" : "none"};
-`;
+

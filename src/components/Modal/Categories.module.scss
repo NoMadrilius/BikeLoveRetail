@@ -1,0 +1,52 @@
+.tree{
+  display: flex;
+  flex-direction: column;
+  .node{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: start;
+
+    .head{
+      user-select: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      .arrow_down{
+        height: 24px;
+      }
+      .arrow_right{
+        transform: rotate(-90deg);
+        height: 24px;
+      }
+      .title{
+
+      }
+    }
+
+    .head:hover{
+      color: darkred;
+      font-weight: 600;
+    }
+    .childs{
+      //border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+
+      .head{
+        display: flex;
+        flex-direction: row;
+        .arrow{
+          height: 16px;
+        }
+        .title{
+
+        }
+      }
+    }
+
+  }
+
+
+}

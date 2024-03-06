@@ -1,28 +1,19 @@
 import { css, keyframes, styled } from "styled-components";
-
 import { Text } from "@/components/Text/Text";
-
-import { FC, useEffect, useState } from "react";
-
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
-import { showToast } from "@/helpers/alertService/alertService";
-import InputMask from "react-input-mask";
-import Loader from "@/helpers/Loader/Loader";
-import { IOrderData } from "@/types/types";
 import { useTranslation } from "react-i18next";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { templates } from "../../../../../theme/templates";
 import Register from "@/components/Modal/Auth/components/Register";
 import Login from "@/components/Modal/Auth/components/Login";
-import RenewPassword from "@/components/Modal/Auth/components/RenewPassword";
 
 const Registration= () => {
   const { t } = useTranslation();
 
   const st = useAuthStore();
-
+  console.log(st.step)
   return (
     <>
       <Wrapper>
@@ -74,11 +65,15 @@ const Registration= () => {
         </Header>
         {
           st.isAuth?<div style={{color:'black'}}>
-            Kekw
+            {st.user?.lastName}
+            {st.user?.firstName}
+            {st.user?.phoneNumber}
           </div>:<>
-              st.step === 0 && <Register reloc/>
-              st.step === 1 && (<Login reloc/>)
-              st.step === 2 && (<RenewPassword/>)</>
+          {st.step === 0 && <Register simplified/>}
+          {st.step === 1 && <Login simplified/>}
+              {//st.step === 2 && (<RenewPassword/>)
+              }
+          </>
         }
 
       </Wrapper>
@@ -100,6 +95,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Header = styled.div`
+  z-index: 0;
   width: 100%;
   display: flex;
   column-gap: 33px;

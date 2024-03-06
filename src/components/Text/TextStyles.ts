@@ -16,6 +16,7 @@ export const TextStyle = styled.span<{
   preline?: boolean;
   textTransform?: string;
   textDecoration?: string;
+  suppressHydrationWarning?:boolean
 }>`
   max-width: ${(p) => p.maxWidth || "100%"};
   text-transform: ${(p) => p.textTransform || "none"};

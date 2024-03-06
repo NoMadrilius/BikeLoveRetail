@@ -1,6 +1,5 @@
 "use client";
 import React, { useMemo } from "react";
-import { ToastMessageProps } from "../../types/types";
 import { styled } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { colors } from "../../../theme/colors";
@@ -9,6 +8,7 @@ import { fonts } from "../../../theme/fonts";
 import SuccessToast from "./assets/successToast";
 import WarnToast from "./assets/warnToast";
 import AlertToast from "./assets/alertToast";
+import {ToastMessageProps} from "@/dataTransferObjects/internal/ToastMessageProps";
 
 const ToastMessage: React.FC<ToastMessageProps> = ({ title, info, type }) => {
   const typeParams = useMemo(() => {

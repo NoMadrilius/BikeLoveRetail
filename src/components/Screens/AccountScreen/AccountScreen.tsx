@@ -10,7 +10,6 @@ import Step1 from "./components/Step1";
 import Step2 from "./components/Step2/Step2";
 import { useAuthStore } from "@/store/AuthStore";
 import { useProductStore } from "@/store/ProductStore";
-import { IOrderViewData } from "@/types/types";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
@@ -22,7 +21,7 @@ const AccountScreen = () => {
     { title: "Персональные данные", link: "" },
   ];
   const productStore = useProductStore();
-  const [products, setProducts] = useState<IOrderViewData[]>([]);
+  const [products, setProducts] = useState<[]>([]);
     const router = useRouter()
   const authStore = useAuthStore()
 

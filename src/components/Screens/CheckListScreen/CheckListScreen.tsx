@@ -9,31 +9,12 @@ import DeliveryInfo from "./components/DeliveryInfo";
 import PayInfo from "./components/PayInfo";
 import ListItems from "./components/ListItems";
 import { useCartStore } from "@/store/CartStore";
-import { useEffect, useState } from "react";
-import { IOrderData } from "@/types/types";
-import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
-import {Product} from "@/dataTransferObjects/entities/Product";
 
 const CheckListScreen = () => {
   const { t } = useTranslation();
-  const road = [
-    { title: "Корзина", link: "/" },
-    { title: "Оформление заказа", link: "/" },
-  ];
-
-  const [sendData, setSendData] = useState<IOrderData>({
-    order: {
-      deliveryType: "",
-      deliveryInfo: "",
-      descriptionCilent: "asd",
-      discountId: 0,
-      clientId: "",
-    },
-    products: [],
-  });
 
   const st = useCartStore();
   const currStore = useCurrencyStore();
@@ -49,8 +30,8 @@ const CheckListScreen = () => {
         <Container>
           <Left>
             <Registration/>
-            <DeliveryInfo setSendData={setSendData} />
-            <PayInfo setSendData={setSendData} data={sendData} />
+            <DeliveryInfo/>
+            <PayInfo/>
           </Left>
           <Line />
           <Right>
@@ -65,7 +46,7 @@ const CheckListScreen = () => {
             {st.cart && (
               <>
                 {st.cart.map((el, index) => (
-                  <ListItems data={el.product} key={index} />
+                  <ListItems data={el} key={index} />
                 ))}
               </>
             )}
@@ -85,7 +66,7 @@ const CheckListScreen = () => {
                 fontStyle={fonts.f400}
                 margin="0 0 0 auto"
               >
-                {st.totalPrice}
+                {currStore.useCurrency(st.totalPrice)}
               </Text>
             </TotalPrice>
           </Right>

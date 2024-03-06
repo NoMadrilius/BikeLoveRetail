@@ -94,6 +94,7 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
             size="21px"
             fontStyle={fonts.f400}
             func={() => counterHandler("minus")}
+            style={{userSelect:"none"}}
           >
             -
           </Text>
@@ -105,7 +106,7 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
           <Text
             color={colors.black}
             size="21px"
-            fontStyle={fonts.f400}
+            fontStyle={fonts.f400} style={{userSelect:"none"}}
             func={() => counterHandler("plus")}
           >
             +

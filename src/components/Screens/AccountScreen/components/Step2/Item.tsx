@@ -5,14 +5,15 @@ import { colors } from "../../../../../../theme/colors";
 import { fonts } from "../../../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import Image from "next/image";
-import { IOrderViewData } from "@/types/types";
 import { prettyDate } from "@/helpers/stringDecorate/prettyDate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import {Order} from "@/dataTransferObjects/entities/Order";
+import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 
 type Props = {
-  data: IOrderViewData;
+  data: OrderFullData;
 };
 
 const Item: FC<Props> = ({ data }) => {

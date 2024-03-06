@@ -6,30 +6,44 @@ import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import {Product} from "@/dataTransferObjects/entities/Product";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
+import {useCurrencyStore} from "@/store/CurrencyStore";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useCartStore} from "@/store/CartStore";
 
-const ListItems = (p:{ data:Product }) => {
+const ListItems = (p:{ data: {product: Product, fullData: ProductFullData, quantity: number} }) => {
   const { t } = useTranslation();
   const router = useRouter();
+  const c = useCurrencyStore()
+  let img:string =  "/mock/NoPhoto.png"
+  let persImg = p.data.fullData.productImages.find(n=>n.productId === p.data.product.id)
+  if(persImg) img = persImg.url
+  else if(p.data.fullData.productImages.length >0) img = p.data.fullData.productImages[0].url
+
   return (
     <>
-      <Wrapper onClick={() => router.push(`/product/${p.data.id}`)}>
+      <Wrapper onClick={() => router.push(GenerateLink(router, {basePath:'/product', queryParameters:{id:p.data.product.id}, slug:p.data.product.transliteration}))}>
         <ItemWrapper>
-          {//<Picture src={p.data || "/mock/NoPhoto.png"} />
-          }
+          <Picture src={img} />
+
           <ColumnContainer>
             <Text color={colors.black} size="16px" fontStyle={fonts.f600}>
-              {p.data.name}
+              {p.data.product.name}
             </Text>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+            {
+              /*
+              <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
               {t("checkList.size")}
             </Text>
+               */
+            }
+
             <RowContainer>
               <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-                {prettyPrice(p.data.retailPrice)}
+                {c.useCurrency(p.data.product.retailPrice)}
               </Text>
               <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-                {//p.data
-                   } шт
+                {p.data.quantity} шт
               </Text>
             </RowContainer>
           </ColumnContainer>

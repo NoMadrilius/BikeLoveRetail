@@ -4,9 +4,9 @@ import { colors } from "../../../theme/colors";
 import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { CatalogPageResponse } from "@/dataTransferObjects/response/CatalogPageResponse";
-import {string} from "prop-types";
 
 export const getServerSideProps = async (context: any) => {
+  console.log("kwakwakwa666")
   const filtersVariantIds = context.query.filter
     ? context.query.filter.split(",").map(Number)
     : [];

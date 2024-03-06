@@ -4,74 +4,17 @@ import { colors } from "../../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
 import { templates } from "../../../../../theme/templates";
-import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
-import Image from "next/image";
-import { FC, useEffect, useState } from "react";
-import { IOrderData } from "@/types/types";
-import { showToast } from "@/helpers/alertService/alertService";
 import { useProductStore } from "@/store/ProductStore";
 import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
+import {useCheckList} from "@/store/CheckListStore";
 
-type Props = {
-  setSendData: any;
-  data: IOrderData;
-};
-
-const PayInfo: FC<Props> = ({ setSendData, data }) => {
+const PayInfo= () => {
   const { t } = useTranslation();
   const productStore = useProductStore();
-  const [desc, setDesc] = useState("");
-  useEffect(() => {
-    setSendData((prevData: IOrderData) => ({
-      ...prevData,
-      order: {
-        ...prevData.order,
-        descriptionCilent: desc,
-      },
-    }));
-  }, [desc]);
 
-  const onPress = () => {
-    if (!data.order.clientId) {
-      showToast({
-        info: t("checkList.toast1"),
-        title: t("checkList.toastError"),
-        type: "error",
-      });
-      return;
-    }
-
-    if (
-      data.order.deliveryInfo == "" &&
-      data.order.deliveryType === "ShopPickUp"
-    ) {
-      showToast({
-        info: t("checkList.toast2"),
-        title: t("checkList.toastError"),
-        type: "error",
-      });
-      return;
-    }
-    if (
-      data.order.deliveryInfo === undefined &&
-      data.order.deliveryType === "DeliveryNP"
-    ) {
-      showToast({
-        info: t("checkList.toast3"),
-        title: t("checkList.toastError"),
-        type: "error",
-      });
-      return;
-    }
-
-    try {
-      productStore.sendOrder(data);
-    } catch (error) {
-      console.log("error");
-    }
-  };
+  const st = useCheckList()
 
   return (
     <Wrapper>
@@ -87,12 +30,12 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
           fontStyle={fonts.f600}
           textTransform="uppercase"
         >
-          {t("checkList.additionalIfo")}
+          ДОДАТКОВА ІНФОРМАЦІЯ
         </Text>
       </Header>
       <Container>
         <ButtonsContainer>
-          <TextArea onChange={(e) => setDesc(e.target.value)} />
+          <TextArea onChange={(e) => st.setClientDesc(e.target.value)} value={st.clientDesc}/>
           {/* <Button
 						selected={selectedPayMethod === "PP"}
 						onClick={() => setSelectedPayMethod("PP")}>
@@ -124,8 +67,8 @@ const PayInfo: FC<Props> = ({ setSendData, data }) => {
 					</Button> */}
         </ButtonsContainer>
         <Button
-          disabled={productStore?.loadingSendOrder}
-          onClick={() => onPress()}
+            disabled={false}
+          onClick={()=>{st.createOrder()}}
         >
           {productStore?.loadingSendOrder ? (
             <Loader />
@@ -197,4 +140,5 @@ const TextArea = styled.textarea`
   height: 127px;
   resize: none;
   font-family: ${fonts.f400.fontFamily};
+  font-size: 16px;
 `;

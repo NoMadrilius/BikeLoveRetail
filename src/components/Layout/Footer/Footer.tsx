@@ -24,7 +24,7 @@ const Footer = () => {
   const { t } = useTranslation();
   const currentLang: "ua" | "ru" = i18next.language as "ua" | "ru";
 
-  const rights = ["@ 2023", t("footer.allRights"), t("footer.publicAffert")];
+  const rights = ["@ 2024", t("footer.allRights"), t("footer.publicAffert")];
   const [isDesktop, setIsDesktop] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 

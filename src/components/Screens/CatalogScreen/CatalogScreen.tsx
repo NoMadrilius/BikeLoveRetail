@@ -8,7 +8,6 @@ import Filter from "./components/Filter";
 import Products from "./components/Products";
 import { useEffect, useState } from "react";
 import TextBlock from "./components/TextBlock";
-import categoriesStore, { useCategoriesStore } from "@/store/CategoriesStore";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
@@ -24,7 +23,6 @@ const CatalogScreen = () => {
   const { t } = useTranslation();
   const state = useCatalogStore();
   const router = useRouter();
-  const catId = router.query.id;
 
   const [filterVisible, setFilterVisible] = useState(false);
   let page = state.catalogState!.page != 1 ?` - Сторінка ${state.catalogState!.page.toString()}`:''

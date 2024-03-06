@@ -62,7 +62,7 @@ class AuthStore {
     }
   }
 
-  register = async (noRelocate?: boolean) => {
+  register = async (os:()=>void) => {
 
     const validateEmail = (email: string) => {
       const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -106,9 +106,7 @@ class AuthStore {
       this.isAuth = true
       this.user = r.data.user
       this.accessToken = r.data.accessToken
-      if (!noRelocate) {
-        Router.push("/");
-      }
+      os()
       showToast({
         info: "Удачных покупок :)",
         title: "Аккаунт создан",
@@ -125,7 +123,7 @@ class AuthStore {
     })
 
   };
-  login = async (noRelocate?: boolean) => {
+  login = async (os:()=>void) => {
     let request:LoginRequest  ={
       phone:this.loginPhone.replace(/\s/g, ""),
       password:this.loginPassword
@@ -135,9 +133,7 @@ class AuthStore {
       this.isAuth = true
       this.user = r.data.user
       this.accessToken = r.data.accessToken
-      if (!noRelocate) {
-        Router.push("/");
-      }
+      os()
       showToast({
         info: "Вітаємо",
         title: "Вхід виконано",
@@ -167,8 +163,8 @@ class AuthStore {
       this.loading = true
       return Promise.resolve(r)
     }).catch(e=>{
-      //this.isAuth = false
-      //this.accessToken = null
+      this.isAuth = false
+      this.accessToken = null
       showToast({
         info: "Сессия устарела, повторите вход",
         title: "Войдите",
