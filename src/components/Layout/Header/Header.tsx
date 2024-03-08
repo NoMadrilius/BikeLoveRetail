@@ -53,7 +53,7 @@ const Header: FC<Props> = ({ opacityBg }) =>{
     t("header.catalog").toString(),
     t("header.about").toString(),
     t("header.workshop").toString(),
-    t("header.blog").toString(),
+    //t("header.blog").toString(),
     t("header.contacts").toString(),
   ];
 

@@ -8,21 +8,14 @@ import BlockWithFrame from "@/components/Screens/ContactsScreen/components/Block
 import Image from "next/image";
 import useShopData from "@/helpers/hooks/useShopData";
 import Map from "./Map";
+import {useAppStore} from "@/store/AppStore";
 
 type Props = {
   setVisible: any;
 };
 
 const SideBar = ({ setVisible }: Props) => {
-  const [shopData, loading, error] = useShopData();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const as = useAppStore()
 
   return (
     <BlurWrapper onClick={()=>{setVisible(false)}}>
@@ -53,13 +46,12 @@ const SideBar = ({ setVisible }: Props) => {
           Ваш город
         </Text> */}
         <AvailabilityContainer>
-          {shopData &&
-            shopData.map((shop) => (
-              <BlockWithFrame key={shop.id} shopData={shop} sidebar />
+          {as.shops.map((shop) => (
+              <BlockWithFrame key={shop.id} shop={shop}/>
             ))}
         </AvailabilityContainer>
         <FrameWrapper2>
-          <Map shopData={shopData} />
+          <Map shopData={as.shops} />
         </FrameWrapper2>
       </Wrapper>
     </BlurWrapper>

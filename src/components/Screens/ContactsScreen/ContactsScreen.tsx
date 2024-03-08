@@ -1,4 +1,4 @@
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
+"use client"
 import { Text } from "@/components/Text/Text";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
@@ -10,19 +10,14 @@ import axiosInstance from "@/api/axiosInstance";
 import { usePublickStore } from "@/store/PublicStore";
 import { useTranslation } from "react-i18next";
 import { observer } from "mobx-react";
+import {useAppStore} from "@/store/AppStore";
 
 const ContactsScreen = () => {
   const { t } = useTranslation();
-  const road = [{ title: "Котакты", link: "" }];
-  const publicStore = usePublickStore();
-
-  useEffect(() => {
-    publicStore.getContacts();
-  }, []);
+  const as = useAppStore();
 
   return (
     <>
-      <>
         <UseMetaData title={"Контакты"} img={""} description={""} />
         <Text
           color={colors.black}
@@ -33,11 +28,8 @@ const ContactsScreen = () => {
         >
           {t("contacts")}
         </Text>
-        {/* <BlockWithFrame />
-        <BlockWithFrame />
-        <BlockWithFrame /> */}
+          {as.shops.map(s=><BlockWithFrame shop={s} />)}
         <div style={{ paddingBottom: "100px" }}></div>
-      </>
     </>
   );
 };

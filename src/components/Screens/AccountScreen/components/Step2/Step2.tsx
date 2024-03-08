@@ -8,30 +8,6 @@ import Item from "./Item";
 import { useTranslation } from "react-i18next";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 
-const testData = [
-  {
-    orderNumber: "785214",
-    status: 1,
-    date: "19.09.2024",
-    items: [
-      {
-        title: "S-Works Tarmac SL7 - SRAM Red eTap AXS",
-        price: "93000",
-        img: "/mock/testCardByPropose.png",
-      },
-      {
-        title: "S-Works Tarmac SL7 - SRAM Red eTap AXS",
-        price: "93000",
-        img: "/mock/testCardByPropose.png",
-      },
-      {
-        title: "S-Works Tarmac SL7 - SRAM Red eTap AXS",
-        price: "93000",
-        img: "/mock/testCardByPropose.png",
-      },
-    ],
-  },
-];
 type Props = {
   data: OrderFullData[];
 };
@@ -61,9 +37,9 @@ const Step2: FC<Props> = ({ data }) => {
             </Button>
           ))}
         </Header>
-        {data && (
+        {data.length>0 && (
           <MainContainer>
-            {data.map((el: any, index: number) => (
+            {data.map((el, index: number) => (
               <Item key={index} data={el} />
             ))}
           </MainContainer>

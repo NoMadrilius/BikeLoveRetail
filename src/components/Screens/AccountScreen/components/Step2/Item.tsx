@@ -30,24 +30,49 @@ const Item: FC<Props> = ({ data }) => {
   console.log(priceStr);
   const statusData = () => {
     switch (data.order.orderStatus) {
-      case "jibilix":
+      case "WaitingForPayment":
         return {
-          title: "",
+          title: "Очікує сплати",
           color: colors.redMain,
         };
       case "Created":
         return {
-          title: t("account.item.tab2"),
+          title: "Очікує підтвердження",
           color: colors.redMain,
         };
-      case "sd":
+      case "WaitingLogistic":
         return {
-          title: t("account.item.tab3"),
+          title: "Очікує логістики",
           color: colors.green,
         };
-      case "asqr":
+      case "WaitingForCollection":
         return {
-          title: t("account.item.tab4"),
+          title: "На збірці",
+          color: colors.grayMain,
+        };
+      case "ReadyInShop":
+        return {
+          title: "Готово та очікує в магазині",
+          color: colors.grayMain,
+        };
+      case "WaitingForShipping":
+        return {
+          title: "Очікує на відправку",
+          color: colors.grayMain,
+        };
+      case "Shipped":
+        return {
+          title: "Відправлено",
+          color: colors.grayMain,
+        };
+      case "Finished":
+        return {
+          title: "Завершено",
+          color: colors.grayMain,
+        };
+      case "Canceled":
+        return {
+          title: "Скасовано",
           color: colors.grayMain,
         };
 
@@ -144,23 +169,7 @@ const Item: FC<Props> = ({ data }) => {
             <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
               {deliveryLocationString}
             </Text>
-            {/* <Text
-							color={colors.grayMain}
-							size='12px'
-							fontStyle={fonts.f400}
-							margin='21px 0 0 0'>
-							График работы:
-						</Text>
-						<Text
-							color={colors.grayMain}
-							size='12px'
-							fontStyle={fonts.f400}
-							margin='5px 0 0 0'>
-							Пн-Сб:10:00-21:00
-						</Text>
-						<Text color={colors.grayMain} size='12px' fontStyle={fonts.f400}>
-							Вс: 10:00-18:00
-						</Text> */}
+
             <Text
               color={colors.black}
               size="18px"
@@ -169,14 +178,50 @@ const Item: FC<Props> = ({ data }) => {
             >
               {t("account.item.pay")}
             </Text>
-            <Text
-              color={colors.black}
-              size="15px"
-              fontStyle={fonts.f400}
-              margin="22px 0 0 0"
-            >
-              {t("account.item.payVar1")}
-            </Text>
+            {
+              data.order.isPayed?
+                  <Text
+                      color={colors.green}
+                      size="18px"
+                      fontStyle={fonts.f600}
+                      margin="20px 0 0 0"
+                  >
+                    Замовлення оплачено
+                  </Text>
+                  :
+                  <>
+                  <Text
+                      color={colors.redMain}
+                      size="18px"
+                      fontStyle={fonts.f600}
+                      margin="20px 0 0 0"
+                  >
+                    Замовлення очікує оплати
+                  </Text>
+                    {
+                      data.order.isPrePay?
+                          <Text
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              margin="22px 0 0 0"
+                          >
+                            Замовлення буде оброблено після оплати
+                          </Text>
+                          :
+                          <Text
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              margin="22px 0 0 0"
+                          >
+                            Оплата при отриманні
+                          </Text>
+
+                    }
+                  </>
+            }
+
           </DetailsInfo>
 
           <ColumnContainer style={{ width: "100%", rowGap: " 13px" }}>

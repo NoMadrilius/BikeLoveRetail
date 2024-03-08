@@ -1,20 +1,15 @@
-import { FC, useState } from "react";
 import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import styled, { css } from "styled-components";
-import { ShopData } from "@/helpers/hooks/useShopData";
+import {Shop} from "@/dataTransferObjects/entities/Shop";
 
-type Props = {
-  shopData: ShopData;
-  sidebar?: boolean;
-};
 
-const BlockWithFrame = ({ shopData, sidebar }: Props) => {
-  const [open, setOpen] = useState(false);
 
+const BlockWithFrame = (p:{shop:Shop}) => {
+console.log(p.shop)
   return (
-    <MainWrapper sidebar={sidebar}>
+    <MainWrapper sidebar={false}>
       <Wrapper>
         <BlockInfo>
           <Text
@@ -23,7 +18,7 @@ const BlockWithFrame = ({ shopData, sidebar }: Props) => {
             fontStyle={fonts.f400}
             whiteSpace
           >
-            Веломагазин {shopData.name}
+            Веломагазин {p.shop.name}
           </Text>
           <Text
             color={colors.black}
@@ -31,7 +26,7 @@ const BlockWithFrame = ({ shopData, sidebar }: Props) => {
             fontStyle={fonts.f400}
             whiteSpace
           >
-            {shopData.address.split(", ")[0]}. {shopData.address.split(", ")[1]}
+            {p.shop.address}
           </Text>
         </BlockInfo>
         <Text
@@ -54,7 +49,7 @@ const BlockWithFrame = ({ shopData, sidebar }: Props) => {
           sidebar={sidebar}
           onClick={() => setOpen(!open)}
         /> */}
-        {/* <FrameWrapper sidebar={sidebar}>
+        { <FrameWrapper sidebar={false}>
           <iframe
             src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2538.9874851367085!2d30.4052962!3d50.4785767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd0186deb2bb%3A0xa0965395ee27686a!2z0YPQuy4g0JTQsNC90LjQu9CwINCp0LXRgNCx0LDQutC40LLRgdC60L7Qs9C-LCA1OSwg0JrQuNC10LIsIDAyMDAw!5e0!3m2!1sru!2sua!4v1702890029350!5m2!1sru!2sua`}
             width="100%"
@@ -62,7 +57,7 @@ const BlockWithFrame = ({ shopData, sidebar }: Props) => {
             style={{ border: 0 }}
             loading="lazy"
           ></iframe>
-        </FrameWrapper> */}
+        </FrameWrapper> }
       </Wrapper>
       {/* {open && (
         <FrameWrapper2>

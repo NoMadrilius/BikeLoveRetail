@@ -6,7 +6,6 @@ import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { CatalogPageResponse } from "@/dataTransferObjects/response/CatalogPageResponse";
 
 export const getServerSideProps = async (context: any) => {
-  console.log("kwakwakwa666")
   const filtersVariantIds = context.query.filter
     ? context.query.filter.split(",").map(Number)
     : [];

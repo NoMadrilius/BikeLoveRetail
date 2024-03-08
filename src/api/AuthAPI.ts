@@ -14,10 +14,10 @@ export const AuthAPI = {
     },
 
     Refresh():Promise<AxiosResponse<RefreshResponse>>{
-        return axiosInstance.post<RefreshResponse>("/public/refresh");
+        return axiosInstance.post<RefreshResponse>("/auth/refresh");
     },
     Logout():Promise<AxiosResponse>{
-        return axiosInstance.post("/public/logout");
+        return axiosInstance.post("/auth/logout");
     },
 
     SelfVerification():Promise<AxiosResponse>{

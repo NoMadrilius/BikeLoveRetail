@@ -7,24 +7,22 @@ import { fonts } from "../../../../theme/fonts";
 import { colors } from "../../../../theme/colors";
 import Image from "next/image";
 import axios from "axios";
-import { FC } from "react";
+import {FC, useEffect, useState} from "react";
+import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
+import {OrderAPI} from "@/api/OrderAPI";
+import {useRouter} from "next/router";
 
-type Props = {
-  id?: string;
-};
+const GratitudeScreen = () => {
+  const [order,setOrder] = useState<OrderFullData|null>(null)
+  const r = useRouter()
+  useEffect(()=>{
+    console.log(r.query.id)
+    if(r.query.id != undefined)
+    OrderAPI.GetByUUID(r.query.id as string).then(r=>{
+      setOrder(r.data)
+    })
+  },[r.query.id])
 
-const GratitudeScreen: FC<Props> = ({ id }) => {
-  const onPress = async () => {
-    try {
-      const response = await axios.post("/api/create-payment");
-      console.log(response.data);
-      if (typeof window !== "undefined") {
-        window.location.href = response.data;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <>
       <>
@@ -45,26 +43,43 @@ const GratitudeScreen: FC<Props> = ({ id }) => {
               color={colors.white}
               textAlign="center"
             >
-              № {id}
+              № {order?.order.id}
             </Text>
             <Container>
-              <Text
-                size="20px"
-                fontStyle={fonts.f500}
-                color={colors.white}
-                textAlign="center"
-              >
-                ЧЕКАЄМО НА ОПЛАТУ:
-              </Text>
-              <Button onClick={() => onPress()}>
-                <Image
-                  alt="LiqPay"
-                  width={64}
-                  height={32}
-                  src="/images/account/icons/liqpay.svg"
-                  style={{ marginRight: "10px" }}
-                />
-              </Button>
+              {order?.order.isPayed?
+                  <Text
+                      size="20px"
+                      fontStyle={fonts.f500}
+                      color={colors.white}
+                      textAlign="center"
+                  >
+                    Замовлення оплачено
+                  </Text>:<>
+                    <Text
+                        size="20px"
+                        fontStyle={fonts.f500}
+                        color={colors.white}
+                        textAlign="center"
+                    >
+                      ЧЕКАЄМО НА ОПЛАТУ:
+                    </Text>
+                    <Button onClick={() => {
+                      if(order)
+                      {
+                        let dataUrl = `https://api.bikelove.com.ua/api/payments/liqpay?Target=Order&TargetId=`+order.order.id;
+                        window.open(dataUrl, "_blank")
+                      }
+                    }}>
+                      <Image
+                          alt="LiqPay"
+                          width={64}
+                          height={32}
+                          src="/images/account/icons/liqpay.svg"
+                          style={{ marginRight: "10px" }}
+                      />
+                    </Button>
+                  </>}
+
             </Container>
             <Text
               size="16px"

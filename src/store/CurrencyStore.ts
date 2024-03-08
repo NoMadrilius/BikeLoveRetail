@@ -14,7 +14,7 @@ class CurrencyStore {
     makeAutoObservable(this);
     if(typeof window !== "undefined"){
       makePersistable(this, {
-        name: "authStore",
+        name: "curStore",
         properties: ["currencies", "selectedCurrency", "useCurrency"],
         storage:window.localStorage
       }).finally(()=>{

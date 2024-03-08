@@ -13,27 +13,25 @@ import { useProductStore } from "@/store/ProductStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
+import {OrderAPI} from "@/api/OrderAPI";
+import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 
 const AccountScreen = () => {
   const { t } = useTranslation();
-  const road = [
-    { title: "Личный кабинет", link: "" },
-    { title: "Персональные данные", link: "" },
-  ];
-  const productStore = useProductStore();
-  const [products, setProducts] = useState<[]>([]);
+
+  const [products, setProducts] = useState<OrderFullData[]>([]);
     const router = useRouter()
   const authStore = useAuthStore()
 
     useEffect(()=>{
         if(!authStore.isAuth) router.push('/')
     },[])
+
   useEffect(() => {
-    productStore.getOrder();
-  }, [productStore]);
-  useEffect(() => {
-    setProducts(productStore.order);
-  }, [productStore.order]);
+      OrderAPI.GetSelf().then((r)=>{
+          setProducts(r.data)
+      })
+  }, []);
   const [step, setStep] = useState(0);
   return (
     <>

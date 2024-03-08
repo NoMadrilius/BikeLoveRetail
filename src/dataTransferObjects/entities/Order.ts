@@ -30,4 +30,6 @@ export interface Order{
     userCreated?: string | null;
     userUpdated?: string | null;
     managerId?: string | null;
+
+    uuid:string
 }
