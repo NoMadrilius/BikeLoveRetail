@@ -1,10 +1,10 @@
+"use client"
 import React from "react";
 import AsyncSelect from "react-select/async";
 import {NPCityResponse} from "@/dataTransferObjects/internal/NovaPoshta/Response/NPCityResponse";
 import {NPRequestWrapper} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPRequestWrapper";
 import {NPCitySearchRequest} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPCitySearchRequest";
 import {NovaPoshtaAPI} from "@/api/NovaPoshtaAPI";
-import {PropsValue, SingleValue} from "react-select";
 
 export const AsyncSelectSearchCityNP = (props: { onSelect: (value: NPCityResponse|null) => void, value: NPCityResponse | null, isDisabled?: boolean }) => {
 

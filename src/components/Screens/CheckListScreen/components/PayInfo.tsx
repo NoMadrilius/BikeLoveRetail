@@ -1,18 +1,16 @@
+"use client"
 import { styled } from "styled-components";
 import { Header, NumberContainer } from "./Registration";
 import { colors } from "../../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../../theme/fonts";
 import { templates } from "../../../../../theme/templates";
-import { useProductStore } from "@/store/ProductStore";
-import Loader from "@/helpers/Loader/Loader";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import {useCheckList} from "@/store/CheckListStore";
 
 const PayInfo= () => {
   const { t } = useTranslation();
-  const productStore = useProductStore();
 
   const st = useCheckList()
 
@@ -70,13 +68,9 @@ const PayInfo= () => {
             disabled={false}
           onClick={()=>{st.createOrder()}}
         >
-          {productStore?.loadingSendOrder ? (
-            <Loader />
-          ) : (
-            <Text color={colors.white} size="16px" fontStyle={fonts.f500}>
-              {t("checkList.goToPay")}
-            </Text>
-          )}
+          <Text color={colors.white} size="16px" fontStyle={fonts.f500}>
+            {t("checkList.goToPay")}
+          </Text>
         </Button>
         <Text
           color={colors.grayBorder}
@@ -95,6 +89,7 @@ const PayInfo= () => {
           {t("checkList.label")}
         </Text>
       </Container>
+
     </Wrapper>
   );
 };

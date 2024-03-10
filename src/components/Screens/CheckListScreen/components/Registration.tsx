@@ -1,3 +1,4 @@
+"use client"
 import { css, keyframes, styled } from "styled-components";
 import { Text } from "@/components/Text/Text";
 import { useAuthStore } from "@/store/AuthStore";

@@ -12,9 +12,7 @@ import ByPropose from "./components/ByPropose";
 import { ResponsiveBlockGroup } from "./components/ResponsiveBlockGroup";
 import Subscribe from "./components/Subscribe";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
-import { useProductStore } from "@/store/ProductStore";
 import { observer } from "mobx-react";
-import { useEffect } from "react";
 import Slider from "./components/Slider";
 import { useTranslation } from "react-i18next";
 import {useRouter} from "next/router";
@@ -23,7 +21,6 @@ import i18next from "i18next";
 import {useAppStore} from "@/store/AppStore";
 
 const HomeScreen = () => {
-  const productStore = useProductStore();
   const handleScrollToBottom = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
@@ -82,10 +79,6 @@ const HomeScreen = () => {
     },
   ];
 
-  useEffect(() => {
-    productStore.fetchSales();
-    productStore.fetchForYou();
-  }, []);
   const { t } = useTranslation();
 
   return (
@@ -116,17 +109,17 @@ const HomeScreen = () => {
           <ByPropose items={ITEMS} />
 
           <ResponsiveBlockGroup variant="1" />
-          {productStore?.forYou.length ? (
+          {[].length ? (
             <Slider
               title={t("home.forYou")}
-              items={productStore?.forYou}
+              items={[]}
               variant="cards"
             />
           ) : null}
-          {productStore?.sales.length ? (
+          {[].length ? (
             <Slider
               title={t("home.popularAcc")}
-              items={productStore?.sales}
+              items={[]}
               variant="cards"
             />
           ) : null}

@@ -14,7 +14,7 @@ import {OrderAPI} from "@/api/OrderAPI";
 import authStore from "@/store/AuthStore";
 import {showToast} from "@/helpers/alertService/alertService";
 import {makePersistable} from "mobx-persist-store";
-import {router} from "next/client";
+import Router from "next/router";
 
 class CheckListStore{
     city:NPCityResponse|null = null
@@ -112,7 +112,7 @@ class CheckListStore{
             console.log("products:", prods)
 
             OrderAPI.PublicCreate({order:orderData, products:prods}).then(r=>{
-                router.push('/gratitude/'+r.data.order.uuid)
+                Router.push('/gratitude/'+r.data.order.uuid)
             })
         }
     }

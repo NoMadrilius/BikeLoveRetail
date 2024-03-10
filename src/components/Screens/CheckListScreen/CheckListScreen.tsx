@@ -1,4 +1,4 @@
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
+"use client"
 import { Text } from "@/components/Text/Text";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { styled } from "styled-components";
@@ -43,13 +43,9 @@ const CheckListScreen = () => {
             >
               {t("checkList.orderContents")}
             </Text>
-            {st.cart && (
-              <>
-                {st.cart.map((el, index) => (
-                  <ListItems data={el} key={index} />
-                ))}
-              </>
-            )}
+            {st.cart.map((el, index) => (
+                  <ListItems data={el} key={index} />))
+            }
             <TotalPrice>
               <Text
                 color={colors.black}

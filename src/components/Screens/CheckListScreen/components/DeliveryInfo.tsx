@@ -1,3 +1,4 @@
+"use client"
 import { styled } from "styled-components";
 import { Header, NumberContainer, Wrapper } from "./Registration";
 import { Text } from "@/components/Text/Text";
@@ -23,74 +24,75 @@ const DeliveryInfo = () => {
 
   return (
     <Wrapper>
-      <Header>
-        <NumberContainer>
-          <Text color={colors.black} size="15px" fontStyle={fonts.f500}>
-            2
+        <Header>
+          <NumberContainer>
+            <Text color={colors.black} size="15px" fontStyle={fonts.f500}>
+              2
+            </Text>
+          </NumberContainer>
+          <Text
+              color={colors.black}
+              size="22px"
+              fontStyle={fonts.f600}
+              textTransform="uppercase"
+          >
+            {t("checkList.chooseShop")}
           </Text>
-        </NumberContainer>
-        <Text
-          color={colors.black}
-          size="22px"
-          fontStyle={fonts.f600}
-          textTransform="uppercase"
-        >
-          {t("checkList.chooseShop")}
-        </Text>
-      </Header>
-      <Container>
+        </Header>
+        <Container>
         <ButtonsContainer>
-          <Button
-            selected={st.deliveryType === "ShopPickUp"}
-            onClick={() => st.setDeliveryType("ShopPickUp")}
-          >
-            <Image
-              alt="Samovivoz Icon"
-              width={22}
-              height={22}
-              src="/images/account/icons/samovivoz.svg"
-              style={{ marginRight: "10px" }}
-            />
-            <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-              {t("checkList.self-delivery")}
-            </Text>
-          </Button>
-          <Button
-              selected={st.deliveryType === "DeliveryNP"}
-              onClick={() => st.setDeliveryType("DeliveryNP")}
-          >
-            <Image
-              alt="Nova Poshta"
-              width={29}
-              height={29}
-              src="/images/account/icons/np.svg"
-              style={{ marginRight: "10px" }}
-            />
-            <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
-              Нова пошта
-            </Text>
-          </Button>
+        <Button
+        selected={st.deliveryType === "ShopPickUp"}
+        onClick={() => st.setDeliveryType("ShopPickUp")}
+        >
+        <Image
+        alt="Samovivoz Icon"
+        width={22}
+        height={22}
+        src="/images/account/icons/samovivoz.svg"
+        style={{marginRight: "10px"}}
+        />
+        <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
+      {t("checkList.self-delivery")}
+        </Text>
+        </Button>
+        <Button
+        selected={st.deliveryType === "DeliveryNP"}
+        onClick={() => st.setDeliveryType("DeliveryNP")}
+        >
+        <Image
+        alt="Nova Poshta"
+        width={29}
+        height={29}
+        src="/images/account/icons/np.svg"
+        style={{marginRight: "10px"}}
+        />
+        <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
+        Нова пошта
+        </Text>
+        </Button>
         </ButtonsContainer>
 
-        {st.deliveryType === "DeliveryNP" && (
-          <>
-            <div><AsyncSelectSearchCityNP onSelect={r=>st.setCity(r)} value={st.city}/></div>
-            {st.city &&
-                <div><AsyncSelectSearchWarehouseNP onSelect={r=>st.setWarehouse(r)} value={st.warehouse} cityId={st.city.Ref}/></div>
-            }
-          </>
+      {st.deliveryType === "DeliveryNP" && (
+        <>
+        <div><AsyncSelectSearchCityNP onSelect={r=>st.setCity(r)} value={st.city}/></div>
+      {st.city &&
+        <div><AsyncSelectSearchWarehouseNP onSelect={r=>st.setWarehouse(r)} value={st.warehouse} cityId={st.city.Ref}/></div>
+      }
+        </>
         )}
-        {st.deliveryType === "ShopPickUp" && (
-            <div style={{color:'black'}}>
-              <Select placeholder={"Оберіть магазин"}
-                      options={appSt.shops!}
-                      getOptionLabel={label => label!.address}
-                      getOptionValue={value => value!.address}
-                      value={st.pickupShop!}
-                      onChange={r=>st.setPickupShop(r)}
-            /></div>
+      {st.deliveryType === "ShopPickUp" && (
+        <div style={{color:'black'}}>
+        <Select placeholder={"Оберіть магазин"}
+        options={appSt.shops!}
+        getOptionLabel={label => label!.address}
+        getOptionValue={value => value!.address}
+        value={st.pickupShop!}
+        onChange={r=>st.setPickupShop(r)}
+        /></div>
         )}
-      </Container>
+        </Container>
+
     </Wrapper>
   );
 };

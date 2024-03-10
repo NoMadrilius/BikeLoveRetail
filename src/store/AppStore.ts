@@ -17,6 +17,7 @@ class AppStore{
 
     constructor() {
         makeAutoObservable(this)
+        if(typeof window != "undefined")
         this.fetchShops()
     }
 

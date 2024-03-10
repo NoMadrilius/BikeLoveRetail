@@ -2,19 +2,16 @@ import { Text } from "@/components/Text/Text";
 import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { useRouter } from "next/router";
-import { useTranslation } from "react-i18next";
 import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import {GenerateLink} from "@/helpers/GenerateLink";
-import {useCartStore} from "@/store/CartStore";
 
 const ListItems = (p:{ data: {product: Product, fullData: ProductFullData, quantity: number} }) => {
-  const { t } = useTranslation();
   const router = useRouter();
   const c = useCurrencyStore()
+
   let img:string =  "/mock/NoPhoto.png"
   let persImg = p.data.fullData.productImages.find(n=>n.productId === p.data.product.id)
   if(persImg) img = persImg.url
