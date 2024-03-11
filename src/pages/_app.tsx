@@ -14,9 +14,8 @@ import HttpProvider from "@/components/Provider/HTTPProvider";
 
 
 export default function App({ Component, pageProps }: AppProps) {
-    console.log("LoadingAppState")
-    const appState = "appState"
-    const props = {...pageProps, appState:appState}
+    console.log("appState:", pageProps.appState)
+
   return (
     <>
       <ToastContainer
@@ -42,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
             showOnShallow={true}
           />
           <I18nextProvider i18n={i18n}>
-            <Component {...props} />
+            <Component {...pageProps} />
           </I18nextProvider>
           <PhoneWidget />
         </Layout>

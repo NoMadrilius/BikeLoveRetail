@@ -8,76 +8,36 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {GenerateLink} from "@/helpers/GenerateLink";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();
-  const router = useRouter();
+  const r = useRouter();
   const as = useAppStore();
-  const [id, setId] = useState<any>();
-  const [title, setTitle] = useState<any>("Каталог");
-  const [titlesHistory, setTitlesHistory] = useState<string[]>(["Каталог"]);
-  const [step, setStep] = useState(0);
 
-  const onPress = (el: any) => {
+    const [cat, setCat] = useState<ProductCategory|null>(null);
+
+  const onPress = (el:ProductCategory) => {
     if (el.childrenIds !== "") {
-      setTitlesHistory([...titlesHistory, title]);
-      setTitle(el?.name);
-      setId(el?.id as any);
-      setStep((prev) => prev + 1);
+        setCat(el)
     } else {
-      router.push(`/catalog/${el.id}`);
+        let link = GenerateLink(r,{basePath:"/catalog", slug:el.transliterationName, queryParameters:{id:el.id}})
+      r.push(link);
       setVisible(false);
     }
   };
-  const onPressChildren = (el: any) => {
-    if (el.childrenIds !== "") {
-      setTitlesHistory([...titlesHistory, title]);
-      setTitle(el?.name);
-      setStep(2);
-      return;
-    }
-    router.push(`/catalog/${el.id}`);
-    setVisible(false);
-  };
-  const onPressSmallChildren = (el: any) => {
-    router.push(`/catalog/${el.id}`);
-    setVisible(false);
-  };
+
   const backPress = () => {
-    if (titlesHistory.length > 1) {
-      const previousTitle = titlesHistory[titlesHistory.length - 2];
-      setTitle(previousTitle);
-      setTitlesHistory(titlesHistory.slice(0, -1));
-      setStep((prev) => prev - 1);
-    } else {
-      setMainStep(0);
-    }
+        if(cat && cat.parentId != 0)
+        {
+            let f = as.categories.find(n=>n.id === cat.parentId)
+            setCat(f?f:null)
+        }else if(cat&&cat.parentId === 0){
+            setCat(null)
+        }else setMainStep(0);
   };
 
-  //TODO fix this
-  useEffect(() => {
-    //catalogStore.fetchCategories();
-  }, []);
-  const filteredCategory = as.categories.filter(
-    (el: any) => el.id === id
-  )[0];
-  const childrenId =
-    filteredCategory && filteredCategory.childrenIds
-      ? filteredCategory.childrenIds.split(";").map(Number)
-      : [];
-
-  const childCategories = as.categories.filter((el: any) =>
-    childrenId.includes(el.id)
-  );
-  const smallChildCategories = () => {
-    const ids =
-      childCategories && childCategories[0]?.childrenIds
-        ? childCategories[0]?.childrenIds.split(";").map(Number)
-        : [];
-    return as.categories.filter((el: any) => ids.includes(el.id));
-  };
-  ///
-  ///
   return (
     <>
       <RowContainer
@@ -109,28 +69,71 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
         color={colors.redMain}
         size="16px"
         fontStyle={fonts.f500}
+        style={cat?{cursor:"pointer"}:{}}
         margin="10px 0 0 25px"
+        func={()=>{
+            if(cat) {r.push(GenerateLink(r,{basePath:"/catalog", slug:cat.transliterationName, queryParameters:{id:cat.id}}));setVisible(false);}
+        }}
       >
-        {title}
+        {cat? cat.name:"Каталог"}
       </Text>
       <Line style={{ marginTop: "14px" }} />
       <ColumnContainer style={{ rowGap: "20px", padding: "23px 26px 33px" }}>
-        {step === 0 && (
+        {cat? (
+                <>
+                    {as.categories.filter(n=>n.parentId === cat?.id).sort((a,b)=>b.sortOrder-a.sortOrder).map((el, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                justifyContent: "space-between",
+                                alignItems: "center", display:"flex"
+                            }}
+                            onClick={() => onPress(el)}
+                        >
+                            <Text
+                                color={colors.black}
+                                size="16px"
+                                fontStyle={fonts.f500}
+                                hoverColor={colors.redHover}
+                            >
+                                {el.name}
+                            </Text>
+                            {el.childrenIds !== "" && (
+                                <Image
+                                    alt="Arrow Icon"
+                                    width={20}
+                                    height={20}
+                                    src="/icons/catArrow.svg"
+                                    style={{
+                                        transform: "rotate(270deg)",
+                                        marginLeft: "5px",
+                                        width: "20px",
+                                        height: "20px",
+                                    }}
+                                />
+                            )}
+                        </div>
+                    ))}
+                </>
+            )
+
+            :
+            (
           <>
-            {as.categories.map((el: any, index: any) => (
-              <RowContainer
-                key={index}
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+            {as.categories.filter(n=>n.parentId === 0).sort((a,b)=>b.sortOrder-a.sortOrder).map((el, index: any) => (
+                <div
+                    key={index}
+                    style={{
+                        justifyContent: "space-between",
+                        alignItems: "center", display:"flex"
+                    }}
+                onClick={() => onPress(el)}
               >
                 <Text
                   color={colors.black}
                   size="16px"
                   fontStyle={fonts.f500}
                   hoverColor={colors.redHover}
-                  func={() => onPress(el)}
                 >
                   {el.name}
                 </Text>
@@ -148,95 +151,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
                     }}
                   />
                 )}
-              </RowContainer>
-            ))}
-          </>
-        )}
-        {step === 1 && (
-          <>
-            {childCategories.map((el, index) => (
-              <RowContainer
-                key={index}
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  color={colors.black}
-                  size="16px"
-                  fontStyle={fonts.f500}
-                  hoverColor={colors.redHover}
-                  func={() => onPressChildren(el)}
-                >
-                  {el.name}
-                </Text>
-                {el.childrenIds !== "" && (
-                  <Image
-                    alt="Arrow Icon"
-                    width={20}
-                    height={20}
-                    src="/icons/catArrow.svg"
-                    style={{
-                      transform: "rotate(270deg)",
-                      marginLeft: "5px",
-                      width: "20px",
-                      height: "20px",
-                    }}
-                  />
-                )}
-              </RowContainer>
-            ))}
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <RowContainer
-              style={{
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                color={colors.black}
-                size="16px"
-                fontStyle={fonts.f500}
-                hoverColor={colors.redHover}
-                func={() => onPressSmallChildren(childCategories[0])}
-              >
-                {t("sidebar.catalog.allIn")}
-              </Text>
-              <Image
-                alt="Arrow Icon"
-                width={20}
-                height={20}
-                src="/icons/catArrow.svg"
-                style={{
-                  transform: "rotate(270deg)",
-                  marginLeft: "5px",
-                  width: "20px",
-                  height: "20px",
-                }}
-              />
-            </RowContainer>
-            {smallChildCategories().map((el, index) => (
-              <RowContainer
-                key={index}
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  color={colors.black}
-                  size="16px"
-                  fontStyle={fonts.f500}
-                  hoverColor={colors.redHover}
-                  func={() => onPress(el)}
-                >
-                  {el.name}
-                </Text>
-              </RowContainer>
+              </div>
             ))}
           </>
         )}

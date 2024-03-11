@@ -113,7 +113,7 @@ const SideBar = () => {
           </>
         )}
         {step === 1 && (
-          <SidebarCatalog setMainStep={setStep} setVisible={as.setIsOpenSidebar} />
+          <SidebarCatalog setMainStep={setStep} setVisible={(v:any)=>{as.setIsOpenSidebar(v)}} />
         )}
         <Line />
         <ColumnContainer style={{ padding: "26px 0 46px 25px", rowGap: "7px" }}>
