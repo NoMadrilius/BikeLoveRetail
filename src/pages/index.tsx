@@ -17,6 +17,7 @@ export async function getServerSideProps() {
 }
 
 export default function Home(props:{s:Shop[],c:ProductCategory[]}) {
+  console.log("appState:",props)
   const c = useAppStore()
   c.setServerData(props)
   return <HomeScreen />;

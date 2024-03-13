@@ -36,6 +36,7 @@ import Image from "next/image";
 import { useProductPageStore } from "@/store/ProductPageStore";
 import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
 import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
+import ProductSchema from "@/helpers/Schemas/ProductSchema";
 
 const ProductScreen = () => {
   const state = useProductPageStore();
@@ -58,6 +59,7 @@ const ProductScreen = () => {
         img={productData.productImages[0]?.url}
         description={productData.product.metaDescription ||descriptionProductMetaTemplate(productData.product.name)}
       />
+      <ProductSchema name={productData.product.metaTitle || nameProductMetaTemplate(productData.product.name)} img={productData.productImages[0]?.url} desc={productData.product.metaDescription ||descriptionProductMetaTemplate(productData.product.name)}/>
       <Wrapper>
         <BreadCrumbs product={productData.product} categoryId={productData.product.categoryId}/>
         <MainContainer>

@@ -99,12 +99,8 @@ const DescChar = () => {
             )}
             {activeTab === 1 && (
               <>
-                {state.product?.productOptions?.map((el: any, index: any) => {
-                  const matchingNames = el.name.filter((item: any) =>
-                    item.id.includes(productData.product.id)
-                  );
+                {state.uniqueOptions.map((el, index: any) => {
 
-                  if (matchingNames.length > 0) {
                     return (
                       <CharacteristicContainer key={index} index={index}>
                         <Text
@@ -114,7 +110,7 @@ const DescChar = () => {
                           hoverColor={colors.redHover}
                           maxWidth="100%"
                         >
-                          {el.optionName}
+                          {el.name}
                         </Text>
                         <Text
                           color={colors.black}
@@ -122,15 +118,13 @@ const DescChar = () => {
                           fontStyle={fonts.f400}
                           hoverColor={colors.redHover}
                         >
-                          {matchingNames
-                            .map((item: any) => item.name)
+                          {productData.productOptions.filter(n=>n.optionId === el.id)
+                            .map((item) => item.name)
                             .join(", ")}
                         </Text>
                       </CharacteristicContainer>
                     );
-                  }
 
-                  return null; // If no matching names, don't render anything for this option
                 })}
               </>
             )}
@@ -271,38 +265,32 @@ const DescChar = () => {
               )}
               {activeTab === 1 && (
                 <>
-                  {state.product?.productOptions?.map((el: any, index: any) => {
-                    const matchingNames = el.name.filter((item: any) =>
-                      item.id.includes(productData.product.id)
-                    );
+                  {state.uniqueOptions.map((el, index: any) => {
 
-                    if (matchingNames.length > 0) {
-                      return (
+                    return (
                         <CharacteristicContainer key={index} index={index}>
                           <Text
-                            color={colors.black}
-                            size="15px"
-                            fontStyle={fonts.f400}
-                            hoverColor={colors.redHover}
-                            maxWidth="100%"
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              hoverColor={colors.redHover}
+                              maxWidth="100%"
                           >
-                            {el.optionName}
+                            {el.name}
                           </Text>
                           <Text
-                            color={colors.black}
-                            size="15px"
-                            fontStyle={fonts.f400}
-                            hoverColor={colors.redHover}
+                              color={colors.black}
+                              size="15px"
+                              fontStyle={fonts.f400}
+                              hoverColor={colors.redHover}
                           >
-                            {matchingNames
-                              .map((item: any) => item.name)
-                              .join(", ")}
+                            {productData.productOptions.filter(n=>n.optionId === el.id)
+                                .map((item) => item.name)
+                                .join(", ")}
                           </Text>
                         </CharacteristicContainer>
-                      );
-                    }
+                    );
 
-                    return null; // If no matching names, don't render anything for this option
                   })}
                 </>
               )}

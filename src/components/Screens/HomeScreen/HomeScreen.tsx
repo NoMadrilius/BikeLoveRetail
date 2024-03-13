@@ -19,6 +19,7 @@ import {useRouter} from "next/router";
 import {GenerateLink} from "@/helpers/GenerateLink";
 import i18next from "i18next";
 import {useAppStore} from "@/store/AppStore";
+import HomeSchema from "@/helpers/Schemas/HomeSchema";
 
 const HomeScreen = () => {
   const handleScrollToBottom = () => {
@@ -84,7 +85,7 @@ const HomeScreen = () => {
   return (
     <>
       <UseMetaData title={"Найкрайщий магазин велосипедів BikeLove"} img={"/images/logo/logo.svg"} description={"Любов до кожної деталі вашого велосипеду - ось що визначає BikeLove. У нашому магазині ви знайдете широкий вибір найкращих моделей велосипедів, аксесуарів та екіпірування для всіх видів їзди. Наші експерти допоможуть вам знайти ідеальне спорядження, а наша любов до велосипедів зробить ваші поїздки ще більш приємними та комфортними. Приєднуйтесь до нашої спільноти BikeLove та відчуйте справжню любов до їзди!"} />
-
+      <HomeSchema/>
       <Wrapper>
         <BgImage bgImage="/images/home/bannerImage.png">
           <MainContainer>

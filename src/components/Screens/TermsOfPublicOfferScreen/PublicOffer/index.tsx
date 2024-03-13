@@ -1,37 +1,35 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
 import * as S from "./index.styles";
-
 const PublicOffer = () => {
-  const { t } = useTranslation();
+    const [htmlContent, setHtmlContent] = useState('');
+
+    useEffect(() => {
+        // Fetch the HTML file
+        fetch('/publicOffer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load HTML file');
+                }
+                return response.text();
+            })
+            .then(html => {
+                // Decode the HTML content with UTF-8 encoding
+                const decoder = new TextDecoder('utf-8');
+                const decodedHtml = decoder.decode(new TextEncoder().encode(html));
+                setHtmlContent(decodedHtml);
+            })
+            .catch(error => {
+                console.error('Error loading HTML file:', error);
+            });
+    }, []);
 
   return (
     <S.PublicOfferContainer>
-      <S.Paragraph>{t("publicOffer.paragraph_1")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.seller")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_2")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.buyer")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_3")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.contract_subject")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_4")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.price_payment_delivery")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_5")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.exchange_return")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_6")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.warranty_obligations")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_7")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.complaints_resolution")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_8")}</S.Paragraph>
-      <S.Subtitle>{t("publicOffer.accept_offer")}</S.Subtitle>
-      <S.Paragraph>{t("publicOffer.paragraph_9")}</S.Paragraph>
-
-      <S.Subtitle>{t("publicOffer.other_conditions")}</S.Subtitle>
-      <S.List>
-        <S.ListItem>{t("publicOffer.buyer_responsibility")}</S.ListItem>
-        <S.ListItem>{t("publicOffer.buyer_consent")}</S.ListItem>
-      </S.List>
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </S.PublicOfferContainer>
   );
 };
 
 export default PublicOffer;
+
+
