@@ -4,8 +4,12 @@ import { colors } from "../../../theme/colors";
 import NotFound from "@/components/Screens/CatalogScreen/components/NotFound";
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { CatalogPageResponse } from "@/dataTransferObjects/response/CatalogPageResponse";
+import {loadAppState} from "@/functions/loadAppState";
+import {useAppStore} from "@/store/AppStore";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
 
 export const getServerSideProps = async (context: any) => {
+  const r = await loadAppState()
   const filtersVariantIds = context.query.filter
     ? context.query.filter.split(",").map(Number)
     : [];
@@ -26,20 +30,23 @@ export const getServerSideProps = async (context: any) => {
   return {
     props: {
       iniState: result,
+      as:r
     }
   };
 };
 
 const Page = (props: {
-  iniState: CatalogPageResponse;
+  iniState: CatalogPageResponse,
+  as:AppState
 }) => {
-  const state = useCatalogStore();
-  state.setCatalogState(props.iniState);
+  useAppStore().setServerData(props.as)
+  useCatalogStore().setCatalogState(props.iniState);
+  console.log("appState:",props)
 
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
-        {state.catalogState === null ? <NotFound /> : <CatalogScreen />}
+        {props.iniState === null ? <NotFound /> : <CatalogScreen />}
       </PaddingWrapper>
     </>
   );

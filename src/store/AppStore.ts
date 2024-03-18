@@ -4,6 +4,7 @@ import {Shop} from "@/dataTransferObjects/entities/Shop";
 import {PublicAPI} from "@/api/PublicAPI";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
 
 class AppStore{
     isOpenSidebar=false
@@ -21,15 +22,9 @@ class AppStore{
         this.fetchShops()
     }
 
-    async serverInitialize(){
-        let shops = PublicAPI.GetShops()
-        let cats = PublicAPI.GetCategories()
-
-        return {s:(await shops).data, c:(await cats).data}
-    }
-    setServerData(d:{s:Shop[],c:ProductCategory[]}){
-        this.shops = d.s
-        this.categories = d.c
+    setServerData(d:AppState){
+        this.shops = d.shops
+        this.categories = d.categories
         this.categoryTree = this.buildTree(this.categories)
     }
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
