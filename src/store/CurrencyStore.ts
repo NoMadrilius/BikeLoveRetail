@@ -4,6 +4,7 @@ import axiosInstance from "@/api/axiosInstance";
 import {Currency} from "@/dataTransferObjects/entities/Currency";
 import {makePersistable} from "mobx-persist-store";
 import {CurrenciesAPI} from "@/api/CurrenciesAPI";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
 
 class CurrencyStore {
   currencies : Currency[] = [];
@@ -24,15 +25,25 @@ class CurrencyStore {
     }
   }
 
+  setServerData(d:AppState){
+    this.currencies = d.currencies
+    this.initialize()
+  }
+
+  async loadCurrencies(){
+    await CurrenciesAPI.GetPublic().then(r => {
+      this.currencies = r.data
+    })
+  }
+
  async initialize() {
-   await CurrenciesAPI.GetPublic().then(r => {
-     this.currencies = r.data
-   })
-   if(this.selectedCurrency === null){
-     this.setCurrency(2)
-   }else{
-     this.useCurrency = (v)=>{return (v*this.selectedCurrency!.coefficient).toFixed(2).toString()+this.selectedCurrency!.symbol}
-   }
+    if(this.currencies.length > 0){
+      if(this.selectedCurrency === null){
+        this.setCurrency(2)
+      }else{
+        this.useCurrency = (v)=>{return (v*this.selectedCurrency!.coefficient).toFixed(2).toString()+this.selectedCurrency!.symbol}
+      }
+    }
  }
 
  setCurrency(currencyId:number){

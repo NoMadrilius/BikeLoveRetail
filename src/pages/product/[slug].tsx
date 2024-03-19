@@ -9,6 +9,7 @@ import {
 import {loadAppState} from "@/functions/loadAppState";
 import {useAppStore} from "@/store/AppStore";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
+import {useCurrencyStore} from "@/store/CurrencyStore";
 
 export const getServerSideProps = async (context:any) => {
   const r = await loadAppState()
@@ -28,6 +29,8 @@ const ProductItem = (props: {
   let state = useProductPageStore();
   state.setData(props.product, props.options);
   useAppStore().setServerData(props.as)
+  useCurrencyStore().setServerData(props.as)
+
   return (
     <>
       <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>

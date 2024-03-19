@@ -107,8 +107,9 @@ const HomeScreen = () => {
           />
         </BgImage>
         <MainContainer>
-          <ByPropose items={ITEMS} />
-
+          {
+            //<ByPropose items={ITEMS}/>
+          }
           <ResponsiveBlockGroup variant="1" />
           {[].length ? (
             <Slider
