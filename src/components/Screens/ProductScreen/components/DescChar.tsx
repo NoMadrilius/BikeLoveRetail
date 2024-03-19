@@ -60,7 +60,7 @@ const DescChar = () => {
                 $fontStyle={fonts.f500}
                 onClick={() => setActiveTab(0)}
               >
-                Описание
+                Опис
               </SecondaryTitle>
               <Text
                 color={activeTab === 1 ? colors.black : colors.grayMain}
@@ -144,7 +144,7 @@ const DescChar = () => {
                     $fontStyle={fonts.f500}
                     onClick={() => setActiveTab(0)}
                   >
-                    Описание
+                    Опис
                   </SecondaryTitle>
                   <Text
                     color={colors.black}
@@ -157,15 +157,6 @@ const DescChar = () => {
                         __html: productData.productCard.description,
                       }}
                     />
-                  </Text>
-                  <Text
-                    color={colors.grayMain}
-                    size="13px"
-                    fontStyle={fonts.f400}
-                    margin="26px 0 0 0"
-                    hoverColor={colors.redHover}
-                  >
-                    Читать далее
                   </Text>
                 </ColumnContainer>
                 <ColumnContainer style={{ width: "100%" }}>
@@ -226,7 +217,7 @@ const DescChar = () => {
                   fontStyle={fonts.f500}
                   func={() => setActiveTab(0)}
                 >
-                  Описание
+                  Опис
                 </Text>
                 <Text
                   color={activeTab === 1 ? colors.black : colors.grayMain}
@@ -250,16 +241,6 @@ const DescChar = () => {
                         __html: productData.productCard.description,
                       }}
                     />
-                  </Text>
-
-                  <Text
-                    color={colors.grayMain}
-                    size="13px"
-                    fontStyle={fonts.f400}
-                    margin="26px 0 0 0"
-                    hoverColor={colors.redHover}
-                  >
-                    Читать далее
                   </Text>
                 </>
               )}
