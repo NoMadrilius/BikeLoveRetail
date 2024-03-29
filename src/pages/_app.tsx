@@ -11,10 +11,8 @@ import i18n from "@/i18n/i18n";
 import Layout from "@/components/Layout";
 import HttpProvider from "@/components/Provider/HTTPProvider";
 
-
-
 export default function App({ Component, pageProps }: AppProps) {
-    console.log("appState:", pageProps.appState)
+  console.log("appState:", pageProps.appState);
 
   return (
     <>
@@ -31,8 +29,8 @@ export default function App({ Component, pageProps }: AppProps) {
         authorizationParams={{ redirect_uri: CONFIG.AUTH0.redirect }}
         cacheLocation="localstorage"
       >
-          <HttpProvider>
-        <Layout>
+        <HttpProvider>
+          {/* <Layout> */}
           <NextNProgress
             color="red"
             startPosition={0}
@@ -44,8 +42,8 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </I18nextProvider>
           <PhoneWidget />
-        </Layout>
-          </HttpProvider>
+          {/* </Layout> */}
+        </HttpProvider>
       </Auth0Provider>
     </>
   );
