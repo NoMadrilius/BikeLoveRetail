@@ -13,6 +13,7 @@ module.exports = {
         "product-card-text": "#2c2727",
         "product-card-last-price": "rgb(107, 107, 107)",
         pink: "rgb(249, 67, 107)",
+        gray: "rgb(218, 218, 218)",
       },
       boxShadow: {
         "product-card": "4px 4px 15px 0px rgba(0, 0, 0, 0.07)",

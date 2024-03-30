@@ -11,6 +11,11 @@
   .font-inter {
     font-family: Inter, system-ui, sans-serif;
   }
+  .truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 @font-face {
