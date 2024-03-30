@@ -15,6 +15,9 @@ const nextConfig = {
   },
 
    */
+  images: {
+    domains: ["www.statebicycle.com"],
+  },
 };
 
 module.exports = nextConfig;
