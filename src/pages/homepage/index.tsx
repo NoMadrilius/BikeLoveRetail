@@ -1,9 +1,11 @@
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
+import SearchCard from "@/components/UIKit/Cards/SearchCard";
 
 const HomePage = () => {
   return (
     <div>
-      <ProductCard />
+      {/* <ProductCard /> */}
+      <SearchCard />
     </div>
   );
 };

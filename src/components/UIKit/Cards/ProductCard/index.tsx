@@ -1,11 +1,11 @@
 import React from "react";
 import RoundedButton from "../../Buttons/RoundedIconButton";
 import Instock from "./InStock";
-import LastPrice from "./LastPrice";
+import LastPrice from "../Common/LastPrice";
 import PriceAndCart from "./PriceAndCart";
 import ProductImage from "./ProductImage";
 import ProductSpecItems from "./ProductSpecItems";
-import ProductTitle from "./ProductTitle";
+import ProductTitle from "../Common/ProductTitle";
 
 const ProductCard = () => {
   return (
@@ -28,7 +28,7 @@ const ProductCard = () => {
         />
       </>
       <ProductTitle />
-      <LastPrice />
+      <LastPrice classname="pt-[11px]" />
       <PriceAndCart />
       <Instock />
       <ProductSpecItems />
