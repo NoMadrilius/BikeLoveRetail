@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;900&display=swap");
+
+@layer components {
+  .product-card-price {
+    @apply text-product-card-text text-[32px] font-medium leading-[38px] tracking-normal;
+  }
+
+  .font-inter {
+    font-family: Inter, system-ui, sans-serif;
+  }
+}
 
 @font-face {
   font-family: "Roboto-Thin";

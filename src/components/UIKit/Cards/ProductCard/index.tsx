@@ -1,23 +1,38 @@
-import Image from "next/image";
 import React from "react";
+import RoundedButton from "../../Buttons/RoundedIconButton";
+import Instock from "./InStock";
+import LastPrice from "./LastPrice";
+import PriceAndCart from "./PriceAndCart";
+import ProductImage from "./ProductImage";
+import ProductSpecItems from "./ProductSpecItems";
+import ProductTitle from "./ProductTitle";
 
 const ProductCard = () => {
   return (
-    <div className="max-w-[316px] w-full bg-white p-5">
-      <div>
-        <div className="relative w-[276px] h-[194px]">
-          <Image
-            src={
-              "https://www.statebicycle.com/cdn/shop/products/6061-eBikeCommuter-MatteBlack_1.jpg?v=1684443969"
-            }
-            alt={"Bicycle"}
-            fill
-            style={{ objectFit: "contain" }}
-          />
-        </div>
-        <div></div>
-      </div>
-    </div>
+    <article className="max-w-[316px] w-full bg-white p-5 font-inter rounded-b-[8px] hover:shadow-product-card relative">
+      <>
+        <RoundedButton
+          text="Акція"
+          altText={"Shopping Cart"}
+          bgColor={
+            "bg-pink shadow-product-card absolute left-[20px] top-[25px]"
+          }
+        />
+        <ProductImage />
+        <RoundedButton
+          imageUrl={"/images/uikit/card/heart.svg"}
+          altText={"Shopping Cart"}
+          bgColor={
+            "bg-white shadow-product-card absolute right-[20px] top-[25px]"
+          }
+        />
+      </>
+      <ProductTitle />
+      <LastPrice />
+      <PriceAndCart />
+      <Instock />
+      <ProductSpecItems />
+    </article>
   );
 };
 

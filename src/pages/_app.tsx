@@ -31,17 +31,19 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <HttpProvider>
           {/* <Layout> */}
-          <NextNProgress
-            color="red"
-            startPosition={0}
-            stopDelayMs={200}
-            height={3}
-            showOnShallow={true}
-          />
-          <I18nextProvider i18n={i18n}>
-            <Component {...pageProps} />
-          </I18nextProvider>
-          <PhoneWidget />
+          <>
+            <NextNProgress
+              color="red"
+              startPosition={0}
+              stopDelayMs={200}
+              height={3}
+              showOnShallow={true}
+            />
+            <I18nextProvider i18n={i18n}>
+              <Component {...pageProps} />
+            </I18nextProvider>
+            <PhoneWidget />
+          </>
           {/* </Layout> */}
         </HttpProvider>
       </Auth0Provider>
