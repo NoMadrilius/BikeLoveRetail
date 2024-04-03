@@ -22,6 +22,7 @@ module.exports = {
       },
       boxShadow: {
         "product-card": "4px 4px 15px 0px rgba(0, 0, 0, 0.07)",
+        custom: "4px 4px 15px 0px rgba(0, 0, 0, 0.07)",
       },
       backgroundImage: {
         "gradient-custom":
