@@ -1,4 +1,9 @@
 import Layout from "@/components/Pages/Homepage/Layout";
+import AboutUs from "@/components/Pages/Homepage/MainContent/AboutUs";
+import Articles from "@/components/Pages/Homepage/MainContent/Articles";
+import BicyclesByPurpose from "@/components/Pages/Homepage/MainContent/BicyclesByPurpose";
+import BicycleWorkshop from "@/components/Pages/Homepage/MainContent/BicycleWorkshop";
+import CommonQuestions from "@/components/Pages/Homepage/MainContent/CommonQuestions";
 import CustomSlider from "@/components/Pages/Homepage/MainContent/CustomSlider";
 import Hero from "@/components/Pages/Homepage/MainContent/Hero";
 import PopularProductCategories from "@/components/Pages/Homepage/MainContent/PopularProductCategories";
@@ -21,6 +26,11 @@ const HomePage = () => {
         />
         <PopularProductCategories />
         <CustomSlider title={"Топ продаж"} rightText={"Перейти до каталогу"} />
+        <BicycleWorkshop />
+        <BicyclesByPurpose />
+        <AboutUs />
+        <Articles />
+        <CommonQuestions />
       </Layout>
     </div>
   );
