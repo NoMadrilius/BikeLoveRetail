@@ -9,7 +9,7 @@ import ProductTitle from "../Common/ProductTitle";
 
 const ProductCard = () => {
   return (
-    <article className="max-w-[316px] w-full bg-white p-5 font-inter rounded-b-[8px] hover:shadow-product-card relative">
+    <article className="max-w-[316px] w-full bg-white p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
         <RoundedButton
           text="Акція"

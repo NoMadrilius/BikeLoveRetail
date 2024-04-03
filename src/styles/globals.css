@@ -18,6 +18,17 @@
   }
 }
 
+.swiper-wrapper {
+  gap: 20px;
+}
+
+.gradient-text {
+  background-image: linear-gradient(90deg, #f01b74, #ff6064);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @font-face {
   font-family: "Roboto-Thin";
   src: local("Roboto-Thin"), url(./fonts/Roboto-Thin.ttf) format("truetype");
