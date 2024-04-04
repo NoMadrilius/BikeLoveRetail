@@ -1,8 +1,15 @@
 import React from "react";
 
-const HamburgerMenu = () => {
+interface HamburgerMenu {
+  onClick: () => void;
+}
+
+const HamburgerMenu = ({ onClick }: HamburgerMenu) => {
   return (
-    <button className="text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none p-3 sm2:hidden block">
+    <button
+      className="text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none p-3 sm2:hidden block"
+      onClick={onClick}
+    >
       <svg
         className="h-6 w-6"
         xmlns="http://www.w3.org/2000/svg"

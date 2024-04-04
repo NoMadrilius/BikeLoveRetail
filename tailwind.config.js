@@ -19,6 +19,10 @@ module.exports = {
         "number-text": "rgb(44, 39, 39)",
         "dark-text": "rgb(44, 39, 39)",
         mainScene: "#F2F2F2",
+        "user-profile": "rgb(93, 85, 85);",
+        "border-grey": "rgb(222, 222, 222)",
+        "grey-text-header": "#DEDEDE",
+        "category-border": "rgb(218, 218, 218);",
       },
       boxShadow: {
         "product-card": "4px 4px 15px 0px rgba(0, 0, 0, 0.07)",
