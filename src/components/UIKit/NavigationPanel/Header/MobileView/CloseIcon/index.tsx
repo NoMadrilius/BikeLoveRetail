@@ -1,10 +1,18 @@
 import Image from "next/image";
 import React from "react";
 
-const CloseIcon = ({ onClick }: { onClick: () => void }) => {
+interface CloseIconProps {
+  onClick: () => void;
+  imgSrc?: string;
+}
+
+const CloseIcon = ({
+  onClick,
+  imgSrc = "/images/homepage/icons/cross.svg",
+}: CloseIconProps) => {
   return (
     <Image
-      src={"/images/homepage/icons/cross.svg"}
+      src={imgSrc}
       alt={"Cross"}
       width={12}
       height={12}

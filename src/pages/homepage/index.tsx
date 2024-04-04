@@ -8,16 +8,30 @@ import CustomSlider from "@/components/Pages/Homepage/MainContent/CustomSlider";
 import Hero from "@/components/Pages/Homepage/MainContent/Hero";
 import PopularProductCategories from "@/components/Pages/Homepage/MainContent/PopularProductCategories";
 import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs";
-import CounterControl from "@/components/UIKit/Buttons/CounterControl";
-import ProductCard from "@/components/UIKit/Cards/ProductCard";
-import SearchCard from "@/components/UIKit/Cards/SearchCard";
 import Header from "@/components/UIKit/NavigationPanel/Header";
+import Login from "@/components/UIKit/NavigationPanel/Header/Auth/Login";
+import Registration from "@/components/UIKit/NavigationPanel/Header/Auth/Registration";
+import useBurgerMenuStore from "@/store/zustand/header.store";
 
 const HomePage = () => {
+  const loginOrRegistration = useBurgerMenuStore(
+    (state) => state.loginOrRegistration
+  );
+  const isAuthOpen = useBurgerMenuStore((state) => state.isAuthOpen);
+
+  if (loginOrRegistration === "login" && isAuthOpen) {
+    return <Login />;
+  }
+
+  if (loginOrRegistration === "registration" && isAuthOpen) {
+    return <Registration />;
+  }
+
   return (
     <div className="bg-mainScene">
       <Header />
-      {/* <Layout>
+
+      <Layout>
         <Hero />
         <WhyToChooseUs />
         <CustomSlider
@@ -31,7 +45,7 @@ const HomePage = () => {
         <AboutUs />
         <Articles />
         <CommonQuestions />
-      </Layout> */}
+      </Layout>
     </div>
   );
 };
