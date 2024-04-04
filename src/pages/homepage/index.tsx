@@ -17,7 +17,7 @@ const HomePage = () => {
   return (
     <div className="bg-mainScene">
       <Header />
-      <Layout>
+      {/* <Layout>
         <Hero />
         <WhyToChooseUs />
         <CustomSlider
@@ -31,7 +31,7 @@ const HomePage = () => {
         <AboutUs />
         <Articles />
         <CommonQuestions />
-      </Layout>
+      </Layout> */}
     </div>
   );
 };

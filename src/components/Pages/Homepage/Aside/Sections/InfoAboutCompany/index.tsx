@@ -14,7 +14,7 @@ const InfoAboutCompany = () => {
       <h2 className="text-dark-text text-[20px] leading-[24px] font-bold">
         Інформація про компанію
       </h2>
-      <div className="flex flex-col">
+      <nav className="flex flex-col">
         {linksData.map((link, index) => (
           <Link
             key={index}
@@ -24,7 +24,7 @@ const InfoAboutCompany = () => {
             {link.text}
           </Link>
         ))}
-      </div>
+      </nav>
     </section>
   );
 };
