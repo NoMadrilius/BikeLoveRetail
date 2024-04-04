@@ -1,19 +1,18 @@
+import useBurgerMenuStore from "@/store/zustand/header.store";
 import Image from "next/image";
 import React from "react";
 import LogoImage from "../LogoImage";
 import UserProfile from "../MobileHeader/UserProfile";
 import CloseIcon from "./CloseIcon";
 
-interface MobileViewProps {
-  onClick: () => void;
-}
+const MobileView = () => {
+  const closeMenu = useBurgerMenuStore((state) => state.closeMenu);
 
-const MobileView = ({ onClick }: MobileViewProps) => {
   return (
     <div className="w-full flex flex-col gap-5">
       <div className="flex justify-between w-full py-[7px]">
         <LogoImage classname="!mx-0" />
-        <CloseIcon onClick={onClick} />
+        <CloseIcon onClick={closeMenu} />
       </div>
       <UserProfile />
     </div>

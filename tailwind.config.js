@@ -23,6 +23,8 @@ module.exports = {
         "border-grey": "rgb(222, 222, 222)",
         "grey-text-header": "#DEDEDE",
         "category-border": "rgb(218, 218, 218);",
+        blue: "rgb(7, 79, 165)",
+        "blue-link": "#074FA5",
       },
       boxShadow: {
         "product-card": "4px 4px 15px 0px rgba(0, 0, 0, 0.07)",
