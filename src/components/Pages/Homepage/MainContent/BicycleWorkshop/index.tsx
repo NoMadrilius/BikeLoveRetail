@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import NavigationButtons from "../CustomSlider/NavigationButtons";
 import BicycleServiceItem from "./BicycleServiceItem";
+import BicycleServiceItemList from "./BicycleServiceItemList";
 
 const items = [
   {
@@ -36,18 +37,23 @@ const items = [
 
 const BicycleWorkshop = () => {
   return (
-    <section>
+    <section className="px-5 lg:px-0">
       <NavigationButtons
         showButtons={false}
-        rightText={"Перейти на сторінку"}
+        rightText={"На сторінку"}
         title={"Професійна веломайстерня"}
       />
       <div className="flex gap-5">
-        <div className="flex flex-col gap-5 max-w-[316px] shrink-0">
+        <div className="flex flex-col gap-5 w-full lg:max-w-[316px] shrink-0">
           <p className="font-semibold text-dark">
             Команда професіоналів BikeLove надасть вам комплексні послуги
           </p>
-          <div className="relative w-full max-w-[316px] h-[429px]">
+          <BicycleServiceItemList
+            items={items}
+            className="lg:hidden grid grid-cols-2"
+          />
+
+          <div className="relative w-full max-w-[316px] h-[429px] lg:block hidden">
             <Image
               src={"/images/homepage/static/professional-workshop.jpg"}
               alt={
@@ -62,16 +68,7 @@ const BicycleWorkshop = () => {
             задоволення від їзди
           </p>
         </div>
-        <div className="flex flex-wrap gap-5">
-          {items.map((item, index) => (
-            <BicycleServiceItem
-              src={item.src}
-              alt={item.alt}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
-        </div>
+        <BicycleServiceItemList items={items} className="lg:flex hidden" />
       </div>
     </section>
   );

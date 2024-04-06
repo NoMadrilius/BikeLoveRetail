@@ -5,7 +5,7 @@
 
 @layer components {
   .product-card-price {
-    @apply text-product-card-text text-[32px] font-medium leading-[38px] tracking-normal;
+    @apply text-product-card-text text-[22px] lg:text-[32px] font-medium leading-[28px] lg:leading-[38px];
   }
 
   .font-inter {
@@ -18,8 +18,8 @@
   }
 }
 
-.swiper-wrapper {
-  gap: 20px;
+.swiper-custom .swiper-wrapper {
+  gap: 16px;
 }
 
 .gradient-text {

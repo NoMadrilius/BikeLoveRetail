@@ -13,12 +13,12 @@ const LastPrice = ({
   return (
     <div className={`flex items-center gap-2  ${classname}`}>
       <span
-        className={`text-product-card-last-price text-base font-normal leading-relaxed tracking-normal text-left line-through ${priceClass}`}
+        className={`text-product-card-last-price text-[14px] lg:text-[16px] font-normal leading-[120%] text-left line-through ${priceClass}`}
       >
-        130 000 UAH
+        130 000₴
       </span>
       <div
-        className={`border-2 border-pink text-pink text-base font-normal leading-tight tracking-normal rounded-full px-2 py-1 ${discountClass}`}
+        className={`border border-pink text-pink text-base font-normal flex items-center justify-center leading-tight tracking-normal rounded-full px-2 py-1 max-w-[54px] ${discountClass}`}
       >
         -13%
       </div>

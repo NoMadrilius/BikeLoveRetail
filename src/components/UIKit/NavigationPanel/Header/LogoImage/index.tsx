@@ -12,7 +12,7 @@ const LogoImage = ({
 }: LogoImageProps) => {
   return (
     <div
-      className={`shrink-0 relative sm2:w-[140px] sm2:h-[51px] w-[93px] h-[34px] mx-[37px] sm2:mx-0 ${classname}`}
+      className={`shrink-0 sm:shrink relative sm:w-full sm2:w-[140px] sm2:h-[51px] w-[93px] h-[34px] mx-[37px] sm2:mx-0 ${classname}`}
     >
       <Image src={logoSrc} alt={"Header Logo"} fill />
     </div>

@@ -5,12 +5,14 @@ interface GradientButtonProps {
   bgColor?: string;
   showIcon?: boolean;
   label: string;
+  className?: string;
 }
 
 const GradientButton = ({
   bgColor,
   showIcon = true,
   label,
+  className,
 }: GradientButtonProps) => {
   const buttonStyle = bgColor
     ? { backgroundColor: bgColor }
@@ -20,7 +22,7 @@ const GradientButton = ({
 
   return (
     <button
-      className="flex items-center rounded-lg gap-3 py-3 px-5 leading-[19.36px] justify-center"
+      className={`flex items-center rounded-lg gap-3  py-3 px-5 leading-[19.36px] justify-center ${className}`}
       style={buttonStyle}
     >
       {showIcon ? (

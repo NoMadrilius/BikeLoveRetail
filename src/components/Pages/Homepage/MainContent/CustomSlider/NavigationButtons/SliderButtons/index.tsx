@@ -15,7 +15,7 @@ const SliderButtons = ({
   disabledNext,
 }: SliderButtonsProps) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="hidden lg:flex items-center gap-4">
       <button
         className={`w-[48px] h-[48px] shrink-0 flex items-center justify-center rounded-full transform scale-[-1] ${
           disabledPrev

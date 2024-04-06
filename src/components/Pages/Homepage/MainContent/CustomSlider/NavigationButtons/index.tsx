@@ -26,7 +26,7 @@ const NavigationButtons = ({
   title,
 }: NavigationButtonsProps) => {
   return (
-    <div className="mb-8 flex items-center gap-6">
+    <div className="mb-8 flex items-center justify-between lg:justify-start lg:gap-6">
       <SectionHeader title={title} />
       {showButtons && !justShowTitle ? (
         <SliderButtons
@@ -38,7 +38,7 @@ const NavigationButtons = ({
       ) : null}
       {!justShowTitle ? (
         <>
-          <div className="w-full h-[1px] bg-gray" />
+          <div className="w-full h-[1px] bg-gray lg:block hidden" />
           <div className="flex items-center gap-2 shrink-0">
             <Link href="#" className="text-dark leading-[19px] cursor-pointer">
               {rightText}

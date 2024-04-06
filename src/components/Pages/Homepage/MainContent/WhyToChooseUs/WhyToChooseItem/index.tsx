@@ -9,7 +9,7 @@ interface WhyToChooseItemProps {
 
 const WhyToChooseItem = ({ iconSrc, alt, text }: WhyToChooseItemProps) => {
   return (
-    <div className="p-4 bg-dark rounded-lg flex gap-3 items-center max-w-[232px]">
+    <div className="p-4 bg-dark rounded-lg flex lg:flex-row flex-col gap-3 items-center max-w-[232px] sm:max-w-full">
       <Image
         src={iconSrc}
         alt={alt}
