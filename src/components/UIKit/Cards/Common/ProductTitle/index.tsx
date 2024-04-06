@@ -11,12 +11,14 @@ const ProductTitle = ({
 }: ProductTitleProps) => {
   return (
     <h3
-      className={`text-product-card-text font-semibold py-2 line-clamp-2 lg:line-clamp-none${
+      className={`text-product-card-text font-semibold py-2 lg:line-clamp-none${
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
       } ${classname}`}
     >
-      Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у
-      чохлах. Чорний
+      <span className="line-clamp-5 text-[16px] leading-[19px]">
+        Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у
+        чохлах. Чорний
+      </span>
     </h3>
   );
 };

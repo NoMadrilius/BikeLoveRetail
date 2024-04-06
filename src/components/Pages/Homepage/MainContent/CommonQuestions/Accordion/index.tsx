@@ -14,7 +14,7 @@ const Accordion = ({ question, answer }: AccordionProps) => {
   };
 
   return (
-    <div className="bg-white py-4 px-3 rounded-lg max-w-[484px] cursor-pointer gap-2 flex flex-col">
+    <div className="bg-white py-4 px-3 rounded-lg max-w-[484px] sm:max-w-full cursor-pointer flex flex-col">
       <div
         className="flex items-center justify-between"
         onClick={toggleAccordion}
@@ -25,13 +25,14 @@ const Accordion = ({ question, answer }: AccordionProps) => {
           alt={"Arrow"}
           width={10}
           height={10}
-          className={`mx-auto transform transition-transform duration-300 ${
+          className={`mx-auto sm:mr-10 transform transition-transform duration-300 ${
             isOpen ? "-rotate-90" : "rotate-90"
           }`}
         />
       </div>
+
       <div
-        className={`overflow-hidden transition-all ${
+        className={`overflow-hidden transition-all mt-2 ${
           isOpen ? "max-h-[200px]" : "max-h-0"
         }`}
       >

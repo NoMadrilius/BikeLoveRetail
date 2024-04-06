@@ -14,9 +14,9 @@ const AboutUs = () => {
     { value: "100+", label: "Моделей велосипеду" },
   ];
   return (
-    <section className="">
+    <section className="px-5 lg:px-0">
       <NavigationButtons justShowTitle={true} title={"Про нас"} />
-      <div className=" flex flex-col relative ">
+      <div className="flex flex-col relative gap-5 lg:gap-0">
         <ImageLink />
 
         <StatisticsSection statistics={statisticsData} />

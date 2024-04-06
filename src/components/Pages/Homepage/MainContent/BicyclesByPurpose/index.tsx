@@ -48,17 +48,17 @@ const purposes = [
 ];
 
 const BicyclesByPurpose = () => (
-  <section>
+  <section className="px-5 lg:px-0">
     <NavigationButtons
       justShowTitle={true}
       title={"Велосипеди за призначенням"}
     />
-    <div className="flex items-start gap-5 flex-wrap">
+    <div className="grid grid-cols-2 lg:flex items-start gap-5 flex-wrap">
       {purposes.map((purpose, index) => (
         <BicyclePurpose key={index} purpose={purpose} />
       ))}
 
-      <div className="flex items-center gap-2 shrink-0 mt-auto ml-auto">
+      <div className="lg:flex items-center gap-2 shrink-0 mt-auto ml-auto hidden ">
         <Link href="#" className="text-dark leading-[19px] cursor-pointer">
           Перейти до катологу
         </Link>

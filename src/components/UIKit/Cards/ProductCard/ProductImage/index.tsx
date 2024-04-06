@@ -7,7 +7,7 @@ interface ProductImageProps {
 const ProductImage = ({ classname }: ProductImageProps) => {
   return (
     <div
-      className={`relative w-[132px] h-[128px] md:w-[276px] md:h-[194px] mb-5 ${classname}`}
+      className={`relative w-full h-[128px] md:w-[276px] md:h-[194px] mb-5 ${classname}`}
     >
       <Image
         src={

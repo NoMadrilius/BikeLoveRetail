@@ -36,18 +36,15 @@ module.exports = {
       },
     },
     screens: {
-      sm2: "376px",
-      sm: "640px",
-      // => @media (min-width: 640px) { ... }
+      sm: { min: "375px", max: "743px" },
 
-      md: "768px",
-      // => @media (min-width: 768px) { ... }
+      md: { min: "744px", max: "1279px" },
 
-      lg: "1024px",
-      // => @media (min-width: 1024px) { ... }
+      ss: { min: "1280px", max: "1439px" },
 
-      xl: "1280px",
-      // => @media (min-width: 1280px) { ... }
+      lg: { min: "1440px", max: "1920px" },
+
+      "2xl": { min: "1536px" },
 
       "2xl": "1536px",
     },

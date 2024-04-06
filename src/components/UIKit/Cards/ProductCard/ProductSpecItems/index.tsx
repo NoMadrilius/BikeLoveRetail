@@ -11,7 +11,7 @@ const productSpecs = [
 
 const ProductSpecItems = () => {
   return (
-    <div className="grid grid-cols-1 gap-1 mt-4">
+    <div className="hidden lg:grid grid-cols-1 gap-1 mt-4">
       {productSpecs.map((spec) => (
         <ProductSpecsItem
           key={spec.title}
