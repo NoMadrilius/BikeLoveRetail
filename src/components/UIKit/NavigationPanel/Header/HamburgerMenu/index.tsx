@@ -6,7 +6,7 @@ const HamburgerMenu = () => {
 
   return (
     <button
-      className="text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none p-3 sm2:hidden block"
+      className="text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none p-3 sm2:hidden block md:hidden xl:hidden lg:hidden 2xl:hidden"
       onClick={openMenu}
     >
       <svg

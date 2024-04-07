@@ -15,7 +15,7 @@ const PhoneNumberWithImage = () => {
           objectFit="cover"
         />
       </div>
-      <p className="text-base font-normal mr-2 md:block hidden">
+      <p className="text-base font-normal mr-2 md:hidden sm:hidden lt:hidden lg:block">
         +38 (093) 211 - 89 - 30
       </p>
     </a>

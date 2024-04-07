@@ -14,7 +14,7 @@ const Accordion = ({ question, answer }: AccordionProps) => {
   };
 
   return (
-    <div className="bg-white py-4 px-3 rounded-lg max-w-[484px] sm:max-w-full cursor-pointer flex flex-col">
+    <div className="bg-white py-4 px-3 rounded-lg max-w-[484px] sm:max-w-full md:max-w-full cursor-pointer flex flex-col">
       <div
         className="flex items-center justify-between"
         onClick={toggleAccordion}

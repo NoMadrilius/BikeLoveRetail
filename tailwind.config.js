@@ -36,11 +36,13 @@ module.exports = {
       },
     },
     screens: {
+      lt: { min: "0px", max: "374px" },
+
       sm: { min: "375px", max: "743px" },
 
       md: { min: "744px", max: "1279px" },
 
-      ss: { min: "1280px", max: "1439px" },
+      xl: { min: "1280px", max: "1439px" },
 
       lg: { min: "1440px", max: "1920px" },
 

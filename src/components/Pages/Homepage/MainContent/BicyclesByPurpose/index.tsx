@@ -48,12 +48,12 @@ const purposes = [
 ];
 
 const BicyclesByPurpose = () => (
-  <section className="px-5 lg:px-0">
+  <section className="px-5 md:px-10 lg:px-0">
     <NavigationButtons
       justShowTitle={true}
       title={"Велосипеди за призначенням"}
     />
-    <div className="grid grid-cols-2 lg:flex items-start gap-5 flex-wrap">
+    <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 2xl:grid-cols-3  items-start gap-5 flex-wrap">
       {purposes.map((purpose, index) => (
         <BicyclePurpose key={index} purpose={purpose} />
       ))}

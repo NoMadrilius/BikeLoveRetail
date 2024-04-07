@@ -20,8 +20,8 @@ const HeroTitle = () => {
       <span className="text-gray lg:text-[200px] text-[120px] font-bold leading-[120%] uppercase">
         Bike
       </span>
-      <div className="absolute top-[11.91px] left-[20px] lg:top-[104.54px] lg:left-[54.36px]">
-        <h1 className="text-[32px] lg:text-[40px] leadgin-[19px] font-medium text-dark  pr-5 lg:pr-0">
+      <div className="absolute top-[11.91px] left-[20px] lg:top-[104.54px] lg:left-[54.36px] md:w-[377px] z-[1]">
+        <h1 className="text-[32px] lg:text-[40px] md:text-[40px] md:leading-[44px] font-medium text-dark pr-5 lg:pr-0">
           Ваш ідеальний магазин велосипедів!
         </h1>
         <div className="gap-4 lg:gap-0 flex lg:block pr-5 lg:pr-0 mt-3 lg:mt-0">
@@ -40,7 +40,7 @@ const HeroTitle = () => {
               </div>
             ))}
           </div>
-          <div className="relative w-full max-w-[159px] h-[158px] block lg:hidden rounded-lg overflow-hidden">
+          <div className="relative w-full max-w-[159px] h-[158px] block lg:hidden xl:hidden md:hidden 2xl:hidden rounded-lg overflow-hidden">
             <Image
               src={"/images/homepage/static/hero/hero.jpg"}
               alt={"Hero"}
