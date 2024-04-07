@@ -1,13 +1,12 @@
-import useBurgerMenuStore from "@/store/zustand/header.store";
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import React from "react";
 
 const HamburgerMenu = () => {
-  const openMenu = useBurgerMenuStore((state) => state.openMenu);
-
+  const store = useBurgerMenuStore();
   return (
     <button
       className="text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none p-3 sm2:hidden block md:hidden xl:hidden lg:hidden 2xl:hidden"
-      onClick={openMenu}
+      onClick={() => store.openMenu()}
     >
       <svg
         className="h-6 w-6"

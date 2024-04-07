@@ -1,10 +1,21 @@
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
+import { useCategoryStore } from "@/store/CategoryStore";
 import Image from "next/image";
 import React from "react";
 
 const NavigationSection = () => {
+  const store = useCategoryStore();
+  const menuStore = useBurgerMenuStore();
+
   return (
     <section>
-      <div className="flex items-center gap-3 px-5 py-3">
+      <div
+        className="flex items-center gap-3 px-5 py-3"
+        onClick={() => {
+          menuStore.closeMenu();
+          store.toggleModal();
+        }}
+      >
         <div className="shrink-0 relative w-[48px] h-[48px] bg-[#F2F2F2] flex items-center justify-center rounded-full">
           <Image
             src={"/images/uikit/header/catalog.svg"}
@@ -21,14 +32,14 @@ const NavigationSection = () => {
         <div className="flex items-center gap-3 px-5 py-3">
           <div className="shrink-0 relative w-[48px] h-[48px] bg-[#F2F2F2] flex items-center justify-center rounded-full">
             <Image
-              src={"/images/uikit/header/black-cart.svg"}
+              src={"/images/uikit/header/black-heart.svg"}
               alt={"User Profile"}
               width={24}
               height={24}
             />
           </div>
           <button className="text-dark border-none leading-[19px]">
-            Каталог товарів
+            Кошик
           </button>
         </div>
         <div className="flex items-center gap-3 px-5 py-3">
@@ -41,7 +52,7 @@ const NavigationSection = () => {
             />
           </div>
           <button className="text-dark border-none leading-[19px]">
-            Каталог товарів
+            Улюблене
           </button>
         </div>
       </div>
