@@ -4,18 +4,25 @@ import HamburgerMenu from "./HamburgerMenu";
 import MobileHeader from "./MobileHeader";
 import MobileView from "./MobileView";
 import DesktopView from "./DesktopView";
-import useBurgerMenuStore from "@/store/zustand/header.store";
+import CatalogModal from "../../Modals/CatalogModal";
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
+import { observer } from "mobx-react";
+import { useCategoryStore } from "@/store/CategoryStore";
 
 const Header = () => {
-  const isOpen = useBurgerMenuStore((state) => state.isOpen);
+  const { isOpen } = useBurgerMenuStore();
+  const store = useCategoryStore();
 
   return (
     <>
       <header className="py-5 bg-dark px-5 sm2:px-10 md:px-0 sm:justify-between">
         <div className="max-w-[1324px] mx-auto flex items-center gap-3 md:gap-8 md:justify-center xl:gap-8 xl:justify-center">
           {!isOpen ? <HamburgerMenu /> : null}
-
-          {isOpen ? <MobileView /> : <DesktopView />}
+          {isOpen ? (
+            <MobileView />
+          ) : (
+            <DesktopView setIsModalOpen={() => store.toggleModal()} />
+          )}
         </div>
       </header>
       <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
@@ -27,8 +34,9 @@ const Header = () => {
         />
       </div>
       {isOpen ? <MobileHeader /> : null}
+      <CatalogModal isOpen={store.isModalOpen} />
     </>
   );
 };
 
-export default Header;
+export default observer(Header);

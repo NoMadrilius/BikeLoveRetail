@@ -20,12 +20,11 @@ const NavigationIcons = () => {
           height={24}
         />
       </div>
-      <div className="] p-3">
+      <div className="p-3 shrink-0 sm:size-[28px] relative md:size-[24px] lg:size-[24px] xl:size-[24px]">
         <Image
           src={"/images/uikit/header/shopping-cart.svg"}
           alt={"Shopping cart"}
-          width={24}
-          height={24}
+          fill
         />
       </div>
     </div>

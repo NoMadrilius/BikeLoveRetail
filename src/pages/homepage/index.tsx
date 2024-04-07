@@ -14,19 +14,17 @@ import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import Header from "@/components/UIKit/NavigationPanel/Header";
 import Login from "@/components/UIKit/NavigationPanel/Header/Auth/Login";
 import Registration from "@/components/UIKit/NavigationPanel/Header/Auth/Registration";
-import useBurgerMenuStore from "@/store/zustand/header.store";
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
+import { observer } from "mobx-react";
 
 const HomePage = () => {
-  const loginOrRegistration = useBurgerMenuStore(
-    (state) => state.loginOrRegistration
-  );
-  const isAuthOpen = useBurgerMenuStore((state) => state.isAuthOpen);
+  const store = useBurgerMenuStore();
 
-  if (loginOrRegistration === "login" && isAuthOpen) {
+  if (store.loginOrRegistration === "login" && store.isAuthOpen) {
     return <Login />;
   }
 
-  if (loginOrRegistration === "registration" && isAuthOpen) {
+  if (store.loginOrRegistration === "registration" && store.isAuthOpen) {
     return <Registration />;
   }
 
@@ -69,4 +67,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default observer(HomePage);

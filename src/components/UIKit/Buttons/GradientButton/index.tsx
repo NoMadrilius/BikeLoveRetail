@@ -6,6 +6,7 @@ interface GradientButtonProps {
   showIcon?: boolean;
   label: string;
   className?: string;
+  onClick?: () => void;
 }
 
 const GradientButton = ({
@@ -13,6 +14,7 @@ const GradientButton = ({
   showIcon = true,
   label,
   className,
+  onClick,
 }: GradientButtonProps) => {
   const buttonStyle = bgColor
     ? { backgroundColor: bgColor }
@@ -24,6 +26,7 @@ const GradientButton = ({
     <button
       className={`flex items-center rounded-lg gap-3  py-3 px-5 leading-[19.36px] justify-center ${className}`}
       style={buttonStyle}
+      onClick={onClick}
     >
       {showIcon ? (
         <Image

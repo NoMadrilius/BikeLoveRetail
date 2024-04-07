@@ -5,12 +5,18 @@ import React from "react";
 interface CategoryItemProps {
   categoryName: string;
   imageLink: string;
+  onClick?: () => void;
 }
 
-const CategoryItem = ({ categoryName, imageLink }: CategoryItemProps) => {
+const CategoryItem = ({
+  categoryName,
+  imageLink,
+  onClick,
+}: CategoryItemProps) => {
   return (
-    <Link
-      href={imageLink}
+    <div
+      // href={imageLink}
+      onClick={onClick}
       className="flex items-center px-3 py-1 bg-white cursor-pointer"
     >
       <div className="flex items-center gap-2">
@@ -29,11 +35,11 @@ const CategoryItem = ({ categoryName, imageLink }: CategoryItemProps) => {
       <Image
         src={"/images/homepage/icons/right-arrow.svg"}
         alt={"Right Arrow"}
-        width={6}
+        width={8}
         height={12}
         className="ml-auto shrink-0"
       />
-    </Link>
+    </div>
   );
 };
 

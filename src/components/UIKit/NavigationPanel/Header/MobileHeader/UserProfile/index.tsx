@@ -1,9 +1,9 @@
-import useBurgerMenuStore from "@/store/zustand/header.store";
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import Image from "next/image";
 import React from "react";
 
 const UserProfile = () => {
-  const saveAuthType = useBurgerMenuStore((state) => state.saveAuthType);
+  const store = useBurgerMenuStore();
 
   return (
     <div className="flex items-center gap-2">
@@ -19,14 +19,14 @@ const UserProfile = () => {
         <div className="flex gap-3">
           <button
             className="leading-[19px] border-none text-white"
-            onClick={() => saveAuthType("login")}
+            onClick={() => store.saveAuthType("login")}
           >
             Вхід
           </button>
           <div className="w-[1px] bg-border-grey" />
           <button
             className="leading-[19px] border-none text-white"
-            onClick={() => saveAuthType("registration")}
+            onClick={() => store.saveAuthType("registration")}
           >
             Реєстрація
           </button>
