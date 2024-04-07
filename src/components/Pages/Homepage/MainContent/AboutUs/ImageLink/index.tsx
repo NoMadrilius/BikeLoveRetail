@@ -5,15 +5,15 @@ import Link from "next/link";
 const ImageLink = () => {
   return (
     <>
-      <Image
-        src={"/images/homepage/static/guy.jpg"}
-        alt={"Про нас"}
-        width={447}
-        height={415}
-        className="rounded-lg shrink-0 h-[415px] object-cover mx-auto"
-      />
-
-      <div className="hidden lg:flex items-center gap-2 shrink-0 mt-auto ml-auto">
+      <div className="relative w-full max-w-[382px] h-[415px] md:w-[322px] md:h-[327px] mx-auto xl:-left-[44px] xl:my-[60.5px] 2xl:my-[60.5px] lg:my-[60.5px] ">
+        <Image
+          src={"/images/homepage/static/guy.jpg"}
+          alt={"Про нас"}
+          fill
+          className="rounded-lg shrink-0 h-[415px] object-cover mx-auto"
+        />
+      </div>
+      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto">
         <Link href="#" className="text-dark leading-[19px] cursor-pointer">
           Дізнатись більше
         </Link>

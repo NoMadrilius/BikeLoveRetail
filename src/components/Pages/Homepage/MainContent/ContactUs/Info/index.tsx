@@ -3,7 +3,7 @@ import React from "react";
 
 const Info = () => {
   return (
-    <div className="flex gap-5 grow w-full lg:flex-row flex-col items-center lg:items-start">
+    <div className="flex gap-5 grow w-full lg:flex-row md:flex-row md:items-start flex-col items-center lg:items-start">
       <div className="grow lg:w-1/2 ">
         <h3
           className="font-bold text-[20px] leading-[120%] text-dark mb-5"

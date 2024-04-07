@@ -6,9 +6,9 @@ import Info from "./Info";
 
 const ContactUs = () => {
   return (
-    <section className="px-5 lg:px-0">
+    <section className="px-5 md:px-10 lg:px-0">
       <NavigationButtons justShowTitle={true} title={"Контакти"} />
-      <div className="flex gap-5 lg:flex-row flex-col text-center lg:text-left">
+      <div className="flex gap-5 lg:flex-row flex-col  lg:text-left">
         <Map />
 
         <Info />

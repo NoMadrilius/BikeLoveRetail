@@ -9,11 +9,11 @@ interface StatisticsSectionProps {
 
 const StatisticsSection = ({ statistics }: StatisticsSectionProps) => {
   return (
-    <div className="grid grid-cols-2 lg:flex flex-wrap gap-4 lg:absolute bottom-0 w-full lg:max-w-[316px]">
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:flex xl:flex 2xl:flex flex-wrap gap-4 lg:absolute xl:absolute 2xl:absolute bottom-0 w-full lg:max-w-[316px] xl:max-w-[316px] 2xl:max-w-[316px]">
       {statistics.map((statistic, index) => (
         <div
           key={index}
-          className="flex flex-col gap-3 bg-dark rounded-lg items-center justify-center w-full h-[150px] lg:size-[150px] px-3 lg:px-0"
+          className="flex flex-col gap-3 bg-dark rounded-lg items-center justify-center w-full h-[150px] lg:size-[150px] xl:size-[150px] 2xl:size-[150px] px-3 lg:px-0 xl:px-0 2xl:px-0"
         >
           <h3 className="font-medium text-[40px] leading-[47px] gradient-text">
             {statistic.value}

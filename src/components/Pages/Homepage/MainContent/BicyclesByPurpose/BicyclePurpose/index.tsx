@@ -10,8 +10,8 @@ interface BicyclePurposeProps {
 }
 
 const BicyclePurpose = ({ purpose }: BicyclePurposeProps) => (
-  <div className="rounded-lg overflow-hidden max-w-[316px] sm:max-w-full">
-    <div className="relative sm:w-full w-[159.5px] h-[88px] lg:w-[316px] lg:h-[236px] shrink-0">
+  <div className="rounded-lg overflow-hidden max-w-[316px] sm:max-w-full md:max-w-full xl:max-w-full lg:max-w-full 2xl:max-w-full">
+    <div className="relative sm:w-full md:w-full xl:w-full lg:w-full 2xl:w-full w-[159.5px] h-[88px] lg:w-[316px] lg:h-[236px] shrink-0">
       <Image
         src={purpose.image}
         alt={"Велосипеди за призначенням"}

@@ -9,7 +9,7 @@ const DesktopView = () => {
   return (
     <>
       <LogoImage />
-      <div className="hidden sm2:flex h-full items-center gap-3">
+      <div className="hidden sm2:flex h-full gap-3 xl:flex lg:flex 2xl:flex min-h-[48px]">
         <GradientButton label={"Каталог товарів"} />
         <GradientButton
           bgColor="#5D5555"

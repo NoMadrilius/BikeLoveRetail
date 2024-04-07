@@ -3,7 +3,7 @@ import Accordion from "./Accordion";
 
 const CommonQuestions = () => {
   return (
-    <section className="px-5 lg:px-0">
+    <section className="px-5 md:px-10 lg:px-0">
       <NavigationButtons justShowTitle={true} title={"Часті питання"} />
       <div className="grid grid-cols-1 lg:flex gap-5 items-start w-full">
         <Accordion

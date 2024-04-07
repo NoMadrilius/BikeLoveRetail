@@ -37,7 +37,7 @@ const HomePage = () => {
       <Layout>
         <div>
           <Hero />
-          <div className="lg:hidden flex px-5 gap-3 sm:justify-center">
+          <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex px-5 gap-3 sm:justify-center">
             <GradientButton
               label={"Каталог товарів"}
               className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0"
@@ -51,17 +51,17 @@ const HomePage = () => {
           </div>
         </div>
         <WhyToChooseUs />
-        {/* <CustomSlider
+        <CustomSlider
           title={"Акційні пропозиції"}
           rightText={"Більше пропозицій"}
-        /> */}
+        />
         <PopularProductCategories />
-        {/* <CustomSlider title={"Топ продаж"} rightText={"Перейти до каталогу"} /> */}
+        <CustomSlider title={"Топ продаж"} rightText={"Перейти до каталогу"} />
         <BicycleWorkshop />
         <BicyclesByPurpose />
         <AboutUs />
-        {/* <Articles /> */}
-        {/* <Feedbacks /> */}
+        <Articles />
+        <Feedbacks />
         <CommonQuestions />
         <ContactUs />
       </Layout>

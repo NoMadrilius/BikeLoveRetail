@@ -25,7 +25,7 @@ const itemsData = [
 ];
 const WhyToChooseUs = () => {
   return (
-    <section className="grid grid-cols-2 lg:flex gap-5 px-5 lg:px-0">
+    <section className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-4 lg:flex 2xl:flex gap-5 px-5 md:px-10 lg:px-0">
       {itemsData.map((item, index) => (
         <WhyToChooseItem
           key={index}
