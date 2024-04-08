@@ -56,36 +56,15 @@ const SwiperSlider = ({ title, rightText }: SwiperSliderProps) => {
           }}
           className="swiper-custom"
         >
-          <SwiperSlide
-            style={{ maxWidth: "316px", width: "100%" }}
-            className="!max-w-[159px] lg:!max-w-[316px]"
-          >
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{ maxWidth: "316px", width: "100%" }}
-            className="!max-w-[159px] lg:!max-w-[316px]"
-          >
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{ maxWidth: "316px", width: "100%" }}
-            className="!max-w-[159px] lg:!max-w-[316px]"
-          >
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{ maxWidth: "316px", width: "100%" }}
-            className="!max-w-[159px] lg:!max-w-[316px]"
-          >
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{ maxWidth: "316px", width: "100%" }}
-            className="!max-w-[159px] lg:!max-w-[316px]"
-          >
-            <ProductCard />
-          </SwiperSlide>
+          {[1, 2, 3, 4].map((el, index) => (
+            <SwiperSlide
+              key={index}
+              style={{ maxWidth: "316px", width: "100%" }}
+              className="!max-w-[159px] lg:!max-w-[316px]"
+            >
+              <ProductCard />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <Pagination currentIndex={currentIndex} totalSlides={4} />
       </div>

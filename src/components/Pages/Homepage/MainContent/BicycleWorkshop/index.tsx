@@ -43,7 +43,7 @@ const BicycleWorkshop = () => {
         rightText={"На сторінку"}
         title={"Професійна веломайстерня"}
       />
-      <div className="flex gap-5">
+      <div className="flex gap-5 sm:gap-6">
         <div className="flex flex-col gap-5 w-full xl:max-w-[316px] lg:max-w-[316px] shrink-0">
           <p className="font-semibold text-dark">
             Команда професіоналів BikeLove надасть вам комплексні послуги

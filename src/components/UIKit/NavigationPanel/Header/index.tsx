@@ -8,6 +8,7 @@ import CatalogModal from "../../Modals/CatalogModal";
 import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import { observer } from "mobx-react";
 import { useCategoryStore } from "@/store/CategoryStore";
+import SearchInput from "../../InputFields/SearchInput";
 
 const Header = () => {
   const { isOpen } = useBurgerMenuStore();
@@ -15,8 +16,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="py-5 bg-dark px-5 sm2:px-10 md:px-0 sm:justify-between">
-        <div className="max-w-[1324px] mx-auto flex items-center gap-3 md:gap-8 md:justify-center xl:gap-8 xl:justify-center">
+      <header className="py-5 bg-dark px-5 sm:px-5 sm:py-2 md:px-0 sm:justify-between">
+        <div className="max-w-[1324px] mx-auto flex items-center gap-3 md:gap-8 md:justify-center sm:gap-0 xl:gap-8 xl:justify-center">
           {!isOpen ? <HamburgerMenu /> : null}
           {isOpen ? (
             <MobileView />
@@ -25,12 +26,19 @@ const Header = () => {
           )}
         </div>
       </header>
-      <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
+      <div className="hidden grid-cols-2  lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
         <GradientButton label={"Каталог товарів"} />
         <GradientButton
           bgColor="#5D5555"
           label={"Майстерня"}
           showIcon={false}
+        />
+      </div>
+      <div className="sm:block hidden h-full items-center  bg-white shadow-custom px-5 py-3">
+        <SearchInput
+          className="sm:block w-full max-w-full"
+          iconColor="#6B6B6B"
+          inputStyles="border-[#DADADA]"
         />
       </div>
       {isOpen ? <MobileHeader /> : null}

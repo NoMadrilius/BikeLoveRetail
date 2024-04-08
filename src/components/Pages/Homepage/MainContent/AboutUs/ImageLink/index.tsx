@@ -5,7 +5,7 @@ import Link from "next/link";
 const ImageLink = () => {
   return (
     <>
-      <div className="relative w-full max-w-[382px] h-[415px] md:w-[322px] md:h-[327px] mx-auto xl:-left-[44px] xl:my-[60.5px] 2xl:my-[60.5px] lg:my-[60.5px] ">
+      <div className="relative w-full sm:w-[335px] sm:h-[194px] max-w-[382px] h-[415px] md:w-[322px] md:h-[327px] mx-auto xl:-left-[44px] xl:my-[60.5px] 2xl:my-[60.5px] lg:my-[60.5px] ">
         <Image
           src={"/images/homepage/static/guy.jpg"}
           alt={"Про нас"}

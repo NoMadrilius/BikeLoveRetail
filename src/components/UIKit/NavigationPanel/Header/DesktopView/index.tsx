@@ -25,6 +25,7 @@ const DesktopView = ({
         />
       </div>
       <SearchInput />
+
       <NavigationIcons />
       <PhoneNumberWithImage />
     </>

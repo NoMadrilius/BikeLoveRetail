@@ -24,20 +24,22 @@ const GradientButton = ({
 
   return (
     <button
-      className={`flex items-center rounded-lg gap-3  py-3 px-5 leading-[19.36px] justify-center ${className}`}
+      className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${className}`}
       style={buttonStyle}
       onClick={onClick}
     >
       {showIcon ? (
-        <Image
-          src={"/images/uikit/buttons/catalog.svg"}
-          alt={"Каталог товарів"}
-          width={16}
-          height={16}
-        />
+        <div className="p-1 flex shrink-0">
+          <Image
+            src={"/images/uikit/buttons/catalog.svg"}
+            alt={"Каталог товарів"}
+            width={16}
+            height={16}
+            objectFit="shrink-0"
+          />
+        </div>
       ) : null}
-
-      {label}
+      <span className="w-min">{label}</span>
     </button>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 
 const NavigationIcons = () => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center ">
       <div className="p-3 md:block hidden lg:block xl:block 2xl:block">
         <Image
           src={"/images/uikit/header/person.svg"}
@@ -20,11 +20,13 @@ const NavigationIcons = () => {
           height={24}
         />
       </div>
-      <div className="p-3 shrink-0 sm:size-[28px] relative md:size-[24px] lg:size-[24px] xl:size-[24px]">
+      <div className="p-2  block">
         <Image
           src={"/images/uikit/header/shopping-cart.svg"}
           alt={"Shopping cart"}
-          fill
+          width={28}
+          height={28}
+          className="shrink-0"
         />
       </div>
     </div>

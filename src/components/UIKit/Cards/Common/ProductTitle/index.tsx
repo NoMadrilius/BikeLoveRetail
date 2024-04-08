@@ -1,23 +1,47 @@
-import React from "react";
+import { truncateText } from "@/helpers/stringDecorate/truncateText";
+import React, { useState, useEffect } from "react";
 
 interface ProductTitleProps {
+  text: string;
+  maxCharacters?: number;
   disableBorder?: boolean;
-  classname?: string;
+  className?: string;
 }
 
 const ProductTitle = ({
+  text,
+  maxCharacters = 41,
   disableBorder = false,
-  classname,
+  className,
 }: ProductTitleProps) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const truncatedText = truncateText(
+    text,
+    isSmallScreen ? maxCharacters : Infinity
+  );
+
   return (
     <h3
-      className={`text-product-card-text font-semibold py-2 lg:line-clamp-none${
+      className={`text-product-card-text py-2 lg:line-clamp-none ${
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
-      } ${classname}`}
+      } ${className}`}
     >
-      <span className="line-clamp-5 text-[16px] leading-[19px]">
-        Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у
-        чохлах. Чорний
+      <span className="line-clamp-5 text-[16px] leading-[19.36px] font-semibold font-inter">
+        {truncatedText}
       </span>
     </h3>
   );

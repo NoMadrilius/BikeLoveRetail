@@ -11,7 +11,7 @@ const Pagination = ({
 }: PaginationProps) => {
   return (
     <div
-      className={`max-w-[280px] mx-auto mt-[24px] h-[2px] bg-[#DADADA] block lg:hidden ${className}`}
+      className={`max-w-[280px] sm:max-w-[240px] mx-auto mt-[24px] h-[2px] bg-[#DADADA] block lg:hidden ${className}`}
     >
       <div
         className="h-[2px] bg-[#6B6B6B]"
