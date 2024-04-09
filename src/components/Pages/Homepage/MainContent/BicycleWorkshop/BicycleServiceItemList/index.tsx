@@ -18,7 +18,7 @@ const BicycleServiceItemList = ({
   className,
 }: BicycleServiceItemListProps) => {
   return (
-    <div className={`flex flex-wrap gap-5 ${className}`}>
+    <div className={`flex flex-wrap gap-5 xl:mt-1 ${className}`}>
       {items.map((item, index) => (
         <BicycleServiceItem
           key={index}

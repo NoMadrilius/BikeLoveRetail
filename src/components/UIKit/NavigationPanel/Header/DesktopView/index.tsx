@@ -8,7 +8,7 @@ import PhoneNumberWithImage from "../PhoneNumberWithIcon";
 const DesktopView = ({
   setIsModalOpen,
 }: {
-  setIsModalOpen: (b: boolean) => void;
+  setIsModalOpen: (n: boolean) => void;
 }) => {
   return (
     <>
@@ -17,15 +17,19 @@ const DesktopView = ({
         <GradientButton
           label={"Каталог товарів"}
           onClick={() => setIsModalOpen(true)}
+          textstyles="!w-full xl:shrink-0"
+          className="xl:shrink-0 xl:py-3 xl:px-4 max-w-[193px]"
         />
         <GradientButton
           bgColor="#5D5555"
           label={"Майстерня"}
           showIcon={false}
+          textstyles="!w-full xl:shrink-0"
+          className=" xl:!py-[14.5px] xl:!px-4 xl:!max-w-[119px]"
+          // textstyles="w-auto"
         />
       </div>
       <SearchInput />
-
       <NavigationIcons />
       <PhoneNumberWithImage />
     </>

@@ -10,13 +10,13 @@ import GradientButton from "../../Buttons/GradientButton";
 
 const ProductCard = () => {
   return (
-    <article className="max-w-[160px] lg:max-w-[316px] w-full bg-white sm:pt-[11px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
+    <article className="max-w-[159px] lg:max-w-[316px] xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
         <RoundedButton
           text="Акція"
           altText={"Shopping Cart"}
           bgColor={
-            "bg-pink shadow-product-card absolute left-[20px] top-[25px] lg:block hidden"
+            "bg-pink shadow-product-card absolute left-[20px] xl:left-[21px] xl:top-[31px] xl:flex top-[25px] xl:block lg:block hidden  xl:!py-2 xl:!px-3 xl:max-h-[35px] "
           }
         />
         <ProductButtonsOnMobile />
@@ -24,8 +24,9 @@ const ProductCard = () => {
         <RoundedButton
           imageUrl={"/images/uikit/card/heart.svg"}
           altText={"Shopping Cart"}
+          size={24}
           bgColor={
-            "bg-white shadow-product-card absolute right-[20px] top-[25px] lg:block hidden"
+            "bg-white shadow-product-card absolute xl:flex xl:items-center xl:size-[48px] xl:right-[16px] right-[20px] top-[25px] xl:block lg:block hidden xl:py-2 xl:px-3 xl:shrink-0"
           }
         />
       </>
@@ -34,7 +35,7 @@ const ProductCard = () => {
           "Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у чохлах. Чорний"
         }
       />
-      <LastPrice classname="sm:pt-[7px] pt-[11px]" />
+      <LastPrice classname="sm:pt-[7px] pt-[11px] xl:pt-1" />
       <PriceAndCart />
       <GradientButton
         label={"Kупити"}
@@ -51,7 +52,7 @@ export default ProductCard;
 
 const ProductButtonsOnMobile = () => {
   return (
-    <div className="flex justify-between lg:hidden">
+    <div className="flex justify-between xl:hidden lg:hidden">
       <RoundedButton
         text="Акція"
         altText={"Shopping Cart"}

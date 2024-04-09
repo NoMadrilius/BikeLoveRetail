@@ -9,7 +9,7 @@ const SearchCard = () => {
     <article className="p-3 bg-white border-b border-gray flex items-center justify-center gap-2 max-w-[796px]">
       <ProductImage classname="md:!w-[116px] md:!h-[100px] !w-[80px] !h-[68px] shrink-0 !mb-0" />
       <div>
-        <ProductTitle disableBorder={true} classname="py-0" />
+        <ProductTitle disableBorder={true} className="py-0" text={"Test"} />
         <div className="flex items-end justify-between">
           <div className="flex items-center gap-3">
             <span className="product-card-price text-[20px] leading-[120%] font-bold">

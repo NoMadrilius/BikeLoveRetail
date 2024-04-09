@@ -8,7 +8,7 @@
 
 @layer components {
   .product-card-price {
-    @apply text-product-card-text text-[24px] leading-[28.13px] lg:text-[32px] font-medium lg:leading-[38px];
+    @apply text-product-card-text text-[24px] leading-[28.13px] xl:text-[32px] xl:leading-[37.5px] lg:text-[32px] font-medium lg:leading-[38px];
   }
 
   .truncate {
@@ -20,6 +20,12 @@
 
 .swiper-custom .swiper-wrapper {
   gap: 16px;
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  .swiper-custom .swiper-wrapper {
+    gap: 20px;
+  }
 }
 
 .gradient-text {

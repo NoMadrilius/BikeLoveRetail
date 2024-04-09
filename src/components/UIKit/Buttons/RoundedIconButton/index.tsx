@@ -17,9 +17,11 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   text = "",
 }: RoundedButtonProps) => {
   return (
-    <div className={`z-[1] p-[13px] rounded-full ${bgColor}`}>
+    <div className={`z-[1] p-[13px] rounded-full shrink-0 ${bgColor}`}>
       {text.length === 0 && imageUrl && altText ? (
-        <Image src={imageUrl} alt={altText} width={size} height={size} />
+        <div className={`shrink-0 flex relative size-[21.5px] xl:size-[24px]`}>
+          <Image src={imageUrl} alt={altText} fill className="shrink-0" />
+        </div>
       ) : (
         <span className="text-white text-[16px] leading-[19px] font-semibold font-inter">
           {text}

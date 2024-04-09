@@ -6,30 +6,30 @@ import BicycleServiceItemList from "./BicycleServiceItemList";
 
 const items = [
   {
-    src: "/images/homepage/icons/why-to-choose-us/bicycle.svg",
+    src: "/images/homepage/icons/bicycle-workshop/like.svg",
     alt: "alt",
     title: "Гарантійне обслуговування",
     description:
       "включає в себе безкоштовний ремонт, заміну чи повернення товару в разі виявлення дефектів протягом визначеного періоду після покупки.",
   },
   {
-    src: "/images/homepage/icons/why-to-choose-us/bicycle.svg",
+    src: "/images/homepage/icons/bicycle-workshop/gear.svg",
     alt: "alt",
-    title: "Гарантійне обслуговування",
+    title: "Післягарантійне обслуговування",
     description:
       "включає в себе безкоштовний ремонт, заміну чи повернення товару в разі виявлення дефектів протягом визначеного періоду після покупки.",
   },
   {
-    src: "/images/homepage/icons/why-to-choose-us/bicycle.svg",
+    src: "/images/homepage/icons/bicycle-workshop/remont.svg",
     alt: "alt",
-    title: "Гарантійне обслуговування",
+    title: "Швидкий та якісний ремонт",
     description:
       "включає в себе безкоштовний ремонт, заміну чи повернення товару в разі виявлення дефектів протягом визначеного періоду після покупки.",
   },
   {
-    src: "/images/homepage/icons/why-to-choose-us/bicycle.svg",
+    src: "/images/homepage/icons/bicycle-workshop/advice.svg",
     alt: "alt",
-    title: "Гарантійне обслуговування",
+    title: "Поради щодо підбору запчастин та аксесуарів",
     description:
       "включає в себе безкоштовний ремонт, заміну чи повернення товару в разі виявлення дефектів протягом визначеного періоду після покупки.",
   },
@@ -37,15 +37,15 @@ const items = [
 
 const BicycleWorkshop = () => {
   return (
-    <section className="px-5 md:px-10 g:px-0">
+    <section>
       <NavigationButtons
         showButtons={false}
         rightText={"На сторінку"}
         title={"Професійна веломайстерня"}
       />
       <div className="flex gap-5 sm:gap-6">
-        <div className="flex flex-col gap-5 w-full xl:max-w-[316px] lg:max-w-[316px] shrink-0">
-          <p className="font-semibold text-dark">
+        <div className="flex flex-col gap-5 w-full xl:max-w-[274px] lg:max-w-[316px] shrink-0">
+          <p className="font-semibold text-dark text-[16px] leading-[19.86px]">
             Команда професіоналів BikeLove надасть вам комплексні послуги
           </p>
           <BicycleServiceItemList
@@ -53,7 +53,7 @@ const BicycleWorkshop = () => {
             className="lg:hidden xl:hidden 2xl:hidden grid grid-cols-2"
           />
 
-          <div className="relative w-full max-w-[316px] h-[429px] xl:block 2xl:block lg:block hidden">
+          <div className="relative w-full max-w-[316px] h-[429px] xl:max-w-full xl:h-[410px] xl:block 2xl:block lg:block hidden">
             <Image
               src={"/images/homepage/static/professional-workshop.jpg"}
               alt={
@@ -70,7 +70,7 @@ const BicycleWorkshop = () => {
         </div>
         <BicycleServiceItemList
           items={items}
-          className="xl:grid xl:grid-cols-2 2xl:flex lg:grid lg:grid-cols-2  hidden"
+          className="xl:grid xl:grid-cols-2 2xl:flex lg:grid lg:grid-cols-2 hidden"
         />
       </div>
     </section>

@@ -6,6 +6,7 @@ interface GradientButtonProps {
   showIcon?: boolean;
   label: string;
   className?: string;
+  textstyles?: string;
   onClick?: () => void;
 }
 
@@ -14,6 +15,7 @@ const GradientButton = ({
   showIcon = true,
   label,
   className,
+  textstyles,
   onClick,
 }: GradientButtonProps) => {
   const buttonStyle = bgColor
@@ -29,17 +31,19 @@ const GradientButton = ({
       onClick={onClick}
     >
       {showIcon ? (
-        <div className="p-1 flex shrink-0">
-          <Image
-            src={"/images/uikit/buttons/catalog.svg"}
-            alt={"Каталог товарів"}
-            width={16}
-            height={16}
-            objectFit="shrink-0"
-          />
+        <div className="p-1">
+          <div className="relative size-4 flex shrink-0">
+            <Image
+              src={"/images/uikit/buttons/catalog.svg"}
+              alt={"Каталог товарів"}
+              fill
+              objectFit="shrink-0"
+            />
+          </div>
         </div>
       ) : null}
-      <span className="w-min">{label}</span>
+      <span className={`w-min ${textstyles} xl:hidden`}>{label}</span>
+      <p className="xl:block hidden">{label}</p>
     </button>
   );
 };

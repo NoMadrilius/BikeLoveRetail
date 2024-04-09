@@ -5,7 +5,7 @@ import Link from "next/link";
 const ImageLink = () => {
   return (
     <>
-      <div className="relative w-full sm:w-[335px] sm:h-[194px] max-w-[382px] h-[415px] md:w-[322px] md:h-[327px] mx-auto xl:-left-[44px] xl:my-[60.5px] 2xl:my-[60.5px] lg:my-[60.5px] ">
+      <div className="relative w-full sm:w-[335px] sm:h-[194px] xl:max-w-[382px] max-w-[382px] h-[415px] md:w-[322px] md:h-[327px] mx-auto xl:-left-[44px] xl:my-[60.5px] 2xl:my-[60.5px] lg:my-[60.5px] ">
         <Image
           src={"/images/homepage/static/guy.jpg"}
           alt={"Про нас"}
@@ -13,7 +13,7 @@ const ImageLink = () => {
           className="rounded-lg shrink-0 h-[415px] object-cover mx-auto"
         />
       </div>
-      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto">
+      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto xl:absolute xl:right-[31px] xl:bottom-[30px]">
         <Link href="#" className="text-dark leading-[19px] cursor-pointer">
           Дізнатись більше
         </Link>
@@ -22,7 +22,7 @@ const ImageLink = () => {
           alt={"Right Arrow"}
           width={6}
           height={12}
-          className="ml-auto shrink-0"
+          className="ml-auto xl:ml-0 shrink-0"
         />
       </div>
     </>

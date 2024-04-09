@@ -14,6 +14,7 @@ interface NavigationButtonsProps {
   justShowTitle?: boolean;
   title: string;
   titleStyles?: string;
+  lineStyles?: string;
 }
 
 const NavigationButtons = ({
@@ -26,9 +27,10 @@ const NavigationButtons = ({
   justShowTitle = false,
   title,
   titleStyles,
+  lineStyles,
 }: NavigationButtonsProps) => {
   return (
-    <div className="sm:mb-6 mb-8 flex sm:items-start items-center lg:justify-start lg:gap-6 sm:gap-4">
+    <div className="sm:mb-6 mb-8 flex sm:items-start items-center lg:justify-start xl:gap-6 lg:gap-6 sm:gap-4">
       <SectionHeader title={title} titleStyles={titleStyles} />
       {showButtons && !justShowTitle ? (
         <SliderButtons
@@ -40,8 +42,10 @@ const NavigationButtons = ({
       ) : null}
       {!justShowTitle ? (
         <>
-          <div className="w-full h-[1px] bg-gray lg:block hidden" />
-          <div className="flex gap-2 shrink-0 grow sm:py-[10.5px]">
+          <div
+            className={`w-full h-[1px] bg-gray xl:block lg:block hidden max-w-[226px] ${lineStyles}`}
+          />
+          <div className="flex gap-[18px] shrink-0 grow sm:py-[10.5px] py-2 px-3">
             <Link href="#" className="text-dark leading-[19px] cursor-pointer">
               {rightText}
             </Link>
@@ -50,7 +54,7 @@ const NavigationButtons = ({
               alt={"Right Arrow"}
               width={6}
               height={12}
-              className="ml-auto shrink-0"
+              className="shrink-0"
             />
           </div>
         </>

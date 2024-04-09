@@ -4,7 +4,7 @@ import NavigationButtons from "../CustomSlider/NavigationButtons";
 
 const PopularProductCategories = () => {
   return (
-    <section className="px-5 md:px-10 lg:px-0 sm:-mt-[5px]">
+    <section className="sm:-mt-[5px] xl:mt-[7px]">
       <NavigationButtons
         justShowTitle={true}
         title={"Популярні категорії товарів"}
@@ -25,7 +25,7 @@ const PopularProductCategories = () => {
 
                 <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
                   <p className="text-white font-semibold leading-[19px]">
-                    Text
+                    Захист
                   </p>
                 </div>
               </div>
@@ -40,7 +40,7 @@ const PopularProductCategories = () => {
 
                 <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
                   <p className="text-white font-semibold leading-[19px]">
-                    Text
+                    Інструменти
                   </p>
                 </div>
               </div>
@@ -55,7 +55,9 @@ const PopularProductCategories = () => {
               </div>
 
               <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
-                <p className="text-white font-semibold leading-[19px]">Text</p>
+                <p className="text-white font-semibold leading-[19px]">
+                  Догляд за велосипедом
+                </p>
               </div>
             </div>
           </div>
@@ -72,7 +74,9 @@ const PopularProductCategories = () => {
               </div>
 
               <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
-                <p className="text-white font-semibold leading-[19px]">Text</p>
+                <p className="text-white font-semibold leading-[19px]">
+                  Сідла для велосипедів
+                </p>
               </div>
             </div>
             <div className="flex gap-5 sm:gap-4 w-full order-[-1] md:order-1 xl:order-1 lg:order-1 2xl:order-1">
@@ -87,7 +91,7 @@ const PopularProductCategories = () => {
 
                 <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
                   <p className="text-white font-semibold leading-[19px]">
-                    Text
+                    Велосипедне світло
                   </p>
                 </div>
               </div>
@@ -102,7 +106,7 @@ const PopularProductCategories = () => {
 
                 <div className="absolute bottom-0 z-[2] py-[10.5px] px-[20px] bg-[#2C2727CC] w-full">
                   <p className="text-white font-semibold leading-[19px]">
-                    Text
+                    Педалі
                   </p>
                 </div>
               </div>

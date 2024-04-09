@@ -29,14 +29,11 @@ const ProductTitle = ({
     };
   }, []);
 
-  const truncatedText = truncateText(
-    text,
-    isSmallScreen ? maxCharacters : Infinity
-  );
+  const truncatedText = truncateText(text, isSmallScreen ? maxCharacters : 75);
 
   return (
     <h3
-      className={`text-product-card-text py-2 lg:line-clamp-none ${
+      className={`text-product-card-text py-2 xl:mt-[1.75rem] lg:line-clamp-none ${
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
       } ${className}`}
     >

@@ -5,12 +5,14 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <section className="w-fill rounded-lg overflow-hidden flex flex-col bg-dark p-5 gap-5">
+    <section className="w-fill rounded-lg overflow-hidden flex flex-col bg-dark p-5 gap-5 mt-[2px]">
       <LogoImage />
-      <p className="text-white font-light leading-[24px] max-w-[145px]">
-        @ 2024 <br />
-        Всі права захищені Публічна оферта
-      </p>
+      <div>
+        <p className="text-white font-light leading-[19.2px]">@ 2024</p>
+        <p className="text-white font-light leading-[19.2px] max-w-[155px]">
+          Всі права захищені Публічна оферта
+        </p>
+      </div>
       <div className="flex gap-5">
         <Image
           src={"/images/homepage/icons/payment.svg"}
