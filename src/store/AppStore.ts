@@ -13,7 +13,12 @@ class AppStore{
     isOpenSettings=false
 
     shops:Shop[] = []
+
     categories: ProductCategory[] = [];
+    selectedCategory: ProductCategory|null = null;
+    categoryBlocks:ProductCategory[] = []
+
+    //del
     categoryTree: TreeNode[] = []
 
     constructor() {
@@ -22,10 +27,17 @@ class AppStore{
         this.fetchShops()
     }
 
+    setSelectedCategory(v:ProductCategory|null){
+        this.selectedCategory = v
+        if(v)
+        this.categoryBlocks = this.categories.filter(n=>n.parentId === v.id)
+        else this.categoryBlocks = []
+    }
+
     setServerData(d:AppState){
         this.shops = d.shops
         this.categories = d.categories
-        this.categoryTree = this.buildTree(this.categories)
+        //this.categoryTree = this.buildTree(this.categories)
     }
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
     setIsCartVisible(v:boolean) {this.isCartVisible=v}

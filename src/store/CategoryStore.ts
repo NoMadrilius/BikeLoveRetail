@@ -1,21 +1,9 @@
 import { makeObservable, observable, action } from "mobx";
 import { createContext, useContext } from "react";
-
-interface CategoryState {
-  selectedCategory: string;
-  showCatalogMain: boolean;
-  isModalOpen: boolean;
-}
-
-interface CategoryActions {
-  toggleCatalogMain: (category: string) => void;
-  hideCatalogMain: () => void;
-  toggleModal: () => void;
-  hideModal: () => void;
-}
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 
 export class CategoryStore {
-  selectedCategory: string = "";
+  selectedCategory: ProductCategory|null = null;
   showCatalogMain: boolean = false;
   isModalOpen: boolean = false;
 
@@ -31,7 +19,7 @@ export class CategoryStore {
     });
   }
 
-  toggleCatalogMain(category: string) {
+  toggleCatalogMain(category: ProductCategory) {
     this.selectedCategory = category;
     this.showCatalogMain = true;
   }

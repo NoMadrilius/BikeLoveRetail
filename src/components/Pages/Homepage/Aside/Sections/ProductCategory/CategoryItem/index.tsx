@@ -1,29 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
+import {router} from "next/client";
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {useAppStore} from "@/store/AppStore";
 
 interface CategoryItemProps {
-  categoryName: string;
-  imageLink: string;
+  category:ProductCategory
   onClick?: () => void;
-  imageSrc: string;
 }
 
-const CategoryItem = ({
-  categoryName,
-  imageLink,
-  onClick,
-  imageSrc,
-}: CategoryItemProps) => {
+const CategoryItem = ({category,onClick}: CategoryItemProps) => {
+
+  const r = useRouter()
+  const as = useAppStore()
   return (
-    <div
-      // href={imageLink}
+    <Link onMouseEnter={()=>{
+      as.setSelectedCategory(category)
+    }}
+      href={GenerateLink(r, {basePath:'/catalog', queryParameters:{id:category.id}, slug:category.transliterationName})}
       onClick={onClick}
       className="flex items-center px-3 py-1 bg-white cursor-pointer "
     >
       <div className="flex items-center gap-2">
         <Image
-          src={imageSrc}
+          src={category.iconUrl||"/images/homepage/static/bike.jpg"}
           alt={"Bike"}
           width={48}
           height={48}
@@ -31,7 +34,7 @@ const CategoryItem = ({
         />
 
         <span className="text-dark-text font-semibold leading-[19px]">
-          {categoryName}
+          {category.name}
         </span>
       </div>
       <Image
@@ -41,7 +44,7 @@ const CategoryItem = ({
         height={12}
         className="ml-auto shrink-0"
       />
-    </div>
+    </Link>
   );
 };
 

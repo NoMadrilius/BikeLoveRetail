@@ -1,38 +1,29 @@
 import React from "react";
 import CategoryBlockItem from "./CategoryBlockItem";
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {observer} from "mobx-react";
+import {useAppStore} from "@/store/AppStore";
 
-const CategoryBlock = () => {
+const CategoryBlock = (p:{cat:ProductCategory}) => {
+    const as = useAppStore()
   return (
     <article className="shrink-0 w-full lg:w-[280px] xl:w-[280px] 2xl:w-[280px]">
       <CategoryBlockItem
-        categoryName={"Category name"}
+        categoryName={p.cat.name}
         imageLink={"#"}
         categoryType={"category"}
       />
       <div className="flex flex-col gap">
-        <CategoryBlockItem
-          categoryName={"Category name"}
-          imageLink={"#"}
-          categoryType={"subcategory"}
-        />
-        <CategoryBlockItem
-          categoryName={"Category name"}
-          imageLink={"#"}
-          categoryType={"subcategory"}
-        />
-        <CategoryBlockItem
-          categoryName={"Category name"}
-          imageLink={"#"}
-          categoryType={"subcategory"}
-        />
-        <CategoryBlockItem
-          categoryName={"Category name"}
-          imageLink={"#"}
-          categoryType={"subcategory"}
-        />
+          {as.categories.filter(n=>n.parentId === p.cat.id).map(n=>
+              <CategoryBlockItem
+                  categoryName={n.name}
+                  imageLink={n.iconUrl||"#"}
+                  categoryType={"subcategory"}
+              />
+          )}
       </div>
     </article>
   );
 };
 
-export default CategoryBlock;
+export default observer(CategoryBlock);

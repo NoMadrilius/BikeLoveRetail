@@ -17,17 +17,26 @@ import Login from "@/components/UIKit/NavigationPanel/Header/Auth/Login";
 import Registration from "@/components/UIKit/NavigationPanel/Header/Auth/Registration";
 import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import { observer } from "mobx-react";
+import {loadAppState} from "@/functions/loadAppState";
+import {useAppStore} from "@/store/AppStore";
+import {useCurrencyStore} from "@/store/CurrencyStore";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
 
-const HomePage = () => {
-  const store = useBurgerMenuStore();
+export async function getServerSideProps() {
+  const r = await loadAppState()
 
-  if (store.loginOrRegistration === "login" && store.isAuthOpen) {
-    return <Login />;
+  return {
+    props: {as:r},
   }
+}
 
-  if (store.loginOrRegistration === "registration" && store.isAuthOpen) {
-    return <Registration />;
-  }
+const HomePage = (props:{as:AppState}) => {
+
+
+  useAppStore().setServerData(props.as)
+  //useCurrencyStore().setServerData(props.as)
+
+
 
   return (
     <div className="bg-mainScene font-inter">

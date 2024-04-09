@@ -30,7 +30,7 @@ const CatalogHeader = () => {
             />
           ) : null}
           <span className="text-dark-text text-[20px] leading-[120%] font-bold">
-            {store.selectedCategory || "Каталог"}
+            {store.selectedCategory?.name || "Каталог"}
           </span>
         </div>
       </div>
