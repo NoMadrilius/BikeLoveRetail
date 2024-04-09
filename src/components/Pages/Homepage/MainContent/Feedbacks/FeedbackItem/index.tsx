@@ -4,9 +4,9 @@ import React from "react";
 
 const FeedbackItem = () => {
   return (
-    <article className="bg-dark py-[29.5px] px-[20px] rounded-lg ">
+    <article className="bg-dark xl:py-[10.5px] xl:px-5 py-[29.5px] px-[20px] rounded-lg xl:max-w-[272px]">
       <div className="flex items-center gap-4 ">
-        <div className="relative size-[88px] rounded-full overflow-hidden">
+        <div className="relative xl:size-[86px] size-[88px] rounded-full overflow-hidden">
           <Image
             src={"/images/homepage/static/feedback.jpg"}
             alt={"Feedback"}

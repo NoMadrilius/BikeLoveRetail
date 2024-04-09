@@ -48,7 +48,7 @@ const purposes = [
 ];
 
 const BicyclesByPurpose = () => (
-  <section className="px-5 md:px-10 lg:px-0">
+  <section className="mt-2">
     <NavigationButtons
       justShowTitle={true}
       title={"Велосипеди за призначенням"}

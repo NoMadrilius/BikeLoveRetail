@@ -15,9 +15,10 @@ SwiperCore.use([P]);
 interface SwiperSliderProps {
   title: string;
   rightText: string;
+  lineStyles?: string;
 }
 
-const SwiperSlider = ({ title, rightText }: SwiperSliderProps) => {
+const SwiperSlider = ({ title, rightText, lineStyles }: SwiperSliderProps) => {
   const {
     swiperRef,
     isBeginning,
@@ -29,7 +30,7 @@ const SwiperSlider = ({ title, rightText }: SwiperSliderProps) => {
   } = useSlider(0, 6);
 
   return (
-    <section className="px-5 lg:px-0">
+    <section>
       <NavigationButtons
         goNext={goNext}
         goPrev={goPrev}
@@ -37,9 +38,10 @@ const SwiperSlider = ({ title, rightText }: SwiperSliderProps) => {
         isEnd={isEnd}
         rightText={rightText}
         title={title}
+        lineStyles={lineStyles}
       />
 
-      <div className="max-w-[988px] relative">
+      <div className="max-w-[988px] xl:max-w-[864px] relative">
         <Swiper
           ref={swiperRef}
           slidesPerView="auto"
@@ -53,14 +55,19 @@ const SwiperSlider = ({ title, rightText }: SwiperSliderProps) => {
             375: {
               slidesPerView: 2,
             },
+            1280: {
+              slidesPerView: 3,
+            },
+            1440: {
+              slidesPerView: 4,
+            },
           }}
           className="swiper-custom"
         >
-          {[1, 2, 3, 4].map((el, index) => (
+          {[1, 2, 3, 4, 5, 6].map((el, index) => (
             <SwiperSlide
               key={index}
-              style={{ maxWidth: "316px", width: "100%" }}
-              className="!max-w-[159px] lg:!max-w-[316px]"
+              className="max-w-[159px] lg:!max-w-[316px] xl:max-w-[274.67px]"
             >
               <ProductCard />
             </SwiperSlide>

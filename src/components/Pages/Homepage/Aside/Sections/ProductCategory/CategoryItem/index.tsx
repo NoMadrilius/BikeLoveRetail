@@ -6,22 +6,24 @@ interface CategoryItemProps {
   categoryName: string;
   imageLink: string;
   onClick?: () => void;
+  imageSrc: string;
 }
 
 const CategoryItem = ({
   categoryName,
   imageLink,
   onClick,
+  imageSrc,
 }: CategoryItemProps) => {
   return (
     <div
       // href={imageLink}
       onClick={onClick}
-      className="flex items-center px-3 py-1 bg-white cursor-pointer"
+      className="flex items-center px-3 py-1 bg-white cursor-pointer "
     >
       <div className="flex items-center gap-2">
         <Image
-          src={"/images/homepage/static/bike.jpg"}
+          src={imageSrc}
           alt={"Bike"}
           width={48}
           height={48}

@@ -35,11 +35,13 @@ const Dropdown = ({ label, options, onSelect, className }: DropdownProps) => {
         <button
           id="dropdown"
           type="button"
-          className="w-full py-[10.5px] font-inter items-center px-5 text-[16px] text-[#6B6B6B] font-light leading-[19.2px] font-inter bg-transparent border border-[#DADADA] rounded-lg flex justify-between"
+          className="w-full min-h-[40px] py-[6px] font-inter items-center px-5 text-[16px] text-[#6B6B6B] font-light leading-[19.2px] font-inter bg-transparent border border-[#DADADA] rounded-lg flex justify-between"
           onClick={toggleDropdown}
         >
-          <span>{selectedOption || label}</span>
-          <DownArrowIcon />
+          <span className="font-inter">{selectedOption || label}</span>
+          <div className="py-[9px] px-[6px]">
+            <DownArrowIcon />
+          </div>
         </button>
         {isOpen && (
           <ul className="absolute z-[1000] w-full mt-1 bg-white border border-[#DADADA] rounded-lg shadow-lg overflow-hidden">

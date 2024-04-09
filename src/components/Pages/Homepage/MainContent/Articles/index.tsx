@@ -62,7 +62,7 @@ const Articles = () => {
   };
 
   return (
-    <section className="px-5 lg:px-0">
+    <section className="xl:relative xl:top-[-18px]">
       <NavigationButtons
         showButtons={false}
         title={"Корисні статті"}

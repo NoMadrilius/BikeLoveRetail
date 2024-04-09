@@ -23,26 +23,28 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         />
       </div>
       <div className="bg-white p-5 pt-3 flex flex-col">
-        <h2 className="text-[20px] font-bold leading-[120%] text-dark-text">
+        <h2 className="text-[20px] xl:leading-[24px] font-robot-c pt-1 font-bold leading-[120%] text-dark-text">
           {article.title}
         </h2>
         <p className="font-light leading-[120%] text-[#6B6B6B] mt-2 line-clamp-3">
           {article.description}
         </p>
-        <div className="flex items-center gap-2 shrink-0  ml-auto mt-[14.5px]">
+        <div className="flex items-center gap-2 shrink-0  ml-auto mt-[14.5px] xl:mt-6">
           <Link
             href={article.link}
-            className="text-dark leading-[19px] cursor-pointer"
+            className="text-dark leading-[19.36px] cursor-pointer"
           >
             Читати
           </Link>
-          <Image
-            src={"/images/homepage/icons/right-arrow.svg"}
-            alt={"Right Arrow"}
-            width={6}
-            height={12}
-            className="ml-auto shrink-0"
-          />
+          <div className="ml-auto py-[6px] px-[9px]">
+            <Image
+              src={"/images/homepage/icons/right-arrow.svg"}
+              alt={"Right Arrow"}
+              width={6}
+              height={12}
+              className="shrink-0"
+            />
+          </div>
         </div>
       </div>
     </article>

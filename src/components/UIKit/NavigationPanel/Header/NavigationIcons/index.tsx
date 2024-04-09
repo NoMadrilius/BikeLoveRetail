@@ -4,30 +4,30 @@ import React from "react";
 const NavigationIcons = () => {
   return (
     <div className="flex items-center ">
-      <div className="p-3 md:block hidden lg:block xl:block 2xl:block">
-        <Image
-          src={"/images/uikit/header/person.svg"}
-          alt={"Person"}
-          width={24}
-          height={24}
-        />
+      <div className="p-3">
+        <div className="relative size-[24px] md:block hidden lg:block xl:block 2xl:block">
+          <Image src={"/images/uikit/header/person.svg"} alt={"Person"} fill />
+        </div>
       </div>
-      <div className="p-3 md:block hidden lg:block xl:block 2xl:block">
-        <Image
-          src={"/images/uikit/header/white-heart.svg"}
-          alt={"Favorites"}
-          width={24}
-          height={24}
-        />
+
+      <div className="p-3">
+        <div className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block">
+          <Image
+            src={"/images/uikit/header/white-heart.svg"}
+            alt={"Favorites"}
+            fill
+          />
+        </div>
       </div>
-      <div className="p-2  block">
-        <Image
-          src={"/images/uikit/header/shopping-cart.svg"}
-          alt={"Shopping cart"}
-          width={28}
-          height={28}
-          className="shrink-0"
-        />
+      <div className="p-3">
+        <div className="size-[28px] xl:size-[24px] relative block">
+          <Image
+            src={"/images/uikit/header/shopping-cart.svg"}
+            alt={"Shopping cart"}
+            fill
+            className="shrink-0"
+          />
+        </div>
       </div>
     </div>
   );

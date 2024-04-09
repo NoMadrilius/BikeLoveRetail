@@ -21,17 +21,20 @@ const ContactAndSocial = () => {
 
   return (
     <section className="w-fill rounded-lg overflow-hidden flex flex-col bg-white p-5 gap-5">
-      <h2 className="text-dark-text text-[20px] leading-[24px] font-bold">
+      <h2 className="text-dark-text text-[20px] leading-[24px] font-bold font-robot-c">
         Зв’язок та соцмережі
       </h2>
       <div>
-        <div className="py-2 flex items-center gap-2">
-          <Image
-            src={"/images/homepage/icons/phone.svg"}
-            alt={""}
-            width={17}
-            height={17}
-          />
+        <div className="flex gap-2 py-2">
+          <div className="py-[4px_4px_3px_3px]">
+            <div className="relative py-2  size-[24px] flex items-center gap-2">
+              <Image
+                src={"/images/homepage/icons/phone.svg"}
+                fill
+                alt="Phone"
+              />
+            </div>
+          </div>
           <a
             href={`tel:${phone}`}
             className="text-dark-text leading-[19.36px] cursor-pointer"
@@ -39,16 +42,16 @@ const ContactAndSocial = () => {
             {phone}
           </a>
         </div>
-        <div className="py-2">
+        <div className="py-2 flex">
           <a
             href={`mailto:${email}`}
-            className="text-dark-text leading-[19.36px] cursor-pointer"
+            className="text-dark-text text-[16px] leading-[19px] cursor-pointer"
           >
             {email}
           </a>
         </div>
       </div>
-      <div className="flex gap-5">
+      <div className="flex gap-5 -mt-[1px]">
         {socialMediaData.map((socialMedia, index) => (
           <Link key={index} href={socialMedia.href} className="cursor-pointer">
             <Image

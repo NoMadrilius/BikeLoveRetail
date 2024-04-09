@@ -36,7 +36,7 @@ const HomePage = () => {
       <Layout>
         <div>
           <Hero />
-          <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex px-5 gap-3 sm:justify-center">
+          <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
             <GradientButton
               label={"Каталог товарів"}
               className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0"
@@ -54,9 +54,13 @@ const HomePage = () => {
           title={"Акційні пропозиції"}
           rightText={"Більше пропозицій"}
         />
-        <SelectionOfBicycle />
+        <SelectionOfBicycle className="xl:hidden" />
         <PopularProductCategories />
-        <CustomSlider title={"Топ продаж"} rightText={"Перейти до каталогу"} />
+        <CustomSlider
+          title={"Топ продаж"}
+          rightText={"Перейти до каталогу"}
+          lineStyles={"xl:max-w-[302px]"}
+        />
         <BicycleWorkshop />
         <BicyclesByPurpose />
         <AboutUs />

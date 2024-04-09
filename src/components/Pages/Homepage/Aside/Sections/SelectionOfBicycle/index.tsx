@@ -80,7 +80,7 @@ const BicycleOption = ({
   );
 };
 
-const SelectionOfBicycle = () => {
+const SelectionOfBicycle = ({ className }: { className?: string }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const options = ["Option 1", "Option 2", "Option 3"];
@@ -89,8 +89,10 @@ const SelectionOfBicycle = () => {
     setSelectedOption(option);
   };
   return (
-    <section className="w-fill rounded-lg flex flex-col bg-white p-5 gap-5 sm:mx-5">
-      <h2 className="text-dark-text text-[20px] leading-[120%] font-bold font-robot-r">
+    <section
+      className={`w-fill rounded-lg flex flex-col bg-white p-5 gap-5 sm:mx-5 ${className}`}
+    >
+      <h2 className="text-dark-text text-[20px] leading-[120%] font-bold font-robot-c">
         Підбір велосипеда
       </h2>
       <Dropdown label="Оберіть тип" options={options} onSelect={handleSelect} />
@@ -117,7 +119,7 @@ const SelectionOfBicycle = () => {
         showIcon={false}
         className="w-full flex !py-[14.5px] justify-center"
       />
-      <div className="mx-auto">
+      <div className="mx-auto flex">
         <span className="font-light text-[14px] leading-[19.2px] text-dark font-inter">
           Знайдено товарів{" "}
           <span className="font-semibold leading-[19.36px] text-[16px] text-dark">
