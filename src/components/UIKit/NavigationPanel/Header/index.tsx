@@ -27,10 +27,15 @@ const Header = () => {
         </div>
       </header>
       <div className="hidden grid-cols-2  lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
-        <GradientButton label={"Каталог товарів"} />
+        <GradientButton
+          label={"Каталог товарів"}
+          textstyles="!w-max"
+          className="justify-center"
+        />
         <GradientButton
           bgColor="#5D5555"
           label={"Майстерня"}
+          className="justify-center"
           showIcon={false}
         />
       </div>

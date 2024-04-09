@@ -6,6 +6,7 @@ import CatalogMain from "./CatalogMain";
 import CatalogMenu from "./CatalogMenu";
 import { useCategoryStore } from "@/store/CategoryStore";
 import { observer } from "mobx-react";
+import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 
 interface CatalogModalProps {
   isOpen: boolean;
@@ -28,12 +29,19 @@ const CatalogModal = ({ isOpen }: CatalogModalProps) => {
     };
   }, []);
 
-  const { showCatalogMain } = useCategoryStore();
+  const categoryStore = useCategoryStore();
   if (!isOpen) return null;
+
+  const handleCloseMenu = () => {
+    categoryStore.hideModal();
+  };
 
   return (
     <div className="lg:fixed lg:inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black opacity-50 sm:hidden"></div>
+      <div
+        className="absolute inset-0 bg-black opacity-50 sm:hidden"
+        onClick={handleCloseMenu}
+      ></div>
       <div
         className={`z-50 bg-white xl:gap-[22px] 2xl:gap-[22px] lg:gap-[22px] flex-col 
         md:flex-row xl:flex-row lg:flex-row 2xl:flex-row 
@@ -47,7 +55,7 @@ const CatalogModal = ({ isOpen }: CatalogModalProps) => {
             <CatalogMenu />
             <CatalogMain />
           </>
-        ) : !showCatalogMain ? (
+        ) : !categoryStore.showCatalogMain ? (
           <CatalogMenu />
         ) : (
           <CatalogMain />
