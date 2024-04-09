@@ -10,7 +10,7 @@ import GradientButton from "../../Buttons/GradientButton";
 
 const ProductCard = () => {
   return (
-    <article className="max-w-[160px] lg:max-w-[316px] w-full bg-white p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
+    <article className="max-w-[160px] lg:max-w-[316px] w-full bg-white sm:pt-[11px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
         <RoundedButton
           text="Акція"
@@ -29,13 +29,17 @@ const ProductCard = () => {
           }
         />
       </>
-      <ProductTitle />
-      <LastPrice classname="pt-[11px]" />
+      <ProductTitle
+        text={
+          "Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у чохлах. Чорний"
+        }
+      />
+      <LastPrice classname="sm:pt-[7px] pt-[11px]" />
       <PriceAndCart />
       <GradientButton
         label={"Kупити"}
         showIcon={false}
-        className="!rounded-full w-full my-4"
+        className="!rounded-full w-full mt-[6px] sm:flex !py-2 justify-center hidden"
       />
       <Instock />
       <ProductSpecItems />
@@ -47,17 +51,22 @@ export default ProductCard;
 
 const ProductButtonsOnMobile = () => {
   return (
-    <div className="flex items-center justify-between lg:hidden">
+    <div className="flex justify-between lg:hidden">
       <RoundedButton
         text="Акція"
         altText={"Shopping Cart"}
-        bgColor={"bg-pink shadow-product-card !py-2 !px-3"}
+        bgColor={
+          "bg-pink shadow-product-card !py-2 !px-3 max-h-[35px] flex items-center my-[6.5px]"
+        }
       />
 
       <RoundedButton
         imageUrl={"/images/uikit/card/heart.svg"}
         altText={"Shopping Cart"}
-        bgColor={"bg-white shadow-product-card !py-2 !px-3"}
+        bgColor={
+          "bg-white shadow-product-card !py-2 !px-3 shrink-0 flex items-center"
+        }
+        size={24}
       />
     </div>
   );

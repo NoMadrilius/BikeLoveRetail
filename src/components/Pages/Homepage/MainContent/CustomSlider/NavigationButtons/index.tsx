@@ -13,6 +13,7 @@ interface NavigationButtonsProps {
   showButtons?: boolean;
   justShowTitle?: boolean;
   title: string;
+  titleStyles?: string;
 }
 
 const NavigationButtons = ({
@@ -24,10 +25,11 @@ const NavigationButtons = ({
   showButtons = true,
   justShowTitle = false,
   title,
+  titleStyles,
 }: NavigationButtonsProps) => {
   return (
-    <div className="mb-8 flex items-center justify-between lg:justify-start lg:gap-6">
-      <SectionHeader title={title} />
+    <div className="sm:mb-6 mb-8 flex sm:items-start items-center lg:justify-start lg:gap-6 sm:gap-4">
+      <SectionHeader title={title} titleStyles={titleStyles} />
       {showButtons && !justShowTitle ? (
         <SliderButtons
           onClickPrev={goPrev}
@@ -39,7 +41,7 @@ const NavigationButtons = ({
       {!justShowTitle ? (
         <>
           <div className="w-full h-[1px] bg-gray lg:block hidden" />
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0 grow sm:py-[10.5px]">
             <Link href="#" className="text-dark leading-[19px] cursor-pointer">
               {rightText}
             </Link>

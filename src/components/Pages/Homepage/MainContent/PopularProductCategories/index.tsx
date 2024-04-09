@@ -4,15 +4,16 @@ import NavigationButtons from "../CustomSlider/NavigationButtons";
 
 const PopularProductCategories = () => {
   return (
-    <section className="px-5 md:px-10 lg:px-0">
+    <section className="px-5 md:px-10 lg:px-0 sm:-mt-[5px]">
       <NavigationButtons
         justShowTitle={true}
         title={"Популярні категорії товарів"}
+        titleStyles="!max-w-full"
       />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 sm:gap-4">
         <div>
-          <div className="flex gap-5 flex-col md:flex-row xl:flex-row lg:flex-row 2xl:flex-row">
-            <div className="flex gap-5 w-full">
+          <div className="flex gap-5 sm:gap-4 flex-col md:flex-row xl:flex-row lg:flex-row 2xl:flex-row">
+            <div className="flex gap-5 sm:gap-4 w-full">
               <div className="bg-white flex items-center justify-center relative w-full max-w-[232px] sm:max-w-full rounded-lg overflow-hidden">
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image
@@ -60,7 +61,7 @@ const PopularProductCategories = () => {
           </div>
         </div>
         <div>
-          <div className="flex gap-5 flex-col md:flex-row xl:flex-row lg:flex-row 2xl:flex-row">
+          <div className="flex gap-5 sm:gap-4 flex-col md:flex-row xl:flex-row lg:flex-row 2xl:flex-row">
             <div className="bg-white flex items-center justify-center relative w-full  rounded-lg overflow-hidden">
               <div className="relative w-full max-w-[232px] h-[170px]">
                 <Image
@@ -74,7 +75,7 @@ const PopularProductCategories = () => {
                 <p className="text-white font-semibold leading-[19px]">Text</p>
               </div>
             </div>
-            <div className="flex gap-5 w-full order-[-1] md:order-1 xl:order-1 lg:order-1 2xl:order-1">
+            <div className="flex gap-5 sm:gap-4 w-full order-[-1] md:order-1 xl:order-1 lg:order-1 2xl:order-1">
               <div className="bg-white flex items-center justify-center relative w-full max-w-[232px] sm:max-w-full rounded-lg overflow-hidden">
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image

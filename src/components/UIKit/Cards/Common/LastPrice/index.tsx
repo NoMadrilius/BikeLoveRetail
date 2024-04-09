@@ -18,7 +18,7 @@ const LastPrice = ({
         130 000₴
       </span>
       <div
-        className={`border border-pink text-pink text-base font-normal flex items-center justify-center leading-tight tracking-normal rounded-full px-2 py-1 max-w-[54px] ${discountClass}`}
+        className={`border border-pink text-pink text-[16px] font-light flex items-center justify-center leading-[19.2px] font-inter rounded-full px-2 py-1 max-w-[54px] ${discountClass}`}
       >
         -13%
       </div>

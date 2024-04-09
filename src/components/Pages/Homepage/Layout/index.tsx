@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="max-w-[1324px] mx-auto flex lg:gap-8 pt-10 pb-20">
+    <div className="max-w-[1324px] mx-auto flex lg:gap-8 pt-8 pb-20">
       <Aside />
       <Main>{children}</Main>
     </div>

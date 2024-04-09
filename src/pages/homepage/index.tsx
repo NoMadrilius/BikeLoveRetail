@@ -1,3 +1,4 @@
+import SelectionOfBicycle from "@/components/Pages/Homepage/Aside/Sections/SelectionOfBicycle";
 import Layout from "@/components/Pages/Homepage/Layout";
 import AboutUs from "@/components/Pages/Homepage/MainContent/AboutUs";
 import Articles from "@/components/Pages/Homepage/MainContent/Articles";
@@ -44,7 +45,7 @@ const HomePage = () => {
               bgColor="#5D5555"
               label={"Майстерня"}
               showIcon={false}
-              className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0"
+              className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
             />
           </div>
         </div>
@@ -53,6 +54,7 @@ const HomePage = () => {
           title={"Акційні пропозиції"}
           rightText={"Більше пропозицій"}
         />
+        <SelectionOfBicycle />
         <PopularProductCategories />
         <CustomSlider title={"Топ продаж"} rightText={"Перейти до каталогу"} />
         <BicycleWorkshop />

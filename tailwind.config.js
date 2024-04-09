@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -34,6 +36,11 @@ module.exports = {
         "gradient-custom":
           "linear-gradient(236.45deg, rgb(240, 27, 116) 29.85%, rgb(255, 96, 100) 93.311%)",
       },
+    },
+    fontFamily: {
+      "robot-c": ["Roboto Condensed", ...defaultTheme.fontFamily.sans],
+      robot: ["Roboto", ...defaultTheme.fontFamily.sans],
+      inter: ["Inter", ...defaultTheme.fontFamily.sans],
     },
     screens: {
       lt: { min: "0px", max: "374px" },
