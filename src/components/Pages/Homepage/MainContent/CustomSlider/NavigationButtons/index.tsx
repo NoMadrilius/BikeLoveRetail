@@ -43,7 +43,7 @@ const NavigationButtons = ({
       {!justShowTitle ? (
         <>
           <div
-            className={`w-full h-[1px] bg-gray xl:block lg:block hidden max-w-[226px] ${lineStyles}`}
+            className={`w-full h-[1px] bg-gray xl:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}
           />
           <div className="flex gap-[18px] shrink-0 grow sm:py-[10.5px] py-2 px-3">
             <Link href="#" className="text-dark leading-[19px] cursor-pointer">

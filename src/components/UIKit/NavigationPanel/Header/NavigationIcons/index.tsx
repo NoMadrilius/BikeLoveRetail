@@ -4,14 +4,14 @@ import React from "react";
 const NavigationIcons = () => {
   return (
     <div className="flex items-center ">
-      <div className="p-3">
+      <div className="p-3 sm:hidden">
         <div className="relative size-[24px] md:block hidden lg:block xl:block 2xl:block">
           <Image src={"/images/uikit/header/person.svg"} alt={"Person"} fill />
         </div>
       </div>
 
-      <div className="p-3">
-        <div className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block">
+      <div className="p-3 sm:hidden">
+        <div className=" relative size-[24px]  md:block hidden lg:block xl:block 2xl:block">
           <Image
             src={"/images/uikit/header/white-heart.svg"}
             alt={"Favorites"}
@@ -20,7 +20,7 @@ const NavigationIcons = () => {
         </div>
       </div>
       <div className="p-3">
-        <div className="size-[28px] xl:size-[24px] relative block">
+        <div className="size-[28px] xl:size-[24px] lg:size-[24px] relative block">
           <Image
             src={"/images/uikit/header/shopping-cart.svg"}
             alt={"Shopping cart"}

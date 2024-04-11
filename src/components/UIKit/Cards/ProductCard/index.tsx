@@ -10,13 +10,13 @@ import GradientButton from "../../Buttons/GradientButton";
 
 const ProductCard = () => {
   return (
-    <article className="max-w-[159px] lg:max-w-[316px] xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
+    <article className="max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
         <RoundedButton
           text="Акція"
           altText={"Shopping Cart"}
           bgColor={
-            "bg-pink shadow-product-card absolute left-[20px] xl:left-[21px] xl:top-[31px] xl:flex top-[25px] xl:block lg:block hidden  xl:!py-2 xl:!px-3 xl:max-h-[35px] "
+            "bg-pink shadow-product-card absolute left-[20px] xl:left-[21px] lg:left-[21px] lg:pt-2 lg:px-3 lg:max-h-[39px] xl:top-[31px] xl:flex top-[25px] xl:block lg:block hidden  xl:!py-2 xl:!px-3 xl:max-h-[35px] "
           }
         />
         <ProductButtonsOnMobile />
@@ -35,7 +35,7 @@ const ProductCard = () => {
           "Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у чохлах. Чорний"
         }
       />
-      <LastPrice classname="sm:pt-[7px] pt-[11px] xl:pt-1" />
+      <LastPrice classname="sm:pt-[7px] pt-[11px] lg:pt-[7px] xl:pt-1" />
       <PriceAndCart />
       <GradientButton
         label={"Kупити"}

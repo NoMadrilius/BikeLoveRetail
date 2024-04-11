@@ -18,7 +18,7 @@ const Feedbacks = () => {
   } = useSlider(0, 6);
 
   return (
-    <section className="max-w-[988px] overflow-hidden flex xl:flex-row lg:flex-row flex-col gap-6 xl:mt-[-13px]">
+    <section className="max-w-[988px] overflow-hidden flex xl:flex-row lg:flex-row flex-col gap-6 xl:mt-[-13px] lg:mt-[-24px] lg:gap-[65px]">
       <div className="flex flex-col justify-between shrink-0">
         <SectionHeader title={"Відгуки про магазин"} />
         <div className="hidden xl:flex lg:flex flex-col">

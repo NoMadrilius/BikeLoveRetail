@@ -13,7 +13,7 @@ const ImageLink = () => {
           className="rounded-lg shrink-0 h-[415px] object-cover mx-auto"
         />
       </div>
-      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto xl:absolute xl:right-[31px] xl:bottom-[30px]">
+      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto xl:absolute lg:absolute lg:right-[31px] lg:bottom-[30px] xl:right-[31px] xl:bottom-[30px]">
         <Link href="#" className="text-dark leading-[19px] cursor-pointer">
           Дізнатись більше
         </Link>

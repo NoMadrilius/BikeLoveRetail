@@ -9,7 +9,7 @@ interface StatisticsSectionProps {
 
 const StatisticsSection = ({ statistics }: StatisticsSectionProps) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:flex xl:flex 2xl:flex flex-wrap gap-4 lg:absolute xl:absolute 2xl:absolute xl:bottom-[22px] bottom-0 w-full lg:max-w-[316px] xl:max-w-[316px] 2xl:max-w-[316px]">
+    <div className="lg:bottom-[27px] grid grid-cols-2 md:grid-cols-4 lg:flex xl:flex 2xl:flex flex-wrap gap-4 lg:absolute xl:absolute 2xl:absolute xl:bottom-[22px] bottom-0 w-full lg:max-w-[316px] xl:max-w-[316px] 2xl:max-w-[316px]">
       {statistics.map((statistic, index) => (
         <div
           key={index}
