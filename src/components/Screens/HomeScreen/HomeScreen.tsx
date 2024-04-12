@@ -12,8 +12,16 @@ import PopularProductCategories from "@/components/Pages/Homepage/MainContent/Po
 import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs";
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { observer } from "mobx-react";
+import {useAppStore} from "@/store/AppStore";
+import {useEffect} from "react";
 const HomeScreen = () => {
 
+    const as = useAppStore()
+
+    useEffect(()=>{
+        as.loadSaleProducts()
+        as.loadTopProducts()
+    },[])
 
   return (
       <div className="bg-mainScene font-inter">
@@ -34,13 +42,13 @@ const HomeScreen = () => {
           </div>
         </div>
         <WhyToChooseUs />
-        <CustomSlider
+        <CustomSlider products={as.saleProducts}
             title={"Акційні пропозиції"}
             rightText={"Більше пропозицій"}
         />
         <SelectionOfBicycle className="xl:hidden lg:hidden" />
         <PopularProductCategories />
-        <CustomSlider
+        <CustomSlider products={as.topProducts}
             title={"Топ продаж"}
             rightText={"Перейти до каталогу"}
             lineStyles={"xl:max-w-[302px]"}

@@ -3,11 +3,12 @@ import ProductTitle from "../Common/ProductTitle";
 import LastPrice from "../Common/LastPrice";
 import ProductImage from "../ProductCard/ProductImage";
 import RoundedButton from "../../Buttons/RoundedIconButton";
+import {Product} from "@/dataTransferObjects/entities/Product";
 
 const SearchCard = () => {
   return (
     <article className="p-3 bg-white border-b border-gray flex items-center justify-center gap-2 max-w-[796px]">
-      <ProductImage classname="md:!w-[116px] md:!h-[100px] !w-[80px] !h-[68px] shrink-0 !mb-0" />
+      <ProductImage src={""} classname="md:!w-[116px] md:!h-[100px] !w-[80px] !h-[68px] shrink-0 !mb-0" />
       <div>
         <ProductTitle disableBorder={true} className="py-0" text={"Test"} />
         <div className="flex items-end justify-between">
@@ -15,7 +16,7 @@ const SearchCard = () => {
             <span className="product-card-price text-[20px] leading-[120%] font-bold">
               100 000 UAH
             </span>
-            <LastPrice
+            <LastPrice product={{} as Product}
               priceClass="!text-pink"
               discountClass="md:block hidden"
             />

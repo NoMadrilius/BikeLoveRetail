@@ -8,7 +8,7 @@ interface ProductCategoryProps {
 
 const ProductCategory = ({ className }: ProductCategoryProps) => {
   const as = useAppStore()
-
+  console.log('side:', as.categories)
   return (
     <section
       className={`w-fill rounded-lg overflow-hidden flex flex-col bg-white p-3 ${className}`}

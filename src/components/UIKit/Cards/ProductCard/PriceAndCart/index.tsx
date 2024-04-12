@@ -1,11 +1,12 @@
 import RoundedIconButton from "@/components/UIKit/Buttons/RoundedIconButton";
 import Image from "next/image";
 import React from "react";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
-const PriceAndCart = () => {
+const PriceAndCart = (p:{product:ProductFullData}) => {
   return (
     <div className="flex items-center justify-between pt-1 xl:pt-0 lg:mt-[-6px]">
-      <span className="product-card-price font-robot-c">100 000 UAH</span>
+      <span className="product-card-price font-robot-c">{p.product.product.retailPrice} UAH</span>
 
       <RoundedIconButton
         imageUrl={"/images/homepage/icons/shopping-cart.svg"}
