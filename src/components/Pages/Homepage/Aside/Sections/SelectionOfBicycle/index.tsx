@@ -90,7 +90,7 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
   };
   return (
     <section
-      className={`w-fill rounded-lg flex flex-col bg-white p-5 gap-5 sm:mx-5  md:flex md:flex-row md:p-0 md:bg-transparent ${className}`}
+      className={`w-fill rounded-lg flex flex-col bg-white p-5 gap-5 sm:mx-0  md:flex md:flex-row md:p-0 md:bg-transparent ${className}`}
     >
       <h2 className="text-dark-text md:text-[32px] md:leading-[37.5px] md:font-medium text-[20px] leading-[120%] font-bold font-robot-c md:max-w-[175px]">
         Підбір велосипеда

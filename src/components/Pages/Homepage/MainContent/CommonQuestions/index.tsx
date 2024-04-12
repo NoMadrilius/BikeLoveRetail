@@ -5,7 +5,7 @@ const CommonQuestions = () => {
   return (
     <section>
       <NavigationButtons justShowTitle={true} title={"Часті питання"} />
-      <div className="grid grid-cols-2 lg:grid gap-5 items-start w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid gap-5 items-start w-full">
         <Accordion
           question={"Чи можу я протестувати велосипед перед покупкою?"}
           answer={

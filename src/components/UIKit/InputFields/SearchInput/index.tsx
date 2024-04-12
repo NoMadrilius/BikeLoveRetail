@@ -15,7 +15,7 @@ const SearchInput = ({
 }: SearchInputProps) => {
   return (
     <div
-      className={`w-full max-w-[236px] md:max-w-[236px] xl:max-w-[256px] md:block hidden xl:block lg:block 2xl:block ${className} `}
+      className={`w-full max-w-[236px] md:max-w-[236px] xl:max-w-[256px] lg:max-w-[337px] md:block hidden xl:block lg:block 2xl:block ${className} `}
     >
       <label
         htmlFor="default-search"

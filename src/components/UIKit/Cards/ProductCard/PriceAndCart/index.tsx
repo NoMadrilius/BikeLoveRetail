@@ -4,14 +4,14 @@ import React from "react";
 
 const PriceAndCart = () => {
   return (
-    <div className="flex items-center justify-between pt-1 xl:pt-0">
+    <div className="flex items-center justify-between pt-1 xl:pt-0 lg:mt-[-6px]">
       <span className="product-card-price font-robot-c">100 000 UAH</span>
 
       <RoundedIconButton
         imageUrl={"/images/homepage/icons/shopping-cart.svg"}
         altText={"Shopping Cart"}
         bgColor={
-          "bg-gradient-custom xl:block lg:block hidden xl:relative xl:top-[-8px] xl:-right-[1px]"
+          "bg-gradient-custom xl:block lg:block hidden xl:relative xl:top-[-8px] xl:-right-[1px] lg:top-[-6px] lg:relative"
         }
       />
     </div>

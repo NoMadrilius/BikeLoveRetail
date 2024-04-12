@@ -59,7 +59,10 @@ const SwiperSlider = ({ title, rightText, lineStyles }: SwiperSliderProps) => {
               slidesPerView: 3,
             },
             1440: {
-              slidesPerView: 4,
+              slidesPerView: 3,
+            },
+            1920: {
+              slidesPerView: 3,
             },
           }}
           className="swiper-custom"
@@ -67,7 +70,7 @@ const SwiperSlider = ({ title, rightText, lineStyles }: SwiperSliderProps) => {
           {[1, 2, 3, 4, 5, 6].map((el, index) => (
             <SwiperSlide
               key={index}
-              className="max-w-[159px] lg:!max-w-[316px] xl:max-w-[274.67px]"
+              className="max-w-[159px] w-full lg:!max-w-[316px] xl:max-w-[274.67px]"
             >
               <ProductCard />
             </SwiperSlide>

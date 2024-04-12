@@ -33,7 +33,7 @@ const ProductTitle = ({
 
   return (
     <h3
-      className={`text-product-card-text py-2 xl:mt-[1.75rem] lg:line-clamp-none ${
+      className={`text-product-card-text py-2 xl:mt-[1.75rem] lg:line-clamp-none lg:pt-[14px] ${
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
       } ${className}`}
     >

@@ -21,7 +21,7 @@ const BicycleServiceItem = ({
         alt={alt}
         width={52.5}
         height={46.25}
-        className="shrink-0 xl:w-[60px]"
+        className="shrink-0 xl:w-[60px] lg:w-[63px]"
       />
       <h3 className="text-white font-normal md:font-bold xl:text-[20px] xl:font-bold xl:leading-[24px] text-[16px] leading-[19px] lg:leading-[120%] lg:text-[20px] font-robot-c xl:max-w-[227px]">
         {title}

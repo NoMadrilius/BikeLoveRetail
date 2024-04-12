@@ -29,7 +29,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         <p className="font-light leading-[120%] text-[#6B6B6B] mt-2 line-clamp-3">
           {article.description}
         </p>
-        <div className="flex items-center gap-2 shrink-0  ml-auto mt-[14.5px] xl:mt-6">
+        <div className="flex items-center gap-2 shrink-0  ml-auto mt-[14.5px] xl:mt-6 lg:mt-[23.5px]">
           <Link
             href={article.link}
             className="text-dark leading-[19.36px] cursor-pointer"

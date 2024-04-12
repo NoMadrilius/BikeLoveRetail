@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <>
       <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-2 md:px-0 sm:justify-between">
-        <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 md:justify-center sm:gap-0 xl:gap-6 xl:justify-center">
+        <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 md:justify-center sm:gap-0 xl:gap-6 lg:gap-8 xl:justify-center">
           {!isOpen ? <HamburgerMenu /> : null}
           {isOpen ? (
             <MobileView />
@@ -26,7 +26,7 @@ const Header = () => {
           )}
         </div>
       </header>
-      <div className="hidden grid-cols-2  lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
+      <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
         <GradientButton
           label={"Каталог товарів"}
           textstyles="!w-max"

@@ -17,14 +17,14 @@ const Accordion = ({ question, answer }: AccordionProps) => {
     <div>
       <div
         className={`bg-white xl:py-0 py-4 px-3 max-w-[484px] xl:max-w-[422px] sm:max-w-full md:max-w-full cursor-pointer flex flex-col ${
-          !isOpen ? "rounded-lg" : "rounded-t-lg"
+          !isOpen ? "rounded-lg" : "rounded-t-lg lg:pb-0"
         }`}
       >
         <div
           className="flex items-center justify-between"
           onClick={toggleAccordion}
         >
-          <h3 className="text-dark text-[16px] leading-[19.36px] xl:py-[7px]">
+          <h3 className="text-dark text-[16px] leading-[19.36px] xl:py-[7px] lg:max-w-[332px]">
             {question}
           </h3>
           <Image
@@ -44,7 +44,9 @@ const Accordion = ({ question, answer }: AccordionProps) => {
         }`}
       >
         <div className="bg-white rounded-lg max-w-[484px]">
-          <p className="text-t-grey text-[14px] leading-[120%] ">{answer}</p>
+          <p className="text-t-grey text-[14px] leading-[120%] lg:leading-[16.8px]">
+            {answer}
+          </p>
         </div>
       </div>
     </div>
