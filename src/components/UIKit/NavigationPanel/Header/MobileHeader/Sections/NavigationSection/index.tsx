@@ -1,10 +1,10 @@
 import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
-import { useCategoryStore } from "@/store/CategoryStore";
 import Image from "next/image";
 import React from "react";
+import {useAppStore} from "@/store/AppStore";
 
 const NavigationSection = () => {
-  const store = useCategoryStore();
+  const as = useAppStore()
   const menuStore = useBurgerMenuStore();
 
   return (
@@ -13,7 +13,7 @@ const NavigationSection = () => {
         className="flex items-center gap-3 px-5 py-3"
         onClick={() => {
           menuStore.closeMenu();
-          store.toggleModal();
+          as.setIsOpenCategories(!as.isOpenCategories)
         }}
       >
         <div className="shrink-0 relative w-[48px] h-[48px] bg-[#F2F2F2] flex items-center justify-center rounded-full">

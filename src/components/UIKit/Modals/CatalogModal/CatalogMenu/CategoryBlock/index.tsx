@@ -9,15 +9,15 @@ const CategoryBlock = (p:{cat:ProductCategory}) => {
   return (
     <article className="shrink-0 w-full lg:w-[280px] xl:w-[280px] 2xl:w-[280px]">
       <CategoryBlockItem
-        categoryName={p.cat.name}
-        imageLink={"#"}
+        category={p.cat}
+        imageLink={p.cat.iconUrl}
         categoryType={"category"}
       />
       <div className="flex flex-col gap">
           {as.categories.filter(n=>n.parentId === p.cat.id).map(n=>
               <CategoryBlockItem
-                  categoryName={n.name}
-                  imageLink={n.iconUrl||"#"}
+                  category={n}
+                  imageLink={n.iconUrl}
                   categoryType={"subcategory"}
               />
           )}

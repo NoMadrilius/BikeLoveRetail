@@ -1,20 +1,18 @@
-import HomeScreen from "@/components/Screens/HomeScreen/HomeScreen";
-import appStore, {useAppStore} from "@/store/AppStore";
+import {useAppStore} from "@/store/AppStore";
 import {loadAppState} from "@/functions/loadAppState";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {useCurrencyStore} from "@/store/CurrencyStore";
+import HomeScreen from "@/components/Screens/HomeScreen/HomeScreen";
 
-export async function getServerSideProps() {
-  const r = await loadAppState()
-
-  return {
-    props: {as:r},
-  }
+export async function getStaticProps() {
+  return {props: {as:await loadAppState()}, revalidate:60}
 }
 
-export default function Home(props:{as:AppState}) {
+export default function Home(props:{as:AppState|null}) {
   console.log("appState:",props)
-  useAppStore().setServerData(props.as)
-  useCurrencyStore().setServerData(props.as)
+  if(props.as){
+    useAppStore().setServerData(props.as)
+    useCurrencyStore().setServerData(props.as)
+  }
   return <HomeScreen />;
 }

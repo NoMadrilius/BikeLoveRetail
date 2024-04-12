@@ -7,12 +7,12 @@ import DesktopView from "./DesktopView";
 import CatalogModal from "../../Modals/CatalogModal";
 import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import { observer } from "mobx-react";
-import { useCategoryStore } from "@/store/CategoryStore";
 import SearchInput from "../../InputFields/SearchInput";
+import {useAppStore} from "@/store/AppStore";
 
 const Header = () => {
   const { isOpen } = useBurgerMenuStore();
-  const store = useCategoryStore();
+  const as = useAppStore()
 
   return (
     <>
@@ -22,7 +22,7 @@ const Header = () => {
           {isOpen ? (
             <MobileView />
           ) : (
-            <DesktopView setIsModalOpen={() => store.toggleModal()} />
+            <DesktopView setIsModalOpen={() => as.setIsOpenCategories(!as.isOpenCategories)} />
           )}
         </div>
       </header>
@@ -47,7 +47,7 @@ const Header = () => {
         />
       </div>
       {isOpen ? <MobileHeader /> : null}
-      <CatalogModal isOpen={store.isModalOpen} />
+      <CatalogModal/>
     </>
   );
 };

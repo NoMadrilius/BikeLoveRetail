@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
         cacheLocation="localstorage"
       >
         <HttpProvider>
-          {/* <Layout> */}
+          <Layout>
           <>
             <NextNProgress
               color="red"
@@ -44,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </I18nextProvider>
             <PhoneWidget />
           </>
-          {/* </Layout> */}
+          </Layout>
         </HttpProvider>
       </Auth0Provider>
     </>

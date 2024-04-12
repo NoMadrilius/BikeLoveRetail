@@ -1,29 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
 
 interface CategoryItemProps {
-  categoryName: string;
-  imageLink: string;
+  category: ProductCategory;
+  imageLink?: string;
   categoryType: "category" | "subcategory";
 }
 
 const CategoryBlockItem = ({
-  categoryName,
+  category,
   imageLink,
   categoryType,
 }: CategoryItemProps) => {
   const isCategory = categoryType === "category";
-
+  const r = useRouter()
   return (
     <Link
-      href={imageLink}
+      href={GenerateLink(r, {basePath:'/catalog', queryParameters:{id:category.id}, slug:category.transliterationName})}
       className="flex items-center px-3 py-1 bg-white cursor-pointer last:border-solid last:border last:border-b-gray"
     >
       <div className="flex items-center gap-2">
         {!isCategory ? (
           <Image
-            src={"/images/homepage/static/bike.jpg"}
+            src={imageLink?imageLink:"/images/homepage/static/bike.jpg"}
             alt={"Bike"}
             width={48}
             height={48}
@@ -38,7 +41,7 @@ const CategoryBlockItem = ({
             isCategory ? "text-dark-text" : "text-[#6B6B6B]"
           } `}
         >
-          {categoryName}
+          {category.name}
         </span>
       </div>
       {isCategory ? (

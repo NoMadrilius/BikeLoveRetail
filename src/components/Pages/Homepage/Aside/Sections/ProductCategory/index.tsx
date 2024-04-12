@@ -1,4 +1,3 @@
-import { useCategoryStore } from "@/store/CategoryStore";
 import React from "react";
 import CategoryItem from "./CategoryItem";
 import {useAppStore} from "@/store/AppStore";
@@ -8,7 +7,6 @@ interface ProductCategoryProps {
 }
 
 const ProductCategory = ({ className }: ProductCategoryProps) => {
-  const store = useCategoryStore();
   const as = useAppStore()
 
   return (

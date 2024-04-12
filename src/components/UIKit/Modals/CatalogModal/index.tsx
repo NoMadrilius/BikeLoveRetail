@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import React from "react";
 import CatalogHeader from "./CatalogHeader";
 import CatalogMain from "./CatalogMain";
 import CatalogMenu from "./CatalogMenu";
-import { useCategoryStore } from "@/store/CategoryStore";
 import { observer } from "mobx-react";
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
+import {useAppStore} from "@/store/AppStore";
 
-interface CatalogModalProps {
-  isOpen: boolean;
-}
-
-const CatalogModal = ({ isOpen }: CatalogModalProps) => {
+const CatalogModal = () => {
   const [isWindowWide, setIsWindowWide] = useState(false);
 
   useEffect(() => {
@@ -29,11 +23,13 @@ const CatalogModal = ({ isOpen }: CatalogModalProps) => {
     };
   }, []);
 
-  const categoryStore = useCategoryStore();
-  if (!isOpen) return null;
+  const as = useAppStore()
+
+  if (!as.isOpenCategories) return null;
 
   const handleCloseMenu = () => {
-    categoryStore.hideModal();
+      console.log('close')
+   as.setIsOpenCategories(false)
   };
 
   return (
@@ -55,7 +51,7 @@ const CatalogModal = ({ isOpen }: CatalogModalProps) => {
             <CatalogMenu />
             <CatalogMain />
           </>
-        ) : !categoryStore.showCatalogMain ? (
+        ) : as.isOpenCategories ? (
           <CatalogMenu />
         ) : (
           <CatalogMain />
