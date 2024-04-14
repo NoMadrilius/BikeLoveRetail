@@ -14,7 +14,7 @@ class CatalogStore{
         makeAutoObservable(this);
     }
 
-    async loadStateCategory(categoryId:number, page:number, filters:number[], sort:string[]){
+    async loadStateCategory(categoryId:number, page:number, filters:number[], sort:string|undefined){
         const request: CatalogProductsByCategoryRequest = {
             categoryId: categoryId,
             storageId: 1,
