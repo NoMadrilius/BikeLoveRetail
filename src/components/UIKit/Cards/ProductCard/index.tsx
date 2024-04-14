@@ -22,7 +22,7 @@ const ProductCard = (p:{product:ProductFullData}) => {
           }
         />
         <ProductButtonsOnMobile />
-          <ProductImage src={imgs.length>0?imgs[0].url:null} />
+          <ProductImage src={imgs.length>0?imgs[0].url:"null"} />
 
         <RoundedButton
           imageUrl={"/images/uikit/card/heart.svg"}

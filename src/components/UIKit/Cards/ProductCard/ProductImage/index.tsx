@@ -2,7 +2,7 @@ import Image from "next/image";
 
 interface ProductImageProps {
   classname?: string;
-  src:string|null
+  src:string
 }
 
 const ProductImage = ({ classname, src }: ProductImageProps) => {
