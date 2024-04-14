@@ -16,7 +16,7 @@ const nextConfig = {
 
    */
   images: {
-    domains: ["www.statebicycle.com"],
+    domains: ["www.statebicycle.com", "storage.googleapis.com"],
   },
 };
 
