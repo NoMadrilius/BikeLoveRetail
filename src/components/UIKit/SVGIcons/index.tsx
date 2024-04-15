@@ -138,7 +138,7 @@ export const SvgRightIcon = ({
 }) => {
   return (
     <svg
-      className={`ml-auto shrink-0 ${className}`}
+      className={`shrink-0 ${className}`}
       width={w}
       height={h}
       viewBox="0 0 8 14"

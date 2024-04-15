@@ -24,7 +24,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         />
       </div>
       <div className="bg-white p-5 pt-3 flex flex-col">
-        <h2 className="text-[20px] xl:leading-[24px] font-robot-c pt-1 font-bold leading-[120%] text-dark-text">
+        <h2 className="text-[20px] xl:leading-[24px] font-robot-c pt-1 font-bold leading-[120%] text-dark-text hover:text-link-pink">
           {article.title}
         </h2>
         <p className="font-light leading-[120%] text-[#6B6B6B] mt-2 line-clamp-3">

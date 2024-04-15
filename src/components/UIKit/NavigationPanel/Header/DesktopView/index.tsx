@@ -25,7 +25,7 @@ const DesktopView = ({
           label={"Майстерня"}
           showIcon={false}
           textstyles="!w-full xl:shrink-0"
-          className="xl:!py-[14.5px] xl:!px-4 xl:!max-w-[119px] lg:!py-[14.5px] lg:!px-4 lg:!max-w-[127px]"
+          className="xl:!py-[14.5px] hover:bg-[#767070] xl:!px-4 xl:!max-w-[119px] lg:!py-[14.5px] lg:!px-4 lg:!max-w-[127px]"
           // textstyles="w-auto"
         />
       </div>

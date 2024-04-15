@@ -31,6 +31,10 @@
     @apply text-product-card-text text-[24px] leading-[28.13px] xl:text-[32px] xl:leading-[37.5px] lg:text-[32px] font-medium lg:leading-[38px];
   }
 
+  .button-gradient {
+    @apply bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989];
+  }
+
   .truncate {
     overflow: hidden;
     white-space: nowrap;
