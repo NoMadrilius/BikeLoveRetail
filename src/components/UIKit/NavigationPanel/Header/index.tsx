@@ -11,13 +11,15 @@ import SearchInput from "../../InputFields/SearchInput";
 import { useAppStore } from "@/store/AppStore";
 import CartModal from "../../Modals/CartModal";
 import SearchTableModal from "../../Modals/SearchTableModal";
+import {useCartStore} from "@/store/CartStore";
+import {useCatalogStore} from "@/store/CatalogStore";
 
 const Header = () => {
-  const [cart, showCart] = useState(false);
   const [searchTable, setSearchTable] = useState(false);
   const { isOpen } = useBurgerMenuStore();
   const as = useAppStore();
-
+  const cs = useCartStore()
+    const catStore = useCatalogStore()
   return (
     <>
       <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-2 md:px-0 sm:justify-between">
@@ -39,6 +41,7 @@ const Header = () => {
           label={"Каталог товарів"}
           textstyles="!w-max"
           className="justify-center"
+          onClick={()=>{}}
         />
         <GradientButton
           bgColor="bg-[#5D5555]"
@@ -56,7 +59,7 @@ const Header = () => {
       </div>
       {isOpen ? <MobileHeader /> : null}
       <CatalogModal />
-      {cart ? <CartModal onClose={() => showCart(false)} /> : null}
+      {cs.visible ? <CartModal/> : null}
       {searchTable ? (
         <SearchTableModal onClose={() => setSearchTable(false)} />
       ) : null}

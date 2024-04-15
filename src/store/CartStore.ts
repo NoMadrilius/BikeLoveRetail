@@ -9,6 +9,7 @@ class CartStore {
   cart: {product:Product, fullData:ProductFullData, quantity:number}[] = [];
   visible:boolean = false;
   totalPrice:number = 0;
+  totalDiscount:number = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +27,7 @@ class CartStore {
   }
   updateTotalPrice(){
     this.totalPrice = this.cart.reduce((acc, item) => acc + item.product.retailPrice * item.quantity, 0)
+    this.totalDiscount = this.cart.reduce((acc, item) => acc + item.product.oldRetailPrice > item.product.retailPrice? item.product.oldRetailPrice - item.product.retailPrice:0, 0)
   }
   addToCart(product: Product, FullData:ProductFullData) {
     if (this.cart.find(n=>n.product.id === product.id)) {

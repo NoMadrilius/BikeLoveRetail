@@ -14,6 +14,8 @@ const LastPrice = ({
   discountClass,
   priceClass,
 }: LastPriceProps) => {
+    if(product.oldRetailPrice === 0) return null
+
   return (
     <div className={`flex items-center gap-2  ${classname}`}>
       <span

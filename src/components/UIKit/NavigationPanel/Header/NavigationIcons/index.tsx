@@ -1,7 +1,10 @@
 import Image from "next/image";
 import React from "react";
+import {useAppStore} from "@/store/AppStore";
+import {useCartStore} from "@/store/CartStore";
 
 const NavigationIcons = () => {
+    const cs = useCartStore()
   return (
     <div className="flex items-center ">
       <div className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
@@ -25,7 +28,7 @@ const NavigationIcons = () => {
             src={"/images/uikit/header/shopping-cart.svg"}
             alt={"Shopping cart"}
             fill
-            className="shrink-0"
+            className="shrink-0" onClick={()=>cs.setVisible(true)}
           />
         </div>
         {false ? (

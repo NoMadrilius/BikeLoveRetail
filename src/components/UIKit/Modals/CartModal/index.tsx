@@ -2,8 +2,14 @@ import React from "react";
 import GradientButton from "../../Buttons/GradientButton";
 import CartCard from "../../Cards/CartCard";
 import CloseIcon from "../../NavigationPanel/Header/MobileView/CloseIcon";
+import {observer} from "mobx-react";
+import {useAppStore} from "@/store/AppStore";
+import {useCartStore} from "@/store/CartStore";
+import {useCurrencyStore} from "@/store/CurrencyStore";
 
-const CartModal = ({ onClose }: { onClose: () => void }) => {
+const CartModal = () => {
+  const cs = useCartStore()
+  const c = useCurrencyStore()
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-hidden rounded-lg">
       <div className="bg-white rounded-lg w-full max-w-[957px]">
@@ -13,18 +19,15 @@ const CartModal = ({ onClose }: { onClose: () => void }) => {
               Кошик
             </h2>
             <span className="text-t-grey text-[14px] leading-[120%] font-inter">
-              4 товари
+              {cs.cart.length + " поз. | " + cs.cart.reduce((acc, item) => acc + item.quantity,0) + " шт."}
             </span>
           </div>
           <div className="p-[18px]">
-            <CloseModalIcon onClick={onClose} />
+            <CloseModalIcon onClick={() => cs.setVisible(false)} />
           </div>
         </div>
         <div className="h-[483px] overflow-scroll sm:px-5">
-          <CartCard />
-          <CartCard />
-          <CartCard />
-          <CartCard />
+          {cs.cart.map(n=><CartCard {...n} />)}
         </div>
         <div className="bg-dark py-3 px-10 sm:py-4 sm:px-5 flex items-center justify-between overflow-hidden rounded-b-lg">
           <div className="flex flex-col gap-5 sm:gap-2">
@@ -33,17 +36,20 @@ const CartModal = ({ onClose }: { onClose: () => void }) => {
                 Всього:
               </span>
               <span className="text-white text-[32px] sm:font-bold sm:text-[20px] sm:leading-[120%] font-medium leading-[38px]">
-                100 000 UAH
+                {c.useCurrency(cs.totalPrice)}
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            {
+              cs.totalDiscount>0&&
+                <div className="flex items-center gap-2">
               <span className="text-[#DEDEDE] text-[14px] leading-[120%]">
                 Ви економите:
               </span>
-              <span className="text-link-pink text-[14px] font-medium leading-[120%]">
-                100 000 UAH
+                  <span className="text-link-pink text-[14px] font-medium leading-[120%]">
+                {c.useCurrency(cs.totalDiscount)}
               </span>
-            </div>
+                </div>
+            }
           </div>
           <GradientButton
             label={"Оформити замовлення"}
@@ -57,7 +63,7 @@ const CartModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export default CartModal;
+export default observer(CartModal);
 
 const CloseModalIcon = ({ onClick }: { onClick: () => void }) => {
   return (

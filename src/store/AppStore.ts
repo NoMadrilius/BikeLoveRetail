@@ -9,7 +9,6 @@ import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
 class AppStore{
     isOpenSidebar=false
-    isCartVisible=false
     isOpenCategories=false
     isOpenSettings=false
 
@@ -56,7 +55,6 @@ class AppStore{
         //this.categoryTree = this.buildTree(this.categories)
     }
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
-    setIsCartVisible(v:boolean) {this.isCartVisible=v}
     setIsOpenCategories(v:boolean) {this.isOpenCategories=v}
     setIsOpenSettings(v:boolean) {this.isOpenSettings=v}
 

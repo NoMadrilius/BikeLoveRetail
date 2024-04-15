@@ -155,9 +155,11 @@ export const SvgRightIcon = ({
   );
 };
 
-export const TrashIcon = () => {
+export const TrashIcon = (p:{onClick?:()=>void}) => {
   return (
-    <svg
+    <svg onClick={()=>{
+      p.onClick?p.onClick():null
+    }}
       width="16"
       height="16"
       viewBox="0 0 16 16"

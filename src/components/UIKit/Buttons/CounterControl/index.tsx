@@ -1,17 +1,25 @@
 import React, { useState } from "react";
+import {useCartStore} from "@/store/CartStore";
+import {observer} from "mobx-react";
 
-const CounterControl = ({ className }: { className?: string }) => {
-  const [count, setCount] = useState(1);
+const CounterControl = ({ className,productId }: { className?: string, productId:number }) => {
+
+  const cs = useCartStore()
+  const item = cs.cart.find(n=>n.product.id === productId)
+
+  if(!item) return null
 
   const incrementCount = () => {
-    setCount((prevCount) => prevCount + 1);
+    cs.updateProductQuantity(productId,item.quantity+1)
   };
 
   const decrementCount = () => {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
+    if (item.quantity > 1) {
+      cs.updateProductQuantity(productId,item.quantity-1)
     }
   };
+
+
 
   return (
     <div
@@ -41,7 +49,7 @@ const CounterControl = ({ className }: { className?: string }) => {
         type="text"
         className="flex-shrink-0 size-[32px] font-bold text-center rounded-md border border-gray p-1 text-[20px] leading-[120%] text-number-text"
         placeholder=""
-        value={count}
+        value={item.quantity}
         required
       />
       <button
@@ -68,4 +76,4 @@ const CounterControl = ({ className }: { className?: string }) => {
   );
 };
 
-export default CounterControl;
+export default observer(CounterControl);

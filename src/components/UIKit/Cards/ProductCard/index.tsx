@@ -8,9 +8,11 @@ import ProductSpecItems from "./ProductSpecItems";
 import ProductTitle from "../Common/ProductTitle";
 import GradientButton from "../../Buttons/GradientButton";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
+import {useCartStore} from "@/store/CartStore";
 
 const ProductCard = (p: { product: ProductFullData }) => {
   let imgs = p.product.productImages.sort((a, b) => b.sortOrder - a.sortOrder);
+  const cs = useCartStore()
   return (
     <article className="md:min-h-[457px] lg:min-h-[457px] xl:min-h-[457px] 2xl:min-h-[457px] max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
@@ -47,6 +49,7 @@ const ProductCard = (p: { product: ProductFullData }) => {
         label={"Kупити"}
         showIcon={false}
         className="!rounded-full w-full mt-[6px] sm:flex !py-2 justify-center hidden"
+        onClick={()=>{cs.addToCart(p.product.product, p.product)}}
       />
       <Instock />
       <ProductSpecItems product={p.product} />
