@@ -20,6 +20,7 @@ const ProductCard = (p: { product: ProductFullData }) => {
           bgColor={
             "bg-pink shadow-product-card absolute left-[20px] xl:left-[21px] lg:left-[21px] lg:pt-2 lg:px-3 lg:max-h-[39px] xl:top-[31px] xl:flex top-[25px] xl:block lg:block hidden  xl:!py-2 xl:!px-3 xl:max-h-[35px] "
           }
+          onClick={function (): void {}}
         />
         <ProductButtonsOnMobile />
         <ProductImage src={imgs.length > 0 ? imgs[0].url : "null"} />
@@ -31,6 +32,7 @@ const ProductCard = (p: { product: ProductFullData }) => {
           bgColor={
             "bg-white shadow-product-card absolute xl:flex xl:items-center xl:size-[48px] xl:right-[16px] right-[20px] top-[25px] xl:block lg:block hidden xl:py-2 xl:px-3 xl:shrink-0"
           }
+          onClick={function (): void {}}
         />
       </>
       <ProductTitle text={p.product.product.name} />
@@ -63,6 +65,7 @@ const ProductButtonsOnMobile = () => {
         bgColor={
           "bg-pink shadow-product-card !py-2 !px-3 max-h-[35px] flex items-center my-[6.5px]"
         }
+        onClick={function (): void {}}
       />
 
       <RoundedButton
@@ -72,6 +75,7 @@ const ProductButtonsOnMobile = () => {
           "bg-white shadow-product-card !py-2 !px-3 shrink-0 flex items-center"
         }
         size={24}
+        onClick={function (): void {}}
       />
     </div>
   );

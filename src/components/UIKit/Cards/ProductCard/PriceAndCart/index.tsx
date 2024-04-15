@@ -16,6 +16,7 @@ const PriceAndCart = (p: { product: ProductFullData }) => {
         imageUrl={"/images/homepage/icons/shopping-cart.svg"}
         altText={"Shopping Cart"}
         bgColor={"bg-gradient-custom xl:block lg:block hidden "}
+        onClick={function (): void {}}
       />
     </div>
   );

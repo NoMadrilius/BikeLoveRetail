@@ -10,9 +10,11 @@ import { observer } from "mobx-react";
 import SearchInput from "../../InputFields/SearchInput";
 import { useAppStore } from "@/store/AppStore";
 import CartModal from "../../Modals/CartModal";
+import SearchTableModal from "../../Modals/SearchTableModal";
 
 const Header = () => {
-  const [cart, showCart] = useState(true);
+  const [cart, showCart] = useState(false);
+  const [searchTable, setSearchTable] = useState(false);
   const { isOpen } = useBurgerMenuStore();
   const as = useAppStore();
 
@@ -55,6 +57,9 @@ const Header = () => {
       {isOpen ? <MobileHeader /> : null}
       <CatalogModal />
       {cart ? <CartModal onClose={() => showCart(false)} /> : null}
+      {searchTable ? (
+        <SearchTableModal onClose={() => setSearchTable(false)} />
+      ) : null}
     </>
   );
 };
