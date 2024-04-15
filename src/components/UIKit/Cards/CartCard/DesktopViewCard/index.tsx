@@ -12,10 +12,12 @@ import {useCartStore} from "@/store/CartStore";
 const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
     const c = useCurrencyStore()
     const cs = useCartStore()
+
+    let img = props.fullData.productImages.find(n=>n.productId === props.product.id)
   return (
     <article className="border-b border-gray flex items-center px-5 relative sm:hidden">
       <ProductImage
-        src={props.fullData.productImages.find(n=>n.productId === props.product.id).url}
+        src={img?img.url:""}
         classname="!w-[200px] !h-[160px] sm:!w-[148px] sm:!h-[132px] shrink-0 !mb-0 mr-4"
       />
       <div className="flex flex-col gap-[30px] max-w-[407px] mr-5">

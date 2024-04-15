@@ -16,16 +16,18 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
+import {useCatalogStore} from "@/store/CatalogStore";
+import {useCartStore} from "@/store/CartStore";
 
 const SideBar = () => {
   const { t } = useTranslation();
   const router = useRouter();
   const [step, setStep] = useState(0);
-
+  const cs = useCartStore()
   const as = useAppStore()
 
   const openCart = () => {
-    as.setIsCartVisible(true)
+    cs.setVisible(true)
     as.setIsOpenSidebar(false)
   };
 
@@ -85,8 +87,8 @@ const SideBar = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
-                  onClick={() =>
-                    index === 0 ? setStep(1) : el.href && goToLink(el.href)
+                  onClick={() =>{}
+                    //index === 0 ? setStep(1) : el.href && goToLink(el.href)
                   }
                 >
                   <Text

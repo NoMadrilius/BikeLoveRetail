@@ -10,13 +10,16 @@ import {useCartStore} from "@/store/CartStore";
 const MobileViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
   const c = useCurrencyStore()
   const cs = useCartStore()
+
+  let img = props.fullData.productImages.find(n=>n.productId === props.product.id)
+
   return (
     <article className="border-b border-gray flex-col items-center p-5 sm:flex hidden">
       <div className="flex items-center justify-center gap-4">
         <div>
           <ProductImage
-            src={props.fullData.productImages.find(n=>n.productId === props.product.id).url}
-            classname="sm:!w-[148px] sm:!h-[132px]"
+              src={img?img.url:""}
+              classname="sm:!w-[148px] sm:!h-[132px]"
           />
           <div className="flex gap-[10px]">
             <span className="font-normal text-black text-[14px] leading-[120%]">
@@ -53,7 +56,7 @@ const MobileViewCard = (props:{product:Product, fullData:ProductFullData, quanti
             {c.useCurrency(props.product.retailPrice*props.quantity)}
           </span>
         </div>
-        <CounterControl className="mt-auto" />
+        <CounterControl className="mt-auto" productId={props.product.id} />
       </div>
     </article>
   );
