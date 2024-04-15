@@ -4,7 +4,7 @@ import CatalogHeader from "./CatalogHeader";
 import CatalogMain from "./CatalogMain";
 import CatalogMenu from "./CatalogMenu";
 import { observer } from "mobx-react";
-import {useAppStore} from "@/store/AppStore";
+import { useAppStore } from "@/store/AppStore";
 
 const CatalogModal = () => {
   const [isWindowWide, setIsWindowWide] = useState(false);
@@ -23,13 +23,13 @@ const CatalogModal = () => {
     };
   }, []);
 
-  const as = useAppStore()
+  const as = useAppStore();
 
   if (!as.isOpenCategories) return null;
 
   const handleCloseMenu = () => {
-      console.log('close')
-   as.setIsOpenCategories(false)
+    console.log("close");
+    as.setIsOpenCategories(false);
   };
 
   return (

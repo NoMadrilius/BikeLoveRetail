@@ -13,47 +13,43 @@ import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { observer } from "mobx-react";
 const HomeScreen = () => {
-
-
   return (
-      <div className="bg-mainScene font-inter">
-
-        <div>
-          <Hero />
-          <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
-            <GradientButton
-                label={"Каталог товарів"}
-                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
-            />
-            <GradientButton
-                bgColor="#5D5555"
-                label={"Майстерня"}
-                showIcon={false}
-                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
-            />
-          </div>
+    <div className="bg-mainScene font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
+      <div>
+        <Hero />
+        <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
+          <GradientButton
+            label={"Каталог товарів"}
+            className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
+          />
+          <GradientButton
+            bgColor="#5D5555"
+            label={"Майстерня"}
+            showIcon={false}
+            className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
+          />
         </div>
-        <WhyToChooseUs />
-        <CustomSlider
-            title={"Акційні пропозиції"}
-            rightText={"Більше пропозицій"}
-        />
-        <SelectionOfBicycle className="xl:hidden lg:hidden" />
-        <PopularProductCategories />
-        <CustomSlider
-            title={"Топ продаж"}
-            rightText={"Перейти до каталогу"}
-            lineStyles={"xl:max-w-[302px]"}
-        />
-        <BicycleWorkshop />
-        <BicyclesByPurpose />
-        <AboutUs />
-        <Articles />
-        <Feedbacks />
-        <CommonQuestions />
-        <ContactUs />
-
       </div>
+      <WhyToChooseUs />
+      <CustomSlider
+        title={"Акційні пропозиції"}
+        rightText={"Більше пропозицій"}
+      />
+      <SelectionOfBicycle className="xl:hidden lg:hidden" />
+      <PopularProductCategories />
+      <CustomSlider
+        title={"Топ продаж"}
+        rightText={"Перейти до каталогу"}
+        lineStyles={"xl:max-w-[302px]"}
+      />
+      <BicycleWorkshop />
+      <BicyclesByPurpose />
+      <AboutUs />
+      <Articles />
+      <Feedbacks />
+      <CommonQuestions />
+      <ContactUs />
+    </div>
   );
 };
 

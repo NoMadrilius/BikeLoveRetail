@@ -9,14 +9,13 @@ const Layout = ({ children }: any) => {
   //const currentPath = router.asPath;
   return (
     <>
-        <Header />
-        <PhoneVerification />
+      <Header />
+      <PhoneVerification />
 
-        <div className="max-w-[1324px] mx-auto flex lg:gap-8 pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10">
-            <Aside />
-            <Main>{children}</Main>
-        </div>
-
+      <div className="max-w-[1324px] mx-auto flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10">
+        <Aside />
+        <Main>{children}</Main>
+      </div>
     </>
   );
 };
