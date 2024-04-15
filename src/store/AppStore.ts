@@ -5,6 +5,7 @@ import {PublicAPI} from "@/api/PublicAPI";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
 class AppStore{
     isOpenSidebar=false
@@ -18,6 +19,9 @@ class AppStore{
     selectedCategory: ProductCategory|null = null;
     categoryBlocks:ProductCategory[] = []
 
+    saleProducts:ProductFullData[] = []
+    topProducts:ProductFullData[]=[]
+
     //del
     categoryTree: TreeNode[] = []
 
@@ -25,6 +29,18 @@ class AppStore{
         makeAutoObservable(this)
         if(typeof window != "undefined")
         this.fetchShops()
+    }
+
+    loadSaleProducts(){
+        PublicAPI.GetSales().then(n=>{
+            this.saleProducts = n.data
+        })
+    }
+
+    loadTopProducts(){
+        PublicAPI.GetTop().then(n=>{
+            this.topProducts = n.data
+        })
     }
 
     setSelectedCategory(v:ProductCategory|null){

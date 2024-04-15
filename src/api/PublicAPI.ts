@@ -19,5 +19,13 @@ export const PublicAPI = {
     },
     GetCategories():Promise<AxiosResponse<ProductCategory[]>>{
         return axiosInstance.get<ProductCategory[]>(`/public/getcategories`);
+    },
+
+    GetSales():Promise<AxiosResponse<ProductFullData[]>>{
+        return axiosInstance.get<ProductFullData[]>(`/public/sales`);
+    },
+
+    GetTop():Promise<AxiosResponse<ProductFullData[]>>{
+        return axiosInstance.get<ProductFullData[]>(`/public/foryou`);
     }
 }

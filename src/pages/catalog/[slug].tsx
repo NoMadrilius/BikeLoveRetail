@@ -16,8 +16,7 @@ export const getServerSideProps = async (context: any) => {
     : [];
 
   const sort = context.query.sort
-      ? context.query.sort.split(",")
-      : [];
+      ? context.query.sort:undefined
 
   const page = context.query.page || 1;
 
@@ -42,7 +41,6 @@ const Page = (props: {
 }) => {
   useAppStore().setServerData(props.as)
   useCatalogStore().setCatalogState(props.iniState);
-  console.log("appState:",props)
   useCurrencyStore().setServerData(props.as)
 
   return (

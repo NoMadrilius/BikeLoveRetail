@@ -12,7 +12,17 @@ import PopularProductCategories from "@/components/Pages/Homepage/MainContent/Po
 import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs";
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { observer } from "mobx-react";
+import { useAppStore } from "@/store/AppStore";
+import { useEffect } from "react";
+
 const HomeScreen = () => {
+  const as = useAppStore();
+
+  useEffect(() => {
+    as.loadSaleProducts();
+    as.loadTopProducts();
+  }, []);
+
   return (
     <div className="bg-mainScene font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
       <div>
@@ -29,26 +39,28 @@ const HomeScreen = () => {
             className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
           />
         </div>
+        <WhyToChooseUs />
+        <CustomSlider
+          products={as.saleProducts}
+          title={"Акційні пропозиції"}
+          rightText={"Більше пропозицій"}
+        />
+        <SelectionOfBicycle className="xl:hidden lg:hidden" />
+        <PopularProductCategories />
+        <CustomSlider
+          products={as.topProducts}
+          title={"Топ продаж"}
+          rightText={"Перейти до каталогу"}
+          lineStyles={"xl:max-w-[302px]"}
+        />
+        <BicycleWorkshop />
+        <BicyclesByPurpose />
+        <AboutUs />
+        <Articles />
+        <Feedbacks />
+        <CommonQuestions />
+        <ContactUs />
       </div>
-      <WhyToChooseUs />
-      <CustomSlider
-        title={"Акційні пропозиції"}
-        rightText={"Більше пропозицій"}
-      />
-      <SelectionOfBicycle className="xl:hidden lg:hidden" />
-      <PopularProductCategories />
-      <CustomSlider
-        title={"Топ продаж"}
-        rightText={"Перейти до каталогу"}
-        lineStyles={"xl:max-w-[302px]"}
-      />
-      <BicycleWorkshop />
-      <BicyclesByPurpose />
-      <AboutUs />
-      <Articles />
-      <Feedbacks />
-      <CommonQuestions />
-      <ContactUs />
     </div>
   );
 };

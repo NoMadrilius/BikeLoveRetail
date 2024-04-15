@@ -10,15 +10,17 @@ import "swiper/css/pagination";
 import { Pagination as P } from "swiper/modules";
 import Pagination from "@/components/UIKit/NavigationPanel/Pagination";
 import useSlider from "@/helpers/hooks/useSlider";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 SwiperCore.use([P]);
 
 interface SwiperSliderProps {
   title: string;
   rightText: string;
   lineStyles?: string;
+  products:ProductFullData[]
 }
 
-const SwiperSlider = ({ title, rightText, lineStyles }: SwiperSliderProps) => {
+const SwiperSlider = ({ title, rightText, lineStyles,products }: SwiperSliderProps) => {
   const {
     swiperRef,
     isBeginning,
@@ -67,12 +69,12 @@ const SwiperSlider = ({ title, rightText, lineStyles }: SwiperSliderProps) => {
           }}
           className="swiper-custom"
         >
-          {[1, 2, 3, 4, 5, 6].map((el, index) => (
+          {products.map((el, index) => (
             <SwiperSlide
               key={index}
               className="max-w-[159px] w-full lg:!max-w-[316px] xl:max-w-[274.67px]"
             >
-              <ProductCard />
+              <ProductCard product={el} />
             </SwiperSlide>
           ))}
         </Swiper>

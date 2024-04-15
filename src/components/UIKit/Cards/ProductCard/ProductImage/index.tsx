@@ -2,9 +2,10 @@ import Image from "next/image";
 
 interface ProductImageProps {
   classname?: string;
+  src:string
 }
 
-const ProductImage = ({ classname }: ProductImageProps) => {
+const ProductImage = ({ classname, src }: ProductImageProps) => {
   return (
     <div
       className={`relative w-full h-[128px] 
@@ -16,7 +17,7 @@ const ProductImage = ({ classname }: ProductImageProps) => {
     >
       <Image
         src={
-          "https://www.statebicycle.com/cdn/shop/products/6061-eBikeCommuter-MatteBlack_1.jpg?v=1684443969"
+          src
         }
         alt={"Bicycle"}
         fill

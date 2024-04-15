@@ -7,8 +7,10 @@ import ProductImage from "./ProductImage";
 import ProductSpecItems from "./ProductSpecItems";
 import ProductTitle from "../Common/ProductTitle";
 import GradientButton from "../../Buttons/GradientButton";
+import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 
-const ProductCard = () => {
+const ProductCard = (p:{product:ProductFullData}) => {
+    let imgs = p.product.productImages.sort((a,b)=>b.sortOrder - a.sortOrder)
   return (
     <article className="max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
       <>
@@ -20,7 +22,8 @@ const ProductCard = () => {
           }
         />
         <ProductButtonsOnMobile />
-        <ProductImage />
+          <ProductImage src={imgs.length>0?imgs[0].url:"null"} />
+
         <RoundedButton
           imageUrl={"/images/uikit/card/heart.svg"}
           altText={"Shopping Cart"}
@@ -32,18 +35,18 @@ const ProductCard = () => {
       </>
       <ProductTitle
         text={
-          "Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у чохлах. Чорний"
+          p.product.product.name
         }
       />
-      <LastPrice classname="sm:pt-[7px] pt-[11px] lg:pt-[7px] xl:pt-1" />
-      <PriceAndCart />
+        {p.product.product.oldRetailPrice>p.product.product.retailPrice && <LastPrice product={p.product.product} classname="sm:pt-[7px] pt-[11px] lg:pt-[7px] xl:pt-1" />}
+      <PriceAndCart product={p.product} />
       <GradientButton
         label={"Kупити"}
         showIcon={false}
         className="!rounded-full w-full mt-[6px] sm:flex !py-2 justify-center hidden"
       />
       <Instock />
-      <ProductSpecItems />
+      <ProductSpecItems product={p.product} />
     </article>
   );
 };
