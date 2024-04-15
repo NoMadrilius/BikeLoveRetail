@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 const CatalogMain = () => {
   const as = useAppStore();
   return (
-    <section className="flex flex-wrap gap-[22px] py-5 grow sm:px-5">
+    <section className="py-5 masonry sm:masonry-sm md:masonry-md lg:masonry-md xl:masonry-md ">
       {as.categoryBlocks.map((n) => (
         <CategoryBlock cat={n} />
       ))}

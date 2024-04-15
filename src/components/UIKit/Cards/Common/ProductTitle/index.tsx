@@ -10,7 +10,7 @@ interface ProductTitleProps {
 
 const ProductTitle = ({
   text,
-  maxCharacters = 41,
+  maxCharacters = 75,
   disableBorder = false,
   className,
 }: ProductTitleProps) => {

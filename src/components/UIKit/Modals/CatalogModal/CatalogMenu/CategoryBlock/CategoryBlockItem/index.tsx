@@ -4,17 +4,20 @@ import React from "react";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
 import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
+import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 
 interface CategoryItemProps {
   category: ProductCategory;
   imageLink?: string;
   categoryType: "category" | "subcategory";
+  categoryItemsLength?: number;
 }
 
 const CategoryBlockItem = ({
   category,
   imageLink,
   categoryType,
+  categoryItemsLength,
 }: CategoryItemProps) => {
   const isCategory = categoryType === "category";
   const r = useRouter();
@@ -25,10 +28,12 @@ const CategoryBlockItem = ({
         queryParameters: { id: category.id },
         slug: category.transliterationName,
       })}
-      className="flex items-center px-3 py-1 bg-white cursor-pointer"
+      className={`flex items-center px-3 py-1 bg-white cursor-pointer group ${
+        categoryItemsLength === 0 ? "py-1" : ""
+      }`}
     >
       <div className="flex items-center gap-2">
-        {!isCategory ? (
+        {!isCategory || categoryItemsLength === 0 ? (
           <Image
             src={imageLink ? imageLink : "/images/homepage/static/bike.jpg"}
             alt={"Bike"}
@@ -39,7 +44,7 @@ const CategoryBlockItem = ({
         ) : null}
 
         <span
-          className={`font-${
+          className={`group-hover:text-link-pink font-${
             isCategory ? "semibold" : "normal text-[#6B6B6B]"
           } leading-[19px] ${
             isCategory ? "text-dark-text" : "text-[#6B6B6B]"
@@ -49,13 +54,10 @@ const CategoryBlockItem = ({
         </span>
       </div>
       {isCategory ? (
-        <Image
-          src={"/images/homepage/icons/right-arrow.svg"}
-          alt={"Right Arrow"}
-          width={8}
-          height={12}
-          className="ml-auto shrink-0"
-        />
+        <>
+          <SvgRightIcon className="group-hover:hidden block" />
+          <SvgRightIcon color="#F9436B" className="group-hover:block hidden" />
+        </>
       ) : null}
     </Link>
   );

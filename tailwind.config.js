@@ -17,6 +17,7 @@ module.exports = {
         "product-card-last-price": "rgb(107, 107, 107)",
         "t-grey": "rgb(107, 107, 107)",
         pink: "rgb(249, 67, 107)",
+        "link-pink": "#F9436B",
         gray: "rgb(218, 218, 218)",
         "number-text": "rgb(44, 39, 39)",
         "dark-text": "rgb(44, 39, 39)",

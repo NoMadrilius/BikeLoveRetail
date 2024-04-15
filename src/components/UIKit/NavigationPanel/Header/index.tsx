@@ -8,11 +8,13 @@ import CatalogModal from "../../Modals/CatalogModal";
 import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import { observer } from "mobx-react";
 import SearchInput from "../../InputFields/SearchInput";
-import {useAppStore} from "@/store/AppStore";
+import { useAppStore } from "@/store/AppStore";
+import CartModal from "../../Modals/CartModal";
 
 const Header = () => {
+  const [cart, showCart] = useState(true);
   const { isOpen } = useBurgerMenuStore();
-  const as = useAppStore()
+  const as = useAppStore();
 
   return (
     <>
@@ -22,7 +24,11 @@ const Header = () => {
           {isOpen ? (
             <MobileView />
           ) : (
-            <DesktopView setIsModalOpen={() => as.setIsOpenCategories(!as.isOpenCategories)} />
+            <DesktopView
+              setIsModalOpen={() =>
+                as.setIsOpenCategories(!as.isOpenCategories)
+              }
+            />
           )}
         </div>
       </header>
@@ -33,7 +39,7 @@ const Header = () => {
           className="justify-center"
         />
         <GradientButton
-          bgColor="#5D5555"
+          bgColor="bg-[#5D5555]"
           label={"Майстерня"}
           className="justify-center"
           showIcon={false}
@@ -47,7 +53,8 @@ const Header = () => {
         />
       </div>
       {isOpen ? <MobileHeader /> : null}
-      <CatalogModal/>
+      <CatalogModal />
+      {cart ? <CartModal onClose={() => showCart(false)} /> : null}
     </>
   );
 };

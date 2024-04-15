@@ -24,8 +24,8 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <div className="bg-mainScene font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
-      <div>
+    <div className=" font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
+      <div className="flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:px-5 md:px-10 xl:pl-8 pl-8 lg:pl-0">
         <Hero />
         <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
           <GradientButton
@@ -33,7 +33,7 @@ const HomeScreen = () => {
             className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
           />
           <GradientButton
-            bgColor="#5D5555"
+            bgColor="bg-[#5D5555]"
             label={"Майстерня"}
             showIcon={false}
             className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"

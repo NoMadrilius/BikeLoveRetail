@@ -6,6 +6,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  @variants responsive {
+    .masonry {
+      column-gap: 1.5em;
+      column-count: 1;
+    }
+    .masonry-sm {
+      column-gap: 1.5em;
+      column-count: 2;
+    }
+    .masonry-md {
+      column-gap: 1.5em;
+      column-count: 3;
+    }
+    .break-inside {
+      break-inside: avoid;
+    }
+  }
+}
+
 @layer components {
   .product-card-price {
     @apply text-product-card-text text-[24px] leading-[28.13px] xl:text-[32px] xl:leading-[37.5px] lg:text-[32px] font-medium lg:leading-[38px];
