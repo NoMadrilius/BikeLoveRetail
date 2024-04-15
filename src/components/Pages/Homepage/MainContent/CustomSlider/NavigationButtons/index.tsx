@@ -3,6 +3,7 @@ import Image from "next/image";
 import SectionHeader from "../SectionHeader";
 import SliderButtons from "./SliderButtons";
 import Link from "next/link";
+import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 
 interface NavigationButtonsProps {
   goNext?: () => void;
@@ -45,18 +46,19 @@ const NavigationButtons = ({
           <div
             className={`w-full h-[1px] bg-gray xl:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}
           />
-          <div className="flex gap-[18px] shrink-0 grow sm:py-[10.5px] py-2 px-3">
-            <Link href="#" className="text-dark leading-[19px] cursor-pointer">
+          <Link
+            href="#"
+            className="flex items-center gap-[18px] shrink-0 grow sm:py-[10.5px] py-2 px-3 group"
+          >
+            <span className="text-dark leading-[19px] cursor-pointer group-hover:text-link-pink">
               {rightText}
-            </Link>
-            <Image
-              src={"/images/homepage/icons/right-arrow.svg"}
-              alt={"Right Arrow"}
-              width={6}
-              height={12}
-              className="shrink-0"
+            </span>
+            <SvgRightIcon className="group-hover:hidden block" />
+            <SvgRightIcon
+              color="#F9436B"
+              className="group-hover:block hidden"
             />
-          </div>
+          </Link>
         </>
       ) : null}
     </div>

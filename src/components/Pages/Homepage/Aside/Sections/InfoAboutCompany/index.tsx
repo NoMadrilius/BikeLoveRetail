@@ -19,7 +19,7 @@ const InfoAboutCompany = () => {
           <Link
             key={index}
             href={link.href}
-            className="leading-[19.36px] text-dark-text py-2 cursor-pointer text-[16px] font-inter !max-h-[35px]"
+            className="leading-[19.36px] text-dark-text py-2 cursor-pointer text-[16px] font-inter !max-h-[35px] hover:text-link-pink"
           >
             {link.text}
           </Link>

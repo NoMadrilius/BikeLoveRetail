@@ -21,7 +21,7 @@ const DesktopView = ({
           className="xl:shrink-0 lg:shrink-0 xl:py-3 xl:px-4 xl:py-3 xl:px-4 max-w-[193px] lg:max-w-[201px]"
         />
         <GradientButton
-          bgColor="#5D5555"
+          bgColor="bg-[#5D5555]"
           label={"Майстерня"}
           showIcon={false}
           textstyles="!w-full xl:shrink-0"

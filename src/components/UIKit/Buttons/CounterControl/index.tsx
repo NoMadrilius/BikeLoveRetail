@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CounterControl = () => {
+const CounterControl = ({ className }: { className?: string }) => {
   const [count, setCount] = useState(1);
 
   const incrementCount = () => {
@@ -14,12 +14,18 @@ const CounterControl = () => {
   };
 
   return (
-    <div className="relative flex items-center">
-      <button type="button" className="p-3" onClick={decrementCount}>
+    <div
+      className={`relative flex items-center grow justify-center gap-2 ${className}`}
+    >
+      <button
+        type="button"
+        className="size-[32px] flex items-center justify-center hover:bg-[#C1C1C1] rounded-lg transition duration-100 easy-in-out"
+        onClick={decrementCount}
+      >
         <svg
-          width="16"
+          width="14"
           height="2"
-          viewBox="0 0 16 2"
+          viewBox="0 0 14 2"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -38,7 +44,11 @@ const CounterControl = () => {
         value={count}
         required
       />
-      <button type="button" className="p-3" onClick={incrementCount}>
+      <button
+        type="button"
+        className="size-[32px] flex items-center justify-center hover:bg-[#C1C1C1] rounded-lg transition duration-100 easy-in-out"
+        onClick={incrementCount}
+      >
         <svg
           width="16"
           height="16"

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 
 const ImageLink = () => {
   return (
@@ -13,18 +14,16 @@ const ImageLink = () => {
           className="rounded-lg shrink-0 h-[415px] object-cover mx-auto"
         />
       </div>
-      <div className="hidden lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto xl:absolute lg:absolute lg:right-[31px] lg:bottom-[30px] xl:right-[31px] xl:bottom-[30px]">
-        <Link href="#" className="text-dark leading-[19px] cursor-pointer">
+      <Link
+        href="#"
+        className="group hidden cursor-pointer lg:flex xl:flex 2xl:flex items-center gap-2 shrink-0 mt-auto ml-auto xl:absolute lg:absolute lg:right-[31px] lg:bottom-[30px] xl:right-[31px] xl:bottom-[30px]"
+      >
+        <span className="text-dark leading-[19px] cursor-pointer group-hover:text-link-pink">
           Дізнатись більше
-        </Link>
-        <Image
-          src={"/images/homepage/icons/right-arrow.svg"}
-          alt={"Right Arrow"}
-          width={6}
-          height={12}
-          className="ml-auto xl:ml-0 shrink-0"
-        />
-      </div>
+        </span>
+        <SvgRightIcon className="group-hover:hidden block" />
+        <SvgRightIcon color="#F9436B" className="group-hover:block hidden" />
+      </Link>
     </>
   );
 };

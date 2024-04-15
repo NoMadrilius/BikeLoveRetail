@@ -2,7 +2,7 @@ import Image from "next/image";
 
 interface ProductImageProps {
   classname?: string;
-  src:string
+  src: string;
 }
 
 const ProductImage = ({ classname, src }: ProductImageProps) => {
@@ -15,14 +15,7 @@ const ProductImage = ({ classname, src }: ProductImageProps) => {
       sm:mb-[9px] mb-5 xl:mb-[13px] 
       ${classname}`}
     >
-      <Image
-        src={
-          src
-        }
-        alt={"Bicycle"}
-        fill
-        style={{ objectFit: "contain" }}
-      />
+      <Image src={src} alt={"Bicycle"} fill style={{ objectFit: "contain" }} />
     </div>
   );
 };

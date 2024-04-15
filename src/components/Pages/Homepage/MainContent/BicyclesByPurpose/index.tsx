@@ -1,3 +1,4 @@
+import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -58,18 +59,16 @@ const BicyclesByPurpose = () => (
         <BicyclePurpose key={index} purpose={purpose} />
       ))}
 
-      <div className="lg:flex items-center gap-2 shrink-0 mt-auto ml-auto hidden ">
-        <Link href="#" className="text-dark leading-[19px] cursor-pointer">
+      <Link
+        href="#"
+        className="lg:flex items-center gap-2 shrink-0 mt-auto ml-auto hidden group"
+      >
+        <span className="text-dark leading-[19px] cursor-pointer group-hover:text-link-pink">
           Перейти до катологу
-        </Link>
-        <Image
-          src={"/images/homepage/icons/right-arrow.svg"}
-          alt={"Right Arrow"}
-          width={6}
-          height={12}
-          className="ml-auto shrink-0"
-        />
-      </div>
+        </span>
+        <SvgRightIcon className="group-hover:hidden block" />
+        <SvgRightIcon color="#F9436B" className="group-hover:block hidden" />
+      </Link>
     </div>
   </section>
 );

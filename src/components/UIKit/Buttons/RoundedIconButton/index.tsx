@@ -7,6 +7,7 @@ interface RoundedButtonProps {
   altText?: string;
   text?: string;
   size?: number;
+  onClick: () => void;
 }
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({
@@ -15,9 +16,13 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   size = 21.5,
   altText,
   text = "",
+  onClick,
 }: RoundedButtonProps) => {
   return (
-    <div className={`z-[1] p-[13px] rounded-full shrink-0 ${bgColor}`}>
+    <button
+      className={`z-[1] p-[13px] rounded-full shrink-0 hover:bg-[#FA6989] ${bgColor}`}
+      onClick={onClick}
+    >
       {text.length === 0 && imageUrl && altText ? (
         <div className={`shrink-0 flex relative size-[21.5px] xl:size-[24px]`}>
           <Image src={imageUrl} alt={altText} fill className="shrink-0" />
@@ -27,7 +32,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
           {text}
         </span>
       )}
-    </div>
+    </button>
   );
 };
 

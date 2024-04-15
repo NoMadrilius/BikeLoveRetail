@@ -18,16 +18,13 @@ const GradientButton = ({
   textstyles,
   onClick,
 }: GradientButtonProps) => {
-  const buttonStyle = bgColor
-    ? { backgroundColor: bgColor }
-    : {
-        backgroundImage: "linear-gradient(to bottom right, #F01B74, #FF6064)",
-      };
-
   return (
     <button
-      className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${className}`}
-      style={buttonStyle}
+      className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${
+        bgColor
+          ? `${bgColor} `
+          : `bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989]`
+      } ${className}`}
       onClick={onClick}
     >
       {showIcon ? (

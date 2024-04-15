@@ -15,7 +15,7 @@ const SearchInput = ({
 }: SearchInputProps) => {
   return (
     <div
-      className={`w-full max-w-[236px] md:max-w-[236px] xl:max-w-[256px] lg:max-w-[337px] md:block hidden xl:block lg:block 2xl:block ${className} `}
+      className={`w-full max-w-[236px] md:max-w-[236px] xl:max-w-[256px] lg:max-w-[337px] md:block hidden xl:block lg:block 2xl:block ${className} group`}
     >
       <label
         htmlFor="default-search"
@@ -30,8 +30,8 @@ const SearchInput = ({
         <input
           type="search"
           id="default-search"
-          className={`block w-full p-4 ps-[52px] max-h-[48px] text-sm text-t-grey
-          font-light leading-[120%] bg-transparent border border-t-grey rounded-lg ${inputStyles} `}
+          className={`block w-full p-4 ps-[52px] max-h-[48px] text-sm text-t-grey cursor-pointer
+          font-light leading-[120%] bg-transparent border border-[#DADADA] rounded-lg group-hover:border group-hover:border-t-grey ${inputStyles} `}
           placeholder="Я шукаю"
           required
         />

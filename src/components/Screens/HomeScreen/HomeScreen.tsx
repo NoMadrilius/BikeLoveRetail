@@ -12,46 +12,46 @@ import PopularProductCategories from "@/components/Pages/Homepage/MainContent/Po
 import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs";
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { observer } from "mobx-react";
-import {useAppStore} from "@/store/AppStore";
-import {useEffect} from "react";
+import { useAppStore } from "@/store/AppStore";
+import { useEffect } from "react";
+
 const HomeScreen = () => {
+  const as = useAppStore();
 
-    const as = useAppStore()
-
-    useEffect(()=>{
-        as.loadSaleProducts()
-        as.loadTopProducts()
-    },[])
+  useEffect(() => {
+    as.loadSaleProducts();
+    as.loadTopProducts();
+  }, []);
 
   return (
-      <div className="bg-mainScene font-inter">
-
-        <div>
-          <Hero />
-          <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
-            <GradientButton
-                label={"Каталог товарів"}
-                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
-            />
-            <GradientButton
-                bgColor="#5D5555"
-                label={"Майстерня"}
-                showIcon={false}
-                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
-            />
-          </div>
+    <div className=" font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
+      <div className="flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:px-5 md:px-10 xl:pl-8 pl-8 lg:pl-0">
+        <Hero />
+        <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center">
+          <GradientButton
+            label={"Каталог товарів"}
+            className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
+          />
+          <GradientButton
+            bgColor="bg-[#5D5555]"
+            label={"Майстерня"}
+            showIcon={false}
+            className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
+          />
         </div>
         <WhyToChooseUs />
-        <CustomSlider products={as.saleProducts}
-            title={"Акційні пропозиції"}
-            rightText={"Більше пропозицій"}
+        <CustomSlider
+          products={as.saleProducts}
+          title={"Акційні пропозиції"}
+          rightText={"Більше пропозицій"}
         />
         <SelectionOfBicycle className="xl:hidden lg:hidden" />
         <PopularProductCategories />
-        <CustomSlider products={as.topProducts}
-            title={"Топ продаж"}
-            rightText={"Перейти до каталогу"}
-            lineStyles={"xl:max-w-[302px]"}
+        <CustomSlider
+          products={as.topProducts}
+          title={"Топ продаж"}
+          rightText={"Перейти до каталогу"}
+          lineStyles={"xl:max-w-[302px]"}
         />
         <BicycleWorkshop />
         <BicyclesByPurpose />
@@ -60,8 +60,8 @@ const HomeScreen = () => {
         <Feedbacks />
         <CommonQuestions />
         <ContactUs />
-
       </div>
+    </div>
   );
 };
 
