@@ -51,23 +51,23 @@ const Info = () => {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 group">
           <h4 className="text-dark font-semibold text-[16px] leading-[19.36px]">
             Місто, вул. Назва, 1
           </h4>
-          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2" />
+          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2 transition-all duration-300 ease-in-out group-hover:w-[155px]" />
         </div>
-        <div className="mt-5">
+        <div className="mt-5 group">
           <h4 className="text-dark font-semibold text-[16px] leading-[19.36px]">
             Місто, вул. Назва, 1
           </h4>
-          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2" />
+          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2 transition-all duration-300 ease-in-out group-hover:w-[155px]" />
         </div>
-        <div className="mt-5">
+        <div className="mt-5 group">
           <h4 className="text-dark font-semibold text-[16px] leading-[19.36px]">
             Місто, вул. Назва, 1
           </h4>
-          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2" />
+          <div className="w-[28px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px] mb-2 transition-all duration-300 ease-in-out group-hover:w-[155px]" />
         </div>
       </div>
 

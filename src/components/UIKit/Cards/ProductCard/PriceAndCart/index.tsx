@@ -15,7 +15,7 @@ const PriceAndCart = (p: { product: ProductFullData }) => {
       <RoundedIconButton
         imageUrl={"/images/homepage/icons/shopping-cart.svg"}
         altText={"Shopping Cart"}
-        bgColor={"bg-gradient-custom xl:block lg:block hidden "}
+        bgColor={"button-gradient xl:block lg:block hidden "}
         onClick={function (): void {}}
       />
     </div>

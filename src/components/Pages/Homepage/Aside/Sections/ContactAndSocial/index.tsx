@@ -37,7 +37,7 @@ const ContactAndSocial = () => {
           </div>
           <a
             href={`tel:${phone}`}
-            className="text-dark-text leading-[19.36px] cursor-pointer"
+            className="text-dark-text leading-[19.36px] cursor-pointer hover:text-link-pink"
           >
             {phone}
           </a>
@@ -45,7 +45,7 @@ const ContactAndSocial = () => {
         <div className="py-2 flex">
           <a
             href={`mailto:${email}`}
-            className="text-dark-text text-[16px] leading-[19px] cursor-pointer"
+            className="text-dark-text text-[16px] leading-[19px] cursor-pointer hover:text-link-pink"
           >
             {email}
           </a>
