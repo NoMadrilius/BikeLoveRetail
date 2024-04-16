@@ -5,9 +5,13 @@ import GetOurLatestNewsFirst from "./Sections/GetOurLatestNewsFirst";
 import InfoAboutCompany from "./Sections/InfoAboutCompany";
 import ProductCategory from "./Sections/ProductCategory";
 import SelectionOfBicycle from "./Sections/SelectionOfBicycle";
+import {useAppStore} from "@/store/AppStore";
+import {observer} from "mobx-react";
 
 const Aside = () => {
+  const as = useAppStore()
   return (
+      as.isDisplayAside&&
     <aside className="w-full max-w-[304px] lg:flex xl:flex 2xl:flex hidden flex-col gap-8">
       <ProductCategory />
       <SelectionOfBicycle />
@@ -16,7 +20,8 @@ const Aside = () => {
       <GetOurLatestNewsFirst />
       <Footer />
     </aside>
+
   );
 };
 
-export default Aside;
+export default observer(Aside);

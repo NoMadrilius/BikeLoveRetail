@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { DownArrowIcon } from "../../SVGIcons";
+import {observer} from "mobx-react";
 
 interface DropdownProps {
   label: string;
-  options: string[];
-  onSelect: (value: string) => void;
+  options: { id: number, name: string }[];
+  onSelect: (value: { id: number, name: string }|null) => void;
   className?: string;
 }
 
 const Dropdown = ({ label, options, onSelect, className }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState<{ id: number, name: string }|null>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: { id: number, name: string }|null) => {
     setSelectedOption(option);
     onSelect(option);
     setIsOpen(false);
@@ -38,7 +39,7 @@ const Dropdown = ({ label, options, onSelect, className }: DropdownProps) => {
           className="w-full min-h-[40px] py-[6px] font-inter items-center px-5 text-[16px] text-[#6B6B6B] font-light leading-[19.2px] font-inter bg-transparent border border-[#DADADA] rounded-lg flex justify-between"
           onClick={toggleDropdown}
         >
-          <span className="font-inter">{selectedOption || label}</span>
+          <span className="font-inter">{selectedOption?selectedOption.name : label}</span>
           <div className="py-[9px] px-[6px]">
             <DownArrowIcon />
           </div>
@@ -51,7 +52,7 @@ const Dropdown = ({ label, options, onSelect, className }: DropdownProps) => {
                 className="px-4 py-3 text-[14px] font-light leading-[19.2px] text-dark cursor-pointer hover:bg-gray"
                 onClick={() => handleOptionClick(option)}
               >
-                {option}
+                {option.name}
               </li>
             ))}
           </ul>
@@ -61,4 +62,4 @@ const Dropdown = ({ label, options, onSelect, className }: DropdownProps) => {
   );
 };
 
-export default Dropdown;
+export default observer(Dropdown);

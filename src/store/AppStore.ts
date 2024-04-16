@@ -6,6 +6,7 @@ import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
+import bikeSelectionStore from "@/store/BikeSelectionStore";
 
 class AppStore{
     isOpenSidebar=false
@@ -19,9 +20,13 @@ class AppStore{
 
     saleProducts:ProductFullData[] = []
     topProducts:ProductFullData[]=[]
+    popularCategories:number[] = []
+    bikePorpouseCategories:number[] = []
 
     //del
     categoryTree: TreeNode[] = []
+
+    isDisplayAside = false
 
     constructor() {
         makeAutoObservable(this)
@@ -51,11 +56,15 @@ class AppStore{
     setServerData(d:AppState){
         this.shops = d.shops
         this.categories = d.categories
+        this.popularCategories = d.popularCategories
+        this.bikePorpouseCategories = d.bikePorpouseCategories
+        //bikeSelectionStore.setOptions(d.bikeSelectState)
         //this.categoryTree = this.buildTree(this.categories)
     }
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
     setIsOpenCategories(v:boolean) {this.isOpenCategories=v}
     setIsOpenSettings(v:boolean) {this.isOpenSettings=v}
+    setIsDisplayAside(v:boolean) {this.isDisplayAside=v}
 
     buildTree(data: ProductCategory[], parentId: number = 0, depth:number = 0) {
         const tree: TreeNode[] = []

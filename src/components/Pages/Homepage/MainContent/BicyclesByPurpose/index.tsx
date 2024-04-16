@@ -4,59 +4,37 @@ import Link from "next/link";
 import React from "react";
 import NavigationButtons from "../CustomSlider/NavigationButtons";
 import BicyclePurpose from "./BicyclePurpose";
+import {useAppStore} from "@/store/AppStore";
+import {useRouter} from "next/router";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {observer} from "mobx-react";
 
-const purposes = [
-  {
-    name: "Гірські",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Шосе",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Гібридні",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Гравійні",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Дитячі",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Підліткові",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Жіночі",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-  {
-    name: "Електричні",
-    image: "/images/homepage/static/by-purpose.jpg",
-    count: 250,
-  },
-];
+const BicyclesByPurpose = () => {
 
-const BicyclesByPurpose = () => (
+  const as = useAppStore()
+  const r = useRouter()
+  const cats = [0,1,2,3,4,5].map((n,index)=>{
+    let set = as.bikePorpouseCategories[index]
+    let cat = as.categories.find(g=>g.id === set)!
+    return({name:cat.name, link:GenerateLink(r,{basePath:'/catalog', queryParameters:{id:cat.id}, slug:cat.transliterationName}), img:cat.iconUrl})})
+
+  return(
+
   <section className="mt-2 lg:mt-0">
     <NavigationButtons
       justShowTitle={true}
       title={"Велосипеди за призначенням"}
     />
     <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 2xl:grid-cols-3  items-start gap-5 flex-wrap">
-      {purposes.map((purpose, index) => (
-        <BicyclePurpose key={index} purpose={purpose} />
+      {cats.map((p, index) => (
+        <BicyclePurpose key={index} purpose={
+          {
+            name: p.name,
+            image: p.img||"/",
+            count: 250,
+            link:p.link
+          }
+        } />
       ))}
 
       <Link
@@ -71,6 +49,6 @@ const BicyclesByPurpose = () => (
       </Link>
     </div>
   </section>
-);
+)};
 
-export default BicyclesByPurpose;
+export default observer(BicyclesByPurpose);

@@ -7,12 +7,13 @@ interface BicyclePurposeProps {
     name: string;
     image: string;
     count: number;
+    link:string
   };
 }
 
 const BicyclePurpose = ({ purpose }: BicyclePurposeProps) => (
   <Link
-    href={"#"}
+    href={purpose.link}
     className="rounded-lg overflow-hidden max-w-[316px] sm:max-w-full md:max-w-full xl:max-w-full lg:max-w-full 2xl:max-w-full group cursor-pointer"
   >
     <div className="relative sm:w-full md:w-full xl:w-full lg:w-full 2xl:w-full w-[159.5px] h-[88px] xl:h-[116px] lg:w-[316px] lg:h-[236px] lg:w-[316px] shrink-0">

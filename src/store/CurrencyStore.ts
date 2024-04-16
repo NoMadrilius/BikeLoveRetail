@@ -16,7 +16,7 @@ class CurrencyStore {
     if(typeof window !== "undefined"){
       makePersistable(this, {
         name: "curStore",
-        properties: ["currencies", "selectedCurrency", "useCurrency"],
+        properties: ["currencies", "selectedCurrency",],
         storage:window.localStorage
       }).finally(()=>{
         this.initialize()
