@@ -4,12 +4,14 @@ import LastPrice from "../Common/LastPrice";
 import ProductImage from "../ProductCard/ProductImage";
 import RoundedButton from "../../Buttons/RoundedIconButton";
 import { Product } from "@/dataTransferObjects/entities/Product";
+import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
+import {observer} from "mobx-react";
 
-const SearchCard = () => {
+const SearchCard = (p:{prod:ProductSearchPreview}) => {
   return (
     <article className="p-3 bg-white border-b border-gray flex items-center justify-center gap-2 w-full">
       <ProductImage
-        src={"/images/homepage/static/accessories.png"}
+        src={p.prod.image||""}
         classname="!w-[116px] !h-[100px] sm:!w-[80px] sm:!h-[68px] shrink-0 !mb-0"
       />
       <div>
@@ -17,7 +19,7 @@ const SearchCard = () => {
           disableBorder={true}
           className="py-0"
           text={
-            "Тримач гаджета GUB PRO-3 на кермо алюмінієвий для PowerBank/телефонів у чохлах. Чорний"
+            p.prod.productName
           }
         />
         <div className="flex items-end justify-between">
@@ -26,7 +28,7 @@ const SearchCard = () => {
               100 000 UAH
             </span>
             <LastPrice
-              product={{} as Product}
+              product={p.prod as unknown as Product}
               priceClass="!text-pink"
               discountClass="md:block hidden"
             />
@@ -52,4 +54,4 @@ const SearchCard = () => {
   );
 };
 
-export default SearchCard;
+export default observer(SearchCard);

@@ -2,11 +2,11 @@ import Link from "next/link";
 import React from "react";
 
 const linksData = [
-  { href: "#", text: "Про нас" },
-  { href: "#", text: "Доставка та оплата" },
-  { href: "#", text: "Контакти" },
-  { href: "#", text: "Публічна оферта" },
-  { href: "#", text: "Політика конфіденційності" },
+  { href: "/about", text: "Про нас" },
+  { href: "/about/delivery", text: "Доставка та оплата" },
+  { href: "/contacts", text: "Контакти" },
+  { href: "/terms-of-public-offer", text: "Публічна оферта" },
+  //{ href: "#", text: "Політика конфіденційності" },
 ];
 const InfoAboutCompany = () => {
   return (

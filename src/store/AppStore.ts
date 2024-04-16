@@ -11,7 +11,6 @@ class AppStore{
     isOpenSidebar=false
     isOpenCategories=false
     isOpenSettings=false
-
     shops:Shop[] = []
 
     categories: ProductCategory[] = [];

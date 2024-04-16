@@ -9,20 +9,20 @@ const SearchResultItem = ({
   title: string;
   quantity: string;
   searchResults?: boolean;
-  onClick?: () => {};
+  onClick?: () => void;
 }) => {
   return (
     <div
       className={`flex items-center justify-between bg-white grow w-full p-3 border-b border-category-border group ${
         !searchResults ? "cursor-pointer" : ""
       }`}
+      onClick={onClick}
     >
       <button className="font-semibold leadin-[19px] text-dark font-inter group-hover:text-link-pink">
         {title}
       </button>
       <div>
         <GradientButton
-          onClick={onClick}
           label={quantity}
           bgColor={!searchResults ? "bg-white" : ""}
           showIcon={false}

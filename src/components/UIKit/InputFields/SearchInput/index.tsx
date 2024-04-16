@@ -1,6 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import { SearchIcon } from "../../SVGIcons";
+import {useAppStore} from "@/store/AppStore";
+import {observer} from "mobx-react";
+import {useSearchStore} from "@/store/SearchStore";
 
 interface SearchInputProps {
   className?: string;
@@ -13,9 +16,11 @@ const SearchInput = ({
   iconColor,
   inputStyles,
 }: SearchInputProps) => {
+  const ss = useSearchStore()
   return (
     <div
       className={`w-full max-w-[236px] md:max-w-[236px] xl:max-w-[256px] lg:max-w-[337px] md:block hidden xl:block lg:block 2xl:block ${className} group`}
+      onClick={()=>ss.setIsOpenSearch(true)}
     >
       <label
         htmlFor="default-search"
@@ -40,4 +45,4 @@ const SearchInput = ({
   );
 };
 
-export default SearchInput;
+export default observer(SearchInput);

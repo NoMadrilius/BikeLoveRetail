@@ -13,12 +13,13 @@ import CartModal from "../../Modals/CartModal";
 import SearchTableModal from "../../Modals/SearchTableModal";
 import {useCartStore} from "@/store/CartStore";
 import {useCatalogStore} from "@/store/CatalogStore";
+import {useSearchStore} from "@/store/SearchStore";
 
 const Header = () => {
-  const [searchTable, setSearchTable] = useState(false);
   const { isOpen } = useBurgerMenuStore();
   const as = useAppStore();
   const cs = useCartStore()
+  const ss = useSearchStore()
     const catStore = useCatalogStore()
   return (
     <>
@@ -60,8 +61,8 @@ const Header = () => {
       {isOpen ? <MobileHeader /> : null}
       <CatalogModal />
       {cs.visible ? <CartModal/> : null}
-      {searchTable ? (
-        <SearchTableModal onClose={() => setSearchTable(false)} />
+      {ss.isOpenSearch ? (
+        <SearchTableModal/>
       ) : null}
     </>
   );

@@ -1,15 +1,18 @@
 import { ClearIcon } from "@/components/UIKit/SVGIcons";
 import { useState } from "react";
+import {useSearchStore} from "@/store/SearchStore";
+import {observer} from "mobx-react";
 
 const SearchInput = () => {
-  const [inputValue, setInputValue] = useState("");
+
+  const ss = useSearchStore()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    ss.setQuery(e.target.value)
   };
 
   const clearInput = () => {
-    setInputValue("");
+    ss.setQuery("")
   };
 
   return (
@@ -18,10 +21,10 @@ const SearchInput = () => {
         type="text"
         className="px-5 py-3 text-dark w-full"
         placeholder="Шукати..."
-        value={inputValue}
+        value={ss.query}
         onChange={handleInputChange}
       />
-      {inputValue && (
+      {ss.query && (
         <button
           className="absolute top-0 right-0 mt-1 mr-2 h-full flex items-center justify-center"
           onClick={clearInput}
@@ -33,4 +36,4 @@ const SearchInput = () => {
   );
 };
 
-export default SearchInput;
+export default observer(SearchInput);

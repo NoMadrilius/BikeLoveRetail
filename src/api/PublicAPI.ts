@@ -5,6 +5,9 @@ import {AxiosResponse} from "axios";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {Shop} from "@/dataTransferObjects/entities/Shop";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
+import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
+import {CategoriesSearchPreview} from "@/dataTransferObjects/response/CategoriesSearchPreview";
 
 export const PublicAPI = {
     CatalogProductsByCategory(data:CatalogProductsByCategoryRequest):Promise<AxiosResponse<CatalogPageResponse>>{
@@ -27,5 +30,16 @@ export const PublicAPI = {
 
     GetTop():Promise<AxiosResponse<ProductFullData[]>>{
         return axiosInstance.get<ProductFullData[]>(`/public/foryou`);
+    },
+    SearchPreview(query:string, categoryId:number|undefined):Promise<AxiosResponse<ProductSearchPreview[]>>{
+        let url = `/public/searchpreview?Querry=${query}`
+        if(categoryId != undefined) url += `&CategoryId=${categoryId}`
+        return axiosInstance.get<ProductSearchPreview[]>(url);
+    },
+   CategoriesSearchPreview(query:string):Promise<AxiosResponse<CategoriesSearchPreview[]>>{
+        return axiosInstance.get<CategoriesSearchPreview[]>(`/public/catsearchpw?Querry=${query}`);
+    },
+    GetState():Promise<AxiosResponse<AppState>>{
+        return axiosInstance.get<AppState>(`/public/getstate`);
     }
 }
