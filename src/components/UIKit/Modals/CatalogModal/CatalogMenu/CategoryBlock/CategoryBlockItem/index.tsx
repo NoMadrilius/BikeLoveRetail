@@ -28,7 +28,7 @@ const CategoryBlockItem = ({
         queryParameters: { id: category.id },
         slug: category.transliterationName,
       })}
-      className={`flex items-center px-3 py-1 bg-white cursor-pointer group ${
+      className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}
     >

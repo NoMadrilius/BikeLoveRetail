@@ -7,7 +7,7 @@ interface GradientButtonProps {
   label: string;
   className?: string;
   textstyles?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const GradientButton = ({

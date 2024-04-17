@@ -1,29 +1,32 @@
 import React, { useState } from "react";
-import {useCartStore} from "@/store/CartStore";
-import {observer} from "mobx-react";
+import { useCartStore } from "@/store/CartStore";
+import { observer } from "mobx-react";
 
-const CounterControl = ({ className,productId }: { className?: string, productId:number }) => {
+const CounterControl = ({
+  className,
+  productId,
+}: {
+  className?: string;
+  productId: number;
+}) => {
+  const cs = useCartStore();
+  const item = cs.cart.find((n) => n.product.id === productId);
 
-  const cs = useCartStore()
-  const item = cs.cart.find(n=>n.product.id === productId)
-
-  if(!item) return null
+  if (!item) return null;
 
   const incrementCount = () => {
-    cs.updateProductQuantity(productId,item.quantity+1)
+    cs.updateProductQuantity(productId, item.quantity + 1);
   };
 
   const decrementCount = () => {
     if (item.quantity > 1) {
-      cs.updateProductQuantity(productId,item.quantity-1)
+      cs.updateProductQuantity(productId, item.quantity - 1);
     }
   };
 
-
-
   return (
     <div
-      className={`relative flex items-center grow justify-center gap-2 ${className}`}
+      className={`relative flex items-center justify-center gap-2 ${className}`}
     >
       <button
         type="button"

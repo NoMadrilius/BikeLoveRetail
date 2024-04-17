@@ -2,14 +2,23 @@ import React from "react";
 import GradientButton from "../../Buttons/GradientButton";
 import CartCard from "../../Cards/CartCard";
 import CloseIcon from "../../NavigationPanel/Header/MobileView/CloseIcon";
-import {observer} from "mobx-react";
-import {useAppStore} from "@/store/AppStore";
-import {useCartStore} from "@/store/CartStore";
-import {useCurrencyStore} from "@/store/CurrencyStore";
+import { observer } from "mobx-react";
+import { useAppStore } from "@/store/AppStore";
+import { useCartStore } from "@/store/CartStore";
+import { useCurrencyStore } from "@/store/CurrencyStore";
 
 const CartModal = () => {
-  const cs = useCartStore()
-  const c = useCurrencyStore()
+  const cs = useCartStore();
+  const c = useCurrencyStore();
+  const closeModal = () => {
+    cs.setVisible(false);
+
+    document.body.style.overflow = "auto";
+  };
+
+  if (cs.visible) {
+    document.body.style.overflow = "hidden";
+  }
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-hidden rounded-lg">
       <div className="bg-white rounded-lg w-full max-w-[957px]">
@@ -19,15 +28,23 @@ const CartModal = () => {
               Кошик
             </h2>
             <span className="text-t-grey text-[14px] leading-[120%] font-inter">
-              {cs.cart.length + " поз. | " + cs.cart.reduce((acc, item) => acc + item.quantity,0) + " шт."}
+              {cs.cart.length +
+                " поз. | " +
+                cs.cart.reduce((acc, item) => acc + item.quantity, 0) +
+                " шт."}
             </span>
           </div>
-          <div className="p-[18px]">
-            <CloseModalIcon onClick={() => cs.setVisible(false)} />
+          <div
+            className="p-[18px] cursor-pointer hover:bg-[#C1C1C133] rounded-lg"
+            onClick={closeModal}
+          >
+            <CloseModalIcon />
           </div>
         </div>
-        <div className="h-[483px] overflow-scroll sm:px-5">
-          {cs.cart.map(n=><CartCard {...n} />)}
+        <div className="h-[483px] overflow-y-scroll sm:px-5">
+          {cs.cart.map((n) => (
+            <CartCard {...n} />
+          ))}
         </div>
         <div className="bg-dark py-3 px-10 sm:py-4 sm:px-5 flex items-center justify-between overflow-hidden rounded-b-lg">
           <div className="flex flex-col gap-5 sm:gap-2">
@@ -39,23 +56,22 @@ const CartModal = () => {
                 {c.useCurrency(cs.totalPrice)}
               </span>
             </div>
-            {
-              cs.totalDiscount>0&&
-                <div className="flex items-center gap-2">
-              <span className="text-[#DEDEDE] text-[14px] leading-[120%]">
-                Ви економите:
-              </span>
-                  <span className="text-link-pink text-[14px] font-medium leading-[120%]">
-                {c.useCurrency(cs.totalDiscount)}
-              </span>
-                </div>
-            }
+            {cs.totalDiscount > 0 && (
+              <div className="flex items-center gap-2">
+                <span className="text-[#DEDEDE] text-[14px] leading-[120%]">
+                  Ви економите:
+                </span>
+                <span className="text-link-pink text-[14px] font-medium leading-[120%]">
+                  {c.useCurrency(cs.totalDiscount)}
+                </span>
+              </div>
+            )}
           </div>
           <GradientButton
             label={"Оформити замовлення"}
             showIcon={false}
             className="max-w-[220px] w-full sm:max-w-[133px]"
-            textstyles="w-max text-center"
+            textstyles="!w-max "
           />
         </div>
       </div>
@@ -65,10 +81,9 @@ const CartModal = () => {
 
 export default observer(CartModal);
 
-const CloseModalIcon = ({ onClick }: { onClick: () => void }) => {
+const CloseModalIcon = () => {
   return (
     <svg
-      onClick={onClick}
       width="13.000000"
       height="13.000000"
       viewBox="0 0 13 13"

@@ -39,9 +39,9 @@ module.exports = {
       },
     },
     fontFamily: {
-      "robot-c": ["Roboto Condensed", ...defaultTheme.fontFamily.sans],
-      robot: ["Roboto", ...defaultTheme.fontFamily.sans],
-      inter: ["Inter", ...defaultTheme.fontFamily.sans],
+      "robot-c": ['"Roboto Condensed"', "sans"],
+      robot: ["Roboto", "sans"],
+      inter: ["Inter", "sans"],
     },
     screens: {
       lt: { min: "0px", max: "374px" },

@@ -28,7 +28,7 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
         slug: category.transliterationName,
       })}
       onClick={onClick}
-      className="flex items-center px-3 py-1 bg-white cursor-pointer group"
+      className="flex items-center justify-between px-3 py-1 bg-white cursor-pointer group"
     >
       <div className="flex items-center gap-2">
         <Image
