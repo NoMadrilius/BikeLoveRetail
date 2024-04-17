@@ -1,26 +1,30 @@
 import React, { useRef, useState } from "react";
 import SwiperCore from "swiper";
-import { Swiper, SwiperSlide, SwiperRef } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
 import NavigationButtons from "./NavigationButtons";
-
+import Pagination from "@/components/UIKit/NavigationPanel/Pagination";
+import useSlider from "@/helpers/hooks/useSlider";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Pagination as P } from "swiper/modules";
-import Pagination from "@/components/UIKit/NavigationPanel/Pagination";
-import useSlider from "@/helpers/hooks/useSlider";
-import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 SwiperCore.use([P]);
 
 interface SwiperSliderProps {
   title: string;
   rightText: string;
   lineStyles?: string;
-  products:ProductFullData[]
+  products: ProductFullData[];
 }
 
-const SwiperSlider = ({ title, rightText, lineStyles,products }: SwiperSliderProps) => {
+const SwiperSlider = ({
+  title,
+  rightText,
+  lineStyles,
+  products,
+}: SwiperSliderProps) => {
   const {
     swiperRef,
     isBeginning,
@@ -29,7 +33,7 @@ const SwiperSlider = ({ title, rightText, lineStyles,products }: SwiperSliderPro
     goNext,
     goPrev,
     handleSlideChange,
-  } = useSlider(0, 6);
+  } = useSlider(0, products.length - 1);
 
   return (
     <section>
@@ -46,28 +50,14 @@ const SwiperSlider = ({ title, rightText, lineStyles,products }: SwiperSliderPro
       <div className="max-w-[988px] xl:max-w-[864px] relative">
         <Swiper
           ref={swiperRef}
-          slidesPerView="auto"
-          navigation={{
-            prevEl: ".swiper-button-prev",
-            nextEl: ".swiper-button-next",
-          }}
-          style={{ display: "flex", gap: "2px" }}
+          slidesPerView={1}
+          spaceBetween={16}
           onSlideChange={handleSlideChange}
           breakpoints={{
-            375: {
-              slidesPerView: 2,
-            },
-            1280: {
-              slidesPerView: 3,
-            },
-            1440: {
-              slidesPerView: 3,
-            },
-            1920: {
-              slidesPerView: 3,
-            },
+            375: { slidesPerView: 2 },
+            1440: { slidesPerView: 3 },
+            1280: { slidesPerView: 3 },
           }}
-          className="swiper-custom"
         >
           {products.map((el, index) => (
             <SwiperSlide
@@ -78,8 +68,11 @@ const SwiperSlider = ({ title, rightText, lineStyles,products }: SwiperSliderPro
             </SwiperSlide>
           ))}
         </Swiper>
-        <Pagination currentIndex={currentIndex} totalSlides={4} />
       </div>
+      <Pagination
+        currentIndex={currentIndex}
+        totalSlides={products.length - 1}
+      />
     </section>
   );
 };

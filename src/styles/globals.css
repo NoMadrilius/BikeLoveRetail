@@ -46,9 +46,24 @@
   gap: 16px;
 }
 
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper .swiper-slide {
+  height: auto;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
 @media screen and (min-width: 1280px) and (max-width: 1440px) {
   .swiper-custom .swiper-wrapper {
     gap: 20px;
+    height: 100% !important;
   }
 }
 
