@@ -10,7 +10,7 @@ const Footer = () => {
       <div>
         <p className="text-white font-light leading-[19.2px]">@ 2024</p>
         <p className="text-white font-light leading-[19.2px] max-w-[155px]">
-          Всі права захищені Публічна оферта
+          Всі права захищені
         </p>
       </div>
       <div className="flex gap-5">

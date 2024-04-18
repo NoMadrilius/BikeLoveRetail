@@ -7,7 +7,7 @@ interface RoundedButtonProps {
   altText?: string;
   text?: string;
   size?: number;
-  onClick: () => void;
+  onClick: (e: any) => void;
 }
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({

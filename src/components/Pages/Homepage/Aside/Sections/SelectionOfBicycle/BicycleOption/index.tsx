@@ -6,14 +6,14 @@ const BicycleOption = ({
   label,
   onInputChange,
   placeholder,
+                         value
 }: {
   label: string;
-  onInputChange?: (n?: string) => void;
+  onInputChange: (n: string) => void;
+  value:string
   placeholder?: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [gradientWidth, setGradientWidth] = useState(0);
 
   const toggleInput = () => {
     setShowInput(!showInput);
@@ -21,15 +21,7 @@ const BicycleOption = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInputValue(value);
-    if (onInputChange) {
-      onInputChange(value);
-    }
-
-    const inputValueNumber = parseFloat(value.replace(/\D/g, ""));
-    const maxInputValue = 120000;
-    const calculatedWidth = (inputValueNumber / maxInputValue) * 100;
-    setGradientWidth(calculatedWidth);
+    onInputChange(value);
   };
 
   return (
@@ -39,7 +31,7 @@ const BicycleOption = ({
         <div className="relative px-5">
           <input
             type="text"
-            value={inputValue}
+            value={value}
             onChange={handleChange}
             className="block w-full py-[14.5px] px-5 max-h-[48px] text-sm text-t-grey
                 font-light leading-[120%] bg-transparent border border-[#DADADA] rounded-lg font-inter"

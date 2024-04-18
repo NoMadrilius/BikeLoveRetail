@@ -50,7 +50,7 @@ const BrandOption = ({
                     <Dropdown
                         label={"Оберіть бренд"}
                         options={bs.options?dictionaryToArray(bs.options.brandVariants):[]}
-                        onSelect={()=>{}}
+                        onSelect={(v)=>{bs.setSelectedBrand(v)}}
                     />
 
 

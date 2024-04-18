@@ -37,7 +37,7 @@ const ProductTitle = ({
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
       } ${className}`}
     >
-      <span className="line-clamp-5 text-[16px] leading-[19.36px] font-semibold font-inter hover:font-extrabold">
+      <span className="line-clamp-5 text-[16px] leading-[19.36px] font-semibold font-inter">
         {truncatedText}
       </span>
     </h3>

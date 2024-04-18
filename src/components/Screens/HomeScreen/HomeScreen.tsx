@@ -57,7 +57,7 @@ const HomeScreen = () => {
         <BicycleWorkshop />
         <BicyclesByPurpose />
         <AboutUs />
-        <Articles />
+        {/*<Articles />*/}
         <Feedbacks />
         <CommonQuestions />
         <ContactUs />

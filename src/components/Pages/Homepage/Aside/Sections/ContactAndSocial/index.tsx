@@ -3,14 +3,14 @@ import Link from "next/link";
 import React from "react";
 
 const socialMediaData = [
-  { href: "#", src: "/images/homepage/icons/social/viber.svg", alt: "Viber" },
+  { href: "viber://chat?number=%2B380932118930", src: "/images/homepage/icons/social/viber.svg", alt: "Viber" },
   {
-    href: "#",
+    href: "https://www.instagram.com/blcofficial/",
     src: "/images/homepage/icons/social/insta.svg",
     alt: "Instagram",
   },
   {
-    href: "#",
+    href: "https://t.me/+380932118930",
     src: "/images/homepage/icons/social/telegram.svg",
     alt: "Telegram",
   },

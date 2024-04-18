@@ -12,7 +12,7 @@ import { observer } from "mobx-react";
 const BicyclesByPurpose = () => {
   const as = useAppStore();
   const r = useRouter();
-  const cats = [0, 1, 2, 3, 4, 5].map((n, index) => {
+  const cats = [0, 1, 2, 3, 4].map((n, index) => {
     let set = as.bikePorpouseCategories[index];
     let cat = as.categories.find((g) => g.id === set)!;
     return {

@@ -1,15 +1,21 @@
 import { ClearIcon } from "@/components/UIKit/SVGIcons";
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import {useSearchStore} from "@/store/SearchStore";
 import {observer} from "mobx-react";
 
 const SearchInput = () => {
 
   const ss = useSearchStore()
+  const inputRef = useRef(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     ss.setQuery(e.target.value)
   };
+
+  useEffect(()=>{
+    //@ts-ignore
+    if(ss.isOpenSearch) inputRef.current.focus()
+  },[ss.isOpenSearch])
 
   const clearInput = () => {
     ss.setQuery("")
@@ -18,6 +24,7 @@ const SearchInput = () => {
   return (
     <div className="relative w-full">
       <input
+          ref={inputRef}
         type="text"
         className="px-5 py-3 text-dark w-full"
         placeholder="Шукати..."

@@ -41,5 +41,8 @@ export const PublicAPI = {
     },
     GetState():Promise<AxiosResponse<AppState>>{
         return axiosInstance.get<AppState>(`/public/getstate`);
+    },
+    BikeSelectorCount():Promise<AxiosResponse<number>>{
+       return axiosInstance.get<number>(`/public/bikeselectorcount`);
     }
 }

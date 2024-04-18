@@ -26,25 +26,28 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
         <Dropdown
           label="Оберіть тип"
           options={bs.options?dictionaryToArray(bs.options.typesVariants):[]}
-          onSelect={()=>{}}
+          onSelect={(v)=>{bs.setSelectedType(v)}}
         />
         <Dropdown
           label="Оберіть зріст, см"
           options={bs.options?dictionaryToArray(bs.options.sizeVariants):[]}
-          onSelect={()=>{}}
+          onSelect={(v)=>{bs.setSelectedSize(v)}}
         />
         <div>
           <BicycleOption
             label="Велосипеди від UAH"
-            onInputChange={() => {}}
+            onInputChange={(v) => bs.setMin(v)}
+            value={bs.min.toString()}
             placeholder="від 1000 UAH"
           />
           <BicycleOption
             label="Велосипеди до UAH"
-            onInputChange={() => {}}
+            onInputChange={(v) => bs.setMax(v)}
+            value={bs.max.toString()}
             placeholder="до 120 000 UAH"
           />
 
+          {/*
           <div className="w-full h-[8px] bg-[#F2F2F2] rounded-full my-[11px]">
             <div
                 className="h-full max-w-full bg-gradient-custom rounded-full"
@@ -54,18 +57,24 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
                 }}
             />
           </div>
+          */}
+
         </div>
         <BrandOption label={"Додати бренд"} onInputChange={()=>{}}/>
-        <GradientButton
-          label={"Показати"}
-          showIcon={false}
-          className="w-full flex !py-[14.5px] justify-center"
-        />
+        {
+          bs.active&&
+            <GradientButton
+                label={"Показати"}
+                showIcon={false}
+                className="w-full flex !py-[14.5px] justify-center"
+            />
+        }
+
         <div className="mx-auto flex">
           <span className="font-light text-[14px] leading-[19.2px] text-dark font-inter">
             Знайдено товарів{" "}
             <span className="font-semibold leading-[19.36px] text-[16px] text-dark">
-              1203
+              {bs.count}
             </span>
           </span>
         </div>
