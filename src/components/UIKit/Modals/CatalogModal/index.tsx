@@ -11,10 +11,10 @@ const CatalogModal = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsWindowWide(window.innerWidth > 1280);
+      setIsWindowWide(window.innerWidth > 743);
     };
 
-    setIsWindowWide(window.innerWidth > 1280);
+    setIsWindowWide(window.innerWidth > 743);
 
     window.addEventListener("resize", handleResize);
 
@@ -34,6 +34,7 @@ const CatalogModal = () => {
 
   return (
     <div className="lg:fixed lg:inset-0 z-50 flex items-center justify-center">
+
       <div
         className="absolute inset-0 bg-black opacity-50 sm:hidden"
         onClick={handleCloseMenu}
@@ -48,14 +49,15 @@ const CatalogModal = () => {
         <CatalogHeader />
         {isWindowWide ? (
           <>
-            <CatalogMenu />
-            <CatalogMain />
+            <CatalogMenu isMobile={false} />
+            <CatalogMain isMobile={false} />
           </>
-        ) : as.isOpenCategories ? (
-          <CatalogMenu />
-        ) : (
-          <CatalogMain />
-        )}
+        ) : as.selectedCategory === null?
+              <CatalogMenu isMobile={true} />:
+              <CatalogMain isMobile={true} />
+        }
+
+
       </div>
     </div>
   );

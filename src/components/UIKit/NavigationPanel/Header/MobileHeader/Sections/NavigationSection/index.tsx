@@ -13,7 +13,7 @@ const NavigationSection = () => {
         className="flex items-center gap-3 px-5 py-3"
         onClick={() => {
           menuStore.closeMenu();
-          as.setIsOpenCategories(!as.isOpenCategories)
+          as.setIsOpenCategories(true)
         }}
       >
         <div className="shrink-0 relative w-[48px] h-[48px] bg-[#F2F2F2] flex items-center justify-center rounded-full">

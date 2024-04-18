@@ -9,9 +9,7 @@ import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
 
 const Aside = () => {
-  const as = useAppStore()
   return (
-      as.isDisplayAside&&
     <aside className="w-full max-w-[304px] lg:flex xl:flex 2xl:flex hidden flex-col gap-8">
       <ProductCategory />
       <SelectionOfBicycle />
@@ -24,4 +22,4 @@ const Aside = () => {
   );
 };
 
-export default observer(Aside);
+export default Aside;

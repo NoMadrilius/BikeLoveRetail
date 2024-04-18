@@ -26,8 +26,6 @@ class AppStore{
     //del
     categoryTree: TreeNode[] = []
 
-    isDisplayAside = false
-
     constructor() {
         makeAutoObservable(this)
         if(typeof window != "undefined")
@@ -64,7 +62,6 @@ class AppStore{
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
     setIsOpenCategories(v:boolean) {this.isOpenCategories=v}
     setIsOpenSettings(v:boolean) {this.isOpenSettings=v}
-    setIsDisplayAside(v:boolean) {this.isDisplayAside=v}
 
     buildTree(data: ProductCategory[], parentId: number = 0, depth:number = 0) {
         const tree: TreeNode[] = []

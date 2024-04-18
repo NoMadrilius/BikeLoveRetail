@@ -20,7 +20,6 @@ const Header = () => {
   const as = useAppStore();
   const cs = useCartStore();
   const ss = useSearchStore();
-  const catStore = useCatalogStore();
   return (
     <>
       <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-2 md:px-0 sm:justify-between">
@@ -31,7 +30,7 @@ const Header = () => {
           ) : (
             <DesktopView
               setIsModalOpen={() =>
-                as.setIsOpenCategories(!as.isOpenCategories)
+                as.setIsOpenCategories(true)
               }
             />
           )}
@@ -42,7 +41,7 @@ const Header = () => {
           label={"Каталог товарів"}
           textstyles="!w-max"
           className="justify-center"
-          onClick={() => {}}
+          onClick={() => {as.setIsOpenCategories(true)}}
         />
         <GradientButton
           bgColor="bg-[#5D5555]"

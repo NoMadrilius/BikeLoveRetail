@@ -14,6 +14,7 @@ const MobileView = () => {
         <LogoImage classname="!mx-0" />
         <CloseIcon
           onClick={() => {
+
               as.setIsOpenCategories(false)
             store.closeMenu();
           }}

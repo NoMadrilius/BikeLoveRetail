@@ -16,7 +16,9 @@ const DesktopView = ({
       <div className="hidden sm2:flex h-full gap-3 xl:flex lg:flex 2xl:flex min-h-[48px] lg:grow">
         <GradientButton
           label={"Каталог товарів"}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+              setIsModalOpen(true)
+          }}
           textstyles="!w-full xl:shrink-0 lg:shrink-0"
           className="xl:shrink-0 lg:shrink-0 xl:py-3 xl:px-4 xl:py-3 xl:px-4 max-w-[193px] lg:max-w-[201px]"
         />

@@ -10,7 +10,13 @@ const CatalogHeader = () => {
       <div className="py-3 flex items-center gap-16">
         <div
           className="p-3 cursor-pointer"
-          onClick={() => as.setIsOpenCategories(false)}
+          onClick={() => {
+            if(as.selectedCategory === null){
+              as.setIsOpenCategories(false)
+            }else{
+              as.setSelectedCategory(null)
+            }
+          }}
         >
           <Image
             src={"/images/homepage/icons/right-arrow.svg"}

@@ -13,7 +13,6 @@ export default function Home(props:{as:AppState|null}) {
   console.log("appState:",props)
   if(props.as){
     useAppStore().setServerData(props.as)
-    useAppStore().setIsDisplayAside(true)
     useCurrencyStore().setServerData(props.as)
     useBikeSelectionStore().setOptions(props.as.bikeSelectState)
   }
