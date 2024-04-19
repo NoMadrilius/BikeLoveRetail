@@ -20,8 +20,8 @@ const CartModal = () => {
     document.body.style.overflow = "hidden";
   }
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-hidden rounded-lg">
-      <div className="bg-white rounded-lg w-full max-w-[957px]">
+    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[1000000] overflow-hidden sm:rounded-none rounded-lg">
+      <div className="bg-white rounded-lg w-full max-w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none">
         <div className="flex justify-between items-center py-2 px-5  border-b border-gray">
           <div className="flex items-center gap-5">
             <h2 className="text-[20px] font-bold leading-[120%] font-robot-c text-dark-text">
@@ -41,12 +41,12 @@ const CartModal = () => {
             <CloseModalIcon />
           </div>
         </div>
-        <div className="h-[483px] overflow-y-scroll sm:px-5">
+        <div className="h-[483px] sm:h-[531px] overflow-y-scroll sm:px-5">
           {cs.cart.map((n) => (
             <CartCard {...n} />
           ))}
         </div>
-        <div className="bg-dark py-3 px-10 sm:py-4 sm:px-5 flex items-center justify-between overflow-hidden rounded-b-lg">
+        <div className="bg-dark py-3 px-10 sm:py-4 sm:px-5 flex items-center justify-between overflow-hidden sm:rounded-b-none rounded-b-lg sm:mt-auto">
           <div className="flex flex-col gap-5 sm:gap-2">
             <div className="flex sm:flex-col flex-row items-center sm:items-start gap-2">
               <span className="text-white text-[18px] leading-[22px] sm:text-[16px] sm:leading-[19.2px]">

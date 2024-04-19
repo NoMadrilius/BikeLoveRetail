@@ -1,20 +1,21 @@
 import React from "react";
 import Image from "next/image";
-import {useAppStore} from "@/store/AppStore";
+import { useAppStore } from "@/store/AppStore";
 
 const CatalogHeader = () => {
-  const as = useAppStore()
+  const as = useAppStore();
 
   return (
-    <div className="py-2 px-5 bg-white flex border border-b-gray hidden sm:block">
-      <div className="py-3 flex items-center gap-16">
+    <div className="py-2 px-5 bg-white border border-b-gray hidden sm:flex md:flex w-full">
+      <div className="py-3 flex items-center gap-16 sm:gap-0 md:gap-0 w-full">
         <div
-          className="p-3 cursor-pointer"
+          className="p-3 cursor-pointer hover:bg-[#C1C1C133] rounded-lg py-2"
           onClick={() => {
-            if(as.selectedCategory === null){
-              as.setIsOpenCategories(false)
-            }else{
-              as.setSelectedCategory(null)
+            if (as.selectedCategory === null) {
+              as.setIsOpenCategories(false);
+              document.body.style.overflow = "auto";
+            } else {
+              as.setSelectedCategory(null);
             }
           }}
         >
@@ -23,10 +24,10 @@ const CatalogHeader = () => {
             alt={"Arrow"}
             width={10}
             height={10}
-            className={`mx-auto sm:mr-10 transform transition-transform duration-300 -rotate-180`}
+            className={`mx-auto md:mr-0 sm:mr-0 transform transition-transform duration-300 -rotate-180 `}
           />
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3  sm:m-auto md:m-auto">
           {!as.selectedCategory ? (
             <Image
               src={"/images/uikit/header/catalog.svg"}

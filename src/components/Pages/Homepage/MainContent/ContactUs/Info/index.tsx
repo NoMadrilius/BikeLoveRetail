@@ -5,7 +5,7 @@ import Link from "next/link";
 const Info = () => {
   return (
     <div className="flex gap-5 grow w-full xl:flex-row lg:flex-row md:flex-row md:items-start flex-col items-center lg:items-start xl:items-start">
-      <div className="grow lg:w-1/2 xl:w-full xl:max-w-[204.36px]">
+      <div className="grow lg:w-1/2 xl:w-full xl:max-w-[204.36px] sm:text-center">
         <h3 className="font-bold text-[20px] leading-[24px] text-dark mb-5 font-robot-c">
           Магазини
         </h3>
@@ -21,7 +21,7 @@ const Info = () => {
             <h4 className="font-semibold text-dark text-[16px] leading-[19.36px]">
               Години роботи
             </h4>
-            <div className="flex gap-3">
+            <div className="flex gap-3 sm:justify-center">
               <span className="font-semibold text-dark text-[16px] leading-[19.36px]">
                 Пн - Пт:{" "}
               </span>
@@ -29,7 +29,7 @@ const Info = () => {
                 10.00 - 18.00
               </span>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 sm:justify-center">
               <span className="font-semibold text-dark text-[16px] leading-[19.36px]">
                 Cб - Нд:{" "}
               </span>
@@ -94,26 +94,26 @@ const Info = () => {
           <div className="flex gap-5 mx-auto lg:mx-0 xl:mx-0">
             <Link href={"viber://chat?number=%2B380932118930"}>
               <Image
-                  src="/images/homepage/icons/social/viber-black.svg"
-                  alt="Viber"
-                  width={24}
-                  height={24}
+                src="/images/homepage/icons/social/viber-black.svg"
+                alt="Viber"
+                width={24}
+                height={24}
               />
             </Link>
             <Link href={"https://www.instagram.com/blcofficial/"}>
               <Image
-                  src="/images/homepage/icons/social/instagram-black.svg"
-                  alt="Instagram"
-                  width={24}
-                  height={24}
+                src="/images/homepage/icons/social/instagram-black.svg"
+                alt="Instagram"
+                width={24}
+                height={24}
               />
             </Link>
-            <Link href={"https://t.me/+380932118930"} >
+            <Link href={"https://t.me/+380932118930"}>
               <Image
-                  src="/images/homepage/icons/social/telegram-black.svg"
-                  alt="Telegram"
-                  width={24}
-                  height={24}
+                src="/images/homepage/icons/social/telegram-black.svg"
+                alt="Telegram"
+                width={24}
+                height={24}
               />
             </Link>
           </div>

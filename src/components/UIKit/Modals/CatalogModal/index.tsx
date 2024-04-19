@@ -11,10 +11,10 @@ const CatalogModal = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsWindowWide(window.innerWidth > 743);
+      setIsWindowWide(window.innerWidth > 1279);
     };
 
-    setIsWindowWide(window.innerWidth > 743);
+    setIsWindowWide(window.innerWidth > 1279);
 
     window.addEventListener("resize", handleResize);
 
@@ -34,17 +34,20 @@ const CatalogModal = () => {
 
   return (
     <div className="lg:fixed lg:inset-0 z-50 flex items-center justify-center">
-
       <div
-        className="absolute inset-0 bg-black opacity-50 sm:hidden"
+        className="absolute inset-0 bg-black opacity-50 sm:hidden md:hidden"
         onClick={handleCloseMenu}
       ></div>
       <div
         className={`z-50 bg-white xl:gap-[22px] 2xl:gap-[22px] lg:gap-[22px] flex-col 
-        md:flex-row xl:flex-row lg:flex-row 2xl:flex-row 
-        sm:rounded-none rounded-lg shadow-lg lg:absolute
-        top-32 sm:top-[88px]
-        left-1/2 lg:transform lg:-translate-x-1/2 flex w-full max-w-[1280px]`}
+        md:flex-col xl:flex-row lg:flex-row 2xl:flex-row 
+        sm:rounded-none md:rounded-none rounded-lg shadow-lg lg:absolute
+        top-6 sm:top-[88px] md:top-[88px] md:absolute md:left-0 sm:shadow-none md:shadow-none
+        left-1/2 lg:transform lg:-translate-x-1/2 flex w-full max-w-[1280px] ${
+          as.selectedCategory === null
+            ? "sm:h-[calc(100vh-140px)] md:h-[calc(100vh-87px)] h-full"
+            : "h-auto"
+        }`}
       >
         <CatalogHeader />
         {isWindowWide ? (
@@ -52,12 +55,11 @@ const CatalogModal = () => {
             <CatalogMenu isMobile={false} />
             <CatalogMain isMobile={false} />
           </>
-        ) : as.selectedCategory === null?
-              <CatalogMenu isMobile={true} />:
-              <CatalogMain isMobile={true} />
-        }
-
-
+        ) : as.selectedCategory === null ? (
+          <CatalogMenu isMobile={true} />
+        ) : (
+          <CatalogMain isMobile={true} />
+        )}
       </div>
     </div>
   );
