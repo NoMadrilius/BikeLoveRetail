@@ -47,7 +47,7 @@ const SwiperSlider = ({
         lineStyles={lineStyles}
       />
 
-      <div className="max-w-[988px] xl:max-w-[864px] relative">
+      <div className="max-w-[988px] sm:max-w-[335px] xl:max-w-[864px] relative">
         <Swiper
           ref={swiperRef}
           slidesPerView={1}
