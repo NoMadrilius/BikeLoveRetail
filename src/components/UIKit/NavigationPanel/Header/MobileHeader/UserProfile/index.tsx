@@ -18,14 +18,14 @@ const UserProfile = () => {
       <div className="px-5 flex flex-col gap-1">
         <div className="flex gap-3">
           <button
-            className="leading-[19px] border-none text-white"
+            className="leading-[19px] border-none text-white hover:text-link-pink"
             onClick={() => store.saveAuthType("login")}
           >
             Вхід
           </button>
           <div className="w-[1px] bg-border-grey" />
           <button
-            className="leading-[19px] border-none text-white"
+            className="leading-[19px] border-none text-white hover:text-link-pink"
             onClick={() => store.saveAuthType("registration")}
           >
             Реєстрація

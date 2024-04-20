@@ -3,16 +3,20 @@ import { PlusIcon, MinusIcon, ClearIcon } from "@/components/UIKit/SVGIcons";
 import Dropdown from "@/components/UIKit/InputFields/Dropdown";
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import BicycleOption from "./BicycleOption";
-import {useBikeSelectionStore} from "@/store/BikeSelectionStore";
-import {observer} from "mobx-react";
+import { useBikeSelectionStore } from "@/store/BikeSelectionStore";
+import { observer } from "mobx-react";
 import BrandOption from "@/components/Pages/Homepage/Aside/Sections/SelectionOfBicycle/BrandOption";
 
 const SelectionOfBicycle = ({ className }: { className?: string }) => {
+  const bs = useBikeSelectionStore();
 
-  const bs = useBikeSelectionStore()
-
-  function dictionaryToArray(dict: { [key: number]: string }): { id: number, name: string }[] {
-    return Object.keys(dict).map(key => ({ id: parseInt(key), name: dict[parseInt(key)] }));
+  function dictionaryToArray(dict: {
+    [key: number]: string;
+  }): { id: number; name: string }[] {
+    return Object.keys(dict).map((key) => ({
+      id: parseInt(key),
+      name: dict[parseInt(key)],
+    }));
   }
 
   return (
@@ -25,13 +29,19 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
       <div className="flex flex-col gap-5 md:p-5 md:bg-white md:rounded-lg md:grow">
         <Dropdown
           label="Оберіть тип"
-          options={bs.options?dictionaryToArray(bs.options.typesVariants):[]}
-          onSelect={(v)=>{bs.setSelectedType(v)}}
+          options={
+            bs.options ? dictionaryToArray(bs.options.typesVariants) : []
+          }
+          onSelect={(v) => {
+            bs.setSelectedType(v);
+          }}
         />
         <Dropdown
           label="Оберіть зріст, см"
-          options={bs.options?dictionaryToArray(bs.options.sizeVariants):[]}
-          onSelect={(v)=>{bs.setSelectedSize(v)}}
+          options={bs.options ? dictionaryToArray(bs.options.sizeVariants) : []}
+          onSelect={(v) => {
+            bs.setSelectedSize(v);
+          }}
         />
         <div>
           <BicycleOption
@@ -58,17 +68,15 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
             />
           </div>
           */}
-
         </div>
-        <BrandOption label={"Додати бренд"} onInputChange={()=>{}}/>
-        {
-          bs.active&&
-            <GradientButton
-                label={"Показати"}
-                showIcon={false}
-                className="w-full flex !py-[14.5px] justify-center"
-            />
-        }
+        <BrandOption label={"Додати бренд"} onInputChange={() => {}} />
+        {bs.active && (
+          <GradientButton
+            label={"Показати"}
+            showIcon={false}
+            className="w-full flex !py-[14.5px] justify-center"
+          />
+        )}
 
         <div className="mx-auto flex">
           <span className="font-light text-[14px] leading-[19.2px] text-dark font-inter">

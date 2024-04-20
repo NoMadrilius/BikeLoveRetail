@@ -11,14 +11,12 @@ const CloseIcon = ({
   imgSrc = "/images/homepage/icons/cross.svg",
 }: CloseIconProps) => {
   return (
-    <Image
-      src={imgSrc}
-      alt={"Cross"}
-      width={12}
-      height={12}
+    <div
+      className="p-2 cursor-pointer hover:bg-[#C1C1C133] rounded-lg flex items-center justify-center"
       onClick={onClick}
-      className="cursor-pointer"
-    />
+    >
+      <Image src={imgSrc} alt={"Cross"} width={12} height={12} />
+    </div>
   );
 };
 

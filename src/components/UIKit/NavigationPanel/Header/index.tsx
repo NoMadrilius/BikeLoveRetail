@@ -22,17 +22,13 @@ const Header = () => {
   const ss = useSearchStore();
   return (
     <>
-      <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-2 md:px-0 sm:justify-between">
+      <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-3 md:px-0 sm:justify-between">
         <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 md:justify-center sm:gap-0 xl:gap-6 lg:gap-8 xl:justify-center">
           {!isOpen ? <HamburgerMenu /> : null}
           {isOpen ? (
             <MobileView />
           ) : (
-            <DesktopView
-              setIsModalOpen={() =>
-                as.setIsOpenCategories(true)
-              }
-            />
+            <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />
           )}
         </div>
       </header>
@@ -41,7 +37,9 @@ const Header = () => {
           label={"Каталог товарів"}
           textstyles="!w-max"
           className="justify-center"
-          onClick={() => {as.setIsOpenCategories(true)}}
+          onClick={() => {
+            as.setIsOpenCategories(true);
+          }}
         />
         <GradientButton
           bgColor="bg-[#5D5555]"

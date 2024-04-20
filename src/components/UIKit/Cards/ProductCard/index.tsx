@@ -25,7 +25,7 @@ const ProductCard = (p: { product: ProductFullData }) => {
         slug: p.product.product.transliteration,
       })}
     >
-      <article className="flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
+      <article className="md:max-w-[322px] flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
         <>
           {p.product.product.oldRetailPrice > p.product.product.retailPrice && (
             <RoundedButton

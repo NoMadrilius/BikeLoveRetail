@@ -6,11 +6,11 @@ const BicycleOption = ({
   label,
   onInputChange,
   placeholder,
-                         value
+  value,
 }: {
   label: string;
   onInputChange: (n: string) => void;
-  value:string
+  value: string;
   placeholder?: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
@@ -26,9 +26,8 @@ const BicycleOption = ({
 
   return (
     <div className="w-full">
-
       {showInput ? (
-        <div className="relative px-5">
+        <div className="relative px-5 flex">
           <input
             type="text"
             value={value}
@@ -38,28 +37,27 @@ const BicycleOption = ({
             placeholder={placeholder}
           />
 
-            <span
-              className="absolute inset-y-0 right-0 flex items-center pr-8 -top-[14px]"
-              onClick={toggleInput} style={{color:"black"}}
-            >
-              <ClearIcon />
-            </span>
-
-
-        </div>
-      ):
-          <div
-              className={`${
-                  showInput ? "px-5 pt-[10.5px] pb-[14.5px]" : "py-[16.5px] px-5"
-              } flex items-center justify-between cursor-pointer`}
-              onClick={toggleInput}
+          <span
+            className="absolute inset-y-0 right-0 flex items-center pr-8 cursor-pointer"
+            onClick={toggleInput}
+            style={{ color: "black" }}
           >
-        <span className="text-[#6B6B6B] text-[16px] leading-[19.2px] font-light">
-          {label}
-        </span>
+            <ClearIcon />
+          </span>
+        </div>
+      ) : (
+        <div
+          className={`${
+            showInput ? "px-5 pt-[10.5px] pb-[14.5px]" : "py-[16.5px] px-5"
+          } flex items-center justify-between cursor-pointer hover:bg-[#C1C1C133] rounded-lg`}
+          onClick={toggleInput}
+        >
+          <span className="text-[#6B6B6B] text-[16px] leading-[19.2px] font-light">
+            {label}
+          </span>
           <PlusIcon />
-          </div>
-      }
+        </div>
+      )}
     </div>
   );
 };

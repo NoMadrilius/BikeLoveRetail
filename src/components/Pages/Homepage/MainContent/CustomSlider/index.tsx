@@ -47,7 +47,7 @@ const SwiperSlider = ({
         lineStyles={lineStyles}
       />
 
-      <div className="max-w-[988px] xl:max-w-[864px] relative">
+      <div className="max-w-[988px]  md:!max-w-[664px] sm:max-w-[335px] xl:max-w-[864px] relative">
         <Swiper
           ref={swiperRef}
           slidesPerView={1}
@@ -62,7 +62,7 @@ const SwiperSlider = ({
           {products.map((el, index) => (
             <SwiperSlide
               key={index}
-              className="max-w-[159px] w-full lg:!max-w-[316px] xl:max-w-[274.67px]"
+              className="max-w-[159px] w-full  md:!max-w-[322px] lg:!max-w-[316px] xl:max-w-[274.67px]"
             >
               <ProductCard product={el} />
             </SwiperSlide>

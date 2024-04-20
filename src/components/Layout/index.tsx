@@ -11,7 +11,7 @@ const Layout = ({ children }: any) => {
     <>
       <Header />
       <PhoneVerification />
-        <Main>{children}</Main>
+      <Main>{children}</Main>
     </>
   );
 };
