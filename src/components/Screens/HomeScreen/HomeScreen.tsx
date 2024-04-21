@@ -15,18 +15,16 @@ import { observer } from "mobx-react";
 import { useAppStore } from "@/store/AppStore";
 import { useEffect } from "react";
 import Aside from "@/components/Pages/Homepage/Aside";
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 
 const HomeScreen = () => {
   const as = useAppStore();
-  const { isOpen } = useBurgerMenuStore();
 
   useEffect(() => {
     as.loadSaleProducts();
     as.loadTopProducts();
   }, []);
 
-  if (isOpen || as.isOpenCategories) return null;
+  if (as.isOpenSidebar || as.isOpenCategories) return null;
 
   return (
     <div className="max-w-[1324px] mx-auto flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10">

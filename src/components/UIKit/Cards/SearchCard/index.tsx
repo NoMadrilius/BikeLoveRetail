@@ -10,17 +10,19 @@ import {useCurrencyStore} from "@/store/CurrencyStore";
 import Link from "next/link";
 import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
+import {useAppStore} from "@/store/AppStore";
+import {useSearchStore} from "@/store/SearchStore";
 
 const SearchCard = (p:{prod:ProductSearchPreview}) => {
     const c = useCurrencyStore()
     const r = useRouter();
-
+    const ss = useSearchStore()
     return (
       <Link href={GenerateLink(r, {
           basePath: "/product",
           queryParameters: { id: p.prod.productId },
           slug: "product"//p.prod.transliteration,
-      })}>
+      })} onClick={()=>{ss.setIsOpenSearch(false)}}>
           <article className="p-3 bg-white border-b border-gray flex items-center justify-between gap-2 w-full select-text cursor-pointer hover:bg-[#ffbccb]">
               <ProductImage
                   src={p.prod.image||""}

@@ -1,13 +1,11 @@
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import PasswordInput from "@/components/UIKit/InputFields/InputTypePassword";
 import InputWithPlaceholder from "@/components/UIKit/InputFields/InputWithPlaceholder";
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 
 import LogAsUser from "../LogAsUser";
 import AgreeTerms from "./AgreeTerms";
 
 const RegistrationForm = () => {
-  const store = useBurgerMenuStore();
 
   return (
     <div className="p-5 flex flex-col gap-5 ">
@@ -21,7 +19,8 @@ const RegistrationForm = () => {
       <div className="text-center">
         <button
           className="py-2 text-blue-link leading-[19px] cursor-pointer"
-          onClick={() => store.saveAuthType("login")}
+          onClick={() =>{}// store.saveAuthType("login")
+        }
         >
           Я вже зареєстрований
         </button>

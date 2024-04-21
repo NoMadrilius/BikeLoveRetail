@@ -17,7 +17,7 @@ const ProductCategory = ({ className }: ProductCategoryProps) => {
         .filter((n) => n.parentId === 0)
         .sort((a, b) => b.sortOrder - a.sortOrder)
         .map((n) => {
-          return <CategoryItem key={n.id} category={n} />;
+          return <CategoryItem key={n.id} category={n} onClick={()=>{as.setIsOpenSidebar(false);as.setIsOpenCategories(false)}} />;
         })}
     </section>
   );
