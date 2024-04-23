@@ -8,6 +8,7 @@ import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
 import {CategoriesSearchPreview} from "@/dataTransferObjects/response/CategoriesSearchPreview";
+import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
 
 export const PublicAPI = {
     CatalogProductsByCategory(data:CatalogProductsByCategoryRequest):Promise<AxiosResponse<CatalogPageResponse>>{
@@ -42,7 +43,7 @@ export const PublicAPI = {
     GetState():Promise<AxiosResponse<AppState>>{
         return axiosInstance.get<AppState>(`/public/getstate`);
     },
-    BikeSelectorCount():Promise<AxiosResponse<number>>{
-       return axiosInstance.get<number>(`/public/bikeselectorcount`);
+    BikeSelectorCount(data:BikeSelectCountRequest):Promise<AxiosResponse<number>>{
+       return axiosInstance.post<number>(`/public/bikeselectorcount`,data);
     }
 }

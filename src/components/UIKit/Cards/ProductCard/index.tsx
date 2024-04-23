@@ -17,15 +17,15 @@ const ProductCard = (p: { product: ProductFullData }) => {
   let imgs = p.product.productImages.sort((a, b) => b.sortOrder - a.sortOrder);
   const cs = useCartStore();
   const r = useRouter();
+
+  const link = GenerateLink(r, {
+      basePath: "/product",
+      queryParameters: { id: p.product.product.id },
+      slug: p.product.product.transliteration,
+  })
   return (
-    <Link
-      href={GenerateLink(r, {
-        basePath: "/product",
-        queryParameters: { id: p.product.product.id },
-        slug: p.product.product.transliteration,
-      })}
-    >
-      <article className="md:max-w-[322px] flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative">
+
+      <article className="md:max-w-[322px] flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative select-text">
         <>
           {p.product.product.oldRetailPrice > p.product.product.retailPrice && (
             <RoundedButton
@@ -39,7 +39,9 @@ const ProductCard = (p: { product: ProductFullData }) => {
           )}
 
           <ProductButtonsOnMobile />
+            <Link href={link} className={"cursor-pointer"}>
           <ProductImage src={imgs.length > 0 ? imgs[0].url : "null"} />
+            </Link>
 
           <RoundedButton
             imageUrl={"/images/uikit/card/heart.svg"}
@@ -51,7 +53,9 @@ const ProductCard = (p: { product: ProductFullData }) => {
             onClick={function (): void {}}
           />
         </>
-        <ProductTitle text={p.product.product.name} />
+          <Link href={link}  className={"cursor-pointer"}>
+          <ProductTitle text={p.product.product.name} />
+          </Link>
         {p.product.product.oldRetailPrice > p.product.product.retailPrice && (
           <LastPrice
             product={p.product.product}
@@ -62,15 +66,16 @@ const ProductCard = (p: { product: ProductFullData }) => {
         <GradientButton
           label={"Kупити"}
           showIcon={false}
-          className="!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center hidden "
+          className="!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center hidden"
           onClick={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
             cs.addToCart(p.product.product, p.product);
           }}
         />
         <Instock />
         <ProductSpecItems product={p.product} />
       </article>
-    </Link>
   );
 };
 
