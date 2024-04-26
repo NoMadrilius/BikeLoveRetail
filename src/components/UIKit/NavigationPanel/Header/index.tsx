@@ -15,7 +15,6 @@ import { useSearchStore } from "@/store/SearchStore";
 
 const Header = () => {
   const as = useAppStore();
-  const cs = useCartStore();
   const ss = useSearchStore();
   return (
     <>
@@ -54,7 +53,6 @@ const Header = () => {
       </div>
       {as.isOpenSidebar ? <MobileHeader /> : null}
       <CatalogModal />
-      {cs.visible ? <CartModal /> : null}
       {ss.isOpenSearch ? <SearchTableModal /> : null}
     </>
   );

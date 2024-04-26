@@ -26,7 +26,6 @@ class AuthStore {
   regName= ""
   regLastName= ""
   regPatronymic= ""
-  regEmail= ""
   regPhone= ""
   regPassword= ""
   regConfirmPassword= ""
@@ -57,17 +56,12 @@ class AuthStore {
         console.log('uodRes:',r)
         this.user = r.data
       }).catch(()=>{
-        //this.isAuth = false
+        this.isAuth = false
       })
     }
   }
 
   register = async (os:()=>void) => {
-
-    const validateEmail = (email: string) => {
-      const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegExp.test(email);
-    };
 
     if (this.regPassword !== this.regConfirmPassword) {
       this.passwordsError = true
@@ -80,24 +74,13 @@ class AuthStore {
         type: "error",
       });
     }
-    if (!validateEmail(this.regEmail)) {
-      this.emailError = true
-      setTimeout(() => {
-        this.emailError = false
-      }, 3000);
-      return showToast({
-        info: i18next.t("auth.toast.emailError"),
-        title: i18next.t("auth.toast.error"),
-        type: "error",
-      });
-    }
+
 
     let request:RegisterRequest = {
       firstName: this.regName,
       lastName: this.regLastName,
       patronymic: this.regPatronymic,
-      email: this.regEmail,
-      phone: this.regPhone.replace(/\s/g, ""),
+      phone: '+'+this.loginPhone.replace(/[^0-9]/g, ""),
       password: this.regPassword
     }
 
@@ -125,7 +108,7 @@ class AuthStore {
   };
   login = async (os:()=>void) => {
     let request:LoginRequest  ={
-      phone:this.loginPhone.replace(/\s/g, ""),
+      phone:'+'+this.loginPhone.replace(/[^0-9]/g, ""),
       password:this.loginPassword
     }
     this.loading = true
@@ -198,7 +181,6 @@ class AuthStore {
   setRegName(v:string){this.regName = v}
   setRegLastName(v:string){this.regLastName = v}
   setRegPatronymic(v:string){this.regPatronymic = v}
-  setRegEmail(v:string){this.regEmail = v}
   setRegPhone(v:string){this.regPhone = v}
   setRegPassword(v:string){this.regPassword = v}
   setRegConfirmPassword(v:string){this.regConfirmPassword = v}

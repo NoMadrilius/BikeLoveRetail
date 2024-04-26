@@ -3,17 +3,29 @@ import React from "react";
 import {useAppStore} from "@/store/AppStore";
 import {useCartStore} from "@/store/CartStore";
 import {observer} from "mobx-react";
+import {useAuthStore} from "@/store/AuthStore";
+import GeneratedUserIcon from "@/components/UIKit/GeneratedUserIcon/GeneratedUserIcon";
+import {useRouter} from "next/router";
 
 const NavigationIcons = () => {
     const cs = useCartStore()
+    const as = useAppStore()
+    const us = useAuthStore()
+    const r = useRouter()
   return (
     <div className="flex items-center ">
-      <div className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
-        <div className="relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer ">
-          <Image src={"/images/uikit/header/person.svg"} alt={"Person"} fill />
-        </div>
-      </div>
-
+        {
+            us.isAuth?
+                <div onClick={n=>r.push("/account")}>
+                    <GeneratedUserIcon user={us.user!}/>
+                </div>
+                :
+                <div onClick={v=>as.setIsOpenAuthModal(true)} className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
+                    <div className="relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer ">
+                        <Image src={"/images/uikit/header/person.svg"} alt={"Person"} fill />
+                    </div>
+                </div>
+        }
       <div className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
         <div className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer">
           <Image
