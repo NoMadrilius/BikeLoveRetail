@@ -7,6 +7,7 @@ import { useAppStore } from "@/store/AppStore";
 import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { CloseModalIcon } from "../../SVGIcons";
+import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 
 const CartModal = () => {
   const cs = useCartStore();
@@ -21,7 +22,7 @@ const CartModal = () => {
     document.body.style.overflow = "hidden";
   }
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[1000000] overflow-hidden sm:rounded-none rounded-lg">
+    <ModalBase setOpen={(v) => cs.setVisible(v)} open={cs.visible}>
       <div className="bg-white rounded-lg w-full max-w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none">
         <div className="flex justify-between items-center py-2 px-5  border-b border-gray">
           <div className="flex items-center gap-5">
@@ -76,7 +77,7 @@ const CartModal = () => {
           />
         </div>
       </div>
-    </div>
+    </ModalBase>
   );
 };
 

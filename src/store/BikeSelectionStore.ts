@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import {createContext, useContext} from "react";
 import {BikeSelectState} from "@/dataTransferObjects/response/BikeSelectState";
 import {PublicAPI} from "@/api/PublicAPI";
+import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
 
 class BikeSelectionStore{
 
@@ -38,7 +39,7 @@ class BikeSelectionStore{
     }
 
     setSelectedBrand(v:{ id: number, name: string }|null){
-        this.selectedSize = v
+        this.selectedBrand = v
         this.updateCount()
     }
 
@@ -48,13 +49,16 @@ class BikeSelectionStore{
     }
 
     updateCount(){
-        /*
-        if(false)
-        PublicAPI.BikeSelectorCount(r=>{
+        let data:BikeSelectCountRequest = {}
+        if(this.selectedType) data.type = this.selectedType.id
+        if(this.selectedSize) data.size = this.selectedSize.id
+        if(this.selectedBrand) data.brand = this.selectedBrand.id
+        if(this.max) data.startPrice = this.min
+        if(this.min) data.finishPrice = this.max
+
+        PublicAPI.BikeSelectorCount(data).then(r=>{
             this.count = r.data
         })
-
-         */
     }
 
     setMax(v:string){
@@ -64,6 +68,7 @@ class BikeSelectionStore{
         if (regex.test(v)) {
             this.max =parseFloat(v);
         }
+        this.updateCount()
 
     }
     setMin(v:string){
@@ -71,8 +76,10 @@ class BikeSelectionStore{
 
         // Check if the input value matches the regex
         if (regex.test(v)) {
-            this.max =parseFloat(v);
+            this.min =parseFloat(v);
         }
+        this.updateCount()
+
     }
 }
 

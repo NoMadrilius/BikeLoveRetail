@@ -1,14 +1,19 @@
 import { useRouter } from "next/router";
 import PhoneVerification from "../Modal/PhoneVerification";
 import Header from "@/components/UIKit/NavigationPanel/Header";
-import Aside from "@/components/Pages/Homepage/Aside";
 import Main from "@/components/Pages/Homepage/MainContent";
+import React, {useEffect} from "react";
+import CartModal from "@/components/UIKit/Modals/CartModal";
+import AuthModal from "@/components/Modal/AuthModal/AuthModal";
 
 const Layout = ({ children }: any) => {
-  //const router = useRouter();
-  //const currentPath = router.asPath;
+
   return (
     <>
+        <CartModal/>
+        <AuthModal/>
+
+
       <Header />
       <PhoneVerification />
       <Main>{children}</Main>

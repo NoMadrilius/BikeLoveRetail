@@ -6,6 +6,9 @@ import ProductImage from "../../ProductCard/ProductImage";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useCartStore } from "@/store/CartStore";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
+import Link from "next/link";
 
 const MobileViewCard = (props: {
   product: Product;
@@ -14,19 +17,28 @@ const MobileViewCard = (props: {
 }) => {
   const c = useCurrencyStore();
   const cs = useCartStore();
+  const r= useRouter()
 
   let img = props.fullData.productImages.find(
     (n) => n.productId === props.product.id
   );
 
+  const link = GenerateLink(r, {
+    basePath: "/product",
+    queryParameters: { id: props.product.id },
+    slug: props.product.transliteration,
+  })
+
   return (
     <article className="border-b border-gray gap-4 p-5 sm:flex hidden">
       <div className="flex flex-col items-start justify-center gap-4">
         <div>
+          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
           <ProductImage
             src={img ? img.url : ""}
             classname="sm:!w-[148px] sm:!h-[132px]"
           />
+          </Link>
           <div className="flex gap-[10px]">
             <span className="font-normal text-black text-[14px] leading-[120%]">
               Артикул:{" "}
@@ -63,9 +75,11 @@ const MobileViewCard = (props: {
               <HeartIcon />
             </div>
           </div>
+          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
           <h3 className="text-[16px] leading-[19.36px] font-semibold font-inter text-dark">
             {props.product.name}
           </h3>
+          </Link>
         </div>
         <CounterControl className="mt-auto" productId={props.product.id} />
       </div>

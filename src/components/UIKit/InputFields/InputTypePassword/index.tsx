@@ -3,9 +3,12 @@ import React, { useState } from "react";
 const PasswordInput = ({
   label = "",
   placeholder = "",
+                         value,setValue
 }: {
   label?: string;
   placeholder?: string;
+  value?:string
+  setValue?:(v:string)=>void
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -19,7 +22,7 @@ const PasswordInput = ({
         <label className="text-t-grey font-light leading-[120%]">{label}</label>
       )}
       <div className="flex relative">
-        <input
+        <input value={value} onChange={e=>setValue&&setValue(e.target.value)}
           type={passwordVisible ? "text" : "password"}
           placeholder={placeholder}
           className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white"

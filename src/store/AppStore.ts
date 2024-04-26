@@ -12,6 +12,10 @@ class AppStore{
     isOpenSidebar=false
     isOpenCategories=false
     isOpenSettings=false
+
+    isOpenAuthModal=false
+    isAuthRegMod=false
+
     shops:Shop[] = []
 
     categories: ProductCategory[] = [];
@@ -62,6 +66,8 @@ class AppStore{
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
     setIsOpenCategories(v:boolean) {this.isOpenCategories=v}
     setIsOpenSettings(v:boolean) {this.isOpenSettings=v}
+    setIsOpenAuthModal(v:boolean) {this.isOpenAuthModal=v}
+    setIsAuthRegMod(v:boolean) {this.isAuthRegMod=v}
 
     buildTree(data: ProductCategory[], parentId: number = 0, depth:number = 0) {
         const tree: TreeNode[] = []

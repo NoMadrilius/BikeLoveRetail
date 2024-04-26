@@ -18,9 +18,9 @@ class CartStore {
         name: "cartStore",
         properties: ["cart"],
         storage:window.localStorage
+      }).then(()=>{
+        this.updateTotalPrice()
       });
-
-    this.updateTotalPrice()
   }
   setVisible(v:boolean){
     this.visible = v

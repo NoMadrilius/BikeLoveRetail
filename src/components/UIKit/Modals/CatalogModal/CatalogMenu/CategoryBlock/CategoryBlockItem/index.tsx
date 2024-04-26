@@ -5,6 +5,8 @@ import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory"
 import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
+import {useAppStore} from "@/store/AppStore";
+import {observer} from "mobx-react";
 
 interface CategoryItemProps {
   category: ProductCategory;
@@ -21,6 +23,8 @@ const CategoryBlockItem = ({
 }: CategoryItemProps) => {
   const isCategory = categoryType === "category";
   const r = useRouter();
+  const as = useAppStore();
+
   return (
     <Link
       href={GenerateLink(r, {
@@ -31,6 +35,10 @@ const CategoryBlockItem = ({
       className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}
+      onClick={()=>{
+        as.setIsOpenCategories(false)
+        as.setIsOpenSidebar(false);
+      }}
     >
       <div className="flex items-center gap-2">
         {!isCategory || categoryItemsLength === 0 ? (
@@ -63,4 +71,4 @@ const CategoryBlockItem = ({
   );
 };
 
-export default CategoryBlockItem;
+export default observer(CategoryBlockItem);

@@ -7,8 +7,6 @@ import { useTranslation } from "react-i18next";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import { templates } from "../../../../../theme/templates";
-import Register from "@/components/Modal/Auth/components/Register";
-import Login from "@/components/Modal/Auth/components/Login";
 
 const Registration= () => {
   const { t } = useTranslation();
@@ -70,10 +68,7 @@ const Registration= () => {
             {st.user?.firstName}
             {st.user?.phoneNumber}
           </div>:<>
-          {st.step === 0 && <Register simplified/>}
-          {st.step === 1 && <Login simplified/>}
-              {//st.step === 2 && (<RenewPassword/>)
-              }
+
           </>
         }
 

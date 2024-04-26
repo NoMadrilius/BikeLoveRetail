@@ -5,27 +5,23 @@ import MobileHeader from "./MobileHeader";
 import MobileView from "./MobileView";
 import DesktopView from "./DesktopView";
 import CatalogModal from "../../Modals/CatalogModal";
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import { observer } from "mobx-react";
 import SearchInput from "../../InputFields/SearchInput";
 import { useAppStore } from "@/store/AppStore";
 import CartModal from "../../Modals/CartModal";
 import SearchTableModal from "../../Modals/SearchTableModal";
 import { useCartStore } from "@/store/CartStore";
-import { useCatalogStore } from "@/store/CatalogStore";
 import { useSearchStore } from "@/store/SearchStore";
 
 const Header = () => {
-  const { isOpen } = useBurgerMenuStore();
   const as = useAppStore();
-  const cs = useCartStore();
   const ss = useSearchStore();
   return (
     <>
       <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-3 md:px-0 sm:justify-between">
         <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 sm:justify-center md:justify-center sm:gap-0 xl:gap-6 lg:gap-8 xl:justify-center">
-          {!isOpen ? <HamburgerMenu /> : null}
-          {isOpen ? (
+          {!as.isOpenSidebar ? <HamburgerMenu /> : null}
+          {as.isOpenSidebar ? (
             <MobileView />
           ) : (
             <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />
@@ -55,9 +51,8 @@ const Header = () => {
           inputStyles="border-[#DADADA]"
         />
       </div>
-      {isOpen ? <MobileHeader /> : null}
+      {as.isOpenSidebar ? <MobileHeader /> : null}
       <CatalogModal />
-      {cs.visible ? <CartModal /> : null}
       {ss.isOpenSearch ? <SearchTableModal /> : null}
     </>
   );

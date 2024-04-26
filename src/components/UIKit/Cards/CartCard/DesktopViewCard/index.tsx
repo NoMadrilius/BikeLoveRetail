@@ -8,20 +8,32 @@ import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import {observer} from "mobx-react";
 import {useCartStore} from "@/store/CartStore";
+import {GenerateLink} from "@/helpers/GenerateLink";
+import {useRouter} from "next/router";
+import Link from "next/link";
 
 const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
     const c = useCurrencyStore()
     const cs = useCartStore()
+    const r= useRouter()
 
+    const link = GenerateLink(r, {
+        basePath: "/product",
+        queryParameters: { id: props.product.id },
+        slug: props.product.transliteration,
+    })
     let img = props.fullData.productImages.find(n=>n.productId === props.product.id)
   return (
     <article className="border-b border-gray flex items-center px-5 relative sm:hidden">
-      <ProductImage
+        <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+        <ProductImage
         src={img?img.url:""}
         classname="!w-[200px] !h-[160px] sm:!w-[148px] sm:!h-[132px] shrink-0 !mb-0 mr-4"
       />
+        </Link>
       <div className="flex flex-col gap-[30px] max-w-[407px] mr-5">
-        <ProductTitle
+          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+          <ProductTitle
           disableBorder={true}
           className="py-2 max-w-[419px]"
           maxCharacters={1200}
@@ -29,6 +41,7 @@ const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quant
             props.product.name
           }
         />
+          </Link>
         <div className="flex gap-[10px]">
           <span className="font-normal text-black text-[14px] leading-[120%]">
             Артикул:{" "}

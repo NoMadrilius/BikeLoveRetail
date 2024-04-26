@@ -1,4 +1,3 @@
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import React from "react";
 import LogoImage from "../LogoImage";
 import UserProfile from "../MobileHeader/UserProfile";
@@ -6,7 +5,6 @@ import CloseIcon from "./CloseIcon";
 import { useAppStore } from "@/store/AppStore";
 
 const MobileView = () => {
-  const store = useBurgerMenuStore();
   const as = useAppStore();
   return (
     <div className="w-full flex flex-col gap-5 px-5">
@@ -15,7 +13,8 @@ const MobileView = () => {
         <CloseIcon
           onClick={() => {
             as.setIsOpenCategories(false);
-            store.closeMenu();
+            as.setIsOpenSidebar(false)
+            //store.closeMenu();
           }}
         />
       </div>

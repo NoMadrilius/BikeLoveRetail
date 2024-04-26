@@ -1,18 +1,17 @@
-import { useBurgerMenuStore } from "@/store/BurgerMenuStore";
 import Image from "next/image";
 import React from "react";
 import {useAppStore} from "@/store/AppStore";
 
 const NavigationSection = () => {
   const as = useAppStore()
-  const menuStore = useBurgerMenuStore();
 
   return (
     <section>
       <div
         className="flex items-center gap-3 px-5 py-3"
         onClick={() => {
-          menuStore.closeMenu();
+          //menuStore.closeMenu();
+          as.setIsOpenSidebar(false)
           as.setIsOpenCategories(true)
         }}
       >

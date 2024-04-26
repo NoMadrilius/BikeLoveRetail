@@ -21,7 +21,10 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   return (
     <button
       className={`z-[1] p-[13px] rounded-full shrink-0 hover:bg-[#FA6989] ${bgColor}`}
-      onClick={onClick}
+      onClick={(e)=>{
+        e.stopPropagation()
+        onClick(e)
+      }}
     >
       {text.length === 0 && imageUrl && altText ? (
         <div className={`shrink-0 flex relative size-[21.5px] xl:size-[24px]`}>
