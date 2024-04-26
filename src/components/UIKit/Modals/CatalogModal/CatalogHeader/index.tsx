@@ -35,7 +35,15 @@ const CatalogHeader = () => {
               width={24}
               height={24}
             />
-          ) : null}
+          ) :
+              <Image
+                  src={as.selectedCategory.iconUrl || "/images/homepage/static/bike.jpg"}
+                  alt={"Bike"}
+                  width={24}
+                  height={24}
+                  className="shrink-0"
+              />
+          }
           <span className="text-dark-text text-[20px] leading-[120%] font-bold">
             {as.selectedCategory?.name || "Каталог"}
           </span>

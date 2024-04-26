@@ -22,8 +22,6 @@ const ProductCategoryMobile = ({ className }: ProductCategoryProps) => {
               key={n.id}
               category={n}
               onClick={() => {
-                as.setIsOpenSidebar(false);
-                as.setIsOpenCategories(false)
                 as.setSelectedCategory(n);
               }}
             />
