@@ -155,11 +155,12 @@ export const SvgRightIcon = ({
   );
 };
 
-export const TrashIcon = (p:{onClick?:()=>void}) => {
+export const TrashIcon = (p: { onClick?: () => void }) => {
   return (
-    <svg onClick={()=>{
-      p.onClick?p.onClick():null
-    }}
+    <svg
+      onClick={() => {
+        p.onClick ? p.onClick() : null;
+      }}
       width="16"
       height="16"
       viewBox="0 0 16 16"
@@ -188,6 +189,28 @@ export const HeartIcon = () => {
       <path
         d="M7.99992 4.66669V3.99101M7.99992 4.16677C7.99992 2.23373 9.56698 0.666687 11.5 0.666687C13.433 0.666687 15.0001 2.25483 15.0001 4.18787C15.0001 5.22791 14.5416 6.22495 13.7468 6.89589L9.97558 10.0798C8.72272 11.1376 7.99992 12.6938 7.99992 14.3334C7.99992 12.6938 7.27712 11.1376 6.02426 10.0798L2.25295 6.89589C1.45826 6.22495 0.999756 5.22793 0.999756 4.18789C0.999756 2.25485 2.5668 0.666694 4.49984 0.666694C6.43288 0.666694 7.99992 2.23373 7.99992 4.16677Z"
         stroke="#2C2727"
+      />
+    </svg>
+  );
+};
+
+export const CloseModalIcon = () => {
+  return (
+    <svg
+      width="13.000000"
+      height="13.000000"
+      viewBox="0 0 13 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs />
+      <path
+        id="Vector"
+        d="M12 0L0 12M0 0L12 12"
+        stroke="#6B6B6B"
+        stroke-opacity="1.000000"
+        stroke-width="1.000000"
+        stroke-linejoin="round"
       />
     </svg>
   );
