@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import { useAppStore } from "@/store/AppStore";
 import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
+import { CloseModalIcon } from "../../SVGIcons";
 
 const CartModal = () => {
   const cs = useCartStore();
@@ -80,25 +81,3 @@ const CartModal = () => {
 };
 
 export default observer(CartModal);
-
-const CloseModalIcon = () => {
-  return (
-    <svg
-      width="13.000000"
-      height="13.000000"
-      viewBox="0 0 13 13"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs />
-      <path
-        id="Vector"
-        d="M12 0L0 12M0 0L12 12"
-        stroke="#6B6B6B"
-        stroke-opacity="1.000000"
-        stroke-width="1.000000"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-};
