@@ -8,10 +8,20 @@ const linksData = [
   { href: "/terms-of-public-offer", text: "Публічна оферта" },
   //{ href: "#", text: "Політика конфіденційності" },
 ];
-const InfoAboutCompany = () => {
+const InfoAboutCompany = ({
+  className,
+  textColor,
+}: {
+  className?: string;
+  textColor?: string;
+}) => {
   return (
-    <section className="w-fill rounded-lg overflow-hidden flex flex-col bg-white p-5 gap-5">
-      <h2 className="text-dark-text text-[20px] leading-[24px] font-bold font-robot-c">
+    <section
+      className={`w-fill rounded-lg overflow-hidden flex flex-col bg-white p-5 gap-5 ${className}`}
+    >
+      <h2
+        className={`text-dark-text text-[20px] leading-[24px] font-bold font-robot-c ${textColor}`}
+      >
         Інформація про компанію
       </h2>
       <nav className="flex flex-col max-h-[175px]">
@@ -19,7 +29,7 @@ const InfoAboutCompany = () => {
           <Link
             key={index}
             href={link.href}
-            className="leading-[19.36px] text-dark-text py-2 cursor-pointer text-[16px] font-inter !max-h-[35px] hover:text-link-pink"
+            className={`leading-[19.36px] text-dark-text py-2 cursor-pointer text-[16px] font-inter !max-h-[35px] hover:text-link-pink ${textColor}`}
           >
             {link.text}
           </Link>
