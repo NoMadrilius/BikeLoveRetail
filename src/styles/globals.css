@@ -179,6 +179,6 @@ code {
 ::-webkit-scrollbar-thumb {
   background: #dadada;
   border-radius: 16px;
-  margin: 5px;
+
   border: 2px solid #f2f2f2;
 }
