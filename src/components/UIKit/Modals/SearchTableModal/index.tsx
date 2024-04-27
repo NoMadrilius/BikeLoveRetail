@@ -7,6 +7,8 @@ import MobileViewSearchResults from "./SearchResults/MobileViewSearchResults";
 import { useAppStore } from "@/store/AppStore";
 import { observer } from "mobx-react";
 import { useSearchStore } from "@/store/SearchStore";
+import CloseIcon from "../../NavigationPanel/Header/MobileView/CloseIcon";
+import { CloseModalIcon } from "../../SVGIcons";
 
 const SearchTableModal = () => {
   const ss = useSearchStore();
@@ -25,10 +27,16 @@ const SearchTableModal = () => {
       onClick={handleCloseModal}
     >
       <div
-        className="bg-white w-full max-w-[1268px] rounded-lg flex flex-col py-5 px-10 sm:p-5"
+        className="relative bg-white w-full max-w-[1268px] rounded-lg flex flex-col py-5 px-10 sm:p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <SearchInput />
+        <div
+          className="absolute top-1 right-1 p-3 cursor-pointer hover:bg-[#C1C1C133] rounded-lg"
+          onClick={handleCloseModal}
+        >
+          <CloseModalIcon />
+        </div>
         <div className="flex border-t border-category-border sm:flex-col">
           <SearchResults />
           <MobileViewSearchResults />
