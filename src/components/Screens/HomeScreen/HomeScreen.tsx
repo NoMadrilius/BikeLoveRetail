@@ -27,7 +27,7 @@ const HomeScreen = () => {
   if (as.isOpenSidebar || as.isOpenCategories) return null;
 
   return (
-    <div className="max-w-[1324px] mx-auto flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10">
+    <div className="max-w-[1324px] mx-auto contents lg:flex xl:flex 2xl:flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10 ">
       <Aside />
 
       <div className=" font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
