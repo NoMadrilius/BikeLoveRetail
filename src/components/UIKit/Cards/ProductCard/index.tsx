@@ -13,7 +13,11 @@ import Link from "next/link";
 import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
 
-const ProductCard = (p: { product: ProductFullData }) => {
+const ProductCard = (p: {
+  product: ProductFullData;
+  showBuyButton?: boolean;
+  className?: string;
+}) => {
   let imgs = p.product.productImages.sort((a, b) => b.sortOrder - a.sortOrder);
   const cs = useCartStore();
   const r = useRouter();
@@ -23,8 +27,14 @@ const ProductCard = (p: { product: ProductFullData }) => {
     queryParameters: { id: p.product.product.id },
     slug: p.product.product.transliteration,
   });
+
+  const showLastPrice =
+    p.product.product.oldRetailPrice > p.product.product.retailPrice;
   return (
-    <article className="md:max-w-[322px] flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative select-text">
+    <article
+      className={`md:max-w-[322px] flex flex-col h-full max-w-[159px] lg:max-w-[316px] lg:w-full xl:max-w-[274.67px] w-full bg-white sm:pt-[11px] 
+    xl:p-5 xl:pt-[27px] lg:pt-[27px] p-3 lg:p-5 font-inter rounded-lg hover:shadow-product-card relative select-text ${p.className}`}
+    >
       <>
         {p.product.product.oldRetailPrice > p.product.product.retailPrice && (
           <RoundedButton
@@ -55,17 +65,23 @@ const ProductCard = (p: { product: ProductFullData }) => {
       <Link href={link} className={"cursor-pointer"}>
         <ProductTitle text={p.product.product.name} />
       </Link>
-      {p.product.product.oldRetailPrice > p.product.product.retailPrice && (
+      {showLastPrice && (
         <LastPrice
           product={p.product.product}
           classname="sm:pt-[7px] pt-[11px] lg:pt-[7px] xl:pt-1 mt-auto"
         />
       )}
-      <PriceAndCart product={p.product} />
+      <PriceAndCart
+        product={p.product}
+        showBuyButton={p.showBuyButton}
+        showLastPrice={showLastPrice}
+      />
       <GradientButton
         label={"Kупити"}
         showIcon={false}
-        className="!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center hidden"
+        className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
+          p.showBuyButton ? "flex" : "hidden"
+        }hidden`}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();

@@ -13,7 +13,6 @@ const ProductImage = ({ classname, src }: ProductImageProps) => {
       xl:w-full xl:h-[194px] 
       lg:w-[276px] lg:h-[194px]
       sm:mb-[9px] mb-5 xl:mb-[13px] 
-
       max-w-full
       ${classname}`}
     >

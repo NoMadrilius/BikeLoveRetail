@@ -22,7 +22,7 @@ const GradientButton = ({
     <button
       className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${
         bgColor
-          ? `${bgColor} `
+          ? `${bgColor}`
           : `bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989]`
       } ${className}`}
       onClick={onClick}
