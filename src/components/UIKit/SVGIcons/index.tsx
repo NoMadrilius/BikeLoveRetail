@@ -326,3 +326,20 @@ export const CloseModalIcon = () => {
     </svg>
   );
 };
+
+export const HomeIconSVG = () => {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21.5 20V9.25L21.2534 9.137C17.5093 7.42094 14.3863 4.59079 12.311 1.03319L12 0.5H10L9.689 1.03319C7.6137 4.59079 4.4907 7.42094 0.74659 9.137L0.5 9.25V20M22 21.5H0M14 20V16C14 14.3431 12.6569 13 11 13C9.3431 13 8 14.3431 8 16V20"
+        stroke="black"
+      />
+    </svg>
+  );
+};

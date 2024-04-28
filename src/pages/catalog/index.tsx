@@ -12,6 +12,7 @@ import ContactAndSocial from "@/components/Pages/Homepage/Aside/Sections/Contact
 import Footer from "@/components/Pages/Homepage/Aside/Sections/Footer";
 import GetOurLatestNewsFirst from "@/components/Pages/Homepage/Aside/Sections/GetOurLatestNewsFirst";
 import InfoAboutCompany from "@/components/Pages/Homepage/Aside/Sections/InfoAboutCompany";
+import Breadcrumb from "@/components/UIKit/Breadcrumb";
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
 import Pagination from "@/components/UIKit/Pagination";
 import { PlusIcon } from "@/components/UIKit/SVGIcons";
@@ -31,6 +32,12 @@ const checkboxes = [
   { label: "Option 10" },
 ];
 
+const items = [
+  { text: "Головна", to: "/" },
+  { text: "Button", to: "#" },
+  { text: "Button", to: "#" },
+];
+
 const Catalog = () => {
   const as = useAppStore();
 
@@ -41,6 +48,8 @@ const Catalog = () => {
   1;
   return (
     <div className="max-w-[1324px] w-full m-auto items-start my-10 flex flex-col gap-10">
+      <Breadcrumb items={items} />
+
       <CategoryName title={"Назва категорії"} quantity={103} />
       <SubCategories />
       <section className="flex gap-5 w-full items-start sm:px-5 md:px-5">
