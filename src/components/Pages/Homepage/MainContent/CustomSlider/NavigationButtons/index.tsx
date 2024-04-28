@@ -31,7 +31,7 @@ const NavigationButtons = ({
   lineStyles,
 }: NavigationButtonsProps) => {
   return (
-    <div className="sm:mb-6 mb-8 flex sm:items-start items-center lg:justify-start xl:gap-6 lg:gap-6 sm:gap-4">
+    <div className="sm:mb-6 mb-8 flex sm:items-center items-center lg:justify-start md:gap-6 xl:gap-6 lg:gap-6 sm:gap-4">
       <SectionHeader title={title} titleStyles={titleStyles} />
       {showButtons && !justShowTitle ? (
         <SliderButtons
@@ -44,7 +44,7 @@ const NavigationButtons = ({
       {!justShowTitle ? (
         <>
           <div
-            className={`w-full h-[1px] bg-gray xl:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}
+            className={`w-full h-[1px] bg-gray xl:block md:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}
           />
           <Link
             href="#"
