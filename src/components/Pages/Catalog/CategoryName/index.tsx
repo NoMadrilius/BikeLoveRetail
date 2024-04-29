@@ -12,7 +12,7 @@ const CategoryName = ({ title, quantity }: CategoryNameProps) => {
         {title}
       </h2>
       <span className="font-inter text-[18px] leading-[21.78px] text-t-grey">
-        {quantity} моделі
+        {quantity} товари
       </span>
     </div>
   );

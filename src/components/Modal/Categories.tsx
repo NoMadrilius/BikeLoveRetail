@@ -11,6 +11,7 @@ import {styled} from "styled-components";
 import CategoriesTree from "@/components/Modal/CategoriesTree";
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {observer} from "mobx-react";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const Categories = (p:{activeMenu:any,setActiveMenu:any }) => {
   const [selectedTitle, setSelectedTitle] = useState<TreeNode|null>(null);
@@ -33,7 +34,7 @@ const Categories = (p:{activeMenu:any,setActiveMenu:any }) => {
         {as.categoryTree.filter(n=>n.depth === 0).sort((a, b) => b.cat.sortOrder - a.cat.sortOrder).map((el) => (
           <S.ListItem key={el.cat.id}>
             <LinkItem
-                href={GenerateLink(r,{basePath:'/catalog', queryParameters:{id:el.cat.id}, slug:el.cat.transliterationName})}
+                href={GenerateCatalogLink({id:el.cat.id, sort:null, filters:[], page:1},el.cat.transliterationName)}
                 color={el.cat.id === selectedTitle?.cat.id ? colors.redMain : colors.black}
                 hoverColor={colors.redHover}
                 size="15px"

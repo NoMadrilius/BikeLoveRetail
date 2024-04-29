@@ -12,6 +12,7 @@ export interface CatalogPageResponse{
     totalProducts: number;
     storageId: number;
     options: ProductOptionVariants[];
-    sortingSettings: string[];
+    sortingSettings: string;
     filterSettings: number[];
+    childrens?:ProductCategory[]
 }

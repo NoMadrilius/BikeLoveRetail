@@ -281,9 +281,12 @@ export const RightIconSVG = () => {
   );
 };
 
-export const FilterIconSvg = () => {
+export const FilterIconSvg = (p: { onClick?: () => void }) => {
   return (
     <svg
+        onClick={() => {
+          p.onClick ? p.onClick() : null;
+        }}
       width="24"
       height="24"
       viewBox="0 0 24 24"

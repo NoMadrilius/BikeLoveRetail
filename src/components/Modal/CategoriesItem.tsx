@@ -6,6 +6,7 @@ import {observer} from "mobx-react";
 import Link from "next/link";
 import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const CategoriesItem = (p:{node:TreeNode}) => {
     const {node} = p
@@ -27,7 +28,7 @@ const CategoriesItem = (p:{node:TreeNode}) => {
                             </div>
                             {exp &&
                                 <div className={s.childs}>
-                                    <Link onClick={()=>as.setIsOpenCategories(false)} href={GenerateLink(r,{basePath:"/catalog", queryParameters:{id:node.cat.id}, doNotSaveParams:true, slug:node.cat.transliterationName})} className={s.head} style={{marginLeft:(node.depth)*38, fontWeight:500}}>
+                                    <Link onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink({id:node.cat.id, sort:null, filters:[], page:1},node.cat.transliterationName)} className={s.head} style={{marginLeft:(node.depth)*38, fontWeight:500}}>
                                         <div className={s.title}>
                                             {"Все в категорії >"}
                                         </div>
@@ -36,7 +37,7 @@ const CategoriesItem = (p:{node:TreeNode}) => {
                                 </div>}
                         </div>
                         :
-                        <Link className={s.node} onClick={()=>as.setIsOpenCategories(false)} href={GenerateLink(r,{basePath:"/catalog", queryParameters:{id:node.cat.id}, doNotSaveParams:true, slug:node.cat.transliterationName})}>
+                        <Link className={s.node} onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink({id:node.cat.id, sort:null, filters:[], page:1},node.cat.transliterationName)}>
                             <div className={s.head} style={{marginLeft:(node.depth-1)*30}}>
                                 <div className={s.title} style={{marginLeft:node.depth*5}}>
                                     {node.cat.name}
