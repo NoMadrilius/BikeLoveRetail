@@ -20,8 +20,8 @@ const Layout = ({ children }: any) => {
       <AuthModal />
       <CatalogModal />
 
+      <Header />
 
-        <Header />
       <PhoneVerification />
       <Main>{children}</Main>
       <footer className="px-[60px] md:px-10 sm:px-10 bg-[#3C3C3C] grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 sm:mx-auto py-4">
