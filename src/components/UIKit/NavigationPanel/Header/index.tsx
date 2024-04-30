@@ -52,7 +52,6 @@ const Header = () => {
         />
       </div>
       {as.isOpenSidebar ? <MobileHeader /> : null}
-      <CatalogModal />
       {ss.isOpenSearch ? <SearchTableModal /> : null}
     </>
   );

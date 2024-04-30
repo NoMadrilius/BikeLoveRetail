@@ -63,7 +63,8 @@ const CategoryAccordion = ({ title, checkboxes }: CategoryAccordionProps) => {
               )}
             </div>
             <span className="text-dark-text text-[14px] leading-[16.8px] font-inter">
-          {checkbox.name} <span className="text-gray">(text)</span>
+          {checkbox.name} {//<span className="text-gray">(text)</span>
+            }
         </span>
           </Link>
     )});
@@ -95,11 +96,11 @@ const CategoryAccordion = ({ title, checkboxes }: CategoryAccordionProps) => {
                 {showMore ? <MinusIcon/> : <PlusIcon/>}
                 {showMore ? (
                     <span className="text-dark-text text-[14px] leading-[16.8px] font-robot select-none">
-                Назад
+                Сховати
               </span>
                 ) : (
                     <span className="text-dark-text text-[14px] leading-[16.8px] font-robot select-none">
-                Показати більше <span className="text-gray select-none">(text)</span>
+                Показати більше <span className="text-gray select-none">{"ще "+(checkboxes.length-5)}</span>
               </span>
                 )}
               </div>

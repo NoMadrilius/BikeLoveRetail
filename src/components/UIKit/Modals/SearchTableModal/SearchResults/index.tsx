@@ -6,7 +6,7 @@ import {useSearchStore} from "@/store/SearchStore";
 const SearchResults = () => {
     const ss = useSearchStore()
   return (
-    <div className="max-w-[324px] w-full h-[660px] overflow-scroll border-r border-category-border pr-3 sm:hidden block">
+    <div className="max-w-[324px] w-full h-[660px] overflow-y-auto border-r border-category-border pr-3 sm:hidden block">
       <SearchResultItem
         title={"Всі результати"}
         quantity={ss.products.length.toString()}

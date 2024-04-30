@@ -31,7 +31,7 @@ const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quant
         classname="!w-[200px] !h-[160px] sm:!w-[148px] sm:!h-[132px] shrink-0 !mb-0 mr-4"
       />
         </Link>
-      <div className="flex flex-col gap-[30px] max-w-[407px] mr-5">
+      <div className="flex w-full flex-col gap-[30px] max-w-[407px] mr-5">
           <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
           <ProductTitle
           disableBorder={true}

@@ -24,7 +24,7 @@ const HomeScreen = () => {
     as.loadTopProducts();
   }, []);
 
-  if (as.isOpenSidebar || as.isOpenCategories) return null;
+  if (as.isOpenSidebar) return null;
 
   return (
     <div className="max-w-[1324px] mx-auto contents lg:flex xl:flex 2xl:flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10 ">

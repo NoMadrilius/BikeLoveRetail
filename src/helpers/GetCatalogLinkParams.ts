@@ -12,7 +12,7 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
     }
 
     slug.forEach(n=>{
-        const match = n.match(/^id=(\d+)/);
+        const match = n.match(/id=(\d+)=/);
         if (match) res.id = parseInt(match[1])
 
         if(n.startsWith('filters=')) res.filters = n.substring(8).split(',').map(n=>{

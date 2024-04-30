@@ -16,19 +16,6 @@ import {descriptionCategoryMetaTemplate} from "@/helpers/metaTamplates/descripti
 import {UseMetaData} from "@/helpers/hooks/useMetaData";
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 
-const checkboxes = [
-    { label: "Option 1" },
-    { label: "Option 2" },
-    { label: "Option 3" },
-    { label: "Option 4" },
-    { label: "Option 5" },
-    { label: "Option 6" },
-    { label: "Option 7" },
-    { label: "Option 8" },
-    { label: "Option 9" },
-    { label: "Option 10" },
-];
-
 const CatalogPage = () => {
 
     const as = useAppStore();

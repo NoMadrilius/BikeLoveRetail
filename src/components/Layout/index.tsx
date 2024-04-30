@@ -11,14 +11,17 @@ import GetOurLatestNewsFirst from "../Pages/Homepage/Aside/Sections/GetOurLatest
 import InfoAboutCompany from "../Pages/Homepage/Aside/Sections/InfoAboutCompany";
 import LogoImage from "../UIKit/NavigationPanel/Header/LogoImage";
 import Image from "next/image";
+import CatalogModal from "@/components/UIKit/Modals/CatalogModal";
 
 const Layout = ({ children }: any) => {
   return (
     <>
       <CartModal />
       <AuthModal />
+      <CatalogModal />
 
-      <Header />
+
+        <Header />
       <PhoneVerification />
       <Main>{children}</Main>
       <footer className="px-[60px] md:px-10 sm:px-10 bg-[#3C3C3C] grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 sm:mx-auto py-4">

@@ -12,18 +12,10 @@ import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 const CartModal = () => {
   const cs = useCartStore();
   const c = useCurrencyStore();
-  const closeModal = () => {
-    cs.setVisible(false);
 
-    document.body.style.overflow = "auto";
-  };
-
-  if (cs.visible) {
-    document.body.style.overflow = "hidden";
-  }
   return (
     <ModalBase setOpen={(v) => cs.setVisible(v)} open={cs.visible}>
-      <div className="bg-white rounded-lg w-full max-w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none">
+      <div className="bg-white rounded-lg w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none">
         <div className="flex justify-between items-center py-2 px-5  border-b border-gray">
           <div className="flex items-center gap-5">
             <h2 className="text-[20px] font-bold leading-[120%] font-robot-c text-dark-text">
@@ -38,12 +30,12 @@ const CartModal = () => {
           </div>
           <div
             className="p-[18px] cursor-pointer hover:bg-[#C1C1C133] rounded-lg"
-            onClick={closeModal}
+            onClick={() => cs.setVisible(false)}
           >
             <CloseModalIcon />
           </div>
         </div>
-        <div className="h-[483px] sm:h-[531px] overflow-y-scroll sm:px-5">
+        <div className="h-[483px] sm:h-[531px] overflow-y-auto sm:px-5">
           {cs.cart.map((n) => (
             <CartCard {...n} />
           ))}
