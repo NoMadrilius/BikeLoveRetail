@@ -13,7 +13,7 @@ import {GetCatalogLinkParams} from "@/helpers/GetCatalogLinkParams";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
-  const paths = [];
+  const paths = [] as string[];
 
   return {
     paths,
