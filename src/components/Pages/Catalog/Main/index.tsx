@@ -19,6 +19,7 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
             />
           ))}
         </div>
+        {/*
         <div className="group w-full py-2 cursor-pointer rounded-lg bg-white flex items-center justify-center">
           <div className="flex gap-2 py-2 items-center">
             <span className="text-dark-text text-[16px] leading-[19.36px] font-inter">
@@ -29,6 +30,8 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
             </div>
           </div>
         </div>
+        */}
+
         <Pagination />
       </div>
     </div>

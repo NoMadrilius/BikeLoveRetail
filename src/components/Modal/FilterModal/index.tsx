@@ -6,19 +6,22 @@ import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { AccordionIconSVG, WhiteCross } from "@/components/UIKit/SVGIcons";
 import Image from "next/image";
 import React, { useEffect } from "react";
-const checkboxes = [
-  { label: "Option 1" },
-  { label: "Option 2" },
-  { label: "Option 3" },
-  { label: "Option 4" },
-  { label: "Option 5" },
-  { label: "Option 6" },
-  { label: "Option 7" },
-  { label: "Option 8" },
-  { label: "Option 9" },
-  { label: "Option 10" },
-];
+import {useCatalogStore} from "@/store/CatalogStore";
+
 const FilterModal = () => {
+  const cs  = useCatalogStore();
+
+  const uniqueOptions = cs.catalogState!.options.reduce(
+      (accumulator: { id: number; name: string }[], i) => {
+        let ent = accumulator.find((n) => n.id === i.optionId);
+        if (ent === undefined) {
+          accumulator.push({ id: i.optionId, name: i.optionName });
+        }
+        return accumulator;
+      },
+      []
+  );
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -33,7 +36,7 @@ const FilterModal = () => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between border-b-gray border py-2 px-5">
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <div onClick={()=>cs.setIsOpenFiltersModal(false)} className="flex items-center gap-2 group cursor-pointer">
             <div className="p-3 group-hover:bg-[#C1C1C133] cursor-pointer rounded-lg">
               <AccordionIconSVG className={`transform rotate-90`} />
             </div>
@@ -51,10 +54,12 @@ const FilterModal = () => {
           <div className="flex flex-col gap-2 h-[450px] overflow-auto">
             <BicyclePurposeTags />
             <SelectColor />
-            <CategoryAccordion title="Категорія" checkboxes={checkboxes} />
-            <CategoryAccordion title="Категорія" checkboxes={checkboxes} />
-            <CategoryAccordion title="Категорія" checkboxes={checkboxes} />
-            <CategoryAccordion title="Категорія" checkboxes={checkboxes} />
+            {
+              uniqueOptions.map(opt=>{
+                let variants = cs.catalogState!.options.filter((n) => n.optionId === opt.id);
+                return (<CategoryAccordion key={opt.id} title={opt.name} checkboxes={variants} />)
+              })
+            }
             <SortByPrice />
           </div>
         </div>

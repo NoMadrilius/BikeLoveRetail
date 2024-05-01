@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 interface CategoryItemProps {
   category: ProductCategory;
@@ -27,11 +28,7 @@ const CategoryBlockItem = ({
 
   return (
     <Link
-      href={GenerateLink(r, {
-        basePath: "/catalog",
-        queryParameters: { id: category.id },
-        slug: category.transliterationName,
-      })}
+      href={GenerateCatalogLink({id:category.id, sort:null, filters:[], page:1},category.transliterationName)}
       className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}

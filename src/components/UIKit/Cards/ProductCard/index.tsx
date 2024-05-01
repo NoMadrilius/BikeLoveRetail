@@ -49,7 +49,7 @@ const ProductCard = (p: {
 
         <ProductButtonsOnMobile />
         <Link href={link} className={"cursor-pointer"}>
-          <ProductImage src={imgs.length > 0 ? imgs[0].url : "null"} />
+          <ProductImage src={imgs.length > 0 ? imgs[0].url : "/null"} />
         </Link>
 
         <RoundedButton
@@ -76,18 +76,22 @@ const ProductCard = (p: {
         showBuyButton={p.showBuyButton}
         showLastPrice={showLastPrice}
       />
-      <GradientButton
-        label={"Kупити"}
-        showIcon={false}
-        className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
-          p.showBuyButton ? "flex" : "hidden"
-        }hidden`}
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          cs.addToCart(p.product.product, p.product);
-        }}
-      />
+      {
+        p.showBuyButton&&
+          <GradientButton
+              label={"Kупити"}
+              showIcon={false}
+              className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
+                  p.showBuyButton ? "flex" : "hidden"
+              }hidden`}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                cs.addToCart(p.product.product, p.product);
+              }}
+          />
+      }
+
       <Instock />
       <ProductSpecItems product={p.product} />
     </article>

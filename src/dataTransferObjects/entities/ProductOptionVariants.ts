@@ -6,5 +6,6 @@ export interface ProductOptionVariants {
     optionId: number;
     name: string;
     optionName: string;
-    iconUrl: string;
+    iconUrl?: string;
+    sortOrder:number
 }

@@ -8,6 +8,7 @@ import { useAppStore } from "@/store/AppStore";
 import { useRouter } from "next/router";
 import { GenerateLink } from "@/helpers/GenerateLink";
 import { observer } from "mobx-react";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const BicyclesByPurpose = () => {
   const as = useAppStore();
@@ -17,11 +18,7 @@ const BicyclesByPurpose = () => {
     let cat = as.categories.find((g) => g.id === set)!;
     return {
       name: cat.name,
-      link: GenerateLink(r, {
-        basePath: "/catalog",
-        queryParameters: { id: cat.id },
-        slug: cat.transliterationName,
-      }),
+      link: GenerateCatalogLink({id:cat.id, sort:null, filters:[], page:1},cat.transliterationName),
       img: cat.iconUrl,
     };
   });

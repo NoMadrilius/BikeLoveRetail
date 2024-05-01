@@ -3,10 +3,13 @@ import {CatalogPageResponse} from "@/dataTransferObjects/response/CatalogPageRes
 import {makeAutoObservable} from "mobx";
 import {CatalogProductsByCategoryRequest} from "@/dataTransferObjects/request/CatalogProductsByCategoryRequest";
 import {PublicAPI} from "@/api/PublicAPI";
+import {CatalogLinkParams} from "@/dataTransferObjects/internal/linkParams/CatalogLinkParams";
 
 class CatalogStore{
     catalogState:CatalogPageResponse|null = null
     loading:boolean = false
+
+    isOpenFiltersModal = false
 
     openedOptions:number[]=[]
 
@@ -14,15 +17,20 @@ class CatalogStore{
         makeAutoObservable(this);
     }
 
-    async loadStateCategory(categoryId:number, page:number, filters:number[], sort:string|undefined){
+    setIsOpenFiltersModal(v:boolean){this.isOpenFiltersModal = v}
+
+
+    async loadStateCategory(d:CatalogLinkParams){
         const request: CatalogProductsByCategoryRequest = {
-            categoryId: categoryId,
+            categoryId: d.id,
             storageId: 1,
-            page: page,
+            page: d.page,
             pageSize: 15,
-            filtersVariantIds: filters,
-            sortingSettings: sort,
+            filtersVariantIds: d.filters,
         };
+
+        if(d.sort) request.sortingSettings = d.sort
+
         this.loading = true
         let data : CatalogPageResponse = {} as CatalogPageResponse
         await PublicAPI.CatalogProductsByCategory(request).then((r)=>{

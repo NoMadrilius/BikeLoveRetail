@@ -3,6 +3,7 @@ import {createContext, useContext} from "react";
 import {BikeSelectState} from "@/dataTransferObjects/response/BikeSelectState";
 import {PublicAPI} from "@/api/PublicAPI";
 import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 class BikeSelectionStore{
 
@@ -80,6 +81,10 @@ class BikeSelectionStore{
         }
         this.updateCount()
 
+    }
+
+    getLink():string{
+        return GenerateCatalogLink({id:this.selectedType?.id??1, filters:[] as number[], page:1, sort:null})
     }
 }
 

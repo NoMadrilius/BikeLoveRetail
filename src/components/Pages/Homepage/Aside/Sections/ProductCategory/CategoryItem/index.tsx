@@ -7,6 +7,7 @@ import { router } from "next/client";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
 import { useAppStore } from "@/store/AppStore";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 interface CategoryItemProps {
   category: ProductCategory;
@@ -22,11 +23,7 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
       onMouseEnter={() => {
         as.setSelectedCategory(category);
       }}
-      href={GenerateLink(r, {
-        basePath: "/catalog",
-        queryParameters: { id: category.id },
-        slug: category.transliterationName,
-      })}
+      href={GenerateCatalogLink({id:category.id, sort:null, filters:[], page:1},category.transliterationName)}
       onClick={onClick}
       className="flex items-center justify-between px-3 py-1 bg-white cursor-pointer group"
     >

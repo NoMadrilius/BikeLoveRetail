@@ -6,6 +6,7 @@ import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
 import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const PopularProductCategories = () => {
   const as = useAppStore()
@@ -13,7 +14,7 @@ const PopularProductCategories = () => {
   const cats = [0,1,2,3,4,5].map((n,index)=>{
     let set = as.popularCategories[index]
     let cat = as.categories.find(g=>g.id === set)!
-    return({name:cat.name, link:GenerateLink(r,{basePath:'/catalog', queryParameters:{id:cat.id}, slug:cat.transliterationName}), img:cat.iconUrl})})
+    return({name:cat.name, link:GenerateCatalogLink({id:cat.id, sort:null, filters:[], page:1},cat.transliterationName), img:cat.iconUrl})})
 
   console.log("popular",cats)
   if(!cats) return null

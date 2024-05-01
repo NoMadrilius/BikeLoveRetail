@@ -11,6 +11,7 @@ import Link from "next/link";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {GenerateLink} from "@/helpers/GenerateLink";
 import {useAppStore} from "@/store/AppStore";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
   let lastCatParent:ProductCategory|undefined = cat
 
   while(lastCatParent != undefined){
-      road.unshift({title:lastCatParent.name, link:GenerateLink(router, {basePath:"/catalog", slug:lastCatParent.transliterationName, queryParameters:{id:lastCatParent.id}, doNotSaveParams:true})})
+      road.unshift({title:lastCatParent.name, link:GenerateCatalogLink({id:lastCatParent.id, sort:null, filters:[], page:1},lastCatParent.transliterationName)})
       lastCatParent = st.categories.find(n=>n.id === lastCatParent?.parentId);
   }
 
