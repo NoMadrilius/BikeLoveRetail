@@ -84,7 +84,7 @@ class BikeSelectionStore{
     }
 
     getLink():string{
-        return GenerateCatalogLink({id:this.selectedType?.id, filters:[], page:1})
+        return GenerateCatalogLink({id:this.selectedType?.id??1, filters:[] as number[], page:1, sort:null})
     }
 }
 
