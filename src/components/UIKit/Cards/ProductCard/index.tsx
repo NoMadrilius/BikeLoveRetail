@@ -49,7 +49,7 @@ const ProductCard = (p: {
 
         <ProductButtonsOnMobile />
         <Link href={link} className={"cursor-pointer"}>
-          <ProductImage src={imgs.length > 0 ? imgs[0].url : "null"} />
+          <ProductImage src={imgs.length > 0 ? imgs[0].url : "/null"} />
         </Link>
 
         <RoundedButton

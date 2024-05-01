@@ -38,7 +38,7 @@ const FilterBlock: React.FC = () => {
                   <div className={`flex gap-[8px] border px-2 py-[6.5px] rounded-[8px] items-center cursor-pointer border-t-grey`}>
                     {variant?.iconUrl??
                         <Image
-                            src={variant!.iconUrl!}
+                            src={variant?.iconUrl||'/no'}
                             alt={"VariantImage"}
                             width={32}
                             height={32}

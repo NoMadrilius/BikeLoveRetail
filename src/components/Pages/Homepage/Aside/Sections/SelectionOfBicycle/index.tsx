@@ -76,7 +76,7 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
             showIcon={false}
             className="w-full flex !py-[14.5px] justify-center"
             onClick={()=>{
-              r.push("/catalog")
+              r.push(bs.getLink())
             }}
           />
         )}

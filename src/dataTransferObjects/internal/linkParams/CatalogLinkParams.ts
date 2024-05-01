@@ -3,4 +3,6 @@ export interface CatalogLinkParams{
     filters:number[]
     sort:string|null
     page:number
+    minPrice?:number
+    maxPrice?:number
 }

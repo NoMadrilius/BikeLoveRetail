@@ -7,6 +7,8 @@ export function GenerateCatalogLink(p:CatalogLinkParams, slug?:string):string{
     if(p.page>1) res+='/page='+p.page
     if(p.sort && p.sort.length > 0) res+='/sort='+p.sort
     if(p.filters.length > 0)res+='/filters='+p.filters.join('%2C')
+    if(p.minPrice) res+='/minPrice='+p.minPrice
+    if(p.maxPrice) res+='/maxPrice='+p.maxPrice
 
     return res
 }

@@ -12,7 +12,7 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
     }
 
     slug.forEach(n=>{
-        const match = n.match(/id=(\d+)=/);
+        const match = n.match(/^id=(\d+)/);
         if (match) res.id = parseInt(match[1])
 
         if(n.startsWith('filters=')) res.filters = n.substring(8).split(',').map(n=>{
@@ -23,6 +23,8 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
 
         if(n.startsWith('sort=')) res.sort = n.substring(5)
         if(n.startsWith('page=')) res.page = parseInt(n.substring(5))
+        if(n.startsWith('minPrice=')) res.minPrice = parseInt(n.substring(9))
+        if(n.startsWith('maxPrice=')) res.maxPrice = parseInt(n.substring(9))
     })
 
     if(res.id === null) return null
