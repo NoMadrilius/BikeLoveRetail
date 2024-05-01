@@ -24,7 +24,9 @@ const Pagination = () => {
       <div
         key={1}
         className={`size-6 cursor-pointer ${
-          currentPage === 1 ? "text-white" : "text-dark-text"
+          currentPage === 1
+            ? "text-white"
+            : "text-dark-text hover:bg-[#C1C1C133] rounded-lg"
         } font-inter leading-[19.36px] flex items-center justify-center rounded ${
           currentPage === 1
             ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"
@@ -49,7 +51,9 @@ const Pagination = () => {
         <div
           key={i}
           className={`size-6 cursor-pointer ${
-            currentPage === i ? "text-white" : "text-dark-text"
+            currentPage === i
+              ? "text-white"
+              : "text-dark-text hover:bg-[#C1C1C133] rounded-lg"
           } font-inter leading-[19.36px] flex items-center justify-center rounded ${
             currentPage === i
               ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"
@@ -70,8 +74,10 @@ const Pagination = () => {
       paginationItems.push(
         <div
           key={i}
-          className={`size-6  ${
-            currentPage === i ? "text-white" : "text-dark-text"
+          className={`size-6 cursor-pointer ${
+            currentPage === i
+              ? "text-white"
+              : "text-dark-text hover:bg-[#C1C1C133] rounded-lg"
           } font-inter leading-[19.36px] flex items-center justify-center rounded ${
             currentPage === i
               ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"

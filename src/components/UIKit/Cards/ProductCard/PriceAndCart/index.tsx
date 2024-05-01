@@ -4,11 +4,13 @@ import React from "react";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useCartStore } from "@/store/CartStore";
+import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 
 const PriceAndCart = (p: {
   product: ProductFullData;
   showBuyButton?: boolean;
   showLastPrice?: boolean;
+  addToCart?: boolean;
 }) => {
   const c = useCurrencyStore();
   const cs = useCartStore();
@@ -23,9 +25,15 @@ const PriceAndCart = (p: {
       </span>
       {!p.showBuyButton ? (
         <RoundedIconButton
-          imageUrl={"/images/homepage/icons/shopping-cart.svg"}
+          imageUrl={
+            !p.addToCart
+              ? "/images/homepage/icons/shopping-cart.svg"
+              : "/images/homepage/icons/in-cart.svg"
+          }
           altText={"Shopping Cart"}
-          bgColor={"button-gradient xl:block lg:block hidden "}
+          bgColor={`${
+            !p.addToCart ? "button-gradient" : "bg-[#fa698926]"
+          } xl:block lg:block sm:block hidden`}
           onClick={() => {
             cs.addToCart(p.product.product, p.product);
           }}

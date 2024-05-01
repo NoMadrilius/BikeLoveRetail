@@ -36,6 +36,7 @@ const Header = () => {
           onClick={() => {
             as.setIsOpenCategories(true);
           }}
+          type="tetrial"
         />
         <GradientButton
           bgColor="bg-[#5D5555]"

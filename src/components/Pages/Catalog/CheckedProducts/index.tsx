@@ -4,7 +4,7 @@ import React from "react";
 
 const CheckedProducts = ({ products }: { products: ProductFullData[] }) => {
   return (
-    <section className="flex flex-col gap-5 max-w-full sm:pl-5 md:pl-5">
+    <section className="flex flex-col gap-5 max-w-full sm:pl-5 px-0">
       <h3 className="font-robot-c font-bold text-black leading-[24px] text-[20px]">
         Переглянуті товари
       </h3>

@@ -284,9 +284,9 @@ export const RightIconSVG = () => {
 export const FilterIconSvg = (p: { onClick?: () => void }) => {
   return (
     <svg
-        onClick={() => {
-          p.onClick ? p.onClick() : null;
-        }}
+      onClick={() => {
+        p.onClick ? p.onClick() : null;
+      }}
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -342,6 +342,107 @@ export const HomeIconSVG = () => {
       <path
         d="M21.5 20V9.25L21.2534 9.137C17.5093 7.42094 14.3863 4.59079 12.311 1.03319L12 0.5H10L9.689 1.03319C7.6137 4.59079 4.4907 7.42094 0.74659 9.137L0.5 9.25V20M22 21.5H0M14 20V16C14 14.3431 12.6569 13 11 13C9.3431 13 8 14.3431 8 16V20"
         stroke="black"
+      />
+    </svg>
+  );
+};
+
+export const LogOutIconSVG = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M24 12H8M18.5 7C18.5 7.57663 19.165 8.56229 19.7281 9.29353C20.2215 9.93433 20.8017 10.5049 21.473 10.956C22.2 11.4445 23.2002 12 23.9904 12C23.2002 12 22.2 12.5555 21.473 13.044C20.8017 13.4951 20.2215 14.0657 19.7281 14.7065C19.165 15.4377 18.5 16.4234 18.5 17M14.5 7V2.5H14.1714C9.74696 2.5 5.34562 1.86167 1.10343 0.604727L0.749973 0.5H0.5L0.500001 23.5H0.749974L1.10343 23.3953C5.34562 22.1383 9.74696 21.5 14.1714 21.5H14.5V17"
+        stroke="url(#paint0_linear_6312_8304)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_6312_8304"
+          x1="22.0417"
+          y1="5.53125"
+          x2="0.789659"
+          y2="20.0895"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const PinkArrowIconSVG = ({ className }: { className: string }) => {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="12"
+      viewBox="0 0 18 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.5 6L6.5 11L16.5 1"
+        stroke="#F9436B"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
+export const InCartMobileIconSVG = ({ className }: { className: string }) => {
+  return (
+    <svg
+      className={className}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.5 21C5.5 22.1046 6.39543 23 7.5 23C8.60457 23 9.5 22.1046 9.5 21M12.5 21C12.5 22.1046 13.3954 23 14.5 23C15.6046 23 16.5 22.1046 16.5 21M9.5 6L12 9.12155L18.5 3M1 1.5C3.33748 1.5 4.5599 6.85231 5.11407 10.4078C5.43421 12.4619 5.5 14.5408 5.5 16.6196V18.5H18.5V18.3395C18.5 14.5681 19.8322 10.918 22.2614 8.03332H18.5"
+        stroke="url(#paint0_linear_6319_11279)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_6319_11279"
+          x1="20.4896"
+          y1="6.20312"
+          x2="0.865678"
+          y2="19.2141"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const SpinnerIconSVG = ({ className }: { className?: string }) => {
+  return (
+    <svg
+      className={className}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 3C10.22 3 8.47991 3.52784 6.99987 4.51677C5.51983 5.50571 4.36628 6.91131 3.68509 8.55585C3.0039 10.2004 2.82567 12.01 3.17294 13.7558C3.5202 15.5016 4.37737 17.1053 5.63604 18.364C6.89472 19.6226 8.49836 20.4798 10.2442 20.8271C11.99 21.1743 13.7996 20.9961 15.4442 20.3149C17.0887 19.6337 18.4943 18.4802 19.4832 17.0001C20.4722 15.5201 21 13.78 21 12"
+        stroke="white"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   );

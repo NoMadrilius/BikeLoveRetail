@@ -1,33 +1,70 @@
 import Image from "next/image";
 import React from "react";
+import {
+  InCartMobileIconSVG,
+  PinkArrowIconSVG,
+  SpinnerIconSVG,
+} from "../../SVGIcons";
 
 interface GradientButtonProps {
+  addToCart?: boolean;
   bgColor?: string;
   showIcon?: boolean;
   label: string;
   className?: string;
   textstyles?: string;
+  disabled?: boolean;
+  loading?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "primary" | "secondary" | "tetrial";
 }
 
 const GradientButton = ({
+  addToCart,
   bgColor,
   showIcon = true,
   label,
   className,
   textstyles,
   onClick,
+  disabled = false,
+  loading = false,
+  type = "primary",
 }: GradientButtonProps) => {
+  let buttonBgClass = "";
+  let textColorClass = "";
+
+  switch (type) {
+    case "primary":
+      buttonBgClass = addToCart
+        ? "bg-pink"
+        : "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989] focus:from-[#D31062] focus:to-[#DB1142]";
+      break;
+    case "secondary":
+      buttonBgClass = "bg-[#5D5555] hover:bg-[#767070] focus:bg-[#3C3434]";
+      textColorClass = "text-white";
+      break;
+    case "tetrial":
+      buttonBgClass = "bg-transparent";
+      textstyles = "active:font-bold font-normal text-black hover:text-pink";
+      break;
+    default:
+      buttonBgClass = "";
+      break;
+  }
+  console.log(buttonBgClass);
+
   return (
     <button
+      disabled={disabled}
       className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${
-        bgColor
-          ? `${bgColor}`
-          : `bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989]`
-      } ${className}`}
+        disabled
+          ? "bg-gray-300 cursor-not-allowed"
+          : `${buttonBgClass} ${bgColor ?? ""} ${className ?? ""}`
+      }`}
       onClick={onClick}
     >
-      {showIcon ? (
+      {showIcon && !loading ? (
         <div className="p-1">
           <div className="relative size-4 flex shrink-0">
             <Image
@@ -39,7 +76,23 @@ const GradientButton = ({
           </div>
         </div>
       ) : null}
-      <span className={`w-min ${textstyles} xl:hidden`}>{label}</span>
+      <span
+        className={`w-min ${textstyles} xl:hidden ${
+          addToCart
+            ? "text-pink w-auto"
+            : `${textColorClass} ${loading ? "!w-auto" : ""}`
+        }`}
+      >
+        {loading ? "Loading" : addToCart ? "В корзині" : label}
+      </span>
+      {loading ? <SpinnerIconSVG className="animate-spin" /> : null}
+      {addToCart ? (
+        <>
+          <PinkArrowIconSVG className="sm:hidden block" />
+          <InCartMobileIconSVG className="sm:block hidden" />
+        </>
+      ) : null}
+
       <p className="xl:block hidden">{label}</p>
     </button>
   );
