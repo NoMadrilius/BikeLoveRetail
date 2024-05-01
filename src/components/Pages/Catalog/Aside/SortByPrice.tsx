@@ -1,5 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
-import { AccordionIconSVG, ClearIcon } from "@/components/UIKit/SVGIcons";
+import {
+  AccordionIconSVG,
+  ClearIcon,
+  SvgRightIcon,
+} from "@/components/UIKit/SVGIcons";
 
 const SortByPrice = () => {
   const [value, setValue] = useState("");
@@ -19,15 +23,22 @@ const SortByPrice = () => {
     <section className="border-b border-gray pb-2 w-full">
       <div className="flex flex-col">
         <div
-          className="flex items-center justify-between cursor-pointer py-2"
+          className="flex items-center justify-between cursor-pointer py-2 group"
           onClick={toggleAccordion}
         >
-          <h3 className="font-robot-c sm:text-[20px] sm:leading-[24px] md:text-[20px] md:leading-[24px] text-[16px] leading-[19.2px] md:font-bold sm:font-bold font-light text-t-grey">
+          <h3 className="font-robot-c sm:text-[20px] group-hover:text-pink sm:leading-[24px] md:text-[20px] md:leading-[24px] text-[16px] leading-[19.2px] font-bold text-t-grey">
             Сортувати за ціною
           </h3>
-          <AccordionIconSVG
-            className={`ml-2 transform ${
-              isExpanded ? "-rotate-180" : "rotate-0"
+
+          <SvgRightIcon
+            className={`group-hover:hidden block ${
+              isExpanded ? "-rotate-90" : "rotate-90"
+            }`}
+          />
+          <SvgRightIcon
+            color="#F9436B"
+            className={`group-hover:block hidden  ${
+              isExpanded ? "-rotate-90" : "rotate-90"
             }`}
           />
         </div>

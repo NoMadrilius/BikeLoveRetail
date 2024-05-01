@@ -7,7 +7,7 @@ interface CategoryNameProps {
 
 const CategoryName = ({ title, quantity }: CategoryNameProps) => {
   return (
-    <div className="flex gap-5 items-center sm:px-5 md:px-5">
+    <div className="flex gap-5 items-center sm:px-5 px-0">
       <h2 className="font-robot-c font-medium text-[32.5px] leading-[37.5px] text-black">
         {title}
       </h2>

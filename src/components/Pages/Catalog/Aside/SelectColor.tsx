@@ -25,7 +25,7 @@ const SelectColor = () => {
         {colors.map((color, index) => (
           <div
             key={index}
-            className={`size-[16px] shrink-0 rounded-full cursor-pointer ${
+            className={`size-[16px] transition-all duration-300 ease-in-out border hover:border-pink shrink-0 rounded-full cursor-pointer ${
               color.style
             } ${selectedColor === color.name ? "bg-gray-500" : color.style}`}
             onClick={() => setSelectedColor(color.name)}

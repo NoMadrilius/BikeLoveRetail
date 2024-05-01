@@ -75,22 +75,23 @@ const ProductCard = (p: {
         product={p.product}
         showBuyButton={p.showBuyButton}
         showLastPrice={showLastPrice}
+        addToCart={false}
       />
-      {
-        p.showBuyButton&&
-          <GradientButton
-              label={"Kупити"}
-              showIcon={false}
-              className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
-                  p.showBuyButton ? "flex" : "hidden"
-              }hidden`}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                cs.addToCart(p.product.product, p.product);
-              }}
-          />
-      }
+      {p.showBuyButton && (
+        <GradientButton
+          addToCart={false}
+          label={"Kупити"}
+          showIcon={false}
+          className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
+            p.showBuyButton ? "flex" : "hidden"
+          }hidden`}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            cs.addToCart(p.product.product, p.product);
+          }}
+        />
+      )}
 
       <Instock />
       <ProductSpecItems product={p.product} />

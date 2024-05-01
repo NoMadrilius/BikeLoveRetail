@@ -5,65 +5,82 @@ import { fonts } from "../../../theme/fonts";
 import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import {Product} from "@/dataTransferObjects/entities/Product";
-import {observer} from "mobx-react";
+import { Product } from "@/dataTransferObjects/entities/Product";
+import { observer } from "mobx-react";
 import Link from "next/link";
-import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
-import {GenerateLink} from "@/helpers/GenerateLink";
-import {useAppStore} from "@/store/AppStore";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
+import { GenerateLink } from "@/helpers/GenerateLink";
+import { useAppStore } from "@/store/AppStore";
+import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
+import { HomeIconSVG, RightIconSVG } from "../UIKit/SVGIcons";
 
-const BreadCrumbs = (p:{categoryId:number, product?:Product}) => {
+const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   const router = useRouter();
-  let road:[{title:string, link:string}] = [] as unknown as [{title:string, link:string}];
+  let road: [{ title: string; link: string }] = [] as unknown as [
+    { title: string; link: string }
+  ];
   const st = useAppStore();
 
-  const cat = st.categories.find(n=>n.id === p.categoryId);
-  let lastCatParent:ProductCategory|undefined = cat
+  const cat = st.categories.find((n) => n.id === p.categoryId);
+  let lastCatParent: ProductCategory | undefined = cat;
 
-  while(lastCatParent != undefined){
-      road.unshift({title:lastCatParent.name, link:GenerateCatalogLink({id:lastCatParent.id, sort:null, filters:[], page:1},lastCatParent.transliterationName)})
-      lastCatParent = st.categories.find(n=>n.id === lastCatParent?.parentId);
+  while (lastCatParent != undefined) {
+    road.unshift({
+      title: lastCatParent.name,
+      link: GenerateCatalogLink(
+        { id: lastCatParent.id, sort: null, filters: [], page: 1 },
+        lastCatParent.transliterationName
+      ),
+    });
+    lastCatParent = st.categories.find((n) => n.id === lastCatParent?.parentId);
   }
 
-  if(p.product != undefined){
-      road.push({title:p.product.name, link:GenerateLink(router, {basePath:"/product", slug:p.product.transliteration, queryParameters:{id:p.product.id}, doNotSaveParams:true})})
+  if (p.product != undefined) {
+    road.push({
+      title: p.product.name,
+      link: GenerateLink(router, {
+        basePath: "/product",
+        slug: p.product.transliteration,
+        queryParameters: { id: p.product.id },
+        doNotSaveParams: true,
+      }),
+    });
   }
 
   return (
     <>
-      <Wrapper>
-        <Image
-          width={20}
-          height={20}
-          src="/icons/House.png"
-          onClick={() => router.push("/")}
-          style={{ cursor: "pointer" }}
-          alt="House Icon"
-        />
+      <Wrapper className="sm:pl-5 ">
+        <Link href="/" className="cursor-pointer pr-2">
+          <HomeIconSVG />
+        </Link>
         {road.map((el, index) => (
           <Container key={index}>
-            <Line />
-              {
-                  index !== road.length - 1?<Link href={el.link}>
-                          <Text
-                              color={index === road.length - 1 ? colors.grayMain : colors.black}
-                              size="13px"
-                              fontStyle={fonts.f400}
-                              hoverColor={
-                                  index !== road.length - 1 ? colors.redHover : ""
-                              }
-                          >{el.title}</Text>
-                  </Link>:
-                      <Text
-                          color={index === road.length - 1 ? colors.grayMain : colors.black}
-                          size="13px"
-                          fontStyle={fonts.f400}
-                          hoverColor={
-                              index !== road.length - 1 ? colors.redHover : ""
-                          }
-                      >{el.title}</Text>
-              }
+            <RightIconSVG />
+            {index !== road.length - 1 ? (
+              <Link href={el.link}>
+                <Text
+                  color={
+                    index === road.length - 1 ? colors.grayMain : colors.black
+                  }
+                  size="13px"
+                  fontStyle={fonts.f400}
+                  hoverColor={index !== road.length - 1 ? colors.redHover : ""}
+                >
+                  {el.title}
+                </Text>
+              </Link>
+            ) : (
+              <Text
+                color={
+                  index === road.length - 1 ? colors.grayMain : colors.black
+                }
+                size="13px"
+                fontStyle={fonts.f400}
+                hoverColor={index !== road.length - 1 ? colors.redHover : ""}
+              >
+                {el.title}
+              </Text>
+            )}
           </Container>
         ))}
       </Wrapper>
@@ -91,5 +108,5 @@ const Line = styled.div`
 const Container = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 8px;
+  gap: 8px;
 `;
