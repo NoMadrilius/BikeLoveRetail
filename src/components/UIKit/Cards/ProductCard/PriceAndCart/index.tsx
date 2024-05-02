@@ -17,7 +17,7 @@ const PriceAndCart = (p: {
   return (
     <div
       className={`flex items-center justify-between ${
-        p.showLastPrice ? "mt-auto" : "mt-8"
+        p.showLastPrice ? "mt-auto" : "my-4"
       }`}
     >
       <span className="product-card-price font-robot-c">
