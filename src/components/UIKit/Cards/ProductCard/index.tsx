@@ -79,7 +79,7 @@ const ProductCard = (p: {
       />
       {p.showBuyButton && (
         <GradientButton
-          addToCart={false}
+          addToCart={true}
           label={"Kупити"}
           showIcon={false}
           className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${

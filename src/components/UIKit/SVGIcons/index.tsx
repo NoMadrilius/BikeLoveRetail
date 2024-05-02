@@ -377,7 +377,7 @@ export const LogOutIconSVG = () => {
   );
 };
 
-export const PinkArrowIconSVG = ({ className }: { className: string }) => {
+export const PinkArrowIconSVG = ({ className }: { className?: string }) => {
   return (
     <svg
       className={className}

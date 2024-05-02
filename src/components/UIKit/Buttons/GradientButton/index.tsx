@@ -52,13 +52,14 @@ const GradientButton = ({
       buttonBgClass = "";
       break;
   }
-  console.log(buttonBgClass);
 
   return (
     <button
       disabled={disabled}
-      className={`flex items-center rounded-lg gap-3 text-left font-inter py-3 px-5 leading-[19.36px] ${
-        disabled
+      className={`flex items-center rounded-full justify-center sm:gap-[6px] gap-3 text-left font-inter py-3 sm:px-[14.5px] sm:py-[8.5px] px-5 leading-[19.36px] ${
+        addToCart
+          ? "bg-[#FA698926]"
+          : disabled
           ? "bg-gray-300 cursor-not-allowed"
           : `${buttonBgClass} ${bgColor ?? ""} ${className ?? ""}`
       }`}
@@ -77,9 +78,9 @@ const GradientButton = ({
         </div>
       ) : null}
       <span
-        className={`w-min ${textstyles} xl:hidden ${
+        className={`w-min ${textstyles} xl:hidden font-inter ${
           addToCart
-            ? "text-pink w-auto"
+            ? "text-pink !w-auto"
             : `${textColorClass} ${loading ? "!w-auto" : ""}`
         }`}
       >
@@ -88,8 +89,8 @@ const GradientButton = ({
       {loading ? <SpinnerIconSVG className="animate-spin" /> : null}
       {addToCart ? (
         <>
-          <PinkArrowIconSVG className="sm:hidden block" />
-          <InCartMobileIconSVG className="sm:block hidden" />
+          <PinkArrowIconSVG />
+          {/* <InCartMobileIconSVG className="sm:block hidden" /> */}
         </>
       ) : null}
 
