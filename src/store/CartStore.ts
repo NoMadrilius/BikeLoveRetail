@@ -22,6 +22,12 @@ class CartStore {
         this.updateTotalPrice()
       });
   }
+  checkInCart(id:number):boolean{
+    let res = this.cart.find(n=>n.product.id===id)
+
+    if(res!=undefined) return true
+    else return false
+  }
   setVisible(v:boolean){
     this.visible = v
   }
