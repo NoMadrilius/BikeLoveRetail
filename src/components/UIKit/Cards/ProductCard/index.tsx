@@ -111,7 +111,7 @@ const ProductCard = (p: {
               product={p.product}
               showBuyButton={p.showBuyButton}
               showLastPrice={showLastPrice}
-              addToCart={false}
+              addToCart={cs.checkInCart(p.product.product.id)}
           />
           {p.showBuyButton && (
               <GradientButton

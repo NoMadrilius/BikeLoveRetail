@@ -26,6 +26,7 @@ const DesktopView = ({
           bgColor="bg-[#5D5555]"
           label={"Майстерня"}
           showIcon={false}
+          type={'secondary'}
           textstyles="!w-full xl:shrink-0"
           className="xl:!py-[14.5px] hover:bg-[#767070] xl:!px-4 xl:!max-w-[119px] lg:!py-[14.5px] lg:!px-4 lg:!max-w-[127px]"
           // textstyles="w-auto"
