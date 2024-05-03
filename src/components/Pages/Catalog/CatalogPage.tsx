@@ -66,6 +66,7 @@ const CatalogPage = () => {
       <SubCategories />
       <section className="flex gap-5 w-full items-start sm:px-5 px-0">
         <aside className="max-w-[224px] w-full shrink-0 grow p-5 bg-white rounded-lg flex flex-col gap-5 md:hidden sm:hidden">
+            <SortByPrice />
           {uniqueOptions.map((opt) => {
             let variants = cs.catalogState!.options.filter(
               (n) => n.optionId === opt.id
@@ -78,10 +79,10 @@ const CatalogPage = () => {
               />
             );
           })}
+            {/*
           <BicyclePurposeTags />
           <SelectColor />
-
-          <SortByPrice />
+            */}
         </aside>
         <MainContent products={cs.catalogState?.products ?? []} />
       </section>

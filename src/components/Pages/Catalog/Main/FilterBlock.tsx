@@ -5,13 +5,7 @@ import { FilterIconSvg, WhiteCross } from "@/components/UIKit/SVGIcons";
 import {useCatalogStore} from "@/store/CatalogStore";
 import Link from "next/link";
 import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
-import {router} from "next/client";
 import {useRouter} from "next/router";
-
-interface Option {
-  id: string;
-  name: string;
-}
 
 const FilterBlock: React.FC = () => {
 
@@ -23,7 +17,7 @@ const FilterBlock: React.FC = () => {
       <div className="flex gap-5 w-ful items-start">
         {
           cs.catalogState!.filterSettings.length>0&&
-            <div onClick={()=>{r.push(GenerateCatalogLink(undefined,{id:cs.catalogState?.category?.id, slug:cs.catalogState?.category?.transliterationName}))}} className="border border-pink cursor-pointer select-none rounded-[8px] py-[6.5px] px-3 text-dark-text font-inter font-medium leading-[19.36px] sm:hidden md:hidden hover:bg-[#d3d3d3]">
+            <div onClick={()=>{r.push(GenerateCatalogLink(undefined,{id:cs.catalogState!.category?.id, slug:cs.catalogState!.category?.transliterationName}))}} className="border border-pink cursor-pointer select-none rounded-[8px] py-[6.5px] px-3 text-dark-text font-inter font-medium leading-[19.36px] sm:hidden md:hidden hover:bg-[#d3d3d3]">
               Скасувати
             </div>
         }

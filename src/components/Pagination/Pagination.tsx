@@ -28,11 +28,11 @@ const Pagination = (p: { pageList: string[], selected:number })=> {
 
     const Space = <div className={"text-black"}>...</div>
 
-    const Next = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={p.pageList[p.selected+1]||p.pageList[p.selected]} >
+    const Next = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={(p.pageList[p.selected+1]||p.pageList[p.pageList.length-1])??'/'} >
                 <RightIconSVG/>
                 </Link>
 
-    const Prev = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={p.pageList[p.selected-1]||p.pageList[p.selected]}>
+    const Prev = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={(p.pageList[p.selected-1]||p.pageList[0])??'/'}>
                 <LeftIconSVG/>
                 </Link>
 

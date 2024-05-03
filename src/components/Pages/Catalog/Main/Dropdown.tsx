@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DownArrowIcon, WhiteCross } from "@/components/UIKit/SVGIcons";
-import Image from "next/image";
-import { ClearIcon } from "@mui/x-date-pickers";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
 import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
+import {observer} from "mobx-react";
 
 const options = [
   { id: "SortByRetailPriceAscend", name: "Спочатку дешевші" },
@@ -25,11 +24,10 @@ const Dropdown: React.FC<DropdownProps> = ({ className }) => {
   const cs = useCatalogStore();
 
   useEffect(() => {
-    if (cs.catalogState)
       setSelectedOption(
         options.find((n) => n.id === cs.catalogState?.sortingSettings)
       );
-  }, [cs.catalogState]);
+  }, []);
 
   const handleOptionClick = (
     option: { id: string; name: string } | undefined
@@ -83,4 +81,4 @@ const Dropdown: React.FC<DropdownProps> = ({ className }) => {
   );
 };
 
-export default Dropdown;
+export default observer(Dropdown);
