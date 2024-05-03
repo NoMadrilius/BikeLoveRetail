@@ -36,13 +36,13 @@ const Header = () => {
           onClick={() => {
             as.setIsOpenCategories(true);
           }}
-          type="tetrial"
         />
         <GradientButton
           bgColor="bg-[#5D5555]"
           label={"Майстерня"}
           className="justify-center"
           showIcon={false}
+          type="secondary"
         />
       </div>
       <div className="sm:block hidden h-full items-center  bg-white shadow-custom px-5 py-3">
