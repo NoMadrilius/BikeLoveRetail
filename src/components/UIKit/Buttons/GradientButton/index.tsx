@@ -38,10 +38,11 @@ const GradientButton = ({
     case "primary":
       buttonBgClass = addToCart
         ? "bg-pink"
-        : "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989] focus:from-[#D31062] focus:to-[#DB1142]";
+        : "rounded-lg bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989] focus:from-[#D31062] focus:to-[#DB1142]";
       break;
     case "secondary":
-      buttonBgClass = "bg-[#5D5555] hover:bg-[#767070] focus:bg-[#3C3434]";
+      buttonBgClass =
+        "rounded-lg bg-[#5D5555] hover:bg-[#767070] focus:bg-[#3C3434]";
       textColorClass = "text-white";
       break;
     case "tetrial":
@@ -56,9 +57,9 @@ const GradientButton = ({
   return (
     <button
       disabled={disabled}
-      className={`flex items-center rounded-full justify-center sm:gap-[6px] gap-3 text-left font-inter py-3 sm:px-[14.5px] sm:py-[8.5px] px-5 leading-[19.36px] ${
+      className={`flex items-center justify-center sm:gap-[6px] gap-3 text-left font-inter py-[8.5px] sm:px-[14.5px] sm:py-[8.5px] px-5 leading-[19.36px] ${
         addToCart
-          ? "bg-[#FA698926]"
+          ? "bg-[#FA698926] rounded-full"
           : disabled
           ? "bg-gray-300 cursor-not-allowed"
           : `${buttonBgClass} ${bgColor ?? ""} ${className ?? ""}`
@@ -78,7 +79,7 @@ const GradientButton = ({
         </div>
       ) : null}
       <span
-        className={`w-min ${textstyles} xl:hidden font-inter ${
+        className={`w-min ${textstyles} xl:block font-inter ${
           addToCart
             ? "text-pink !w-auto"
             : `${textColorClass} ${loading ? "!w-auto" : ""}`
@@ -94,7 +95,7 @@ const GradientButton = ({
         </>
       ) : null}
 
-      <p className="xl:block hidden">{label}</p>
+      <p className="xl:hidden hidden">{label}</p>
     </button>
   );
 };

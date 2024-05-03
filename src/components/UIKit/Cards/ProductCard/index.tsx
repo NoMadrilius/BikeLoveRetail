@@ -89,7 +89,7 @@ const ProductCard = (p: {
               addToCart={cs.checkInCart(p.product.product.id)}
               label={"Kупити"}
               showIcon={false}
-              className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
+              className={`!rounded-full w-full sm:mt-auto sm:flex justify-center ${
                 p.showBuyButton ? "flex" : "hidden"
               }hidden`}
               onClick={(e) => {
