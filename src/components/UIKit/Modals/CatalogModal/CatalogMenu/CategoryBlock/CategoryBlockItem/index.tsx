@@ -28,7 +28,7 @@ const CategoryBlockItem = ({
 
   return (
     <Link
-      href={GenerateCatalogLink({id:category.id, sort:null, filters:[], page:1},category.transliterationName)}
+      href={GenerateCatalogLink(undefined,{id:category.id, slug:category.transliterationName},)}
       className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}

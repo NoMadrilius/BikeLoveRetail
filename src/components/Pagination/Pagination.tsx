@@ -1,22 +1,44 @@
 import React, {useState} from 'react';
 import ReactPaginate from "react-paginate";
-import s from './Pagination.module.scss'
 import Link from "next/link";
+import {observer} from "mobx-react";
+import {LeftIconSVG, RightIconSVG} from "@/components/UIKit/SVGIcons";
 
 const Pagination = (p: { pageList: string[], selected:number })=> {
 
-    const PaginationLabel = (n: number) =>
-        <Link className={p.selected === n ? s.labelSel : s.label} href={p.pageList[n-1]||"/kekw"}>
-            {n}
-        </Link>
+    const PaginationLabel = (n: number) =>{
+        if(p.selected === n)
+            return(
+                <Link
+                    className={`size-6 cursor-pointer text-white font-inter leading-[19.36px] flex items-center justify-center rounded bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]`}
+                    href={p.pageList[n-1]||"/"}>
+                    {n}
+                </Link>
+            )
+        else
+            return(
+                <Link
+                    className={`size-6 cursor-pointer text-dark-text hover:bg-[#C1C1C133] rounded-lg font-inter leading-[19.36px] flex items-center justify-center rounded bg-transparent`}
+                    href={p.pageList[n-1]||"/"}>
+                    {n}
+                </Link>
+            )
+    }
 
-    const Space = <Link className={s.label} href={p.pageList[p.selected+5]||"/kekw"}>...</Link>
-    const Next = <Link className={s.label} href={p.pageList[p.selected+1]||"/kekw"}>{"=>"}</Link>
-    const Prev = <Link className={s.label} href={p.pageList[p.selected-1]||"/kekw"}>{"<="}</Link>
+
+    const Space = <div className={"text-black"}>...</div>
+
+    const Next = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={p.pageList[p.selected+1]||p.pageList[p.selected]} >
+                <RightIconSVG/>
+                </Link>
+
+    const Prev = <Link className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer" href={p.pageList[p.selected-1]||p.pageList[p.selected]}>
+                <LeftIconSVG/>
+                </Link>
 
     return (
         <ReactPaginate
-            className={s.wrapper}
+            className={"flex items-center gap-1 mx-auto"}
             breakLabel={Space}
             nextLabel={Next}
             pageLabelBuilder={PaginationLabel}
@@ -29,4 +51,4 @@ const Pagination = (p: { pageList: string[], selected:number })=> {
     );
 };
 
-export default Pagination;
+export default observer(Pagination);

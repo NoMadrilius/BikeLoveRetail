@@ -2,10 +2,14 @@ import React from "react";
 import FilterBlock from "./FilterBlock";
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
 import { PlusIcon } from "@/components/UIKit/SVGIcons";
-import Pagination from "@/components/UIKit/Pagination";
+import Pagination from "@/components/Pagination/Pagination";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
+import {useCatalogStore} from "@/store/CatalogStore";
+import {observer} from "mobx-react";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 
 const MainContent = ({ products }: { products: ProductFullData[] }) => {
+    const cs = useCatalogStore()
   return (
     <div className="w-full grow flex flex-col gap-5">
       <FilterBlock />
@@ -31,11 +35,10 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
           </div>
         </div>
         */}
-
-        <Pagination />
+        <Pagination selected={cs.catalogState!.page} pageList={Array(cs.catalogState?.totalPages).fill(0).map((n,index)=>GenerateCatalogLink(undefined, {id:cs.catalogState?.category?.id, slug:cs.catalogState?.category?.transliterationName,page:index+1}))} />
       </div>
     </div>
   );
 };
 
-export default MainContent;
+export default observer(MainContent);

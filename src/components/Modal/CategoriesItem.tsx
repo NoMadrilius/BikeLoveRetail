@@ -28,7 +28,7 @@ const CategoriesItem = (p:{node:TreeNode}) => {
                             </div>
                             {exp &&
                                 <div className={s.childs}>
-                                    <Link onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink({id:node.cat.id, sort:null, filters:[], page:1},node.cat.transliterationName)} className={s.head} style={{marginLeft:(node.depth)*38, fontWeight:500}}>
+                                    <Link onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink(undefined,{id:node.cat.id,slug:node.cat.transliterationName})} className={s.head} style={{marginLeft:(node.depth)*38, fontWeight:500}}>
                                         <div className={s.title}>
                                             {"Все в категорії >"}
                                         </div>
@@ -37,7 +37,7 @@ const CategoriesItem = (p:{node:TreeNode}) => {
                                 </div>}
                         </div>
                         :
-                        <Link className={s.node} onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink({id:node.cat.id, sort:null, filters:[], page:1},node.cat.transliterationName)}>
+                        <Link className={s.node} onClick={()=>as.setIsOpenCategories(false)} href={GenerateCatalogLink(undefined,{id:node.cat.id, slug:node.cat.transliterationName})}>
                             <div className={s.head} style={{marginLeft:(node.depth-1)*30}}>
                                 <div className={s.title} style={{marginLeft:node.depth*5}}>
                                     {node.cat.name}

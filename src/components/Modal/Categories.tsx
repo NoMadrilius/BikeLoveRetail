@@ -34,7 +34,7 @@ const Categories = (p:{activeMenu:any,setActiveMenu:any }) => {
         {as.categoryTree.filter(n=>n.depth === 0).sort((a, b) => b.cat.sortOrder - a.cat.sortOrder).map((el) => (
           <S.ListItem key={el.cat.id}>
             <LinkItem
-                href={GenerateCatalogLink({id:el.cat.id, sort:null, filters:[], page:1},el.cat.transliterationName)}
+                href={GenerateCatalogLink(undefined, {id:el.cat.id,slug:el.cat.transliterationName})}
                 color={el.cat.id === selectedTitle?.cat.id ? colors.redMain : colors.black}
                 hoverColor={colors.redHover}
                 size="15px"

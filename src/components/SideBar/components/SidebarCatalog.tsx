@@ -23,7 +23,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
     if (el.childrenIds !== "") {
         setCat(el)
     } else {
-        let link = GenerateCatalogLink({id:el.id, sort:null, filters:[], page:1},el.transliterationName)
+        let link = GenerateCatalogLink(undefined,{id:el.id, slug:el.transliterationName})
       r.push(link);
       setVisible(false);
     }

@@ -5,10 +5,7 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
     if(slug === undefined) return null
 
     let res:CatalogLinkParams = {
-        id:0,
-        filters:[],
-        sort:null,
-        page:1,
+        id:1, filters:[]
     }
 
     slug.forEach(n=>{

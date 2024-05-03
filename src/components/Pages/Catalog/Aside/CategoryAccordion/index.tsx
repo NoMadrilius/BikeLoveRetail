@@ -39,15 +39,8 @@ const CategoryAccordion = ({ title, checkboxes }: CategoryAccordionProps) => {
         <Link
           key={index}
           className="flex gap-2 items-center cursor-pointer select-none"
-          href={GenerateCatalogLink(
-            {
-              id: cs.catalogState!.category!.id,
-              filters: [...cs.catalogState!.filterSettings, checkbox.id],
-              sort: cs.catalogState!.sortingSettings,
-              page: cs.catalogState!.page,
-            },
-            cs.catalogState!.category!.transliterationName
-          )}
+          href={GenerateCatalogLink(cs.catalogState!,
+            {filters: isChecked?cs.catalogState!.filterSettings.filter(n=>n!=checkbox.id):[...cs.catalogState!.filterSettings, checkbox.id]})}
         >
           <div
             className={`relative w-6 h-6 rounded-lg cursor-pointer ${

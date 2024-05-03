@@ -17,15 +17,7 @@ const SubCategories = () => {
       {cs.catalogState!.childrens!.map((el) => (
         <Link
           className="p-2 flex flex-col gap-1 rounded-lg bg-white cursor-pointer group"
-          href={GenerateCatalogLink(
-            {
-              id: el.id,
-              filters: [],
-              sort: cs.catalogState!.sortingSettings,
-              page: 1,
-            },
-            el.transliterationName
-          )}
+          href={GenerateCatalogLink(undefined, {id: el.id,slug:el.transliterationName})}
         >
           <div className="w-[121px] h-[66px] relative">
             <Image

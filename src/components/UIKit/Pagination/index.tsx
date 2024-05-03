@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 import { LeftIconSVG, RightIconSVG } from "../SVGIcons";
+import {useCatalogStore} from "@/store/CatalogStore";
+import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import Link from "next/link";
+import ReactPaginate from "react-paginate";
+import s from "@/components/Pagination/Pagination.module.scss";
 
 const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 14;
+    const cs = useCatalogStore()
+    const state = cs.catalogState!
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  const currentPage = state.page
+  const totalPages = state.totalPages;
 
   const renderPaginationItems = () => {
     const paginationItems = [];
 
     paginationItems.push(
-      <div
+      <Link
         key={1}
         className={`size-6 cursor-pointer ${
           currentPage === 1
@@ -32,10 +28,10 @@ const Pagination = () => {
             ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"
             : "bg-transparent"
         }`}
-        onClick={() => setCurrentPage(1)}
+        href={GenerateCatalogLink(state, {page:1})}
       >
         1
-      </div>
+      </Link>
     );
 
     if (currentPage > 4) {
@@ -48,7 +44,7 @@ const Pagination = () => {
       i++
     ) {
       paginationItems.push(
-        <div
+        <Link
           key={i}
           className={`size-6 cursor-pointer ${
             currentPage === i
@@ -59,10 +55,10 @@ const Pagination = () => {
               ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"
               : "bg-transparent"
           }`}
-          onClick={() => setCurrentPage(i)}
+          href={GenerateCatalogLink(state, {page:i})}
         >
           {i}
-        </div>
+        </Link>
       );
     }
 
@@ -72,7 +68,7 @@ const Pagination = () => {
 
     for (let i = Math.max(totalPages - 1, 2); i <= totalPages; i++) {
       paginationItems.push(
-        <div
+        <Link
           key={i}
           className={`size-6 cursor-pointer ${
             currentPage === i
@@ -83,10 +79,10 @@ const Pagination = () => {
               ? "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]"
               : "bg-transparent"
           }`}
-          onClick={() => setCurrentPage(i)}
+          href={GenerateCatalogLink(state, {page:i})}
         >
           {i}
-        </div>
+        </Link>
       );
     }
 
@@ -95,19 +91,19 @@ const Pagination = () => {
 
   return (
     <div className="flex items-center gap-1 mx-auto">
-      <div
+      <Link
         className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer"
-        onClick={handlePreviousPage}
+        href={GenerateCatalogLink(state, {page:state.page-1})}
       >
         <LeftIconSVG />
-      </div>
+      </Link>
       <div className="flex items-center">{renderPaginationItems()}</div>
-      <div
+      <Link
         className="p-2 hover:bg-[#C1C1C133] rounded-lg cursor-pointer"
-        onClick={handleNextPage}
+        href={GenerateCatalogLink(state, {page:state.page===state.totalPages?state.page:state.page+1})}
       >
         <RightIconSVG />
-      </div>
+      </Link>
     </div>
   );
 };

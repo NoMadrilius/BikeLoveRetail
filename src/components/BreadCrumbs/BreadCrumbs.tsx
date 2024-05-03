@@ -27,10 +27,7 @@ const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   while (lastCatParent != undefined) {
     road.unshift({
       title: lastCatParent.name,
-      link: GenerateCatalogLink(
-        { id: lastCatParent.id, sort: null, filters: [], page: 1 },
-        lastCatParent.transliterationName
-      ),
+      link: GenerateCatalogLink(undefined, { id: lastCatParent.id, slug:lastCatParent.transliterationName}),
     });
     lastCatParent = st.categories.find((n) => n.id === lastCatParent?.parentId);
   }

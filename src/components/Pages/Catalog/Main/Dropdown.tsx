@@ -58,15 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({ className }) => {
             onClick={() => handleOptionClick(undefined)}
           >
             <Link
-              href={GenerateCatalogLink(
-                {
-                  id: cs.catalogState!.category!.id,
-                  filters: cs.catalogState!.filterSettings,
-                  sort: null,
-                  page: cs.catalogState!.page,
-                },
-                cs.catalogState!.category!.transliterationName
-              )}
+              href={GenerateCatalogLink(cs.catalogState!, {sort: null})}
             >
               Не сортувати
             </Link>
@@ -79,15 +71,7 @@ const Dropdown: React.FC<DropdownProps> = ({ className }) => {
               onClick={() => handleOptionClick(option)}
             >
               <Link
-                href={GenerateCatalogLink(
-                  {
-                    id: cs.catalogState!.category!.id,
-                    filters: cs.catalogState!.filterSettings,
-                    sort: option.id,
-                    page: cs.catalogState!.page,
-                  },
-                  cs.catalogState!.category!.transliterationName
-                )}
+                href={GenerateCatalogLink(cs.catalogState!, {sort: option.id})}
               >
                 {option.name}
               </Link>

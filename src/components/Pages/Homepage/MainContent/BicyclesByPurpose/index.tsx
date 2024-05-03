@@ -18,7 +18,7 @@ const BicyclesByPurpose = () => {
     let cat = as.categories.find((g) => g.id === set)!;
     return {
       name: cat.name,
-      link: GenerateCatalogLink({id:cat.id, sort:null, filters:[], page:1},cat.transliterationName),
+      link: GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}),
       img: cat.iconUrl,
     };
   });
