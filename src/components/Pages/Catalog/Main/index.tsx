@@ -35,7 +35,7 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
           </div>
         </div>
         */}
-        <Pagination selected={cs.catalogState!.page} pageList={Array(cs.catalogState?.totalPages).fill(0).map((n,index)=>GenerateCatalogLink(undefined, {id:cs.catalogState?.category?.id, slug:cs.catalogState?.category?.transliterationName,page:index+1}))} />
+        <Pagination selected={cs.catalogState!.page} pageList={Array(cs.catalogState?.totalPages).fill(0).map((n,index)=>GenerateCatalogLink(cs.catalogState!, {page:index+1}))} />
       </div>
     </div>
   );

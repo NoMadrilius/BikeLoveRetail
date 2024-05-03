@@ -26,7 +26,14 @@ export const getStaticProps= async (context: any) => {
   const r = await loadAppState()
   let result:CatalogPageResponse|null = null
 
-  const params = GetCatalogLinkParams(context.params.slug)
+  let params = GetCatalogLinkParams(context.params.slug)
+
+  if(!params && context.params.id){
+    params = {
+      id:context.params.id,
+      filters:[]
+    }
+  }
 
 
   if(params) result = await catalogStore.loadStateCategory(params);
