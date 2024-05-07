@@ -4,8 +4,8 @@ import Image from "next/image";
 import { FilterIconSvg, WhiteCross } from "@/components/UIKit/SVGIcons";
 import {useCatalogStore} from "@/store/CatalogStore";
 import Link from "next/link";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 import {useRouter} from "next/router";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const FilterBlock: React.FC = () => {
 

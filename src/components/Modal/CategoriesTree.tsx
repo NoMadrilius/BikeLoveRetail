@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import * as S from "@/components/Modal/Categories.styles";
 import {LinkItem} from "@/components/LinkItem";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {colors} from "../../../theme/colors";
 import {fonts} from "../../../theme/fonts";
-import {Text} from "@/components/Text/Text";
 import {useRouter} from "next/router";
 import {useAppStore} from "@/store/AppStore";
 import CategoriesItem from "@/components/Modal/CategoriesItem";
 import s from './Categories.module.scss'
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {observer} from "mobx-react";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const CategoriesTree = (p:{offset:number, parent:TreeNode}) => {
     const r = useRouter()

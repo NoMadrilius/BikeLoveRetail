@@ -5,7 +5,7 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
     if(slug === undefined) return null
 
     let res:CatalogLinkParams = {
-        id:1, filters:[]
+        id:0, filters:[]
     }
 
     slug.forEach(n=>{
@@ -24,7 +24,7 @@ export function GetCatalogLinkParams (slug:string[]|undefined):CatalogLinkParams
         if(n.startsWith('maxPrice=')) res.maxPrice = parseInt(n.substring(9))
     })
 
-    if(res.id === null) return null
+    if(res.id === 0) return null
 
     return res;
 }

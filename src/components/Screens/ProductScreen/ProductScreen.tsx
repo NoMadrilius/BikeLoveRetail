@@ -3,14 +3,12 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
 import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
-import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { ColumnContainer } from "@/components/SideBar/SidebarStyles";
 import { useEffect, useState } from "react";
 import SliderProducts from "./components/Slider";
 import { observer } from "mobx-react";
 import { useCartStore } from "@/store/CartStore";
-import { useWishListStore } from "@/store/WishListStore";
 import {
   CustomP,
   FakeBlock,

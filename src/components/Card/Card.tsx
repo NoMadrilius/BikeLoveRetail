@@ -1,8 +1,6 @@
 "use client";
 import { styled } from "styled-components";
-import { FC, useEffect, useState } from "react";
 import { Text } from "../Text/Text";
-import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { fonts } from "../../../theme/fonts";
 import { colors as colorsTheme } from "../../../theme/colors";
 import { templates } from "../../../theme/templates";
@@ -10,11 +8,10 @@ import { useRouter } from "next/router";
 import { useWishListStore } from "@/store/WishListStore";
 import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
-import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
-import {GenerateLink} from "@/helpers/GenerateLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const Card = (props:{p:ProductFullData}) => {
   const wishStore = useWishListStore();

@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
-import { router } from "next/client";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
 import { useAppStore } from "@/store/AppStore";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";

@@ -4,9 +4,8 @@ import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const CategoriesItem = (p:{node:TreeNode}) => {
     const {node} = p

@@ -1,14 +1,12 @@
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import NavigationButtons from "../CustomSlider/NavigationButtons";
 import BicyclePurpose from "./BicyclePurpose";
 import { useAppStore } from "@/store/AppStore";
 import { useRouter } from "next/router";
-import { GenerateLink } from "@/helpers/GenerateLink";
 import { observer } from "mobx-react";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const BicyclesByPurpose = () => {
   const as = useAppStore();

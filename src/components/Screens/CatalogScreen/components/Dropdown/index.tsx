@@ -5,11 +5,10 @@ import { colors } from "../../../../../../theme/colors";
 import Image from "next/image";
 import { Text } from "@/components/Text/Text";
 import { useTranslation } from "react-i18next";
-import BlurWrapper from "@/components/BlurWrapper/BlurWrapper";
 import s from '../CatalogScreen.module.scss'
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const Dropdown = (items : { items: {name:string, code:string}[] }) => {
     const r = useRouter()

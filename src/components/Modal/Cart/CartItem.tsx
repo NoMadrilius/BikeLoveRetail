@@ -4,7 +4,6 @@ import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { templates } from "../../../../theme/templates";
-import { FC, useState } from "react";
 import { useCartStore } from "@/store/CartStore";
 import { observer } from "mobx-react";
 import { useWishListStore } from "@/store/WishListStore";

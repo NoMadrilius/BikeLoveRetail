@@ -1,7 +1,6 @@
 import Pagination from "@/components/UIKit/NavigationPanel/Pagination";
 import useSlider from "@/helpers/hooks/useSlider";
-import { useRef, useState } from "react";
-import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import SliderButtons from "../CustomSlider/NavigationButtons/SliderButtons";
 import SectionHeader from "../CustomSlider/SectionHeader";
 import FeedbackItem from "./FeedbackItem";

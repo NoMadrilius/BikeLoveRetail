@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
-import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const SubCategories = () => {
   const cs = useCatalogStore();

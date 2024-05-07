@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { DownArrowIcon, WhiteCross } from "@/components/UIKit/SVGIcons";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
-import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
 import {observer} from "mobx-react";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const options = [
   { id: "SortByRetailPriceAscend", name: "Спочатку дешевші" },

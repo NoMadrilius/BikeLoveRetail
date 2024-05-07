@@ -8,7 +8,7 @@ import {
 import { ProductOptionVariants } from "@/dataTransferObjects/entities/ProductOptionVariants";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
-import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 interface CategoryAccordionProps {
   title: string;

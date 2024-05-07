@@ -8,11 +8,11 @@ import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearch
 import {observer} from "mobx-react";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
 import {useAppStore} from "@/store/AppStore";
 import {useSearchStore} from "@/store/SearchStore";
 import {useCartStore} from "@/store/CartStore";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const SearchCard = (p:{prod:ProductSearchPreview}) => {
     const c = useCurrencyStore()

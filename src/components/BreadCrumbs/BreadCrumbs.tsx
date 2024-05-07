@@ -4,15 +4,14 @@ import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { Product } from "@/dataTransferObjects/entities/Product";
 import { observer } from "mobx-react";
 import Link from "next/link";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
-import { GenerateLink } from "@/helpers/GenerateLink";
 import { useAppStore } from "@/store/AppStore";
-import { GenerateCatalogLink } from "@/helpers/GenerateCatalogLink";
 import { HomeIconSVG, RightIconSVG } from "../UIKit/SVGIcons";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   const router = useRouter();

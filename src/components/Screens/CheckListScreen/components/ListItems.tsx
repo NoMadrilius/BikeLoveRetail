@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
-import {GenerateLink} from "@/helpers/GenerateLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const ListItems = (p:{ data: {product: Product, fullData: ProductFullData, quantity: number} }) => {
   const router = useRouter();

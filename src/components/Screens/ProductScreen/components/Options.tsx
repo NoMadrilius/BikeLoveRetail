@@ -6,8 +6,8 @@ import { fonts } from "../../../../../theme/fonts";
 import { RowContainer, SizeContainer } from "../ProductScreenStyles";
 import {useProductPageStore} from "@/store/ProductPageStore";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const OptionsProduct = () => {
 

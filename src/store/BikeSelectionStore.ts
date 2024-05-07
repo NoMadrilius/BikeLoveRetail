@@ -3,7 +3,7 @@ import {createContext, useContext} from "react";
 import {BikeSelectState} from "@/dataTransferObjects/response/BikeSelectState";
 import {PublicAPI} from "@/api/PublicAPI";
 import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 class BikeSelectionStore{
 

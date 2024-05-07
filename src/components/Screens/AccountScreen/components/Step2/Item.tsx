@@ -9,7 +9,6 @@ import { prettyDate } from "@/helpers/stringDecorate/prettyDate";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
-import {Order} from "@/dataTransferObjects/entities/Order";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 
 type Props = {

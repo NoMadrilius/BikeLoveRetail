@@ -2,7 +2,6 @@ import { Text } from "@/components/Text/Text";
 import { css, styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import { useEffect, useState } from "react";
 import {
   ColumnContainer,
   RowContainer,
@@ -11,10 +10,9 @@ import { templates } from "../../../../../theme/templates";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { useCatalogStore } from "@/store/CatalogStore";
-import { observe } from "mobx";
 import { observer } from "mobx-react";
 import Link from "next/link";
-import { GenerateLink } from "@/helpers/GenerateLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const Filter = () => {
   const { t } = useTranslation();

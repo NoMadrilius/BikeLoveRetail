@@ -2,13 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
-import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
-
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 interface CategoryItemProps {
   category: ProductCategory;
   imageLink?: string;

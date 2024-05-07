@@ -1,10 +1,8 @@
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import { Text } from "@/components/Text/Text";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
-import { templates } from "../../../../theme/templates";
 import {
   MainTitle,
   Paragraph,

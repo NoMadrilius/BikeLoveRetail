@@ -1,12 +1,11 @@
 import React from "react";
 import FilterBlock from "./FilterBlock";
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
-import { PlusIcon } from "@/components/UIKit/SVGIcons";
 import Pagination from "@/components/Pagination/Pagination";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import {useCatalogStore} from "@/store/CatalogStore";
 import {observer} from "mobx-react";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const MainContent = ({ products }: { products: ProductFullData[] }) => {
     const cs = useCatalogStore()

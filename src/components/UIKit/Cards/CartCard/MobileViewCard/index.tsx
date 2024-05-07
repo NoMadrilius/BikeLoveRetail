@@ -6,9 +6,9 @@ import ProductImage from "../../ProductCard/ProductImage";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useCartStore } from "@/store/CartStore";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const MobileViewCard = (props: {
   product: Product;

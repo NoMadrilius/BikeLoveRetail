@@ -9,8 +9,8 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
-import {GenerateLink} from "@/helpers/GenerateLink";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();

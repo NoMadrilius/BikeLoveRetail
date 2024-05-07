@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import CategoryName from "@/components/Pages/Catalog/CategoryName";
 import SubCategories from "@/components/Pages/Catalog/SubCategories";
-import BicyclePurposeTags from "@/components/Pages/Catalog/Aside/BicyclePurposeTags";
-import SelectColor from "@/components/Pages/Catalog/Aside/SelectColor";
 import CategoryAccordion from "@/components/Pages/Catalog/Aside/CategoryAccordion";
 import SortByPrice from "@/components/Pages/Catalog/Aside/SortByPrice";
 import MainContent from "@/components/Pages/Catalog/Main";

@@ -6,7 +6,6 @@ import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { colors } from "../../../../theme/colors";
 import Image from "next/image";
-import axios from "axios";
 import {FC, useEffect, useState} from "react";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 import {OrderAPI} from "@/api/OrderAPI";

@@ -4,9 +4,8 @@ import React from "react";
 import NavigationButtons from "../CustomSlider/NavigationButtons";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const PopularProductCategories = () => {
   const as = useAppStore()

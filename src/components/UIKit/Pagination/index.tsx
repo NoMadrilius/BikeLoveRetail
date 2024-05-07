@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { LeftIconSVG, RightIconSVG } from "../SVGIcons";
 import {useCatalogStore} from "@/store/CatalogStore";
-import {GenerateCatalogLink} from "@/helpers/GenerateCatalogLink";
 import Link from "next/link";
-import ReactPaginate from "react-paginate";
-import s from "@/components/Pagination/Pagination.module.scss";
+import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const Pagination = () => {
     const cs = useCatalogStore()

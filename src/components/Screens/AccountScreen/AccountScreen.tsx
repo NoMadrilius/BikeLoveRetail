@@ -1,4 +1,3 @@
-import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import { Text } from "@/components/Text/Text";
 import { useEffect, useState } from "react";
 import { colors } from "../../../../theme/colors";

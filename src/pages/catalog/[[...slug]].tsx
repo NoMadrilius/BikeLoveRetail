@@ -6,10 +6,7 @@ import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import React from "react";
 import CatalogPage from "@/components/Pages/Catalog/CatalogPage";
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-import {ParsedUrlQuery} from "querystring";
-import {GetCatalogLinkParams} from "@/helpers/GetCatalogLinkParams";
-
+import {GetCatalogLinkParams} from "@/helpers/LinkGen/GetCatalogLinkParams";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source

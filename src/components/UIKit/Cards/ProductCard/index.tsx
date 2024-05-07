@@ -10,9 +10,9 @@ import GradientButton from "../../Buttons/GradientButton";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import { useCartStore } from "@/store/CartStore";
 import Link from "next/link";
-import { GenerateLink } from "@/helpers/GenerateLink";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const ProductCard = (p: {
   product: ProductFullData;

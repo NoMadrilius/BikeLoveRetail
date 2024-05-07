@@ -4,7 +4,7 @@ import Card from "@/components/Card/Card";
 import { useRouter } from "next/router";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Pagination from "@/components/Pagination/Pagination";
-import {GenerateLink} from "@/helpers/GenerateLink";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const Products = () => {
   const state = useCatalogStore();

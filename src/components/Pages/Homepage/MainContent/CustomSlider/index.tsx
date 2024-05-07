@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore from "swiper";
 import ProductCard from "@/components/UIKit/Cards/ProductCard";
 import NavigationButtons from "./NavigationButtons";
 import useSlider from "@/helpers/hooks/useSlider";

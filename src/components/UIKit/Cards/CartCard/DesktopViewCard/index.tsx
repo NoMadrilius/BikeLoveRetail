@@ -8,9 +8,9 @@ import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import {observer} from "mobx-react";
 import {useCartStore} from "@/store/CartStore";
-import {GenerateLink} from "@/helpers/GenerateLink";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
     const c = useCurrencyStore()
