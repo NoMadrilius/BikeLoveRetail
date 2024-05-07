@@ -53,7 +53,7 @@ module.exports = {
 
       xl: { min: "1280px", max: "1439px" },
 
-      lg: { min: "1440px", max: "1920px" },
+      lg: { min: "1440px", max: "5000px" },
 
       "2xl": { min: "1921px", max: "2500px" },
     },
