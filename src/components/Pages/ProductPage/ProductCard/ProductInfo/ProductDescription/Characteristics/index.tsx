@@ -1,12 +1,10 @@
 import React from "react";
 import CharacteristicItem from "./CharacteristicItem";
+import {useProductPageStore} from "@/store/ProductPageStore";
 
-const items = [
-  { isLink: true, linkText: "Параметр Link", href: "#", name: "Назва" },
-  { isLink: true, linkText: "Параметр Link", href: "#", name: "Назва" },
-  { isLink: true, linkText: "Параметр Link", href: "#", name: "Назва" },
-];
 const Characteristics = () => {
+  const ps = useProductPageStore()
+
   return (
     <div className="p-5 md2:hidden" id="specifications">
       <div className="border-b border-gray pb-4 flex flex-col gap-5">
@@ -14,15 +12,18 @@ const Characteristics = () => {
           Характеристики
         </h3>
         <div className="flex gap-3 flex-col">
-          {items.map((item, index) => (
-            <CharacteristicItem
-              key={index}
-              isLink={item.isLink}
-              linkText={item.linkText}
-              href={item.href}
-              name={item.name}
-            />
-          ))}
+          {ps.uniqueOptions.map((item, index) => {
+            let vars = ps.uniqueVariants.filter(n=>n.optionId === item.id).map(n=>n.variantName)
+            return (
+                <CharacteristicItem
+                    key={index}
+                    isLink={false}
+                    linkText={vars.join(', ')}
+                    href={"#"}
+                    name={item.name}
+                />
+            )
+          })}
         </div>
       </div>
     </div>

@@ -2,10 +2,6 @@ import {makeAutoObservable} from "mobx";
 import {createContext, useContext} from "react";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {PublicAPI} from "@/api/PublicAPI";
-import {SizeContainer} from "@/components/Screens/ProductScreen/ProductScreenStyles";
-import {Text} from "@/components/Text/Text";
-import {colors} from "../../theme/colors";
-import {fonts} from "../../theme/fonts";
 import {ProductOptionVariantBind} from "@/dataTransferObjects/entities/ProductOptionVariantBind";
 import {Product} from "@/dataTransferObjects/entities/Product";
 
@@ -92,22 +88,7 @@ class ProductPageStore{
 
 
     }
-    getVariantButton(variant:{ variantId: number; variantName: string, optionId:number }){
-        return (
-            <SizeContainer
-                active={this.activeVariants.includes(variant.variantId)}
-                chosed={this.selectedVariants.includes(variant.variantId)}
-            >
-                <Text
-                    color={this.selectedVariants.includes(variant.variantId) ? colors.white : colors.black}
-                    size="14px"
-                    fontStyle={fonts.f500}
-                >
-                    {variant.variantName}
-                </Text>
-            </SizeContainer>
-        )
-    }
+
     addVariant(variant:{ variantId: number; variantName: string, optionId:number }):number[]{
         //clear similar option
         let binds = this.product!.productOptions.filter(n=>this.selectedVariants.includes(n.optionVariantId)).filter(n=>n.optionId != variant.optionId)

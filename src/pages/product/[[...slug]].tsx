@@ -1,6 +1,3 @@
-import ProductScreen from "@/components/Screens/ProductScreen/ProductScreen";
-import { PaddingWrapper } from "../../../theme/templates";
-import { colors } from "../../../theme/colors";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 import {
   productPageStore,
@@ -10,34 +7,55 @@ import {loadAppState} from "@/functions/loadAppState";
 import {useAppStore} from "@/store/AppStore";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {useCurrencyStore} from "@/store/CurrencyStore";
+import ProductPage from "@/components/Pages/ProductPage/ProductPage";
+import {GetProductLinkParams} from "@/helpers/LinkGen/GetProductLinkParams";
 
-export const getServerSideProps = async (context:any) => {
+export const getStaticPaths = async () => {
+  // Fetch the dynamic paths from your API or any data source
+  const paths = [] as string[];
+
+  return {
+    paths,
+    fallback: true // or 'blocking' if you want to use incremental static regeneration
+  };
+};
+
+export const getStaticProps = async (context: any) => {
+
   const r = await loadAppState()
+  const params = GetProductLinkParams(context.params.slug)
+  console.warn(params)
 
-  let prod = await productPageStore.getProduct(context.query.id);
-  let options: number[] = context.query.options
-    ? context.query.options.split(",").map(Number)
-    : [];
-  return { props: { product: prod, options: options,as:r } };
+  if(!params) return null
+
+  const product = await productPageStore.getProduct(params.id)
+
+
+  return {
+    props: {
+      product:product,
+      selected:params.variants??[],
+      as:r
+    }, revalidate:60}
 };
 
 const ProductItem = (props: {
-  product: ProductFullData;
-  options: number[];
-  as:AppState
-}) => {
-  let state = useProductPageStore();
-  state.setData(props.product, props.options);
-  useAppStore().setServerData(props.as)
-  useCurrencyStore().setServerData(props.as)
+  as:AppState|null,
+  product:ProductFullData|null,
+  selected:number[]
+}|null) => {
 
-  return (
-    <>
-      <PaddingWrapper style={{ backgroundColor: colors.grayBg }}>
-        {props.product ? <ProductScreen /> : null}
-      </PaddingWrapper>
-    </>
-  );
+  if(props === null) return null
+
+  if(props.product!=null)
+  useProductPageStore().setData(props.product, props.selected);
+
+  if(props.as != null){
+    useAppStore().setServerData(props.as)
+    useCurrencyStore().setServerData(props.as)
+  }
+
+  return (<ProductPage/>);
 };
 
 export default ProductItem;

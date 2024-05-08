@@ -10,10 +10,17 @@ import Pagination from "@/components/UIKit/NavigationPanel/Pagination";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { LeftIconSVG, RightIconSVG } from "@/components/UIKit/SVGIcons";
 import RoundedButton from "@/components/UIKit/Buttons/RoundedIconButton";
+import {useProductPageStore} from "@/store/ProductPageStore";
 
 const ProductGallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+
+  const ps = useProductPageStore()
+
+  if(!ps.product || ps.product.productImages.length < 1) return(
+      <></>
+  )
 
   const handleSlideChange = (swiper: any) => {
     setCurrentIndex(swiper.realIndex);
@@ -59,11 +66,11 @@ const ProductGallery = () => {
             onSlideChange={handleSlideChange}
             className="breakpoint"
           >
-            {[1, 2, 3, 4, 5, 6].map((p, index) => (
+            {ps.product?.productImages.map((p, index) => (
               <SwiperSlide key={index}>
                 <div className="relative w-full h-[380px] md2:max-w-[432px] md2:m-auto">
                   <Image
-                    src={"/images/homepage/static/bike.png"}
+                    src={p.url}
                     alt=""
                     layout="fill"
                     className="sm:object-contain md:object-contain object-cover"
@@ -90,7 +97,7 @@ const ProductGallery = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="mt-5 hidden sm:!hidden md:!hidden md2:!block"
         >
-          {[1, 2, 3, 4, 5, 6].map((p, index) => (
+          {ps.product?.productImages.map((p, index) => (
             <SwiperSlide key={index}>
               <div
                 className={`relative w-full h-[100px] bg-white rounded-lg overflow-hidden ${
@@ -100,7 +107,7 @@ const ProductGallery = () => {
                 }`}
               >
                 <Image
-                  src={"/images/homepage/static/bike.png"}
+                  src={p.url}
                   alt=""
                   layout="fill"
                   objectFit="contain"

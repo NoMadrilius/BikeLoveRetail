@@ -6,11 +6,6 @@ import DeliveryInfo from "./DeliveryInfo";
 import PaymentOptions from "./PaymentOptions";
 import { useTranslation } from "react-i18next";
 import * as S from "./AboutDeliveryScreen.styles";
-import {
-  MainTitle,
-  Paragraph,
-  SecondaryTitle,
-} from "../HomeScreen/HomeScreenStyles";
 
 const AboutDeliveryScreen = () => {
   const { t } = useTranslation();
@@ -23,38 +18,39 @@ const AboutDeliveryScreen = () => {
   return (
     <>
       <UseMetaData title={t("delivery.title")} img={""} description={""} />
-      <MainTitle
-        $color={colors.black}
-        $fontSize="42px"
-        $fontStyle={fonts.f500}
-        $textTransform="uppercase"
+      <div style={{color:'black'}}
+        //$color={colors.black}
+        //$fontSize="42px"
+        //$fontStyle={fonts.f500}
+        //$textTransform="uppercase"
       >
         {t("delivery.heading")}
-      </MainTitle>
+      </div>
       <S.RowContainer>
         <S.Picture bg="/images/about/delivery/image1.png">
-          <SecondaryTitle
-            $color="white"
-            $fontSize="28px"
-            $fontStyle={fonts.f700}
+          <div style={{color:'black'}}
+            //$color="white"
+            //$fontSize="28px"
+            //$fontStyle={fonts.f700}
           >
             {t("delivery.importantToKnow")}
-          </SecondaryTitle>
+          </div>
 
-          <Paragraph
+          <div style={{color:'black'}}
             color={colors.white}
-            $fontSize="16px"
-            $fontStyle={fonts.f400}
+            //$fontSize="16px"
+            //$fontStyle={fonts.f400}
           >
             {t("delivery.importantToKnowDescription")}
-          </Paragraph>
+          </div>
         </S.Picture>
         <S.Picture bg="/images/about/delivery/image2.png"></S.Picture>
       </S.RowContainer>
       <S.TextContainer>
-        <SecondaryTitle $color="black" $fontSize="28px" $fontStyle={fonts.f600}>
+        <div style={{color:'black'}}//$color="black" $fontSize="28px" $fontStyle={fonts.f600}
+            >
           {t("delivery.fastReliableProfessional")}
-        </SecondaryTitle>
+        </div>
         {/* <Text
           color={colors.black}
           size="16px"

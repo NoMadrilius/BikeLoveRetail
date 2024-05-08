@@ -3,38 +3,34 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
-import {
-  MainTitle,
-  Paragraph,
-  SecondaryTitle,
-} from "../HomeScreen/HomeScreenStyles";
 
 const AboutShopScreen = () => {
   const road = [{ title: "Магазин", link: "/" }];
   return (
     <>
       <UseMetaData title={"Магазин"} img={""} description={"йцуфв"} />
-      <MainTitle $color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}>
+      <div  style={{color:'black'}}//$color={colors.black} $fontSize="42px" $fontStyle={fonts.f500}
+      >
         МАГАЗИН
-      </MainTitle>
+      </div>
       <RowContainer>
         <Picture bg="/images/about/image1.png">
-          <SecondaryTitle
-            $color="white"
-            $fontSize="40px"
-            $fontStyle={fonts.f700}
+          <div style={{color:'black'}}
+            //$color="white"
+            //$fontSize="40px"
+            //$fontStyle={fonts.f700}
           >
             WHY WORK FOR US
-          </SecondaryTitle>
-          <Paragraph
+          </div>
+          <div style={{color:'black'}}
             color={colors.white}
-            $fontSize="18px"
-            $fontStyle={fonts.f400}
+            //$fontSize="18px"
+            //$fontStyle={fonts.f400}
           >
             Если и есть нечто, что объединяет всех, кто работает в нашей
             компании, так это вера в то, что велосипеды реально могут влиять на
             жизни людей
-          </Paragraph>
+          </div>
         </Picture>
         <Picture bg="/images/about/image2.png"></Picture>
       </RowContainer>
@@ -47,23 +43,23 @@ const AboutShopScreen = () => {
         МЫ ВЕРИМ,
         <br /> ЧТО ВЕЛОСПОРТ МЕНЯЕТ ЖИЗНЬ
       </Text>
-      <Paragraph
-        $color={colors.black}
-        $fontSize="16px"
-        $fontStyle={fonts.f600}
-        $margin="25px 0 0 0"
-        $maxWidth="80%"
+      <div style={{color:'black'}}
+        //$color={colors.black}
+        //$fontSize="16px"
+        //$fontStyle={fonts.f600}
+        //$margin="25px 0 0 0"
+        //$maxWidth="80%"
       >
         Вот почему мы находимся в постоянном поиске кадров из совершенно разных
         дисциплин, которые хотели бы быть причастны к тому, чтобы делать
         велоспорт популярным среди всё большего числа людей.
-      </Paragraph>
+      </div>
       <RowTextContainer>
         <ParagraphContainer>
-          <Paragraph
-            $color={colors.black}
-            $fontSize="16px"
-            $fontStyle={fonts.f400}
+          <div style={{color:'black'}}
+            //$color={colors.black}
+            //$fontSize="16px"
+            //$fontStyle={fonts.f400}
           >
             В период прохождения таких супермногодневок как &quot;Тур де
             Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
@@ -73,11 +69,11 @@ const AboutShopScreen = () => {
             приводим кусок интервью Валерий Карпина - президента
             профессиональной испанской велокоманды Karpin Galicia -
             кореспонденту издания СпортЭкспресс.
-          </Paragraph>
-          <Paragraph
-            $color={colors.black}
-            $fontSize="16px"
-            $fontStyle={fonts.f400}
+          </div>
+          <div style={{color:'black'}}
+            //$color={colors.black}
+            //$fontSize="16px"
+            //$fontStyle={fonts.f400}
           >
             В период прохождения таких супермногодневок как &quot;Тур де
             Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
@@ -87,13 +83,13 @@ const AboutShopScreen = () => {
             приводим кусок интервью Валерий Карпина - президента
             профессиональной испанской велокоманды Karpin Galicia -
             кореспонденту издания СпортЭкспресс.
-          </Paragraph>
+          </div>
         </ParagraphContainer>
         <ParagraphContainer>
-          <Paragraph
-            $color={colors.black}
-            $fontSize="16px"
-            $fontStyle={fonts.f400}
+          <div style={{color:'black'}}
+            //$color={colors.black}
+            //$fontSize="16px"
+            //$fontStyle={fonts.f400}
           >
             В период прохождения таких супермногодневок как &quot;Тур де
             Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
@@ -103,11 +99,11 @@ const AboutShopScreen = () => {
             приводим кусок интервью Валерий Карпина - президента
             профессиональной испанской велокоманды Karpin Galicia -
             кореспонденту издания СпортЭкспресс.
-          </Paragraph>
-          <Paragraph
-            $color={colors.black}
-            $fontSize="16px"
-            $fontStyle={fonts.f400}
+          </div>
+          <div style={{color:'black'}}
+            //$color={colors.black}
+            //$fontSize="16px"
+            //$fontStyle={fonts.f400}
           >
             В период прохождения таких супермногодневок как &quot;Тур де
             Франс&quot;, Джиро д&apos;Италия&quot;, &quot;Вуэльта&quot; и т.д. с
@@ -117,7 +113,7 @@ const AboutShopScreen = () => {
             приводим кусок интервью Валерий Карпина - президента
             профессиональной испанской велокоманды Karpin Galicia -
             кореспонденту издания СпортЭкспресс.
-          </Paragraph>
+          </div>
         </ParagraphContainer>
       </RowTextContainer>
       <PictureLarge src="/images/about/large.png" />

@@ -9,7 +9,6 @@ import PhoneWidget from "@/components/PhoneWidget/PhoneWidget";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n/i18n";
 import Layout from "@/components/Layout";
-import HttpProvider from "@/components/Provider/HTTPProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   console.log("appState:", pageProps.appState);
@@ -29,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
         authorizationParams={{ redirect_uri: CONFIG.AUTH0.redirect }}
         cacheLocation="localstorage"
       >
-        <HttpProvider>
           <Layout>
           <>
             <NextNProgress
@@ -45,7 +43,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <PhoneWidget />
           </>
           </Layout>
-        </HttpProvider>
       </Auth0Provider>
     </>
   );

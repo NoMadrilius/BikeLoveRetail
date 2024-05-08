@@ -11,7 +11,7 @@ import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory"
 import { useAppStore } from "@/store/AppStore";
 import { HomeIconSVG, RightIconSVG } from "../UIKit/SVGIcons";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
-import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
+import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 
 const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   const router = useRouter();
@@ -34,12 +34,7 @@ const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   if (p.product != undefined) {
     road.push({
       title: p.product.name,
-      link: GenerateLink(router, {
-        basePath: "/product",
-        slug: p.product.transliteration,
-        queryParameters: { id: p.product.id },
-        doNotSaveParams: true,
-      }),
+      link: GenerateProductLink(p.product.id, p.product.transliteration)
     });
   }
 
