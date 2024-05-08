@@ -16,6 +16,7 @@ interface NavigationButtonsProps {
   title: string;
   titleStyles?: string;
   lineStyles?: string;
+  hideText?: boolean;
 }
 
 const NavigationButtons = ({
@@ -29,6 +30,7 @@ const NavigationButtons = ({
   title,
   titleStyles,
   lineStyles,
+  hideText = false,
 }: NavigationButtonsProps) => {
   return (
     <div className="sm:mb-6 mb-8 flex sm:items-center items-center lg:justify-start md:gap-6 xl:gap-6 lg:gap-6 sm:gap-4">
@@ -41,7 +43,7 @@ const NavigationButtons = ({
           disabledNext={isEnd}
         />
       ) : null}
-      {!justShowTitle ? (
+      {!justShowTitle && !hideText ? (
         <>
           <div
             className={`w-full h-[1px] bg-gray xl:block md:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}

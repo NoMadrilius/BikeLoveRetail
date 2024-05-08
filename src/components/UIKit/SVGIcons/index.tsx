@@ -447,3 +447,112 @@ export const SpinnerIconSVG = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+
+export const MoneyIconSVG = () => {
+  return (
+    <svg
+      width="24"
+      height="18"
+      viewBox="0 0 24 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 9H6M18 9H20M0.5 13.5V17H1C1.86554 16.8557 2.89756 16.7323 4 16.6297M0.5 13.5H1C2.65685 13.5 4 14.8431 4 16.5V16.6297M0.5 13.5V4.5M4 16.6297C6.71866 16.3766 9.86554 16.25 12 16.25C14.1345 16.25 17.2813 16.3766 20 16.6297M0.5 4.5V1H1C1.86554 1.14426 2.89756 1.2677 4 1.37034M0.5 4.5H1C2.65685 4.5 4 3.15685 4 1.5V1.37034M20 16.6297C21.1024 16.7323 22.1345 16.8557 23 17H23.5V13.5M20 16.6297V16.5C20 14.8431 21.3431 13.5 23 13.5H23.5M23.5 13.5V4.5M23.5 4.5V1H23C22.1345 1.14426 21.1024 1.2677 20 1.37034M23.5 4.5H23C21.3431 4.5 20 3.15685 20 1.5V1.37034M20 1.37034C17.2813 1.62345 14.1345 1.75 12 1.75C9.86554 1.75 6.71866 1.62345 4 1.37034M12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.6193 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.6193 14.5 9C14.5 10.3807 13.3807 11.5 12 11.5Z"
+        stroke="url(#paint0_linear_6370_2878)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_6370_2878"
+          x1="21.5833"
+          y1="4.5"
+          x2="5.7396"
+          y2="19.7698"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+export const DeliveryIconSVG = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_6370_2849)">
+        <path
+          d="M11.5 5V16M19.5 5V16M18.5 5C18.5 3.34315 17.1569 2 15.5 2C13.8431 2 12.5 3.34315 12.5 5M4.5 21.5C4.5 22.6046 5.39543 23.5 6.5 23.5C7.60457 23.5 8.5 22.6046 8.5 21.5M19.5 21.5C19.5 22.6046 20.3954 23.5 21.5 23.5C22.6046 23.5 23.5 22.6046 23.5 21.5M24 19H4.5V15.7512C4.5 12.5855 4.44209 9.39815 3.7051 6.31948C3.03471 3.51909 1.87677 0.5 0 0.5M23.5 16H7.5V15.8235L7.70246 14.4777C7.90054 13.1611 8 11.8315 8 10.5C8 9.16853 7.90054 7.83891 7.70246 6.52226L7.5 5.17647V5H23.5V5.17647L23.2975 6.52226C23.0995 7.83891 23 9.16853 23 10.5C23 11.8315 23.0995 13.1611 23.2975 14.4777L23.5 15.8235V16Z"
+          stroke="url(#paint0_linear_6370_2849)"
+        />
+      </g>
+      <defs>
+        <linearGradient
+          id="paint0_linear_6370_2849"
+          x1="22"
+          y1="5.53125"
+          x2="0.589901"
+          y2="20.5099"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+        <clipPath id="clip0_6370_2849">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export const GuaranteeIconSVG = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.75 23.5C4 19 2.5 16 2.5 5.5C5.64971 5.5 8.85633 4.26178 10.7763 2.14294C11.1977 1.67788 11.4627 1.09898 11.65 0.5H12.35C12.5373 1.09898 12.8023 1.67788 13.2237 2.14294C15.1437 4.26178 18.3503 5.5 21.5 5.5C21.5 16 20 19 12.25 23.5H11.75Z"
+        stroke="url(#paint0_linear_6370_2898)"
+      />
+      <path
+        d="M16.4998 8.5C14.5817 8.47767 12.2483 14.1883 11.8646 16.0678L11.7013 16.1995L11.4563 15.5846C10.8095 13.9613 9.99976 13 8.49976 12"
+        stroke="url(#paint1_linear_6370_2898)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_6370_2898"
+          x1="19.9167"
+          y1="5.53125"
+          x2="0.597331"
+          y2="16.2313"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_6370_2898"
+          x1="15.2252"
+          y1="8.05751"
+          x2="14.7308"
+          y2="15.7452"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.202171" stop-color="#F01B74" />
+          <stop offset="1" stop-color="#FF6064" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};

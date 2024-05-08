@@ -50,12 +50,13 @@ module.exports = {
       sm: { min: "0px", max: "743px" },
 
       md: { min: "744px", max: "1279px" },
+      md2: { min: "1024px", max: "9999px" },
 
       xl: { min: "1280px", max: "1439px" },
 
       lg: { min: "1440px", max: "5000px" },
 
-      "2xl": { min: "1921px", max: "2500px" },
+      "2xl": { min: "1921px", max: "5000px" },
     },
   },
   plugins: [],
