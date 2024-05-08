@@ -11,6 +11,7 @@ interface GradientButtonProps {
   bgColor?: string;
   showIcon?: boolean;
   label: string;
+  buttonIcon?: string;
   className?: string;
   textstyles?: string;
   disabled?: boolean;
@@ -25,6 +26,7 @@ const GradientButton = ({
   showIcon = true,
   label,
   className,
+  buttonIcon = "/images/uikit/buttons/catalog.svg",
   textstyles,
   onClick,
   disabled = false,
@@ -70,7 +72,7 @@ const GradientButton = ({
         <div className="p-1">
           <div className="relative size-4 flex shrink-0">
             <Image
-              src={"/images/uikit/buttons/catalog.svg"}
+              src={buttonIcon}
               alt={"Каталог товарів"}
               fill
               objectFit="shrink-0"

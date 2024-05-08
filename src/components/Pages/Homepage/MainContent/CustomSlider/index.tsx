@@ -13,6 +13,9 @@ interface SwiperSliderProps {
   rightText: string;
   lineStyles?: string;
   products: ProductFullData[];
+  justShowTitle?: boolean;
+  hideText?: boolean;
+  className?: string;
 }
 
 const SwiperSlider = ({
@@ -20,6 +23,9 @@ const SwiperSlider = ({
   rightText,
   lineStyles,
   products,
+  justShowTitle,
+  hideText,
+  className,
 }: SwiperSliderProps) => {
   const {
     swiperRef,
@@ -41,9 +47,13 @@ const SwiperSlider = ({
         rightText={rightText}
         title={title}
         lineStyles={lineStyles}
+        justShowTitle={justShowTitle}
+        hideText={hideText}
       />
 
-      <div className="max-w-[988px]  md:!max-w-full sm:max-w-full xl:max-w-[864px] relative">
+      <div
+        className={`max-w-[988px]  md:!max-w-full sm:max-w-full xl:max-w-[864px] relative ${className}`}
+      >
         <Swiper
           ref={swiperRef}
           slidesPerView={1}
