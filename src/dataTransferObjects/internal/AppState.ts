@@ -1,5 +1,4 @@
 import {Shop} from "@/dataTransferObjects/entities/Shop";
-import Categories from "@/components/Modal/Categories";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {Currency} from "@/dataTransferObjects/entities/Currency";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";

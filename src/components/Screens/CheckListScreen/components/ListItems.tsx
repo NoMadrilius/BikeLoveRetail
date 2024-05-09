@@ -7,6 +7,7 @@ import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
+import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 
 const ListItems = (p:{ data: {product: Product, fullData: ProductFullData, quantity: number} }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const ListItems = (p:{ data: {product: Product, fullData: ProductFullData, quant
 
   return (
     <>
-      <Wrapper onClick={() => router.push(GenerateLink(router, {basePath:'/product', queryParameters:{id:p.data.product.id}, slug:p.data.product.transliteration}))}>
+      <Wrapper onClick={() => router.push(GenerateProductLink(p.data.product.id, p.data.product.transliteration))}>
         <ItemWrapper>
           <Picture src={img} />
 

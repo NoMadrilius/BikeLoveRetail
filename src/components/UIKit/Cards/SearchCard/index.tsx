@@ -8,23 +8,15 @@ import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearch
 import {observer} from "mobx-react";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import Link from "next/link";
-import {useRouter} from "next/router";
-import {useAppStore} from "@/store/AppStore";
 import {useSearchStore} from "@/store/SearchStore";
-import {useCartStore} from "@/store/CartStore";
-import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
+import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 
 const SearchCard = (p:{prod:ProductSearchPreview}) => {
     const c = useCurrencyStore()
-    const r = useRouter();
     const ss = useSearchStore()
-    const cs = useCartStore();
 
-    const link = GenerateLink(r, {
-        basePath: "/product",
-        queryParameters: { id: p.prod.productId },
-        slug: "product"//p.prod.transliteration,
-    })
+    const link = GenerateProductLink(p.prod.productId, "product")
+
     return (
           <article className="p-3 bg-white border-b border-gray flex items-center justify-between gap-2 w-full select-text border hover:border-black">
               <Link href={link} onClick={()=>{ss.setIsOpenSearch(false)}} className={"cursor-pointer"}>

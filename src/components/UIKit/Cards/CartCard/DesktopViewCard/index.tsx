@@ -8,20 +8,14 @@ import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {useCurrencyStore} from "@/store/CurrencyStore";
 import {observer} from "mobx-react";
 import {useCartStore} from "@/store/CartStore";
-import {useRouter} from "next/router";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
+import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 
 const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
     const c = useCurrencyStore()
     const cs = useCartStore()
-    const r= useRouter()
 
-    const link = GenerateLink(r, {
-        basePath: "/product",
-        queryParameters: { id: props.product.id },
-        slug: props.product.transliteration,
-    })
+    const link = GenerateProductLink(props.product.id, props.product.transliteration)
     let img = props.fullData.productImages.find(n=>n.productId === props.product.id)
   return (
     <article className="border-b border-gray flex items-center px-5 relative sm:hidden">

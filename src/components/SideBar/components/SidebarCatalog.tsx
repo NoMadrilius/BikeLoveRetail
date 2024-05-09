@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
-import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();
@@ -73,7 +72,11 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
         style={cat?{cursor:"pointer"}:{}}
         margin="10px 0 0 25px"
         func={()=>{
-            if(cat) {r.push(GenerateLink(r,{basePath:"/catalog", slug:cat.transliterationName, queryParameters:{id:cat.id}}));setVisible(false);}
+            if(cat)
+            {
+                r.push(GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}));
+                setVisible(false);
+            }
         }}
       >
         {cat? cat.name:"Каталог"}

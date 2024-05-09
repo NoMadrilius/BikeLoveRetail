@@ -8,7 +8,7 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import { useCartStore } from "@/store/CartStore";
 import {useRouter} from "next/router";
 import Link from "next/link";
-import {GenerateLink} from "@/helpers/LinkGen/GenerateLink";
+import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 
 const MobileViewCard = (props: {
   product: Product;
@@ -23,11 +23,7 @@ const MobileViewCard = (props: {
     (n) => n.productId === props.product.id
   );
 
-  const link = GenerateLink(r, {
-    basePath: "/product",
-    queryParameters: { id: props.product.id },
-    slug: props.product.transliteration,
-  })
+  const link = GenerateProductLink(props.product.id, props.product.transliteration)
 
   return (
     <article className="border-b border-gray gap-4 p-5 sm:flex hidden">
