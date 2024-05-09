@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
-import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import { GenerateCatalogLink } from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const SubCategories = () => {
   const cs = useCatalogStore();
@@ -17,14 +17,17 @@ const SubCategories = () => {
       {cs.catalogState!.childrens!.map((el) => (
         <Link
           className="p-2 flex flex-col gap-1 rounded-lg bg-white cursor-pointer group"
-          href={GenerateCatalogLink(undefined, {id: el.id,slug:el.transliterationName})}
+          href={GenerateCatalogLink(undefined, {
+            id: el.id,
+            slug: el.transliterationName,
+          })}
         >
           <div className="w-[121px] h-[66px] relative">
             <Image
               src={el.iconUrl || "/images/homepage/static/by-purpose.jpg"}
               alt={""}
               fill
-              className="object-cover"
+              className="object-contain"
             />
           </div>
           <div className="pt-2 text-center">

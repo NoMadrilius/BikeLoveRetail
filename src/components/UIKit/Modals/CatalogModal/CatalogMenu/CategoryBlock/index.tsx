@@ -11,7 +11,6 @@ const CategoryBlock = (p: { cat: ProductCategory }) => {
 
   return (
     <article className="break-inside flex flex-col shrink-0 gap border-solid border border-b-gray w-full ">
-
       <CategoryBlockItem
         category={p.cat}
         imageLink={p.cat.iconUrl}

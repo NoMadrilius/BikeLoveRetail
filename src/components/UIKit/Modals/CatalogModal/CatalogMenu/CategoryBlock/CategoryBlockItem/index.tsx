@@ -4,9 +4,9 @@ import React from "react";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
 import { useRouter } from "next/router";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
-import {useAppStore} from "@/store/AppStore";
-import {observer} from "mobx-react";
-import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import { useAppStore } from "@/store/AppStore";
+import { observer } from "mobx-react";
+import { GenerateCatalogLink } from "@/helpers/LinkGen/GenerateCatalogLink";
 interface CategoryItemProps {
   category: ProductCategory;
   imageLink?: string;
@@ -26,24 +26,28 @@ const CategoryBlockItem = ({
 
   return (
     <Link
-      href={GenerateCatalogLink(undefined,{id:category.id, slug:category.transliterationName},)}
+      href={GenerateCatalogLink(undefined, {
+        id: category.id,
+        slug: category.transliterationName,
+      })}
       className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}
-      onClick={()=>{
-        as.setIsOpenCategories(false)
+      onClick={() => {
+        as.setIsOpenCategories(false);
         as.setIsOpenSidebar(false);
       }}
     >
       <div className="flex items-center gap-2">
         {!isCategory || categoryItemsLength === 0 ? (
-          <Image
-            src={imageLink ? imageLink : "/images/homepage/static/bike.jpg"}
-            alt={"Bike"}
-            width={48}
-            height={48}
-            className="shrink-0"
-          />
+          <div className="size-12 relative">
+            <Image
+              src={imageLink ? imageLink : "/images/homepage/static/bike.jpg"}
+              alt={"Bike"}
+              fill
+              className="shrink-0 object-contain"
+            />
+          </div>
         ) : null}
 
         <span

@@ -247,9 +247,10 @@ export const AccordionIconSVG = ({ className }: { className: string }) => {
   );
 };
 
-export const LeftIconSVG = () => {
+export const LeftIconSVG = ({ className }: { className?: string }) => {
   return (
     <svg
+      className={className}
       width="16"
       height="16"
       viewBox="0 0 16 16"
@@ -264,9 +265,10 @@ export const LeftIconSVG = () => {
   );
 };
 
-export const RightIconSVG = () => {
+export const RightIconSVG = ({ className }: { className?: string }) => {
   return (
     <svg
+      className={className}
       width="16"
       height="16"
       viewBox="0 0 16 16"
