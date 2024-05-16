@@ -70,16 +70,17 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
           */}
         </div>
         <BrandOption label={"Додати бренд"} onInputChange={() => {}} />
-        {bs.active && (
+
           <GradientButton
-            label={"Показати"}
+              disabled={!bs.active}
+            label={bs.active?"Показати":"Оберіть тип велосипеду"}
             showIcon={false}
             className="w-full flex !py-[14.5px] justify-center"
             onClick={()=>{
               r.push(bs.getLink())
             }}
           />
-        )}
+
 
         <div className="mx-auto flex">
           <span className="font-light text-[14px] leading-[19.2px] text-dark font-inter">

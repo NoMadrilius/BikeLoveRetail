@@ -45,7 +45,7 @@ class BikeSelectionStore{
     }
 
     checkActive(){
-        if(this.selectedType != null && this.selectedSize != null) this.active = true
+        if(this.selectedType != null) this.active = true
         else this.active = false
     }
 
@@ -84,7 +84,16 @@ class BikeSelectionStore{
     }
 
     getLink():string{
-        return GenerateCatalogLink(undefined, {id:this.selectedType?.id??1})
+        if(this.selectedType === null) return '/'
+        let params : any = {id:this.selectedType.id}
+        let filters:number[] = []
+        if(this.selectedSize != null) filters.push(this.selectedSize.id)
+        if(this.selectedBrand != null) filters.push(this.selectedBrand.id)
+        if(filters.length >0) params = {...params, filters:filters}
+        if(this.max > 0) params = {...params, maxPrice:this.max}
+        if(this.min > 0) params = {...params, minPrice:this.min}
+
+        return GenerateCatalogLink(undefined, params)
     }
 }
 
