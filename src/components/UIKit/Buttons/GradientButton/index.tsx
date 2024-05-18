@@ -63,8 +63,8 @@ const GradientButton = ({
         addToCart
           ? "bg-[#FA698926] rounded-full"
           : disabled
-          ? "bg-gray-300 cursor-not-allowed"
-          : `${buttonBgClass} ${bgColor ?? ""} ${className ?? ""}`
+          ? "bg-gray cursor-not-allowed rounded-lg !py-[14.5px]"
+          : `${buttonBgClass} ${bgColor ?? ""} ${className ?? ""} `
       }`}
       onClick={onClick}
     >

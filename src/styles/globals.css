@@ -54,6 +54,10 @@ html {
   }
 }
 
+.arrow-shadow {
+  box-shadow: 4px 4px 15px 0px #00000012;
+}
+
 .swiper-custom .swiper-wrapper {
   gap: 16px;
 }

@@ -5,11 +5,11 @@ import BicycleOption from "./BicycleOption";
 import { useBikeSelectionStore } from "@/store/BikeSelectionStore";
 import { observer } from "mobx-react";
 import BrandOption from "@/components/Pages/Homepage/Aside/Sections/SelectionOfBicycle/BrandOption";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 const SelectionOfBicycle = ({ className }: { className?: string }) => {
   const bs = useBikeSelectionStore();
-  const r = useRouter()
+  const r = useRouter();
   function dictionaryToArray(dict: {
     [key: number]: string;
   }): { id: number; name: string }[] {
@@ -47,13 +47,13 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
           <BicycleOption
             label="Велосипеди від UAH"
             onInputChange={(v) => bs.setMin(v)}
-            value={bs.min?bs.min.toString():""}
+            value={bs.min ? bs.min.toString() : ""}
             placeholder="від 1000 UAH"
           />
           <BicycleOption
             label="Велосипеди до UAH"
             onInputChange={(v) => bs.setMax(v)}
-            value={bs.max?bs.max.toString():""}
+            value={bs.max ? bs.max.toString() : ""}
             placeholder="до 120 000 UAH"
           />
 
@@ -71,16 +71,16 @@ const SelectionOfBicycle = ({ className }: { className?: string }) => {
         </div>
         <BrandOption label={"Додати бренд"} onInputChange={() => {}} />
 
-          <GradientButton
-              disabled={!bs.active}
-            label={bs.active?"Показати":"Оберіть тип велосипеду"}
-            showIcon={false}
-            className="w-full flex !py-[14.5px] justify-center"
-            onClick={()=>{
-              r.push(bs.getLink())
-            }}
-          />
-
+        <GradientButton
+          disabled={!bs.active}
+          label={bs.active ? "Показати" : "Оберіть тип велосипеду"}
+          showIcon={false}
+          textstyles="!w-max"
+          className="w-full flex !py-[14.5px] justify-center"
+          onClick={() => {
+            r.push(bs.getLink());
+          }}
+        />
 
         <div className="mx-auto flex">
           <span className="font-light text-[14px] leading-[19.2px] text-dark font-inter">
