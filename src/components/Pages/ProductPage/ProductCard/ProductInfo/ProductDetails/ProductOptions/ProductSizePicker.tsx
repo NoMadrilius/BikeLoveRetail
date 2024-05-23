@@ -6,7 +6,8 @@ import { GenerateProductLink } from "@/helpers/LinkGen/GenerateProductLink";
 
 const ProductSizePicker = (p: { id: number; name: string }) => {
   const ps = useProductPageStore();
-  const pr = ps.product!;
+  if(!ps.product) return null
+  const pr = ps.product;
   const variants = ps.uniqueVariants.filter((n) => n.optionId === p.id);
 
   if (variants.length < 2) return null;

@@ -7,7 +7,9 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 
 const ProductSummaryCard = () => {
   const ps = useProductPageStore();
-  const p = ps.product!;
+  if(!ps.product) return null
+
+  const p = ps.product;
   const c = useCurrencyStore();
 
   return (
