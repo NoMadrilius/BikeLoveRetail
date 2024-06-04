@@ -45,6 +45,7 @@ const CatalogModal = () => {
             ? "sm:h-[calc(100vh)] md:h-[calc(100vh-87px)] h-full"
             : "sm:h-[calc(100vh)]"
         }`}
+        onClick={(e) => e.stopPropagation()}
       >
         <CatalogHeader />
         {isWindowWide ? (

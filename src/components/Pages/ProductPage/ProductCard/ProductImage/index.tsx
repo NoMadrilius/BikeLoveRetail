@@ -4,7 +4,7 @@ import ProductGallery from "./ProductGallery";
 
 const ProductImage = () => {
   return (
-    <section className="p-5 sm:bg-white md:bg-white md2:bg-transparent rounded-lg w-full  md2:max-w-[568px] xl:max-w-[700px] lg:max-w-[768px] md2:p-0 md2:sticky top-[10px] ">
+    <section className="p-5  sm:bg-white md:bg-white md2:bg-transparent rounded-lg w-full  md2:max-w-[568px] xl:max-w-[700px] lg:max-w-[768px] md2:p-0 md2:sticky top-20 ">
       <div className="flex flex-col gap-1 items-start md:flex-row md:items-center md:justify-between md2:hidden">
         <RoundedButton
           text="Акція"

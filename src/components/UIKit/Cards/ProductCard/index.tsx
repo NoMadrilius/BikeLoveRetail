@@ -12,7 +12,7 @@ import { useCartStore } from "@/store/CartStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
-import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
+import { GenerateProductLink } from "@/helpers/LinkGen/GenerateProductLink";
 
 const ProductCard = (p: {
   product: ProductFullData;
@@ -25,7 +25,10 @@ const ProductCard = (p: {
   const cs = useCartStore();
   const r = useRouter();
 
-  const link = GenerateProductLink(p.product.product.id, p.product.product.transliteration)
+  const link = GenerateProductLink(
+    p.product.product.id,
+    p.product.product.transliteration
+  );
 
   const showLastPrice =
     p.product.product.oldRetailPrice > p.product.product.retailPrice;
