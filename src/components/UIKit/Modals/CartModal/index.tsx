@@ -15,7 +15,10 @@ const CartModal = () => {
 
   return (
     <ModalBase setOpen={(v) => cs.setVisible(v)} open={cs.visible}>
-      <div className="bg-white rounded-lg w-full max-w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none">
+      <div
+        className="bg-white rounded-lg w-full max-w-[957px] sm:h-full sm:flex sm:flex-col sm:rounded-none"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex justify-between items-center py-2 px-5  border-b border-gray">
           <div className="flex items-center gap-5">
             <h2 className="text-[20px] font-bold leading-[120%] font-robot-c text-dark-text">

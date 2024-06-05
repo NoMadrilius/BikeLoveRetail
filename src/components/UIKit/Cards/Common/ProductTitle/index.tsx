@@ -29,7 +29,7 @@ const ProductTitle = ({
     };
   }, []);
 
-  const truncatedText = truncateText(text, isSmallScreen ? 35 : 75);
+  const truncatedText = truncateText(text, isSmallScreen ? 35 : 55);
 
   return (
     <h3
@@ -38,7 +38,7 @@ const ProductTitle = ({
       } ${className}`}
     >
       <span className="line-clamp-5 text-[16px] leading-[19.36px] font-semibold font-inter modernWay">
-        {text}
+        {truncatedText}
       </span>
     </h3>
   );

@@ -22,12 +22,15 @@ const ModalBase = (p: {
 
   return (
     <div
-      onMouseDown={(e) => {
+      onClick={(e) => {
         p.setOpen(false);
       }}
-      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[100] overflow-hidden sm:rounded-none overflow-hidden"
+      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[100] overflow-hidden sm:rounded-none"
     >
-      <div onMouseDown={(e) => e.stopPropagation()} className="w-full h-full">
+      <div
+        // onClick={(e) => e.stopPropagation()}
+        className="w-full h-full flex items-center justify-center"
+      >
         {p.children}
       </div>
     </div>
