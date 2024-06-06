@@ -6,7 +6,7 @@ import {
   SpinnerIconSVG,
 } from "../../SVGIcons";
 
-interface GradientButtonProps {
+export interface GradientButtonProps {
   addToCart?: boolean;
   bgColor?: string;
   showIcon?: boolean;

@@ -45,11 +45,12 @@ module.exports = {
     },
     screens: {
       lt: { min: "0px", max: "374px" },
-      sm2: { min: "386", max: "742px" },
+      sm2: { min: "386px", max: "742px" },
 
       sm: { min: "0px", max: "743px" },
 
       md: { min: "744px", max: "1279px" },
+      md1: { min: "0px", max: "1279px" },
       md2: { min: "1024px", max: "9999px" },
 
       xl: { min: "1280px", max: "1439px" },

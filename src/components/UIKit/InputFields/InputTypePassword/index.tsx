@@ -3,12 +3,13 @@ import React, { useState } from "react";
 const PasswordInput = ({
   label = "",
   placeholder = "",
-                         value,setValue
+                         value,setValue,className=""
 }: {
   label?: string;
   placeholder?: string;
   value?:string
-  setValue?:(v:string)=>void
+  setValue?:(v:string)=>void,
+  className?: string
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -17,7 +18,7 @@ const PasswordInput = ({
   };
 
   return (
-    <div className="w-full relative flex flex-col gap-2">
+    <div className={`w-full relative flex flex-col gap-2 ${className}`}>
       {label && (
         <label className="text-t-grey font-light leading-[120%]">{label}</label>
       )}
