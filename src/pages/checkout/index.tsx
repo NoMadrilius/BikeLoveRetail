@@ -16,12 +16,11 @@ const Order = () => {
     const cls = useCheckList()
     return (
         <div
-            className="scroll-smooth max-w-[1324px] xl:max-w-[1200px] w-full m-auto items-start pt-[60px] pb-10 flex flex-col gap-8 text-black bg-red sm2:px-5">
-            <h1 className="text-[40px] sm2:text-[32px] font-medium">Оформлення замовлення</h1>
+            className="scroll-smooth max-w-[1324px] xl:max-w-[1200px] w-full m-auto items-start pt-[60px] pb-10 flex flex-col gap-8 text-black bg-red sm2:px-5 font-inter">
+            <h1 className="text-[40px] sm2:text-[32px] font-medium font-robot-c">Оформлення замовлення</h1>
 
             <div className="w-full grid grid-cols-[1.3fr_1fr] xl:grid-cols-[1.4fr_1fr] md1:grid-cols-1 gap-8 xl:gap-5 ">
                 <div className="col-span-1 gap-x-5 gap-y-8 flex flex-col">
-
                     {authStore.isAuth ?
                         <PersonalDataSignedIn/>
                         :
