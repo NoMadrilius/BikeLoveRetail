@@ -11,7 +11,7 @@ const PersonalDataSignedIn = () => {
         setIsEdit(true)
     }
     return (
-        <BlockWrapper title="Контактні дані" headerAction={!isEdit?<span className="text-[#074FA5] text-[16px]" onClick={open}>Редагувати</span>:undefined}>
+        <BlockWrapper title="Контактні дані" headerAction={!isEdit?<span className="text-[#074FA5] text-[16px] hidden sm2:block" onClick={open}>Редагувати</span>:undefined}>
             {isEdit ?<PersonalDataSignedInBodyForm onCancel={()=>setIsEdit(false)}/> : <PersonalDataSignedInBodyInfo onEdit={open}/>}
         </BlockWrapper>
     );
