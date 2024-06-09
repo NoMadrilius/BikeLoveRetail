@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import PhoneInput from "@/components/UIKit/InputFields/PhoneInput/PhoneInput";
 import GradientButton, {GradientButtonProps} from "@/components/UIKit/Buttons/GradientButton";
 import InputWithPlaceholder from "@/components/UIKit/InputFields/InputWithPlaceholder";
+import {useCheckList} from "@/store/CheckListStore";
+import {observer} from "mobx-react";
 
 interface PersonOrderForm {
     confirm:GradientButtonProps
@@ -9,13 +11,14 @@ interface PersonOrderForm {
 }
 
 const PersonOrderForm = (props:PersonOrderForm) => {
+    const cls = useCheckList()
+
     const {confirm,cancel} = props
-    const [phone, setPhone] = useState("");
 
     return (
         <div className="grid grid-cols-4 grid-rows-3 gap-4 sm2:grid-cols-1">
             <div className="col-span-2 sm2:col-auto">
-                <PhoneInput value={phone} onChange={setPhone}/>
+                <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)}/>
             </div>
             <div className="col-span-2 col-start-3 sm2:col-auto">
                 <InputWithPlaceholder label="Імʼя *"/>
@@ -39,4 +42,4 @@ const PersonOrderForm = (props:PersonOrderForm) => {
 
     );
 };
-export default PersonOrderForm;
+export default observer(PersonOrderForm);

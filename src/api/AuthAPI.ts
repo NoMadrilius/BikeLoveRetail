@@ -4,6 +4,7 @@ import {LoginRequest} from "@/dataTransferObjects/request/LoginRequest";
 import {RegisterRequest} from "@/dataTransferObjects/request/RegisterRequest";
 import {AxiosResponse} from "axios";
 import {RefreshResponse} from "@/dataTransferObjects/response/RefreshResponse";
+import {UserExistResponse} from "@/dataTransferObjects/response/UserExistResponse";
 
 export const AuthAPI = {
     Login(data:LoginRequest):Promise<AxiosResponse<LoginResponse>>{
@@ -25,5 +26,8 @@ export const AuthAPI = {
     },
     ConfirmSelfVerification(code:string):Promise<AxiosResponse>{
         return axiosInstance.post(`/auth/confirmselfverif?verifType=BinoCall&code=${code}`);
+    },
+    CheckUserExist(phone:string):Promise<AxiosResponse<UserExistResponse>>{
+        return axiosInstance.get<UserExistResponse>(`/auth/checkuserexist`,{params:{phoneNumber:phone}});
     }
 }

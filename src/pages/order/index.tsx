@@ -7,8 +7,13 @@ import OrderInfo from "@/components/Pages/OrderPage/OrderInfo/OrderInfo";
 import ContactAndSocial from "@/components/Pages/Homepage/Aside/Sections/ContactAndSocial";
 import DarkFooter from "@/components/UIKit/NavigationPanel/Header/MobileHeader/Sections/Footer/darkFooter";
 import DeliveryInfo from "@/components/Pages/OrderPage/DeliveryInfo/DeliveryInfo";
+import {useAuthStore} from "@/store/AuthStore";
+import {observer} from "mobx-react";
+import {useCheckList} from "@/store/CheckListStore";
 
 const Order = () => {
+    const authStore = useAuthStore()
+    const cls = useCheckList()
     return (
         <div
             className="scroll-smooth max-w-[1324px] xl:max-w-[1200px] w-full m-auto items-start pt-[60px] pb-10 flex flex-col gap-8 text-black bg-red sm2:px-5">
@@ -16,10 +21,25 @@ const Order = () => {
 
             <div className="w-full grid grid-cols-[1.3fr_1fr] xl:grid-cols-[1.4fr_1fr] md1:grid-cols-1 gap-8 xl:gap-5 ">
                 <div className="col-span-1 gap-x-5 gap-y-8 flex flex-col">
-                    <PersonalData/>
-                    <PersonalDataNeedToAuthentificate/>
-                    <PersonalDataNotRegister/>
-                    <PersonalDataSignedIn/>
+
+                    {authStore.isAuth ?
+                        <PersonalDataSignedIn/>
+                        :
+                        <>
+                            {
+                                cls.initialPhoneCorrect?
+                                    <>
+                                        {cls.isInitialUserExist?
+                                            <PersonalDataNeedToAuthentificate/>
+                                            :
+                                            <PersonalDataNotRegister/>
+                                        }
+                                    </>
+                                    :
+                                    <PersonalData/>
+                            }
+                        </>
+                    }
                     <DeliveryInfo/>
                 </div>
                 <div className="col-span-1">
@@ -33,4 +53,4 @@ const Order = () => {
         </div>
     );
 };
-export default Order;
+export default observer(Order);

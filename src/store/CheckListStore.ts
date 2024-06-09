@@ -15,6 +15,9 @@ import authStore from "@/store/AuthStore";
 import {showToast} from "@/helpers/alertService/alertService";
 import {makePersistable} from "mobx-persist-store";
 import Router from "next/router";
+import {User} from "@auth0/auth0-react";
+import {UserExistResponse} from "@/dataTransferObjects/response/UserExistResponse";
+import {AuthAPI} from "@/api/AuthAPI";
 
 class CheckListStore{
     city:NPCityResponse|null = null
@@ -23,6 +26,11 @@ class CheckListStore{
     pickupShop:Shop|null = null
 
     clientDesc = ""
+
+    initialPhone = ""
+    initialPhoneCorrect = false
+    isInitialUserExist = false
+    initialUser: UserExistResponse|null = null
 
     constructor() {
         makeAutoObservable(this)
@@ -34,6 +42,24 @@ class CheckListStore{
                 storage:window.localStorage
             });
         }
+    }
+
+    async setInitialPhone(v:string){
+        let clean = v.replace(/[+\s\)\(\-_]/g, '')
+        this.initialPhone = v
+        console.log(clean)
+        if(clean.length === 12) {
+            this.initialPhoneCorrect = true
+            let req = await AuthAPI.CheckUserExist('\+'+clean)
+            if(req.data){
+                this.isInitialUserExist = true
+                this.initialUser = req.data
+            }else{
+                this.isInitialUserExist = false
+                this.initialUser = null
+            }
+        }
+        else this.initialPhoneCorrect = false
     }
 
     setClientDesc(v:string){this.clientDesc = v}

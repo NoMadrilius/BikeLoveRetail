@@ -6,19 +6,20 @@ interface DeliveryRowInfoRadioProps {
     radiobutton: RadioButtonProps,
     price?: number
     children?: React.ReactNode
-    className?: string
+    className?: string,
+    onClick: ()=>void
 }
 
 const DeliveryRowInfoRadio = (props: DeliveryRowInfoRadioProps) => {
-    const {radiobutton, price,children,className} = props
+    const {radiobutton, price,children,className, onClick} = props
 
     return (
-        <div className={classnames("w-full border border-gray flex flex-col gap-3 p-4 rounded-lg",{
+        <div onClick={onClick} className={classnames("w-full border border-gray flex flex-col gap-3 p-4 rounded-lg",{
             "border-link-pink":radiobutton.checked
         })}>
             <div className="flex justify-between items-center">
                 <RadioButton {...radiobutton}/>
-                <span className="font-bold text-sm">{price ? `${price} UAH` : "Безкоштовно"}</span>
+                <span className="font-bold text-sm">{price ? `від ${price} UAH` : "Безкоштовно"}</span>
             </div>
             {radiobutton.checked && <div className={classnames("w-full", className)}>
                 {children}
