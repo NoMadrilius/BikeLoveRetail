@@ -8,10 +8,12 @@ import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { CloseModalIcon } from "../../SVGIcons";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
+import {useRouter} from "next/router";
 
 const CartModal = () => {
   const cs = useCartStore();
   const c = useCurrencyStore();
+  const r = useRouter()
 
   return (
     <ModalBase setOpen={(v) => cs.setVisible(v)} open={cs.visible}>
@@ -64,7 +66,10 @@ const CartModal = () => {
               </div>
             )}
           </div>
-          <GradientButton
+          <GradientButton onClick={()=>{
+            r.push('/checkout')
+            cs.setVisible(false)
+          }}
             label={"Оформити замовлення"}
             showIcon={false}
             className="max-w-[220px] w-full sm:max-w-[133px]"
