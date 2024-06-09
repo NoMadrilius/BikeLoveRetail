@@ -15,7 +15,7 @@ const TotalAmountBlock = () => {
                 <TotalAmountRow text={cs.cart.length+" тов. на суму"} value={c.useCurrency(cs.totalPrice)}/>
                 <TotalAmountRow text="Вартість доставки" value="від 50 UAH"/>
             </div>
-            <TotalAmountRow text="До сплати" value={c.useCurrency(cs.totalPrice)} className="text-[24px] font-bold"/>
+            <TotalAmountRow text="До сплати" value={c.useCurrency(cs.totalPrice)} className="text-[24px] font-bold font-robot-c"/>
             <GradientButton label="Замовлення підтверджую" showIcon={false} className="text-white w-full h-[48px] my-5" textstyles="whitespace-nowrap"/>
             <span>Підтвержджуючи замовлення я приймаю умови про:</span>
             <OrderLink title="положення про обробку персональних даних" href=""/>

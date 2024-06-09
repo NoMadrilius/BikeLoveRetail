@@ -15,11 +15,17 @@ const PhoneInput = (props: PhoneInputProps) => {
 
             <div className="flex relative">
                 <MaskedInput
-                    mask={['+', '3', '8', ' ', '(', '0', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/]}
+                    mask={['+', '3', '8', ' ', '(', '0', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/]}
                     placeholder="Enter a phone number"
                     id="my-input-id"
                     value={value}
                     onChange={event => onChange(event.target.value)}
+                    onClick={event => {
+                        const target=event.target as any
+                        const requiredPosition=target.value.indexOf("_")
+
+                        target.setSelectionRange(requiredPosition,requiredPosition);
+                    }}
                     render={(ref, props) => (
                         <input ref={ref as any} {...props}
                                type={"text"}
@@ -27,6 +33,7 @@ const PhoneInput = (props: PhoneInputProps) => {
                                className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white"
                         />
                     )}
+
                 />
 
             </div>

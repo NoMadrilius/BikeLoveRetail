@@ -16,7 +16,7 @@ const PersonOrderForm = (props:PersonOrderForm) => {
     const {confirm,cancel} = props
 
     return (
-        <div className="grid grid-cols-4 grid-rows-3 gap-4 sm2:grid-cols-1">
+        <div className="grid grid-cols-4 gap-4 sm2:grid-cols-1 auto-rows-auto">
             <div className="col-span-2 sm2:col-auto">
                 <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)}/>
             </div>
