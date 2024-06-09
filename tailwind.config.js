@@ -54,6 +54,7 @@ module.exports = {
       md2: { min: "1024px", max: "9999px" },
 
       xl: { min: "1280px", max: "1439px" },
+      xl1: { min: "1280px", max: "9999px" },
 
       lg: { min: "1440px", max: "5000px" },
 
