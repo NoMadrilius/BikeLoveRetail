@@ -3,6 +3,10 @@ import DeliveryRowInfoRadio from "@/components/Pages/OrderPage/DeliveryInfo/Deli
 import Selector, {SelectorOption} from "@/components/UIKit/Selector";
 import {useCheckList} from "@/store/CheckListStore";
 import {observer} from "mobx-react";
+import {AsyncSelectSearchCityNP} from "@/components/Screens/CheckListScreen/components/AsyncSelectSearchCityNP";
+import {
+    AsyncSelectSearchWarehouseNP
+} from "@/components/Screens/CheckListScreen/components/AsyncSelectSearchWarehoseNP";
 
 const items: SelectorOption[] = [
     {
@@ -87,8 +91,8 @@ const NovaPoshtaDelivery = () => {
             label: "Новою Поштою",
             checked: (cls.deliveryType === "DeliveryNP"),
         }} price={50} className="grid grid-cols-2 gap-4" onClick={()=>{cls.setDeliveryType("DeliveryNP")}}>
-            <Selector label="Оберіть місто" items={items} value={items[0].value}/>
-            <Selector label="Оберіть місто" items={items} value={items[0].value} disabled/>
+            <AsyncSelectSearchCityNP onSelect={r=>cls.setCity(r)} value={cls.city}/>
+            {cls.city &&<AsyncSelectSearchWarehouseNP onSelect={r=>cls.setWarehouse(r)} value={cls.warehouse} cityId={cls.city.Ref}/>}
         </DeliveryRowInfoRadio>
     );
 };

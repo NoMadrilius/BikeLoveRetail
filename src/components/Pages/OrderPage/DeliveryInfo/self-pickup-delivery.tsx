@@ -16,7 +16,7 @@ const SelfPickupDelivery = () => {
         }} className="border border-gray py-2 px-3 rounded-lg" onClick={()=>{cls.setDeliveryType("ShopPickUp")}}>
             <div className={rowClasses}>
                 <LocationIcon color="#F9436B"/>
-                <span className="text-base font-semibold">вул. Степана Бандери, 123</span>
+                <span className="text-base font-semibold">вул. Щербаківського, 59</span>
             </div>
             <div className={rowClasses}>
                 <ClockIcon/>

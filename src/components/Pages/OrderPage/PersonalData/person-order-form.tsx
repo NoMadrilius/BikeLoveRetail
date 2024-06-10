@@ -21,13 +21,13 @@ const PersonOrderForm = (props:PersonOrderForm) => {
                 <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)}/>
             </div>
             <div className="col-span-2 col-start-3 sm2:col-auto">
-                <InputWithPlaceholder label="Імʼя *"/>
+                <InputWithPlaceholder value={cls.name} setValue={v=>cls.setName(v)}  label="Імʼя *"/>
             </div>
             <div className="col-span-2 row-start-2 sm2:col-auto">
-                <InputWithPlaceholder label="Прізвище *"/>
+                <InputWithPlaceholder value={cls.lastName} setValue={v=>cls.setLastName(v)} label="Прізвище *"/>
             </div>
             <div className="col-span-2 col-start-3 row-start-2 sm2:col-auto sm2:row-auto">
-                <InputWithPlaceholder label="По-батькові" />
+                <InputWithPlaceholder value={cls.patronymic} setValue={v=>cls.setPatronymic(v)} label="По-батькові" />
             </div>
             <div className="col-start-1 row-start-3 sm2:col-auto sm2:row-auto">
                 <GradientButton showIcon={false} className="text-white w-full h-[40px]" {...confirm}/>

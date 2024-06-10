@@ -5,10 +5,12 @@ import OrderLink from "@/components/Pages/OrderPage/OrderInfo/total-amount-block
 import {useCartStore} from "@/store/CartStore";
 import {observer} from "mobx-react";
 import {useCurrencyStore} from "@/store/CurrencyStore";
+import {useCheckList} from "@/store/CheckListStore";
 
 const TotalAmountBlock = () => {
     const cs = useCartStore()
     const c = useCurrencyStore()
+    const cls = useCheckList()
     return (
         <>
             <div className="w-full border-gray border-b-[1px] flex flex-col gap-5 py-3">
@@ -16,7 +18,7 @@ const TotalAmountBlock = () => {
                 <TotalAmountRow text="Вартість доставки" value="від 50 UAH"/>
             </div>
             <TotalAmountRow text="До сплати" value={c.useCurrency(cs.totalPrice)} className="text-[24px] font-bold font-robot-c"/>
-            <GradientButton label="Замовлення підтверджую" showIcon={false} className="text-white w-full h-[48px] my-5" textstyles="whitespace-nowrap"/>
+            <GradientButton onClick={()=>{cls.createOrder()}} label="Замовлення підтверджую" showIcon={false} className="text-white w-full h-[48px] my-5" textstyles="whitespace-nowrap"/>
             <span>Підтвержджуючи замовлення я приймаю умови про:</span>
             <OrderLink title="положення про обробку персональних даних" href=""/>
             <OrderLink title="захист користувача" href=""/>

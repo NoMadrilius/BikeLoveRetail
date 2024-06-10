@@ -80,7 +80,7 @@ class AuthStore {
       firstName: this.regName,
       lastName: this.regLastName,
       patronymic: this.regPatronymic,
-      phone: '+'+this.loginPhone.replace(/[^0-9]/g, ""),
+      phone: '+'+this.regPhone.replace(/[^0-9]/g, ""),
       password: this.regPassword
     }
 
@@ -106,6 +106,41 @@ class AuthStore {
     })
 
   };
+
+  fastReg = async (os:()=>void, fn?:string, ln?:string, p?:string) => {
+
+    let request:RegisterRequest = {
+      firstName: fn,
+      lastName: ln,
+      patronymic: p,
+      phone: '+'+this.regPhone.replace(/[^0-9]/g, ""),
+      password: 'dfshgdsfdfhkl42po4k34'
+    }
+
+    this.loading = true;
+
+    await AuthAPI.Register(request).then(r=>{
+      this.isAuth = true
+      this.user = r.data.user
+      this.accessToken = r.data.accessToken
+      os()
+      showToast({
+        info: "Удачных покупок :)",
+        title: "Аккаунт создан",
+        type: "success",
+      });
+    }).catch((error)=>{
+      showToast({
+        info: error.message,
+        title: "Ошибка",
+        type: "error",
+      });
+    }).finally(()=>{
+      this.loading = false
+    })
+  }
+
+
   login = async (os:()=>void) => {
     let request:LoginRequest  ={
       phone:'+'+this.loginPhone.replace(/[^0-9]/g, ""),

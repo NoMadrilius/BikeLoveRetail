@@ -37,7 +37,7 @@ const OrderInfoListItem = (props: {product: Product, fullData: ProductFullData, 
             <div className="text-base/5 font-normal flex flex-col justify-between grow">
                 <div className="flex justify-between">
                     <p>{props.product.name}</p>
-                    <RoundedButton onClick={()=>{}} bgColor={"!p-0"} imageUrl={"/icons/trash.svg"} altText="Сміник"/>
+                    <RoundedButton onClick={()=>{cs.removeFromCart(props.product.id)}} bgColor={"!p-0"} imageUrl={"/icons/trash.svg"} altText="Сміник"/>
                 </div>
                 <div className="flex justify-between items-center">
                     <div className="flex items-center justify-between">

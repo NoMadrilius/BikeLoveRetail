@@ -32,6 +32,10 @@ class CheckListStore{
     isInitialUserExist = false
     initialUser: UserExistResponse|null = null
 
+    name=''
+    lastName=''
+    patronymic=''
+
     constructor() {
         makeAutoObservable(this)
 
@@ -43,6 +47,10 @@ class CheckListStore{
             });
         }
     }
+
+    setName(v:string){this.name = v}
+    setLastName(v:string){this.lastName = v}
+    setPatronymic(v:string){this.patronymic = v}
 
     async setInitialPhone(v:string){
         let clean = v.replace(/[+\s\)\(\-_]/g, '')
@@ -63,6 +71,7 @@ class CheckListStore{
     }
 
     setClientDesc(v:string){this.clientDesc = v}
+
 
     setCity(v:NPCityResponse|null){
         this.city = v
@@ -92,10 +101,12 @@ class CheckListStore{
             if(this.warehouse === null) showToast({title:"Куди відправляємо?",info:"Вкажіть віділення",type:"warn"})
             if(this.city === null || this.warehouse === null)return false
         }
+        /*
         if(this.deliveryType === "ShopPickUp" && this.pickupShop === null){
             showToast({title:"Де будете забирати?",info:"Вкажіть магазин для самовивізу",type:"warn"})
             return false
         }
+         */
 
         return true
     }
