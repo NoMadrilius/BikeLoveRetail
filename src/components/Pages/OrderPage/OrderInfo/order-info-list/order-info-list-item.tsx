@@ -23,7 +23,7 @@ const OrderInfoListItem = (props: {product: Product, fullData: ProductFullData, 
     return (
         <div className="w-full h-[148px] py-3 flex justify-between gap-3 sm2:flex-col sm2:h-fit border-gray border-b-[1px]">
             <div className="min-w-[148px] flex flex-col items-center gap-4">
-                <Image className="h-[76px]" src={{
+                <Image className="h-[76px] object-contain" src={{
                     src: img,
                     width: 100,
                     height: 80,

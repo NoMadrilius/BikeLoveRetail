@@ -20,7 +20,7 @@ const Order = () => {
             <h1 className="text-[40px] sm2:text-[32px] font-medium font-robot-c xl1:sticky top-0">Оформлення замовлення</h1>
 
             <div className="w-full grid grid-cols-[1.3fr_1fr] xl:grid-cols-[1.4fr_1fr] md1:grid-cols-1 gap-8 xl:gap-5 ">
-                <div className="col-span-1 gap-x-5 gap-y-8 flex flex-col xl1:sticky top-4 h-fit">
+                <div className="col-span-1 gap-x-5 gap-y-8 flex flex-col xl1:sticky top-[68px] h-fit">
                     {authStore.isAuth ?
                         <PersonalDataSignedIn/>
                         :
