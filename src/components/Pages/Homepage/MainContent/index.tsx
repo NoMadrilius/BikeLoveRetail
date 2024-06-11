@@ -5,8 +5,23 @@ interface MainProps {
 }
 
 const Main = ({ children }: MainProps) => {
+  const rawHTML = `
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VHCZ19B5K9">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VHCZ19B5K9');
+</script>
+  `;
   return (
     <main className="w-full flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:pl-0 md:px-10 xl:pl-8 pl-8 lg:pl-0">
+      <div
+          dangerouslySetInnerHTML={{ __html: rawHTML }}
+      />
       {children}
     </main>
   );
