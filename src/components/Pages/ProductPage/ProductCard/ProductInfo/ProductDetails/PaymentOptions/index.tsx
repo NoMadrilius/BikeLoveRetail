@@ -1,11 +1,14 @@
 import React from "react";
 import { MoneyIconSVG } from "@/components/UIKit/SVGIcons";
 import PaymentOptionItem from "./PaymentOptionItem";
+import Link from "next/link";
 
 const paymentOptionsData = [
   { id: 1, name: "Онлайн оплата" },
-  { id: 2, name: "Перевод на карту" },
-  { id: 3, name: "Покупка частинами" },
+  { id: 2, name: "Google pay" },
+  { id: 3, name: "Apple pay" },
+  { id: 4, name: "Privatbank" },
+  { id: 5, name: "Monobank" },
 ];
 
 const PaymentOptions = () => {
@@ -22,9 +25,9 @@ const PaymentOptions = () => {
           <PaymentOptionItem key={option.id} name={option.name} />
         ))}
       </div>
-      <button className="text-[#074FA5] font-inter leading-[19.36px] text-left md:pl-10 md2:pl-0">
+      <Link href={'/about/delivery'} className="text-[#074FA5] font-inter leading-[19.36px] text-left md:pl-10 md2:pl-0 cursor-pointer">
         Більше інформації про оплату
-      </button>
+      </Link>
     </div>
   );
 };

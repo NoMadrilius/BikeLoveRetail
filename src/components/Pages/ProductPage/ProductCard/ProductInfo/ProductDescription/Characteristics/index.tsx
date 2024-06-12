@@ -5,6 +5,8 @@ import {useProductPageStore} from "@/store/ProductPageStore";
 const Characteristics = () => {
   const ps = useProductPageStore()
 
+  if(ps.uniqueOptions.length < 1) return null
+
   return (
     <div className="p-5 md2:hidden" id="specifications">
       <div className="border-b border-gray pb-4 flex flex-col gap-5">

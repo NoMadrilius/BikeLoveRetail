@@ -17,24 +17,17 @@ const DeliveryOptions = () => {
       <div className="flex flex-col gap-4 md:pl-10 md2:p-0">
         <DeliveryOptionItem
           price="Безкоштовно"
-          pickupTime="забирати завтра о 12.00"
+          pickupTime="найближчим часом"
           hideIconOnMobile={true}
-          pickupTimeOnDesktop="завтра о 12.00"
+          pickupTimeOnDesktop="найближчим часом"
           deliveryType={"Самовивіз з магазину"}
           deliveryImage={"/icons/bike_logo_small.svg"}
         />
         <DeliveryOptionItem
-          price="ХХХ UAH"
-          pickupTime="забирати завтра о 12.00"
-          pickupTimeOnDesktop="відправка завтра"
+          price="від 50 UAH"
+          pickupTime="відправка о 12.00"
+          pickupTimeOnDesktop="відправка о 12.00"
           deliveryType={"Самовивіз із відділення"}
-          deliveryImage={"/icons/nova_poshta.svg"}
-        />
-        <DeliveryOptionItem
-          price="ХХХ UAH"
-          pickupTime="забирати завтра о 12.00"
-          pickupTimeOnDesktop="завтра о 12.00"
-          deliveryType={"Доставка курʼєром"}
           deliveryImage={"/icons/nova_poshta.svg"}
         />
       </div>

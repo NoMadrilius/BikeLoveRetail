@@ -23,7 +23,6 @@ const ProductCard = (p: {
     .slice()
     .sort((a, b) => b.sortOrder - a.sortOrder);
   const cs = useCartStore();
-  const r = useRouter();
 
   const link = GenerateProductLink(
     p.product.product.id,
@@ -99,7 +98,7 @@ const ProductCard = (p: {
             />
           )}
 
-          <Instock />
+          <Instock stockType={p.product.product.internalStorageTotal>0?"inStore":p.product.product.outerStorageTotal>0?"inWarehouse":"outOfStock"} />
           <ProductSpecItems product={p.product} />
         </>
       ) : (
@@ -132,7 +131,7 @@ const ProductCard = (p: {
             />
           )}
 
-          <Instock />
+            <Instock stockType={p.product.product.internalStorageTotal>0?"inStore":p.product.product.outerStorageTotal>0?"inWarehouse":"outOfStock"} />
         </Link>
       )}
     </article>

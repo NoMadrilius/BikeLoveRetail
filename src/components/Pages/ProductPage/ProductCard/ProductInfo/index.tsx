@@ -5,7 +5,7 @@ import CharacteristicsMobile from "./ProductDescription/Characteristics/Characte
 
 const ProductInfo = () => {
   return (
-    <div className="flex flex-col mt-6 gap-6 md2:mt-0 md2:grow md:max-w-full max-w-[628px] relative z-[-1]">
+    <div className="flex flex-col mt-6 gap-6 md2:mt-0 md2:grow md:max-w-full max-w-[628px]">
       <ProductDetails />
       <ProductDescription />
       <CharacteristicsMobile />

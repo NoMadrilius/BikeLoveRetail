@@ -46,6 +46,7 @@ const ProductGallery = () => {
           <div className="xl:mx-auto max-w-6xl">
             {/* Main Image Swiper */}
             <div className="flex items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg">
+              {ps.product?.product.oldRetailPrice > ps.product?.product.retailPrice &&
               <RoundedButton
                 text="Акція"
                 altText={"Shopping Cart"}
@@ -53,7 +54,7 @@ const ProductGallery = () => {
                   "bg-pink shadow-product-card py-[6.5px] px-2 md:order-1 absolute top-5 left-5 z-[2000000] sm:hidden md:hidden md2:block"
                 }
                 onClick={function (): void {}}
-              />
+              />}
               <div
                 ref={prevRef}
                 className="sm:hidden p-3 hover:bg-gray rounded-lg cursor-pointer transition-all duration-300 ease-in-out"

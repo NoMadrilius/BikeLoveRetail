@@ -5,6 +5,8 @@ import {useProductPageStore} from "@/store/ProductPageStore";
 
 const CharacteristicsMobile = () => {
   const ps = useProductPageStore()
+  if(ps.uniqueOptions.length < 1) return null
+
   return (
     <div
       className="p-5 md2:block hidden bg-white rounded-lg"

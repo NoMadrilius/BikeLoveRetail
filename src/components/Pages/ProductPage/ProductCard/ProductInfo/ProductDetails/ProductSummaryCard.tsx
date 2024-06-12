@@ -45,7 +45,8 @@ const ProductSummaryCard = () => {
         />
       </div>
       <div className="flex items-end justify-between">
-        <Instock className="!mt-0" />
+        <Instock className="!mt-0" stockType={p.product.internalStorageTotal>0?"inStore":p.product.outerStorageTotal>0?"inWarehouse":"outOfStock"} />
+
         <span className="font-inter text-t-grey text-[14px] leading-[16.8px] md2:hidden">
           {"Код: " + p.product.id}
         </span>
