@@ -6,8 +6,8 @@ const HamburgerMenu = () => {
   const as = useAppStore()
   return (
     <button
-      className="p-2 sm2:hidden flex md:hidden xl:hidden lg:hidden 2xl:hidden shrink-0"
-      onClick={() => {as.setIsOpenSidebar(true)}// store.openMenu()
+      className="p-2 flex md:hidden xl:hidden lg:hidden 2xl:hidden shrink-0"
+      onClick={() => {as.setIsOpenSidebar(!as.isOpenSidebar)}
     }
     >
       <Image

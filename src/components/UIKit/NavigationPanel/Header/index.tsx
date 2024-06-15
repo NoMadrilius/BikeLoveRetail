@@ -16,18 +16,23 @@ import { useSearchStore } from "@/store/SearchStore";
 const Header = () => {
   const as = useAppStore();
   const ss = useSearchStore();
+
   return (
     <>
       <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-3 md:px-0 sm:justify-between">
         <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 sm:justify-center md:justify-center sm:gap-0 xl:gap-6 lg:gap-8 xl:justify-center">
-          {!as.isOpenSidebar ? <HamburgerMenu /> : null}
           {as.isOpenSidebar ? (
-            <MobileView />
+              <MobileView />
           ) : (
+              <>
+              <HamburgerMenu />
             <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />
+              </>
           )}
         </div>
+
       </header>
+
       <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
         <GradientButton
           label={"Каталог товарів"}
@@ -45,6 +50,7 @@ const Header = () => {
           type="secondary"
         />
       </div>
+
       <div className="sm:block hidden h-full items-center  bg-white shadow-custom px-5 py-3">
         <SearchInput
           className="sm:block w-full max-w-full"

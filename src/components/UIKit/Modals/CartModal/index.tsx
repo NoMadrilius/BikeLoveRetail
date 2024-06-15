@@ -71,6 +71,7 @@ const CartModal = () => {
             cs.setVisible(false)
           }}
             label={"Оформити замовлення"}
+                          disabled={cs.cart.length === 0}
             showIcon={false}
             className="max-w-[220px] w-full sm:max-w-[133px]"
             textstyles="!w-max "
