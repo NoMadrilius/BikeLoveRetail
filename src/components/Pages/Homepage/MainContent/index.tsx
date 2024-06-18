@@ -17,13 +17,16 @@ const Main = ({ children }: MainProps) => {
   gtag('config', 'G-VHCZ19B5K9');
 </script>
   `;
+  //w-full flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:pl-0 md:px-10 xl:pl-8 pl-8 lg:pl-0
   return (
-    <main className="w-full flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:pl-0 md:px-10 xl:pl-8 pl-8 lg:pl-0">
-      <div
-          dangerouslySetInnerHTML={{ __html: rawHTML }}
-      />
-      {children}
-    </main>
+      <div className={"w-full flex justify-center desc:pt-[40px]  tab:px-[40px] mob:px-[20px]"}>
+          <main className="w-full flex flex-col items-center desc:w-[1324px]">
+              <div
+                  dangerouslySetInnerHTML={{ __html: rawHTML }}
+              />
+              {children}
+          </main>
+      </div>
   );
 };
 

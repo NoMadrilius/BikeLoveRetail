@@ -19,15 +19,12 @@ const Header = () => {
 
   return (
     <>
-      <header className="py-5 bg-dark px-5 sm:px-5 xl:px-10 sm:py-3 md:px-0 sm:justify-between">
-        <div className="max-w-[1324px] xl:max-w-full mx-auto flex items-center gap-3 md:gap-8 sm:justify-center md:justify-center sm:gap-0 xl:gap-6 lg:gap-8 xl:justify-center">
+      <header className="py-5 bg-dark flex justify-center">
+        <div className="flex justify-between w-full mob:px-[20px] tab:px-[40px] desc:w-[1324px]">
           {as.isOpenSidebar ? (
               <MobileView />
           ) : (
-              <>
-              <HamburgerMenu />
             <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />
-              </>
           )}
         </div>
 

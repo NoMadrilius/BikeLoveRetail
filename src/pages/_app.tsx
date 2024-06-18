@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   console.log("appState:", pageProps.appState);
 
   return (
-    <>
+    <div>
       <ToastContainer
         position="top-center"
         autoClose={3500}
@@ -44,6 +44,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </>
           </Layout>
       </Auth0Provider>
-    </>
+    </div>
   );
 }

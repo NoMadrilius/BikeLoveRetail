@@ -4,6 +4,7 @@ import React from "react";
 import LogoImage from "../LogoImage";
 import NavigationIcons from "../NavigationIcons";
 import PhoneNumberWithImage from "../PhoneNumberWithIcon";
+import HamburgerMenu from "@/components/UIKit/NavigationPanel/Header/HamburgerMenu";
 
 const DesktopView = ({
   setIsModalOpen,
@@ -11,10 +12,11 @@ const DesktopView = ({
   setIsModalOpen: (n: boolean) => void;
 }) => {
   return (
-    <>
-      <LogoImage />
-        {/*
-        <div className="hidden sm2:flex h-full gap-3 xl:flex lg:flex 2xl:flex min-h-[48px] lg:grow">
+    <div className={"flex justify-between w-full"}>
+        <HamburgerMenu />
+        <LogoImage />
+
+        <div className="flex gap-[12px] mob:hidden tab:hidden">
         <GradientButton
           label={"Каталог товарів"}
           onClick={() => {
@@ -33,12 +35,12 @@ const DesktopView = ({
           // textstyles="w-auto"
         />
       </div>
-        */}
+
 
       <SearchInput />
       <NavigationIcons />
       <PhoneNumberWithImage />
-    </>
+    </div>
   );
 };
 

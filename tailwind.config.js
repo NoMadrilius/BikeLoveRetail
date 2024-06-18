@@ -59,6 +59,10 @@ module.exports = {
       lg: { min: "1440px", max: "5000px" },
 
       "2xl": { min: "1921px", max: "5000px" },
+
+      mob:{ min: "0px", max: "743px" },
+      tab:{ min: "744px", max: "1323px" },
+      desc:{ min: "1324px", max: "9999px" },
     },
   },
   plugins: [],

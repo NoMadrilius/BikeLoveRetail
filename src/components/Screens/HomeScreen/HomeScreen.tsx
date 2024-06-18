@@ -28,14 +28,14 @@ const HomeScreen = () => {
   if (as.isOpenSidebar) return null;
 
   return (
-    <div className="max-w-[1324px] mx-auto contents lg:flex xl:flex 2xl:flex lg:gap-8  pt-8 pb-20 xl:pt-10 xl:px-10 lg:pt-10 ">
+    <div className="w-full flex gap-[32px] border border-solid border-black ">
       <Aside />
       <UseMetaData
           title={"Веломагазин BikeLove. Велосипеди, аксесуари, запчастини."}
           img={"/favicon.ico"}
           description={"BikeLove - ваш надійний веломагазин у Києві! Пропонуємо широкий асортимент велосипедів, аксесуарів та запчастин. Професійне обслуговування, вигідні ціни та знижки. Завітайте до нас та відчуйте справжню любов до велосипедів!"}
       />
-      <div className=" font-inter flex flex-col gap-10 xl:gap-[52px] lg:gap-[52px]">
+      <div className="font-inter w-full flex flex-col gap-10 desc:gap-[52px]">
         <div className="flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:px-5 md:pl-0 md:px-0 xl:pl-8 pl-8 lg:pl-0">
           <Hero />
           <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center relative z-[20]">

@@ -15,7 +15,7 @@ import CatalogModal from "@/components/UIKit/Modals/CatalogModal";
 
 const Layout = ({ children }: any) => {
   return (
-    <>
+    <div className={""}>
       <CartModal />
       <AuthModal />
       <CatalogModal />
@@ -47,7 +47,7 @@ const Layout = ({ children }: any) => {
           buttonStyles="bg-transparent border border-white text-white"
         />
       </footer>
-    </>
+    </div>
   );
 };
 export default Layout;
