@@ -7,14 +7,14 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 
 const ProductSummaryCard = () => {
   const ps = useProductPageStore();
-  if(!ps.product) return null
+  if (!ps.product) return null;
 
   const p = ps.product;
   const c = useCurrencyStore();
 
   return (
     <div
-      className="flex flex-col gap-3 border-b pb-3 border-gray"
+      className="flex flex-col gap-3 border-b pb-3 border-gray "
       id="about-product"
     >
       <div className="md2:flex flex-col hidden gap-3">
@@ -40,12 +40,21 @@ const ProductSummaryCard = () => {
           imageUrl={"/images/uikit/card/heart.svg"}
           altText={"Shopping Cart"}
           size={24}
-          bgColor={"bg-white shadow-product-card shrink-0"}
+          bgColor={"bg-white shadow-product-card shrink-0 !z-[0]"}
           onClick={function (): void {}}
         />
       </div>
       <div className="flex items-end justify-between">
-        <Instock className="!mt-0" stockType={p.product.internalStorageTotal>0?"inStore":p.product.outerStorageTotal>0?"inWarehouse":"outOfStock"} />
+        <Instock
+          className="!mt-0"
+          stockType={
+            p.product.internalStorageTotal > 0
+              ? "inStore"
+              : p.product.outerStorageTotal > 0
+              ? "inWarehouse"
+              : "outOfStock"
+          }
+        />
 
         <span className="font-inter text-t-grey text-[14px] leading-[16.8px] md2:hidden">
           {"Код: " + p.product.id}

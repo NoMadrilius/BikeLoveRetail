@@ -53,7 +53,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-[1]">
       <div className="relative w-[80%] max-w-[1170px] bg-white p-5 rounded-lg">
         <div
           className="p-3 hover:bg-gray rounded-lg absolute top-4 right-4 z-[2000] cursor-pointer shrink-0"

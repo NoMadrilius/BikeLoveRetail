@@ -12,7 +12,7 @@ const ProductHeader = () => {
   ];
 
   return (
-    <div className="scroll-smooth overflow-x-scroll sm:static sticky top-0 z-[10] flex gap-2 md2:gap-3 w-full pl-5 no-scrollbar md2:overflow-auto md:bg-white md:p-5  md2:bg-white md2:p-5  rounded-lg">
+    <div className="scroll-smooth overflow-x-scroll sm:static sticky top-0 z-[0] flex gap-2 md2:gap-3 w-full pl-5 no-scrollbar md2:overflow-auto md:bg-white md:p-5  md2:bg-white md2:p-5  rounded-lg">
       {texts.map((text, index) => (
         <Link
           key={index}

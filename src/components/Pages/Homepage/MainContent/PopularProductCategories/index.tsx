@@ -2,21 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import NavigationButtons from "../CustomSlider/NavigationButtons";
-import {useAppStore} from "@/store/AppStore";
-import {observer} from "mobx-react";
-import {useRouter} from "next/router";
-import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import { useAppStore } from "@/store/AppStore";
+import { observer } from "mobx-react";
+import { useRouter } from "next/router";
+import { GenerateCatalogLink } from "@/helpers/LinkGen/GenerateCatalogLink";
 
 const PopularProductCategories = () => {
-  const as = useAppStore()
-  const r = useRouter()
-  const cats = [0,1,2,3,4,5].map((n,index)=>{
-    let set = as.popularCategories[index]
-    let cat = as.categories.find(g=>g.id === set)!
-    return({name:cat.name, link:GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}), img:cat.iconUrl})})
+  const as = useAppStore();
+  const r = useRouter();
+  const cats = [0, 1, 2, 3, 4, 5].map((n, index) => {
+    let set = as.popularCategories[index];
+    let cat = as.categories.find((g) => g.id === set)!;
+    return {
+      name: cat.name,
+      link: GenerateCatalogLink(undefined, {
+        id: cat.id,
+        slug: cat.transliterationName,
+      }),
+      img: cat.iconUrl,
+    };
+  });
 
-  console.log("popular",cats)
-  if(!cats) return null
+  console.log("popular", cats);
+  if (!cats) return null;
   return (
     <section className="sm:-mt-[5px] xl:mt-[7px]">
       <NavigationButtons
@@ -34,9 +42,10 @@ const PopularProductCategories = () => {
               >
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image
-                    src={cats[0].img||"/"}
+                    src={cats[0].img || "/"}
                     alt="Popular Item"
                     fill
+                    className="object-contain"
                   />
                 </div>
 
@@ -52,9 +61,10 @@ const PopularProductCategories = () => {
               >
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image
-                    src={cats[1].img||"/"}
+                    src={cats[1].img || "/"}
                     alt="Popular Item"
                     fill
+                    className="object-contain"
                   />
                 </div>
 
@@ -71,9 +81,10 @@ const PopularProductCategories = () => {
             >
               <div className="relative w-full max-w-[232px] h-[170px]">
                 <Image
-                  src={cats[2].img||"/"}
+                  src={cats[2].img || "/"}
                   alt="Popular Item"
                   fill
+                  className="object-contain"
                 />
               </div>
 
@@ -93,9 +104,10 @@ const PopularProductCategories = () => {
             >
               <div className="relative w-full max-w-[232px] h-[170px]">
                 <Image
-                  src={cats[3].img||"/"}
+                  src={cats[3].img || "/"}
                   alt="Popular Item"
                   fill
+                  className="object-contain"
                 />
               </div>
 
@@ -112,9 +124,10 @@ const PopularProductCategories = () => {
               >
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image
-                    src={cats[4].img||"/"}
+                    src={cats[4].img || "/"}
                     alt="Popular Item"
                     fill
+                    className="object-contain"
                   />
                 </div>
 
@@ -130,9 +143,10 @@ const PopularProductCategories = () => {
               >
                 <div className="relative w-full max-w-[232px] h-[170px]">
                   <Image
-                    src={cats[5].img||"/"}
+                    src={cats[5].img || "/"}
                     alt="Popular Item"
                     fill
+                    className="object-contain"
                   />
                 </div>
 

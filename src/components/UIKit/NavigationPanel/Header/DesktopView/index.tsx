@@ -12,11 +12,11 @@ const DesktopView = ({
   setIsModalOpen: (n: boolean) => void;
 }) => {
   return (
-    <div className={"flex justify-between w-full"}>
-        <HamburgerMenu />
-        <LogoImage />
+    <div className={"flex justify-between w-full items-center"}>
+      <HamburgerMenu />
+      <LogoImage />
 
-        <div className="flex gap-[12px] mob:hidden tab:hidden">
+      <div className="flex gap-[12px] mob:hidden tab:hidden">
         <GradientButton
           label={"Каталог товарів"}
           onClick={() => {
@@ -35,7 +35,6 @@ const DesktopView = ({
           // textstyles="w-auto"
         />
       </div>
-
 
       <SearchInput />
       <NavigationIcons />
