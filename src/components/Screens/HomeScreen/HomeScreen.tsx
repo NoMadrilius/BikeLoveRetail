@@ -28,7 +28,7 @@ const HomeScreen = () => {
   if (as.isOpenSidebar) return null;
 
   return (
-    <div className="w-full flex gap-[32px] border border-solid border-black ">
+    <div className="w-full flex gap-[32px]">
       <Aside />
       <UseMetaData
           title={"Веломагазин BikeLove. Велосипеди, аксесуари, запчастини."}
