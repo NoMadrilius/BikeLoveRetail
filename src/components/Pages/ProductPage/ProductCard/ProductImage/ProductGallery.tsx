@@ -46,15 +46,17 @@ const ProductGallery = () => {
           <div className="xl:mx-auto max-w-6xl">
             {/* Main Image Swiper */}
             <div className="flex items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg">
-              {ps.product?.product.oldRetailPrice > ps.product?.product.retailPrice &&
-              <RoundedButton
-                text="Акція"
-                altText={"Shopping Cart"}
-                bgColor={
-                  "bg-pink shadow-product-card py-[6.5px] px-2 md:order-1 absolute top-5 left-5 z-[2000000] sm:hidden md:hidden md2:block"
-                }
-                onClick={function (): void {}}
-              />}
+              {ps.product?.product.oldRetailPrice >
+                ps.product?.product.retailPrice && (
+                <RoundedButton
+                  text="Акція"
+                  altText={"Shopping Cart"}
+                  bgColor={
+                    "bg-pink shadow-product-card py-[6.5px] px-2 md:order-1 absolute top-5 left-5 z-[2000000] sm:hidden md:hidden md2:block"
+                  }
+                  onClick={function (): void {}}
+                />
+              )}
               <div
                 ref={prevRef}
                 className="sm:hidden p-3 hover:bg-gray rounded-lg cursor-pointer transition-all duration-300 ease-in-out"
@@ -131,11 +133,13 @@ const ProductGallery = () => {
               ))}
             </Swiper>
           </div>
-          <Pagination
-            currentIndex={currentIndex}
-            totalSlides={6}
-            className="block md2:!hidden w-full mx-0 sm:mb-4 md:mb-4 sm:mt-0 md:mt-0"
-          />
+          {ps.product?.productImages.length > 1 ? (
+            <Pagination
+              currentIndex={currentIndex}
+              totalSlides={ps.product?.productImages.length}
+              className="block md2:!hidden w-full mx-0 sm:mb-4 md:mb-4 sm:mt-0 md:mt-0"
+            />
+          ) : null}
         </section>
       ) : (
         <FullScreenGallery
