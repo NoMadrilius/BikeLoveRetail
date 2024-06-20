@@ -15,8 +15,8 @@ const ProductPage = () => {
   if (ps.product === null) return null;
 
   return (
-    <div className="scroll-smooth max-w-[1324px] w-full m-auto items-start pt-5 pb-10 flex flex-col gap-10 md2:pr-8">
-      <div className="flex flex-col gap-10 md:gap-6 w-full">
+    <div className="scroll-smooth max-w-[1324px] w-full h-full m-auto items-start pt-5 pb-10 flex flex-col gap-10 md2:pr-8">
+      <div className="flex flex-col gap-10 md:gap-6 w-full h-full">
           <UseMetaData
               title={nameProductMetaTemplate(ps.product.product.name)}
               img={ps.product.productImages[0].url}

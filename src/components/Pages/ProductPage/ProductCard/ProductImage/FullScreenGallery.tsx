@@ -39,38 +39,23 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
 
   if (!ps.product || ps.product.productImages.length < 1) return null;
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-[1]">
-      <div className="relative w-[80%] max-w-[1170px] bg-white p-5 rounded-lg">
+      <div className="w-[80%] max-w-[1170px] h-[80%] bg-white p-5 rounded-lg">
         <div
           className="p-3 hover:bg-gray rounded-lg absolute top-4 right-4 z-[2000] cursor-pointer shrink-0"
           onClick={() => {
-            onClose();
             setThumbsSwiper(null);
           }}
         >
           <RxCross2 className="text-black" />
         </div>
 
-        <div className="xl:mx-auto max-w-6xl">
+        <div className="h-full flex flex-col xl:mx-auto max-w-6xl ">
           {/* Main Image Swiper */}
-          <div className="flex items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg">
+          <div className="flex flex-grow h-full items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg">
             <div
               ref={prevRef}
-              className="sm:hidden size-12 rounded-full arrow-shadow flex items-center justify-center hover:bg-gray cursor-pointer transition-all duration-300 ease-in-out shrink-0"
+              className=" sm:hidden size-12 rounded-full arrow-shadow flex items-center justify-center hover:bg-gray cursor-pointer transition-all duration-300 ease-in-out shrink-0"
             >
               <LeftIconArrow />
             </div>
@@ -91,7 +76,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
             >
               {ps.product?.productImages.map((p, index) => (
                 <SwiperSlide key={index}>
-                  <div className="relative w-full h-[380px] md2:max-w-[432px] md2:m-auto">
+                  <div className="relative w-full h-full desc:m-auto">
                     <Image
                       src={p.url}
                       alt=""
@@ -117,7 +102,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="mt-5 hidden sm:!hidden md:!hidden md2:!block"
+            className="!h-[120px] mt-5 hidden sm:!hidden md:!hidden md2:!block"
           >
             {ps.product?.productImages.map((p, index) => (
               <SwiperSlide key={index}>
@@ -135,7 +120,6 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
           </Swiper>
         </div>
       </div>
-    </div>
   );
 };
 
