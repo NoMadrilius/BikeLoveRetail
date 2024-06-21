@@ -14,7 +14,7 @@ const ProductSummaryCard = () => {
 
   return (
     <div
-      className="flex flex-col gap-3 border-b pb-3 border-gray "
+      className="flex flex-col gap-3 border-b pb-3 border-gray"
       id="about-product"
     >
       <div className="md2:flex flex-col hidden gap-3">
@@ -40,7 +40,7 @@ const ProductSummaryCard = () => {
           imageUrl={"/images/uikit/card/heart.svg"}
           altText={"Shopping Cart"}
           size={24}
-          bgColor={"bg-white shadow-product-card shrink-0 !z-[0]"}
+          bgColor={"bg-white shadow-product-card shrink-0 "}
           onClick={function (): void {}}
         />
       </div>

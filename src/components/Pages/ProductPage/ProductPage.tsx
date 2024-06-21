@@ -4,9 +4,9 @@ import ProductHeader from "@/components/Pages/ProductPage/ProductHeader";
 import ProductCard from "@/components/Pages/ProductPage/ProductCard";
 import CustomSlider from "@/components/Pages/Homepage/MainContent/CustomSlider";
 import { useProductPageStore } from "@/store/ProductPageStore";
-import {UseMetaData} from "@/helpers/hooks/useMetaData";
-import {nameProductMetaTemplate} from "@/helpers/metaTamplates/nameProductMetaTemplate";
-import {descriptionProductMetaTemplate} from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
+import { UseMetaData } from "@/helpers/hooks/useMetaData";
+import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
+import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
 
 const ProductPage = () => {
   const as = useAppStore();
@@ -17,11 +17,11 @@ const ProductPage = () => {
   return (
     <div className="scroll-smooth max-w-[1324px] w-full h-full m-auto items-start pt-5 pb-10 flex flex-col gap-10 md2:pr-8">
       <div className="flex flex-col gap-10 md:gap-6 w-full h-full">
-          <UseMetaData
-              title={nameProductMetaTemplate(ps.product.product.name)}
-              img={ps.product.productImages[0].url}
-              description={descriptionProductMetaTemplate(ps.product.product.name)}
-          />
+        <UseMetaData
+          title={nameProductMetaTemplate(ps.product.product.name)}
+          img={ps.product.productImages[0].url}
+          description={descriptionProductMetaTemplate(ps.product.product.name)}
+        />
         <ProductHeader />
         <ProductCard />
       </div>

@@ -20,15 +20,21 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
 }: RoundedButtonProps) => {
   return (
     <button
-      className={`z-[1] p-[13px] rounded-full shrink-0 hover:bg-[#FA6989] ${bgColor}`}
-      onClick={(e)=>{
-        e.stopPropagation()
-        onClick(e)
+      className={` p-[13px] rounded-full shrink-0 hover:bg-[#FA6989] ${bgColor}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick(e);
       }}
     >
       {text.length === 0 && imageUrl && altText ? (
-        <div className={`shrink-0 flex relative size-[21.5px] xl:size-[24px]`}>
-          <Image src={imageUrl} alt={altText} fill className="shrink-0" />
+        <div className={`shrink-0 flex  size-[21.5px] xl:size-[24px]`}>
+          <Image
+            src={imageUrl}
+            alt={altText}
+            width={21.5}
+            height={21.5}
+            className="shrink-0 "
+          />
         </div>
       ) : (
         <span className="text-white text-[16px] leading-[19px] font-semibold font-inter">
