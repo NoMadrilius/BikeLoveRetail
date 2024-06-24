@@ -11,6 +11,8 @@ const SearchResultItem = ({
   searchResults?: boolean;
   onClick?: () => void;
 }) => {
+
+
   return (
     <div
       className={`flex items-center justify-between bg-white grow w-full p-3 border-b border-category-border group ${

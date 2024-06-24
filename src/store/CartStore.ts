@@ -4,6 +4,7 @@ import { createContext, useContext } from "react";
 import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {makePersistable} from "mobx-persist-store";
+import {PublicAPI} from "@/api/PublicAPI";
 
 class CartStore {
   cart: {product:Product, fullData:ProductFullData, quantity:number}[] = [];
@@ -35,6 +36,7 @@ class CartStore {
     this.totalPrice = this.cart.reduce((acc, item) => acc + item.product.retailPrice * item.quantity, 0)
     this.totalDiscount = this.cart.reduce((acc, item) => acc + item.product.oldRetailPrice > item.product.retailPrice? item.product.oldRetailPrice - item.product.retailPrice:0, 0)
   }
+
   addToCart(product: Product, FullData:ProductFullData) {
     if (this.cart.find(n=>n.product.id === product.id)) {
       showToast({
@@ -49,6 +51,29 @@ class CartStore {
         title: "Товар добавлен",
         type: "success",
       });
+    }
+    this.updateTotalPrice()
+  }
+
+  addToCartRequest(id:number){
+    if (this.cart.find(n=>n.product.id === id)) {
+      showToast({
+        info: `Товар вже додано`,
+        title: "Товар уже в корзине",
+        type: "warn",
+      });
+    } else {
+      PublicAPI.GetProductCardById(id).then((r)=>{
+        const prod = r.data.bindedProducts.find(n=>n.id === id)
+        this.cart.push({product:prod, fullData:r.data, quantity:1});
+        showToast({
+          info: prod.name,
+          title: "Товар добавлен",
+          type: "success",
+        });
+      })
+
+
     }
     this.updateTotalPrice()
   }
