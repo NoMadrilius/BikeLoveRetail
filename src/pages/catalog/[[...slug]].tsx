@@ -37,6 +37,8 @@ export const getStaticProps= async (context: any) => {
 
   console.log('filters',params?.filters, result?.filterSettings)
 
+  if(!result) return {notFound: true};
+
   return {
     props: {
       iniState: result,
