@@ -6,10 +6,25 @@ import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { colors } from "../../../../theme/colors";
 import Image from "next/image";
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 import {OrderAPI} from "@/api/OrderAPI";
 import {useRouter} from "next/router";
+import PersonalDataSignedIn
+  from "@/components/Pages/OrderPage/PersonalData/personal-data-signed-in/personal-data-signed-in";
+import PersonalDataNeedToAuthentificate
+  from "@/components/Pages/OrderPage/PersonalData/personal-data-need-to-authentificate";
+import PersonalDataNotRegister from "@/components/Pages/OrderPage/PersonalData/personal-data-not-register";
+import PersonalData from "@/components/Pages/OrderPage/PersonalData/personal-data";
+import DeliveryInfo from "@/components/Pages/OrderPage/DeliveryInfo/DeliveryInfo";
+import OrderConfirmation from "@/components/Pages/OrderPage/OrderConfirmation/OrderConfirmation";
+import OrderInfo from "@/components/Pages/OrderPage/OrderInfo/OrderInfo";
+import ContactAndSocial from "@/components/Pages/Homepage/Aside/Sections/ContactAndSocial";
+import DarkFooter from "@/components/UIKit/NavigationPanel/Header/MobileHeader/Sections/Footer/darkFooter";
+import OrderInfoList from "@/components/Pages/OrderPage/OrderInfo/order-info-list/order-info-list";
+import TotalAmountBlock from "@/components/Pages/OrderPage/OrderInfo/total-amount-block/total-amount-block";
+import BlockWrapper from "@/components/Pages/OrderPage/block-wrapper";
+import ConfProductInfo from "@/components/Pages/OrderPage/OrderConfirmation/ConfProductInfo";
 
 const GratitudeScreen = () => {
   const [order,setOrder] = useState<OrderFullData|null>(null)
@@ -22,121 +37,40 @@ const GratitudeScreen = () => {
     })
   },[r.query.id])
 
-  return (
-    <>
-      <>
-        <UseMetaData title={"Спасибо !"} img={""} description={""} />
-        <Wrapper>
-          <Modal>
-            <Text
-              size="32px"
-              fontStyle={fonts.f500}
-              color={colors.white}
-              textAlign="center"
-            >
-              Замовлення створено
-            </Text>
-            <Text
-              size="32px"
-              fontStyle={fonts.f500}
-              color={colors.white}
-              textAlign="center"
-            >
-              № {order?.order.id}
-            </Text>
-            <Container>
-              {order?.order.isPayed?
-                  <Text
-                      size="20px"
-                      fontStyle={fonts.f500}
-                      color={colors.white}
-                      textAlign="center"
-                  >
-                    Замовлення оплачено
-                  </Text>:<>
-                    <Text
-                        size="20px"
-                        fontStyle={fonts.f500}
-                        color={colors.white}
-                        textAlign="center"
-                    >
-                      ЧЕКАЄМО НА ОПЛАТУ:
-                    </Text>
-                    <Button onClick={() => {
-                      if(order)
-                      {
-                        let dataUrl = `https://api.bikelove.com.ua/api/payments/liqpay?Target=Order&TargetId=`+order.order.id;
-                        window.open(dataUrl, "_blank")
-                      }
-                    }}>
-                      <Image
-                          alt="LiqPay"
-                          width={64}
-                          height={32}
-                          src="/images/account/icons/liqpay.svg"
-                          style={{ marginRight: "10px" }}
-                      />
-                    </Button>
-                  </>}
+      /*
+      () => {
+    if(order)
+    {
+      let dataUrl = `https://api.bikelove.com.ua/api/payments/liqpay?Target=Order&TargetId=`+order.order.id;
+      window.open(dataUrl, "_blank")
+    }
+  }
 
-            </Container>
-            <Text
-              size="16px"
-              fontStyle={fonts.f400}
-              color={colors.white}
-              textAlign="center"
-            >
-              Детальну інформацію про замовлення можете побачити в особистому
-              кабінеті. Ви будете проінформовані про зміну інформації по
-              замовленню додатково
-            </Text>
-          </Modal>
-        </Wrapper>
-      </>
-    </>
+       */
+
+  if(!order) return null
+  return (
+      <div className="scroll-smooth max-w-[1324px] xl:max-w-[1200px] w-full m-auto items-start pt-[60px] pb-10 flex flex-col gap-8 text-black bg-red sm2:px-5 font-inter">
+        <h1 className="text-[40px] sm2:text-[32px] font-medium font-robot-c xl1:sticky top-0">
+          Ваше замовлення успішно оформлено
+        </h1>
+
+        <div className="w-full grid grid-cols-[1.3fr_1fr] xl:grid-cols-[1.4fr_1fr] md1:grid-cols-1 gap-8 xl:gap-5 ">
+          <div className="col-span-1 gap-x-5 gap-y-8 flex flex-col xl1:sticky top-[68px] h-fit">
+            <OrderConfirmation order={order} />
+          </div>
+          <div className="col-span-1  xl1:sticky top-4 h-fit">
+            <BlockWrapper title="Замовлення" >
+              <ConfProductInfo prods={order.products}/>
+            </BlockWrapper>
+            <div className="flex gap-8 xl:gap-5 mt-8 sm2:hidden">
+              <ContactAndSocial className="w-full" />
+              <DarkFooter />
+            </div>
+          </div>
+        </div>
+      </div>
   );
 };
 export default GratitudeScreen;
 
-const Wrapper = styled.div`
-  ${templates.centerContent};
-  background-image: url("/images/gratitude/bg.png");
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  height: calc(100vh - 90px);
-  margin-top: 90px;
-  @media (max-width: ${metrics.mobile}) {
-    margin-top: 74px;
-    height: calc(100vh - 74px);
-  }
-`;
-const Modal = styled.div`
-  width: 671px;
-  height: 370px;
-  border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 20px;
-  padding: 75px;
-`;
-const Container = styled.div`
-  ${templates.centerContent};
-  column-gap: 10px;
-`;
-const Button = styled.div`
-  width: 188px;
-  height: 52px;
-  ${templates.centerContent};
-  background-color: ${colors.white};
-  border: 1px solid ${colors.grayBorder};
-  border-radius: 5px;
-  cursor: pointer;
-  @media (max-width: 640px) {
-    width: 100%;
-  }
-`;

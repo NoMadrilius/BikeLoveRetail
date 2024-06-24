@@ -13,13 +13,14 @@ const BicyclesByPurpose = () => {
   const r = useRouter();
   const cats = [0, 1, 2, 3, 4].map((n, index) => {
     let set = as.bikePorpouseCategories[index];
-    let cat = as.categories.find((g) => g.id === set)!;
+    let cat = as.categories.find((g) => g.id === set);
+    if(!cat) return null
     return {
       name: cat.name,
       link: GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}),
       img: cat.iconUrl,
     };
-  });
+  }).filter(n=>n!=null);
 
   return (
     <section className="mt-2 lg:mt-0">
