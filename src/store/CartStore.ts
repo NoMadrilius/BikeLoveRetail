@@ -65,15 +65,15 @@ class CartStore {
     } else {
       PublicAPI.GetProductCardById(id).then((r)=>{
         const prod = r.data.bindedProducts.find(n=>n.id === id)
-        this.cart.push({product:prod, fullData:r.data, quantity:1});
-        showToast({
-          info: prod.name,
-          title: "Товар добавлен",
-          type: "success",
-        });
+        if (prod){
+          this.cart.push({product:prod, fullData:r.data, quantity:1});
+          showToast({
+            info: prod.name,
+            title: "Товар добавлен",
+            type: "success",
+          });
+        }
       })
-
-
     }
     this.updateTotalPrice()
   }
