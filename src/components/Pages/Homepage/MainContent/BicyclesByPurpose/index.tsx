@@ -20,7 +20,7 @@ const BicyclesByPurpose = () => {
       link: GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}),
       img: cat.iconUrl,
     };
-  }).filter(n=>n!=null);
+  }).filter(n=>n!=null) as {img: string | undefined, name: string, link: string}[];
 
   return (
     <section className="mt-2 lg:mt-0">

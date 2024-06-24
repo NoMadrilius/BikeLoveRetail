@@ -3,10 +3,8 @@ import DeliveryRowInfoRadio from "@/components/Pages/OrderPage/DeliveryInfo/Deli
 import Selector, {SelectorOption} from "@/components/UIKit/Selector";
 import {useCheckList} from "@/store/CheckListStore";
 import {observer} from "mobx-react";
-import {AsyncSelectSearchCityNP} from "@/components/Screens/CheckListScreen/components/AsyncSelectSearchCityNP";
-import {
-    AsyncSelectSearchWarehouseNP
-} from "@/components/Screens/CheckListScreen/components/AsyncSelectSearchWarehoseNP";
+import {AsyncSelectSearchCityNP} from "@/components/Pages/OrderPage/AsyncSelectSearchCityNP";
+import {AsyncSelectSearchWarehouseNP} from "@/components/Pages/OrderPage/AsyncSelectSearchWarehoseNP";
 
 const items: SelectorOption[] = [
     {

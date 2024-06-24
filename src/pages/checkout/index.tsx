@@ -10,8 +10,23 @@ import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import { useCheckList } from "@/store/CheckListStore";
 import OrderConfirmation from "@/components/Pages/OrderPage/OrderConfirmation/OrderConfirmation";
+import {loadAppState} from "@/functions/loadAppState";
+import {AppState} from "@/dataTransferObjects/internal/AppState";
+import {useAppStore} from "@/store/AppStore";
+import {useCurrencyStore} from "@/store/CurrencyStore";
+import {useBikeSelectionStore} from "@/store/BikeSelectionStore";
 
-const Order = () => {
+export async function getStaticProps() {
+  return {props: {as:await loadAppState()}, revalidate:60}
+}
+
+const Order = (props:{as:AppState|null}) => {
+  if(props.as){
+    useAppStore().setServerData(props.as)
+    useCurrencyStore().setServerData(props.as)
+    useBikeSelectionStore().setOptions(props.as.bikeSelectState)
+  }
+
   const authStore = useAuthStore();
   const cls = useCheckList();
   return (
@@ -40,7 +55,6 @@ const Order = () => {
             </>
           )}
           <DeliveryInfo />
-          <OrderConfirmation />
         </div>
         <div className="col-span-1  xl1:sticky top-4 h-fit">
           <OrderInfo />
