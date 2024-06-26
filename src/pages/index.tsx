@@ -6,7 +6,7 @@ import HomeScreen from "@/components/Screens/HomeScreen/HomeScreen";
 import {useBikeSelectionStore} from "@/store/BikeSelectionStore";
 
 export async function getStaticProps() {
-  return {props: {as:await loadAppState()}, revalidate:1}
+  return {props: {as:await loadAppState()}, revalidate:10}
 }
 
 export default function Home(props:{as:AppState|null}) {
