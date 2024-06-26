@@ -43,7 +43,7 @@ export const getStaticProps= async (context: any) => {
     props: {
       iniState: result,
       as:r
-    }, revalidate:60}
+    }, revalidate:1}
 };
 
 const Page = (props: {

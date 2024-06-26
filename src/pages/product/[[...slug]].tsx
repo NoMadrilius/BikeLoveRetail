@@ -36,7 +36,7 @@ export const getStaticProps = async (context: any) => {
       product:product,
       selected:params.variants??[],
       as:r
-    }, revalidate:60}
+    }, revalidate:1}
 };
 
 const ProductItem = (props: {
