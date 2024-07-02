@@ -11,27 +11,69 @@ import {
 import React, { useEffect, useState } from "react";
 
 type StatusStep = {
-  title: string;
+  key: string;
+  titleDefault: string;
+  titleActive: string;
   icon: (props: { color?: string; size?: number }) => JSX.Element;
 };
 
 const allSteps: StatusStep[] = [
-  { title: "Ваше замовлення підтверджено", icon: OrderConfirmedIcon },
-  { title: "Очікує оплати", icon: WaitingForPaymentIcon },
-  { title: "Очікує відправки до магазину", icon: AwaitingShipmentToStoreIcon },
-  { title: "Укомплектовується", icon: BeingPackedIcon },
-  { title: "Очікує в магазині", icon: AwaitingInStoreIcon },
-  { title: "Прямує до покупця", icon: EnRouteToCustomerIcon },
-  { title: "Успішно доставлено", icon: SuccessfullyDeliveredIcon },
-  { title: "Замовлення відмінено", icon: OrderCancelledIcon },
+  {
+    key: "confirmed",
+    titleDefault: "Order Confirmed",
+    titleActive: "Your order has been confirmed",
+    icon: OrderConfirmedIcon,
+  },
+  {
+    key: "payment",
+    titleDefault: "Waiting for Payment",
+    titleActive: "Awaiting your payment",
+    icon: WaitingForPaymentIcon,
+  },
+  {
+    key: "shipment",
+    titleDefault: "Awaiting Shipment",
+    titleActive: "Your order is awaiting shipment",
+    icon: AwaitingShipmentToStoreIcon,
+  },
+  {
+    key: "packing",
+    titleDefault: "Being Packed",
+    titleActive: "Your order is being packed",
+    icon: BeingPackedIcon,
+  },
+  {
+    key: "store",
+    titleDefault: "Awaiting in Store",
+    titleActive: "Your order is awaiting in the store",
+    icon: AwaitingInStoreIcon,
+  },
+  {
+    key: "enroute",
+    titleDefault: "En Route to Customer",
+    titleActive: "Your order is en route to you",
+    icon: EnRouteToCustomerIcon,
+  },
+  {
+    key: "delivered",
+    titleDefault: "Successfully Delivered",
+    titleActive: "Your order has been delivered",
+    icon: SuccessfullyDeliveredIcon,
+  },
+  {
+    key: "cancelled",
+    titleDefault: "Order Cancelled",
+    titleActive: "Your order has been cancelled",
+    icon: OrderCancelledIcon,
+  },
 ];
 
 type DeliveryStatusProps = {
   status: string[];
-  activeStatus: string;
+  activeStatusKey: string;
 };
 
-const DeliveryStatus = ({ status, activeStatus }: DeliveryStatusProps) => {
+const DeliveryStatus = ({ status, activeStatusKey }: DeliveryStatusProps) => {
   const getIconSize = () => {
     if (typeof window !== "undefined") {
       return window.innerWidth < 743 ? 24 : status.length > 4 ? 32 : 48;
@@ -50,13 +92,13 @@ const DeliveryStatus = ({ status, activeStatus }: DeliveryStatusProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [status.length]);
 
-  const steps = allSteps.filter((step) => status.includes(step.title));
+  const steps = allSteps.filter((step) => status.includes(step.key));
 
   return (
     <div className="flex justify-between bg-gray-100 items-end rounded-lg">
       {steps.map((step, index) => {
-        const stepIndex = status.indexOf(step.title);
-        const activeIndex = status.indexOf(activeStatus);
+        const stepIndex = status.indexOf(step.key);
+        const activeIndex = status.indexOf(activeStatusKey);
         const isActive = stepIndex === activeIndex;
         const isCompleted = stepIndex < activeIndex;
 
@@ -75,7 +117,7 @@ const DeliveryStatus = ({ status, activeStatus }: DeliveryStatusProps) => {
                   isActive ? "text-[#F9436B]" : "mob:hidden"
                 }`}
               >
-                {step.title}
+                {isActive ? step.titleActive : step.titleDefault}
               </span>
               <div className={`flex items-center `}>
                 <div
