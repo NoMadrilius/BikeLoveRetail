@@ -12,20 +12,25 @@ import { useCheckList } from "@/store/CheckListStore";
 import OrderConfirmation from "@/components/Pages/OrderPage/OrderConfirmation/OrderConfirmation";
 import {loadAppState} from "@/functions/loadAppState";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import {useAppStore} from "@/store/AppStore";
-import {useCurrencyStore} from "@/store/CurrencyStore";
-import {useBikeSelectionStore} from "@/store/BikeSelectionStore";
+import appStore, {useAppStore} from "@/store/AppStore";
+import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
+import bikeSelectionStore, {useBikeSelectionStore} from "@/store/BikeSelectionStore";
+import {useEffect} from "react";
 
 export async function getStaticProps() {
   return {props: {as:await loadAppState()}, revalidate:60}
 }
 
 const Order = (props:{as:AppState|null}) => {
-  if(props.as){
-    useAppStore().setServerData(props.as)
-    useCurrencyStore().setServerData(props.as)
-    useBikeSelectionStore().setOptions(props.as.bikeSelectState)
-  }
+
+  useEffect(() => {
+    if(props.as){
+      appStore.setServerData(props.as)
+      currencyStore.setServerData(props.as)
+      bikeSelectionStore.setOptions(props.as.bikeSelectState)
+    }
+  }, []);
+
 
   const authStore = useAuthStore();
   const cls = useCheckList();

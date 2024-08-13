@@ -58,14 +58,17 @@ class CheckListStore{
         console.log(clean)
         if(clean.length === 12) {
             this.initialPhoneCorrect = true
-            let req = await AuthAPI.CheckUserExist('\+'+clean)
-            if(req.data){
-                this.isInitialUserExist = true
-                this.initialUser = req.data
-            }else{
-                this.isInitialUserExist = false
-                this.initialUser = null
-            }
+
+            AuthAPI.CheckUserExist('\+'+clean).then((req)=>{
+                if(req.data){
+                    this.isInitialUserExist = true
+                    this.initialUser = req.data
+                }else{
+                    this.isInitialUserExist = false
+                    this.initialUser = null
+                }
+            })
+
         }
         else this.initialPhoneCorrect = false
     }

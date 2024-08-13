@@ -14,6 +14,7 @@ import { useProductPageStore } from "@/store/ProductPageStore";
 
 import FullScreenGallery from "./FullScreenGallery";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
+import noImage from "/public/images/no-image.svg";
 
 const ProductGallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,7 +23,6 @@ const ProductGallery = () => {
 
   const ps = useProductPageStore();
 
-  if (!ps.product || ps.product.productImages.length < 1) return <></>;
 
   const handleSlideChange = (swiper: any) => {
     setCurrentIndex(swiper.realIndex);
@@ -46,8 +46,8 @@ const ProductGallery = () => {
         <div className=" w-full h-full xl:mx-auto max-w-6xl">
           {/* Main Image Swiper */}
           <div className="h-[500px] w-full flex items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg ">
-            {ps.product?.product.oldRetailPrice >
-              ps.product?.product.retailPrice && (
+            {(ps.product?.product?.oldRetailPrice??0) >
+                (ps.product?.product?.retailPrice??0) && (
               <RoundedButton
                 text="Акція"
                 altText={"Shopping Cart"}
@@ -86,7 +86,7 @@ const ProductGallery = () => {
                 <SwiperSlide key={index}>
                   <div className="relative w-full h-full desc:m-auto">
                     <Image
-                      src={p.url}
+                      src={p.url??noImage}
                       alt=""
                       layout="fill"
                       className="sm:object-contain md:object-contain object-contain"
@@ -129,10 +129,10 @@ const ProductGallery = () => {
           </Swiper>
         </div>
 
-        {ps.product?.productImages.length > 1 ? (
+        {ps.product?.productImages?.length??0 > 1 ? (
           <Pagination
             currentIndex={currentIndex}
-            totalSlides={ps.product?.productImages.length}
+            totalSlides={ps.product!.productImages.length}
             className="block md2:!hidden w-full mx-0 sm:mb-4 md:mb-4 sm:mt-0 md:mt-0"
           />
         ) : null}
@@ -142,7 +142,7 @@ const ProductGallery = () => {
         <FullScreenGallery
           isOpen={isModalOpen}
           onClose={closeModal}
-          images={ps.product?.productImages}
+          images={ps.product!.productImages}
           currentIndex={currentIndex}
           handleSlideChange={handleSlideChange}
         />

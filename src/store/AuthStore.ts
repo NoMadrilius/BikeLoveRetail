@@ -168,12 +168,16 @@ class AuthStore {
     })
 
   };
+
   logout = async () => {
     await AuthAPI.Logout().finally(()=>{
+      this.user = null
       this.isAuth = false
+      this.accessToken = null
       Router.push("/");
     })
   };
+
   refreshToken = async () => {
     AuthAPI.Refresh().then(r=>{
       this.accessToken = r.data.accessToken

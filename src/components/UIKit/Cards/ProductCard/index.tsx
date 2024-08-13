@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import { GenerateProductLink } from "@/helpers/LinkGen/GenerateProductLink";
+import noImage from "/public/images/no-image.svg";
 
 const ProductCard = (p: {
   product: ProductFullData;
@@ -54,7 +55,7 @@ const ProductCard = (p: {
 
             <ProductButtonsOnMobile />
             <Link href={link} className={"cursor-pointer"}>
-              <ProductImage src={imgs.length > 0 ? imgs[0].url : "/null"} />
+              <ProductImage src={imgs[0]?.url??noImage} />
             </Link>
 
             <RoundedButton
@@ -107,7 +108,7 @@ const ProductCard = (p: {
           className={"bg-white opacity-50 select-none cursor-pointer"}
         >
           <ProductButtonsOnMobile />
-          <ProductImage src={imgs.length > 0 ? imgs[0].url : "/null"} />
+          <ProductImage src={imgs[0]?.url??noImage} />
           <ProductTitle text={p.product.product.name} />
           <PriceAndCart
             product={p.product}

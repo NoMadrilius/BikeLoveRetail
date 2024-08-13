@@ -7,6 +7,10 @@ import {useAuthStore} from "@/store/AuthStore";
 import GeneratedUserIcon from "@/components/UIKit/GeneratedUserIcon/GeneratedUserIcon";
 import {useRouter} from "next/router";
 
+import personImage from "/public/images/uikit/header/person.svg";
+import heartImage from "/public/images/uikit/header/white-heart.svg";
+import cartImage from "/public/images/uikit/header/shopping-cart.svg";
+
 const NavigationIcons = () => {
     const cs = useCartStore()
     const as = useAppStore()
@@ -17,19 +21,21 @@ const NavigationIcons = () => {
         {
             us.isAuth?
                 <div onClick={n=>r.push("/account")}>
-                    <GeneratedUserIcon user={us.user!}/>
+                    {
+                        us.user&&<GeneratedUserIcon user={us.user}/>
+                    }
                 </div>
                 :
                 <div onClick={v=>as.setIsOpenAuthModal(true)} className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
                     <div className="relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer ">
-                        <Image src={"/images/uikit/header/person.svg"} alt={"Person"} fill />
+                        <Image src={personImage} alt={"Person"} fill />
                     </div>
                 </div>
         }
       <div className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
         <div className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer">
           <Image
-            src={"/images/uikit/header/white-heart.svg"}
+            src={heartImage}
             alt={"Favorites"}
             fill
           />
@@ -38,7 +44,7 @@ const NavigationIcons = () => {
       <div onClick={()=>cs.setVisible(true)} className="p-3 hover:bg-[#C1C1C133] rounded-lg relative select-none cursor-pointer">
         <div className="size-[28px] xl:size-[24px] lg:size-[24px] relative block cursor-pointer">
           <Image
-            src={"/images/uikit/header/shopping-cart.svg"}
+            src={cartImage}
             alt={"Shopping cart"}
             fill
             className="shrink-0"

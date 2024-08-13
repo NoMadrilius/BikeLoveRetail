@@ -1,4 +1,5 @@
 import Image from "next/image";
+import noImage from "/public/images/no-image.svg";
 
 interface ProductImageProps {
   classname?: string;
@@ -16,7 +17,7 @@ const ProductImage = ({ classname, src }: ProductImageProps) => {
       max-w-full
       ${classname}`}
     >
-      <Image src={src} alt={"Bicycle"} fill style={{ objectFit: "contain" }} />
+      <Image src={src} alt={noImage} fill style={{ objectFit: "contain" }} />
     </div>
   );
 };

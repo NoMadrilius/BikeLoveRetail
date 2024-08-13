@@ -32,6 +32,7 @@ export const PublicAPI = {
     GetTop():Promise<AxiosResponse<ProductFullData[]>>{
         return axiosInstance.get<ProductFullData[]>(`/public/foryou`);
     },
+
     SearchPreview(query:string, categoryId:number|undefined):Promise<AxiosResponse<ProductSearchPreview[]>>{
         let url = `/public/searchpreview?Querry=${query}`
         if(categoryId != undefined) url += `&CategoryId=${categoryId}`

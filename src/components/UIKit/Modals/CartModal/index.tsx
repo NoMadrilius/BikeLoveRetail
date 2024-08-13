@@ -41,8 +41,8 @@ const CartModal = () => {
           </div>
         </div>
         <div className="h-[483px] sm:h-[531px] overflow-y-auto sm:px-5">
-          {cs.cart.map((n) => (
-            <CartCard {...n} />
+          {cs.cart.map((n, index) => (
+            <CartCard key={index} {...n} />
           ))}
         </div>
         <div className="bg-dark py-3 px-10 sm:py-4 sm:px-5 flex items-center justify-between overflow-hidden sm:rounded-b-none rounded-b-lg sm:mt-auto">

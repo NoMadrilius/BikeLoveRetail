@@ -61,4 +61,4 @@ const currencyStore = new CurrencyStore();
 const StoreContext = createContext(currencyStore);
 
 export const useCurrencyStore = () => useContext(StoreContext);
-export { CurrencyStore };
+export default currencyStore;

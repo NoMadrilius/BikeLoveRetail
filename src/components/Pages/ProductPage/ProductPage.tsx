@@ -7,6 +7,7 @@ import { useProductPageStore } from "@/store/ProductPageStore";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
 import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
+import noImage from "/public/images/no-image.svg";
 
 const ProductPage = () => {
   const as = useAppStore();
@@ -19,7 +20,7 @@ const ProductPage = () => {
       <div className="flex flex-col gap-10 md:gap-6 w-full h-full">
         <UseMetaData
           title={nameProductMetaTemplate(ps.product.product.name)}
-          img={ps.product.productImages[0].url}
+          img={ps.product.productImages[0]?.url??noImage}
           description={descriptionProductMetaTemplate(ps.product.product.name)}
         />
         <ProductHeader />

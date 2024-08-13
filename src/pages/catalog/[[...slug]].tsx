@@ -1,12 +1,13 @@
 import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
 import { CatalogPageResponse } from "@/dataTransferObjects/response/CatalogPageResponse";
 import {loadAppState} from "@/functions/loadAppState";
-import {useAppStore} from "@/store/AppStore";
+import appStore, {useAppStore} from "@/store/AppStore";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import {useCurrencyStore} from "@/store/CurrencyStore";
-import React from "react";
+import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
+import React, {useEffect} from "react";
 import CatalogPage from "@/components/Pages/Catalog/CatalogPage";
 import {GetCatalogLinkParams} from "@/helpers/LinkGen/GetCatalogLinkParams";
+import bikeSelectionStore from "@/store/BikeSelectionStore";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -51,11 +52,14 @@ const Page = (props: {
   as:AppState|null
 }) => {
 
+  useEffect(() => {
+    if(props.as){
+      appStore.setServerData(props.as)
+      currencyStore.setServerData(props.as)
+      bikeSelectionStore.setOptions(props.as.bikeSelectState)
+    }
+  }, []);
 
-  if(props.as != null){
-    useAppStore().setServerData(props.as)
-    useCurrencyStore().setServerData(props.as)
-  }
   if(props.iniState != null)   useCatalogStore().setCatalogState(props.iniState);
 
   return (
