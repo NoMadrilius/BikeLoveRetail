@@ -56,7 +56,7 @@ const Step1 = ({ step }: any) => {
 
 
   useEffect(() => {
-    if (authStore.isAuth) {
+    if (authStore.isAuth && authStore.user != null) {
       setName(user.firstName);
       setEmail(user.email);
       setLastName(user.lastName);

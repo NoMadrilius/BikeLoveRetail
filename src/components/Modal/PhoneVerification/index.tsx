@@ -31,7 +31,7 @@ const PhoneVerification = () => {
       })
   };
 
-  return (st.isAuth && !st.user!.phoneNumberConfirmed) ? (
+  return (st.isAuth && !(st.user?.phoneNumberConfirmed??true)) ? (
     <S.Container>
       <>
         {showVerification ? (
@@ -56,7 +56,7 @@ const PhoneVerification = () => {
           </>
         ) : (
           <>
-            <S.Text>{`Будь ласка, підтвердіть свій номер ${st.user!.phoneNumber}`}</S.Text>
+            <S.Text>{`Будь ласка, підтвердіть свій номер ${st.user?.phoneNumber}`}</S.Text>
             <S.GetCodeButton onClick={handleButtonClick}>
               Отримати код
             </S.GetCodeButton>

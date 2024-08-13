@@ -5,6 +5,7 @@ import LogoImage from "../LogoImage";
 import NavigationIcons from "../NavigationIcons";
 import PhoneNumberWithImage from "../PhoneNumberWithIcon";
 import HamburgerMenu from "@/components/UIKit/NavigationPanel/Header/HamburgerMenu";
+import {observer} from "mobx-react";
 
 const DesktopView = ({
   setIsModalOpen,
@@ -43,4 +44,4 @@ const DesktopView = ({
   );
 };
 
-export default DesktopView;
+export default observer(DesktopView);

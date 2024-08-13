@@ -211,12 +211,11 @@ class AuthStore {
   };
 
   logout = async () => {
-    await AuthAPI.Logout().finally(()=>{
-      this.user = null
-      this.isAuth = false
-      this.accessToken = null
-      Router.push("/");
-    })
+    this.user = null
+    this.isAuth = false
+    this.accessToken = null
+    Router.push("/");
+    AuthAPI.Logout()
   };
 
   refreshToken = async () => {
