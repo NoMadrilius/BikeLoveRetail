@@ -169,6 +169,47 @@ class AuthStore {
 
   };
 
+  loginCode = (os:()=>void)=>{
+    AuthAPI.CodeLogin('+'+this.loginPhone.replace(/[^0-9]/g, ""),"BinoCall").then(()=>{
+      showToast({
+        info: "Код - останні 4 цифри номеру",
+        title: "Телефонуємо!",
+        type: "success",
+      });
+      os()
+    }).catch(()=>{
+      showToast({
+        info: "Користувач не знайден",
+        title: "Код не відправлено",
+        type: "error",
+      });
+    })
+  }
+
+  confirmLoginCode = async (code:string, os:()=>void) => {
+    this.loading = true
+    await AuthAPI.ConfirmCodeLogin('+'+this.loginPhone.replace(/[^0-9]/g, ""), "BinoCall", code).then(r=>{
+      this.isAuth = true
+      this.user = r.data.user
+      this.accessToken = r.data.accessToken
+      os()
+      showToast({
+        info: "Вітаємо",
+        title: "Вхід виконано",
+        type: "success",
+      });
+    }).catch(e=>{
+      showToast({
+        info: "Неправильний код",
+        title: "Вхід не виконано",
+        type: "error",
+      });
+    }).finally(()=>{
+      this.loading = false
+    })
+
+  };
+
   logout = async () => {
     await AuthAPI.Logout().finally(()=>{
       this.user = null

@@ -10,6 +10,22 @@ export const AuthAPI = {
     Login(data:LoginRequest):Promise<AxiosResponse<LoginResponse>>{
         return axiosInstance.post<LoginResponse>("/auth/login", data)
     },
+
+    CodeLogin(phone:string, type:"BinoCall"|"BinoSMS"):Promise<AxiosResponse>{
+        return axiosInstance.post(`/auth/codelogin`,null,{params:{
+                Phone:phone,
+                VerifType:type,
+            }})
+    },
+
+    ConfirmCodeLogin(phone:string, type:"BinoCall"|"BinoSMS", code:string):Promise<AxiosResponse<LoginResponse>>{
+        return axiosInstance.post<LoginResponse>(`/auth/confirmcodelogin`,null, {params:{
+                Phone:phone,
+                VerifType:type,
+                Code:code
+            }})
+    },
+
     Register(data:RegisterRequest):Promise<AxiosResponse<LoginResponse>>{
         return axiosInstance.post<LoginResponse>("/auth/register", data);
     },
@@ -29,5 +45,7 @@ export const AuthAPI = {
     },
     CheckUserExist(phone:string):Promise<AxiosResponse<UserExistResponse>>{
         return axiosInstance.get<UserExistResponse>(`/auth/checkuserexist`,{params:{phoneNumber:phone}});
-    }
+    },
+
+
 }

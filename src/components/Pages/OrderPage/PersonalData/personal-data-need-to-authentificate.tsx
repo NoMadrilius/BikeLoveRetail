@@ -7,13 +7,14 @@ import SignInWithPersonalData from "@/components/Pages/OrderPage/PersonalData/se
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import {useCheckList} from "@/store/CheckListStore";
 import {observer} from "mobx-react";
-import {useAuthStore} from "@/store/AuthStore";
+import authStore, {useAuthStore} from "@/store/AuthStore";
 
 type SignType = "SMS" | "password"
 const PersonalDataNeedToAuthentificate = () => {
     const cls = useCheckList()
     const as = useAuthStore()
     const [code, setCode] = useState("");
+    const [codeSent, setCodeSent] = useState<boolean>(false);
     const [signInType, setSignInType] = useState<SignType>("password")
 
     return (
@@ -34,9 +35,22 @@ const PersonalDataNeedToAuthentificate = () => {
                 <SignInWithPersonalData onClick={()=>{setSignInType("password")}} text="увійдіть за допомогою пароля "/>
             </>}
 
+            {
+                signInType === "SMS" &&
+                <GradientButton onClick={()=>{
+                    as.setLoginPhone(cls.initialPhone)
+                    authStore.loginCode(()=>{setCodeSent(true)})
+                }} label={codeSent?"Телефонуємо! Введіт останні 4 цифри номеру":"Надіслати код"} disabled={codeSent} showIcon={false} className="text-white w-[140px] sm2:w-full h-[50px]"/>
+            }
+
             <GradientButton onClick={()=>{
                 as.setLoginPhone(cls.initialPhone)
-                as.login(()=>console.log('ok'))
+                if(signInType === "SMS"){
+                    authStore.confirmLoginCode(code, ()=>{console.log('ok')})
+                }
+                if(signInType === "password"){
+                    as.login(()=>console.log('ok'))
+                }
             }} label="Увійти" showIcon={false} className="text-white w-[140px] sm2:w-full h-[50px]"/>
         </BlockWrapper>
 
