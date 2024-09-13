@@ -88,7 +88,7 @@ const NovaPoshtaDelivery = () => {
         <DeliveryRowInfoRadio radiobutton={{
             label: "Новою Поштою",
             checked: (cls.deliveryType === "DeliveryNP"),
-        }} price={50} className="grid grid-cols-2 gap-4" onClick={()=>{cls.setDeliveryType("DeliveryNP")}}>
+        }} price={50} className="flex flex-col gap-4" onClick={()=>{cls.setDeliveryType("DeliveryNP")}}>
             <AsyncSelectSearchCityNP onSelect={r=>cls.setCity(r)} value={cls.city}/>
             {cls.city &&<AsyncSelectSearchWarehouseNP onSelect={r=>cls.setWarehouse(r)} value={cls.warehouse} cityId={cls.city.Ref}/>}
         </DeliveryRowInfoRadio>

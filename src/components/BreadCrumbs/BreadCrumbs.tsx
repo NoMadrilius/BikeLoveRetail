@@ -85,10 +85,6 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   row-gap: 10px;
   align-items: center;
-  margin: 50px 0 30px 0;
-  @media (max-width: ${metrics.mobile}) {
-    margin: 43px 0 16px 0;
-  }
 `;
 const Line = styled.div`
   width: 17px;

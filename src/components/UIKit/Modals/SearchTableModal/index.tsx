@@ -14,7 +14,7 @@ const SearchTableModal = () => {
   return (
       <ModalBase open={ss.isOpenSearch} setOpen={v=>ss.setIsOpenSearch(v)}>
         <div
-            className="relative bg-white w-full max-w-[1268px] rounded-lg flex flex-col py-5 px-10 sm:p-5"
+            className="relative bg-white h-3/4 w-3/4 overflow-hidden rounded-lg flex flex-col mob:rounded-[0px] mob:w-screen mob:h-screen"
             onClick={(e) => e.stopPropagation()}
         >
           <SearchInput />
@@ -24,10 +24,13 @@ const SearchTableModal = () => {
           >
             <CloseModalIcon />
           </div>
-          <div className="flex border-t border-category-border sm:flex-col">
-            <SearchResults />
+
+          <div className="flex w-full h-full flex-col">
+              {
+                  //<SearchResults />
+              }
             <MobileViewSearchResults />
-            <div className="w-full flex flex-col h-[660px] sm:h-[648px] overflow-y-auto">
+            <div className="w-full flex flex-col h-full overflow-y-auto">
               {ss.products.map((n) => (
                   <SearchCard prod={n} />
               ))}

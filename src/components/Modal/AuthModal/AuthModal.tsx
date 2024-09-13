@@ -15,6 +15,7 @@ const AuthModal = () => {
       setOpen={(v) => as.setIsOpenAuthModal(v)}
     >
       <section
+
         className="bg-white rounded-lg"
         onClick={(e) => e.stopPropagation()}
       >

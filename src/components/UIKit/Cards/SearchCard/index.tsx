@@ -11,17 +11,22 @@ import Link from "next/link";
 import {useSearchStore} from "@/store/SearchStore";
 import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 import {useCartStore} from "@/store/CartStore";
+import {useAppStore} from "@/store/AppStore";
 
 const SearchCard = (p:{prod:ProductSearchPreview}) => {
     const c = useCurrencyStore()
     const ss = useSearchStore()
     const cs = useCartStore()
+    const as = useAppStore();
 
     const link = GenerateProductLink(p.prod.productId, "product")
 
     return (
           <article className="p-3 bg-white border-b border-gray flex items-center justify-between gap-2 w-full select-text border hover:border-black">
-              <Link href={link} onClick={()=>{ss.setIsOpenSearch(false)}} className={"cursor-pointer"}>
+              <Link href={link} onClick={()=>{
+                  ss.setIsOpenSearch(false)
+                  as.setIsOpenSidebar(false)
+              }} className={"cursor-pointer"}>
               <ProductImage
                   src={p.prod.image||""}
                   classname="!w-[116px] !h-[100px] sm:!w-[80px] sm:!h-[68px] shrink-0 !mb-0"

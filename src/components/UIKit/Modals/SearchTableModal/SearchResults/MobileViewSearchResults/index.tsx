@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SearchResultItem from "../../SearchResultItem";
 import {useSearchStore} from "@/store/SearchStore";
+import {useAppStore} from "@/store/AppStore";
+import { observer } from "mobx-react";
 
 const MobileViewSearchResults = () => {
   const [showResults, setShowResults] = useState(false);
@@ -11,10 +13,10 @@ const MobileViewSearchResults = () => {
   };
 
   const cat = ss.categories.find(n=>n.id === ss.selectedCategory)
-  let name = ss.selectedCategory&&cat?cat.name:"Всі результати"
+  let name = ss.selectedCategory&&cat?cat.name:"Всі категорії"
 
   return (
-    <div className="w-full relative hidden sm:block">
+    <div className="w-full relative mob:block">
       <div
         className={`flex items-center justify-between bg-white grow w-full p-3 border-b border-category-border group cursor-pointer`}
         onClick={toggleResults}
@@ -31,7 +33,7 @@ const MobileViewSearchResults = () => {
       {showResults && (
         <div className="w-full h-[601px] overflow-scroll absolute top-0 z-[51]">
           <SearchResultItem
-              title={"Всі результати"}
+              title={"Всі категорії"}
               quantity={ss.products.length.toString()}
               searchResults={ss.selectedCategory === undefined}
               onClick={()=>{
@@ -40,8 +42,9 @@ const MobileViewSearchResults = () => {
               }}
           />
           {ss.categories.map(n=><SearchResultItem searchResults={ss.selectedCategory === n.id} title={n.name} quantity={n.quantity.toString()} onClick={()=>{
-            ss.setSelectedCategory(n.id)
+
             setShowResults(false)
+            ss.setSelectedCategory(n.id)
           }} />)}
         </div>
       )}
@@ -49,4 +52,4 @@ const MobileViewSearchResults = () => {
   );
 };
 
-export default MobileViewSearchResults;
+export default  observer(MobileViewSearchResults);

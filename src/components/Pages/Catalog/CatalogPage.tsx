@@ -46,7 +46,7 @@ const CatalogPage = () => {
       descriptionCategoryMetaTemplate(cs.catalogState!.category!.name)) + page;
 
   return (
-    <div className="max-w-[1324px] w-full m-auto items-start my-10 flex flex-col gap-10">
+    <div className="max-w-[1324px] w-full items-start my-10 flex flex-col gap-10">
       <UseMetaData
         title={title}
         img={cs.catalogState!.category?.iconUrl}

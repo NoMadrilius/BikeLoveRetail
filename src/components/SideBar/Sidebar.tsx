@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
-import {useCatalogStore} from "@/store/CatalogStore";
 import {useCartStore} from "@/store/CartStore";
 
 const SideBar = () => {

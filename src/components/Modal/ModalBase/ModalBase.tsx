@@ -6,32 +6,19 @@ const ModalBase = (p: {
   open: boolean;
   setOpen: (v: boolean) => void;
 }) => {
-  useEffect(() => {
-    if (p.open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [p.open]);
 
   if (!p.open) return null;
 
+  const ch = React.cloneElement(p.children, {
+    onMouseDown: (e:any)=>e.stopPropagation(),
+  });
+
   return (
-    <div
-      onClick={(e) => {
-        p.setOpen(false);
-      }}
-      className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-[100] overflow-hidden sm:rounded-none"
+    <div onMouseDown={(e)=>{p.setOpen(false)}}
+      className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-[100] "
     >
-      <div
-        // onClick={(e) => e.stopPropagation()}
-        className="w-full h-full flex items-center justify-center"
-      >
-        {p.children}
+      <div className={"h-full w-full flex justify-center items-center"}>
+        {ch}
       </div>
     </div>
   );

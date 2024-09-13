@@ -31,14 +31,16 @@ const SearchInput = () => {
         value={ss.query}
         onChange={handleInputChange}
       />
-      {ss.query && (
+
+      {/*ss.query && (
         <button
           className="absolute top-0 right-0 mt-1 mr-2 h-full flex items-center justify-center"
           onClick={clearInput}
         >
           <ClearIcon />
         </button>
-      )}
+      )
+      */}
     </div>
   );
 };
