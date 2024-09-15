@@ -1,16 +1,11 @@
-import React, { useState } from "react";
 import GradientButton from "../../Buttons/GradientButton";
-import HamburgerMenu from "./HamburgerMenu";
 import MobileHeader from "./MobileHeader";
 import MobileView from "./MobileView";
 import DesktopView from "./DesktopView";
-import CatalogModal from "../../Modals/CatalogModal";
 import { observer } from "mobx-react";
 import SearchInput from "../../InputFields/SearchInput";
 import { useAppStore } from "@/store/AppStore";
-import CartModal from "../../Modals/CartModal";
 import SearchTableModal from "../../Modals/SearchTableModal";
-import { useCartStore } from "@/store/CartStore";
 import { useSearchStore } from "@/store/SearchStore";
 
 const Header = () => {

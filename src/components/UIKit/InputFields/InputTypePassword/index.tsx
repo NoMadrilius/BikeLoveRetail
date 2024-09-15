@@ -1,8 +1,8 @@
 import {IconButton, InputAdornment, OutlinedInput} from "@mui/material";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from './../../../../../public/icons/eye2.svg';
+import VisibilityOff from './../../../../../public/icons/eye1.svg';
+import Image from "next/image";
 import React, { useState } from "react";
-import {borderRadius} from "@mui/system";
 
 const PasswordInput = ({
   label = "",
@@ -41,7 +41,7 @@ const PasswordInput = ({
                     onClick={()=>{setPasswordVisible(!passwordVisible)}}
                     edge="end"
                 >
-                  {passwordVisible ? <VisibilityOff /> : <Visibility />}
+                  {passwordVisible ?<Image width={24} height={24} src={"/icons/eye1.svg"} alt={"eye"}/>: <Image width={24} height={24} src={"/icons/eye2.svg"} alt={"eye"}/>}
                 </IconButton>
               </InputAdornment>
             }

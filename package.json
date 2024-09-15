@@ -23,7 +23,6 @@
     "@babel/plugin-proposal-decorators": "^7.23.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
     "@mui/x-data-grid": "^6.19.1",
