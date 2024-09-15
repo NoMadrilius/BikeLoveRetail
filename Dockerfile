@@ -13,7 +13,7 @@ RUN npm rebuild node-sass
 COPY ./ ./
 
 # Build app
-RUN npm run build
+RUN npm run build --force
 
 # Expose the listening port
 EXPOSE 3000
