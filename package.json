@@ -21,11 +21,10 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@babel/plugin-proposal-decorators": "^7.23.6",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
-    "@mui/x-date-pickers": "^7.17.0",
     "@react-google-maps/api": "^2.19.3",
     "@types/react-datepicker": "^4.19.5",
     "@types/react-input-mask": "^3.0.5",

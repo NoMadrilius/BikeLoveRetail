@@ -7,9 +7,6 @@ import { templates } from "../../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -215,7 +212,9 @@ const Step1 = ({ step }: any) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {
+            /*
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               sx={{ width: "100%" }}
               label={t("account.step1.birthDate")}
@@ -223,6 +222,9 @@ const Step1 = ({ step }: any) => {
               onChange={(newValue) => setBirthday(newValue)}
             />
           </LocalizationProvider>
+             */
+          }
+
         </InputsContainer>
         <ButtonsContainer>
           <ButtonCustom

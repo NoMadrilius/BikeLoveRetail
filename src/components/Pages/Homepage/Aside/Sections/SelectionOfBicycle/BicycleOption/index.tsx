@@ -1,5 +1,4 @@
-import { MinusIcon, PlusIcon } from "@/components/UIKit/SVGIcons";
-import { ClearIcon } from "@mui/x-date-pickers";
+import { ClearIcon, MinusIcon, PlusIcon } from "@/components/UIKit/SVGIcons";
 import { useState } from "react";
 
 const BicycleOption = ({

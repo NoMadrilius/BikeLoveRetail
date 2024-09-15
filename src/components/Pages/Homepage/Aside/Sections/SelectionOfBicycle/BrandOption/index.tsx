@@ -1,5 +1,4 @@
-import { MinusIcon, PlusIcon } from "@/components/UIKit/SVGIcons";
-import { ClearIcon } from "@mui/x-date-pickers";
+import { ClearIcon, MinusIcon, PlusIcon } from "@/components/UIKit/SVGIcons";
 import React, { useState } from "react";
 import { useBikeSelectionStore } from "@/store/BikeSelectionStore";
 import Dropdown from "@/components/UIKit/InputFields/Dropdown";
@@ -69,7 +68,7 @@ const BrandOption = ({
             onClick={toggleInput}
             className="hover:bg-[#C1C1C133] rounded-lg p-2 cursor-pointer"
           >
-            <ClearIcon style={{ color: "black" }} />
+            <ClearIcon/>
           </div>
         </div>
       ) : (
