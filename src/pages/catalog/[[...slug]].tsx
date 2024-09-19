@@ -8,6 +8,8 @@ import React, {useEffect} from "react";
 import CatalogPage from "@/components/Pages/Catalog/CatalogPage";
 import {GetCatalogLinkParams} from "@/helpers/LinkGen/GetCatalogLinkParams";
 import bikeSelectionStore from "@/store/BikeSelectionStore";
+import { setStateBase } from "@/helpers/setState/setStateBase";
+import { setStateCatalog } from "@/helpers/setState/setStateCatalog";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -36,8 +38,6 @@ export const getStaticProps= async (context: any) => {
 
   if(params) result = await catalogStore.loadStateCategory(params);
 
-  console.log('filters',params?.filters, result?.filterSettings)
-
   if(!result) return {notFound: true};
 
   return {
@@ -47,30 +47,10 @@ export const getStaticProps= async (context: any) => {
     }, revalidate:1}
 };
 
-const Page = (props: {
-  iniState: CatalogPageResponse|null,
-  as:AppState|null
-}) => {
+const Page = (props: { iniState: CatalogPageResponse|null, as:AppState|null }) => {
 
-  let isClient = false
-  useEffect(() => {
-    isClient = true
-    if(props.as){
-      appStore.setServerData(props.as)
-      currencyStore.setServerData(props.as)
-      bikeSelectionStore.setOptions(props.as.bikeSelectState)
-    }
-    if(props.iniState != null)   useCatalogStore().setCatalogState(props.iniState);
-  }, []);
-
-  if(!isClient && props.iniState != null){
-    useCatalogStore().setCatalogState(props.iniState);
-  }
-  if(!isClient && props.as){
-    appStore.setServerData(props.as)
-    currencyStore.setServerData(props.as)
-    bikeSelectionStore.setOptions(props.as.bikeSelectState)
-  }
+  if(props.as) setStateBase(props.as)
+  if(props.iniState) setStateCatalog(props.iniState)
 
   return (
       <CatalogPage/>

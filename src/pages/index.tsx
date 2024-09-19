@@ -1,31 +1,15 @@
-import appStore, {useAppStore} from "@/store/AppStore";
 import {loadAppState} from "@/functions/loadAppState";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
 import HomeScreen from "@/components/Screens/HomeScreen/HomeScreen";
-import bikeSelectionStore, {useBikeSelectionStore} from "@/store/BikeSelectionStore";
-import {useEffect} from "react";
+import { setStateBase } from "@/helpers/setState/setStateBase";
 
 export async function getStaticProps() {
   return {props: {as:await loadAppState()}, revalidate:10}
 }
 
 export default function Home(props:{as:AppState|null}) {
-  let isClient = false
-  useEffect(() => {
-    isClient = true
-    if(props.as){
-      appStore.setServerData(props.as)
-      currencyStore.setServerData(props.as)
-      bikeSelectionStore.setOptions(props.as.bikeSelectState)
-    }
-  }, []);
 
-  if(!isClient && props.as){
-    appStore.setServerData(props.as)
-    currencyStore.setServerData(props.as)
-    bikeSelectionStore.setOptions(props.as.bikeSelectState)
-  }
+  if(props.as) setStateBase(props.as)
 
   return <HomeScreen />;
 }

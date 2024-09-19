@@ -30,6 +30,8 @@ class AppStore{
     //del
     categoryTree: TreeNode[] = []
 
+    needData = true
+
     constructor() {
         makeAutoObservable(this)
         if(typeof window != "undefined")
@@ -56,12 +58,14 @@ class AppStore{
     }
 
     setServerData(d:AppState){
-        this.shops = d.shops
-        this.categories = d.categories
-        this.popularCategories = d.popularCategories
-        this.bikePorpouseCategories = d.bikePorpouseCategories
-        //bikeSelectionStore.setOptions(d.bikeSelectState)
-        //this.categoryTree = this.buildTree(this.categories)
+        if(this.needData){
+            this.needData = false
+
+            this.shops = d.shops
+            this.categories = d.categories
+            this.popularCategories = d.popularCategories
+            this.bikePorpouseCategories = d.bikePorpouseCategories
+        }
     }
     setIsOpenSidebar(v:boolean) {this.isOpenSidebar=v}
     setIsOpenCategories(v:boolean) {this.isOpenCategories=v}

@@ -11,6 +11,8 @@ class CurrencyStore {
   selectedCurrency: Currency|null = null;
   useCurrency:(v:number)=>string = ()=>{return '0 UHA'}
 
+  needData = true
+
   constructor() {
     makeAutoObservable(this);
     if(typeof window !== "undefined"){
@@ -26,8 +28,11 @@ class CurrencyStore {
   }
 
   setServerData(d:AppState){
-    this.currencies = d.currencies
-    this.initialize()
+    if(this.needData){
+      this.needData = false
+      this.currencies = d.currencies
+      this.initialize()
+    }
   }
 
   async loadCurrencies(){

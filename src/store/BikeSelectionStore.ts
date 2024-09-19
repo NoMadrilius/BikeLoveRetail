@@ -20,12 +20,21 @@ class BikeSelectionStore{
     max=0
     min=0
 
+    needData = true
+
     constructor() {
         makeAutoObservable(this)
     }
 
     setOptions(v:BikeSelectState){
         this.options = v
+    }
+
+    setOptionsServer(v:BikeSelectState){
+        if(this.needData){
+            this.needData = false
+            this.options = v
+        }
     }
 
     setSelectedType(v:{ id: number, name: string }|null){

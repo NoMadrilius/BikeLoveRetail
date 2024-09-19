@@ -13,6 +13,8 @@ class CatalogStore{
 
     openedOptions:number[]=[]
 
+    needData = true
+
     constructor() {
         makeAutoObservable(this);
     }
@@ -41,6 +43,13 @@ class CatalogStore{
 
     setCatalogState(v:CatalogPageResponse){
         this.catalogState = v
+    }
+
+    setCatalogStateServer(v:CatalogPageResponse){
+        if(this.needData){
+            this.needData = false
+            this.catalogState = v
+        }
     }
 
     toggleOption(id:number){
