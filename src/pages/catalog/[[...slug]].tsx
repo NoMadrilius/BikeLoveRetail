@@ -1,15 +1,11 @@
-import catalogStore, { useCatalogStore } from "@/store/CatalogStore";
+import catalogStore from "@/store/CatalogStore";
 import { CatalogPageResponse } from "@/dataTransferObjects/response/CatalogPageResponse";
 import {loadAppState} from "@/functions/loadAppState";
-import appStore, {useAppStore} from "@/store/AppStore";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
 import React, {useEffect} from "react";
 import CatalogPage from "@/components/Pages/Catalog/CatalogPage";
 import {GetCatalogLinkParams} from "@/helpers/LinkGen/GetCatalogLinkParams";
-import bikeSelectionStore from "@/store/BikeSelectionStore";
 import { setStateBase } from "@/helpers/setState/setStateBase";
-import { setStateCatalog } from "@/helpers/setState/setStateCatalog";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -50,7 +46,12 @@ export const getStaticProps= async (context: any) => {
 const Page = (props: { iniState: CatalogPageResponse|null, as:AppState|null }) => {
 
   if(props.as) setStateBase(props.as)
-  if(props.iniState) setStateCatalog(props.iniState)
+
+  if(props.iniState && typeof window === 'undefined') catalogStore.setCatalogState(props.iniState)
+
+  useEffect(() => {
+    if(props.iniState) catalogStore.setCatalogState(props.iniState)
+  }, [props.iniState]);
 
   return (
       <CatalogPage/>

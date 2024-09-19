@@ -1,18 +1,11 @@
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
-import {
-  productPageStore,
-  useProductPageStore,
-} from "@/store/ProductPageStore";
+import {  productPageStore } from "@/store/ProductPageStore";
 import {loadAppState} from "@/functions/loadAppState";
-import appStore, {useAppStore} from "@/store/AppStore";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
 import ProductPage from "@/components/Pages/ProductPage/ProductPage";
 import {GetProductLinkParams} from "@/helpers/LinkGen/GetProductLinkParams";
-import {useEffect} from "react";
-import bikeSelectionStore from "@/store/BikeSelectionStore";
 import { setStateBase } from "@/helpers/setState/setStateBase";
-import { setStateProduct } from "@/helpers/setState/setStateProduct";
+import { useEffect } from "react";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -50,9 +43,13 @@ const ProductItem = (props: {
 }|null) => {
 
   if(props === null) return null
-
   if(props.as) setStateBase(props.as)
-  if(props.product) setStateProduct(props.product, props.selected)
+
+  if(props.product && typeof window === 'undefined') productPageStore.setData(props.product, props.selected)
+
+  useEffect(() => {
+    if(props.product) productPageStore.setData(props.product, props.selected)
+  }, [props.product, props.selected]);
 
 
   return (<ProductPage/>);

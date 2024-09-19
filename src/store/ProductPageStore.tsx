@@ -15,8 +15,6 @@ class ProductPageStore{
     uniqueOptions:{ id: number; name: string }[]=[]
     uniqueVariants:{ variantId: number; variantName: string, optionId:number }[]=[]
 
-    needData = true
-
     constructor() {
         makeAutoObservable(this);
     }
@@ -38,22 +36,6 @@ class ProductPageStore{
             this.initializeActiveVariants()
             this.initializeOptionAndVariants()
             this.updatePossibleProducts()
-        }
-    }
-
-    setDataServer(p:ProductFullData, o:number[]){
-        if(this.needData){
-            this.needData = false
-
-            this.product = p
-            this.selectedVariants = o
-            this.specifications = p.productOptions
-
-            if(p){
-                this.initializeActiveVariants()
-                this.initializeOptionAndVariants()
-                this.updatePossibleProducts()
-            }
         }
     }
 

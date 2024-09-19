@@ -8,6 +8,7 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
 import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
 import noImage from "/public/images/no-image.svg";
+import { observer } from "mobx-react";
 
 const ProductPage = () => {
   const as = useAppStore();
@@ -60,4 +61,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default observer(ProductPage);
