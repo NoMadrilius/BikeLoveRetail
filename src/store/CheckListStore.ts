@@ -19,6 +19,14 @@ import {User} from "@auth0/auth0-react";
 import {UserExistResponse} from "@/dataTransferObjects/response/UserExistResponse";
 import {AuthAPI} from "@/api/AuthAPI";
 
+
+declare global {
+    interface Window {
+        gtag: (...args: any[]) => void;
+    }
+}
+
+
 class CheckListStore{
     city:NPCityResponse|null = null
     warehouse:NPWarehouseResponse|null = null
@@ -148,10 +156,19 @@ class CheckListStore{
                 } as ProductOrderRequest
             })
 
+
+
             console.log("order:", orderData)
             console.log("products:", prods)
 
             OrderAPI.PublicCreate({order:orderData, products:prods}).then(r=>{
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', 'conversion_event_purchase', {
+                        'event_callback': ()=>{console.log("google purchase event")},
+                        'event_timeout': 2000,
+                        // <event_parameters>
+                    });
+                }
                 Router.push('/gratitude/'+r.data.order.uuid)
             })
         }
