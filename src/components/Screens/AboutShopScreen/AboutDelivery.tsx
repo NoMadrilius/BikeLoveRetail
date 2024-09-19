@@ -17,7 +17,7 @@ const AboutDeliveryScreen = () => {
 
   return (
     <>
-      <UseMetaData title={t("delivery.title")} img={""} description={""} />
+      <UseMetaData title={t("delivery.title")} img={""} description={"Наші варіанти доставки!"} />
       <div style={{color:'black'}}
         //$color={colors.black}
         //$fontSize="42px"

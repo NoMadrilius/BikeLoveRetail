@@ -49,16 +49,27 @@ const ProductItem = (props: {
 
   if(props === null) return null
 
-  if(props.product!=null)
-    useProductPageStore().setData(props.product, props.selected);
-
+  let isClient = false
   useEffect(() => {
+    isClient = true
     if(props.as){
       appStore.setServerData(props.as)
       currencyStore.setServerData(props.as)
       bikeSelectionStore.setOptions(props.as.bikeSelectState)
     }
+    if(props.product!=null)
+      useProductPageStore().setData(props.product, props.selected);
   }, []);
+
+  if(!isClient && props.product!=null) {
+      useProductPageStore().setData(props.product, props.selected);
+
+  }
+  if(!isClient && props.as){
+    appStore.setServerData(props.as)
+    currencyStore.setServerData(props.as)
+    bikeSelectionStore.setOptions(props.as.bikeSelectState)
+  }
 
 
   return (<ProductPage/>);

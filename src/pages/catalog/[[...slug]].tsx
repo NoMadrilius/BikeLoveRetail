@@ -52,15 +52,25 @@ const Page = (props: {
   as:AppState|null
 }) => {
 
+  let isClient = false
   useEffect(() => {
+    isClient = true
     if(props.as){
       appStore.setServerData(props.as)
       currencyStore.setServerData(props.as)
       bikeSelectionStore.setOptions(props.as.bikeSelectState)
     }
+    if(props.iniState != null)   useCatalogStore().setCatalogState(props.iniState);
   }, []);
 
-  if(props.iniState != null)   useCatalogStore().setCatalogState(props.iniState);
+  if(!isClient && props.iniState != null){
+    useCatalogStore().setCatalogState(props.iniState);
+  }
+  if(!isClient && props.as){
+    appStore.setServerData(props.as)
+    currencyStore.setServerData(props.as)
+    bikeSelectionStore.setOptions(props.as.bikeSelectState)
+  }
 
   return (
       <CatalogPage/>

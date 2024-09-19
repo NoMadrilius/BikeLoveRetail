@@ -8,7 +8,7 @@ const AboutShopScreen = () => {
   const road = [{ title: "Магазин", link: "/" }];
   return (
     <>
-      <UseMetaData title={"Магазин"} img={""} description={"йцуфв"} />
+      <UseMetaData title={"Про наш магазин"} img={""} description={"Наш магаз кращий"} />
       <Text
         color={colors.black}
         size="42px"

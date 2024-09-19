@@ -15,7 +15,7 @@ const TermsOfPublicOfferScreen = () => {
 
   return (
     <>
-      <UseMetaData title={t("delivery.title")} img={""} description={""} />
+      <UseMetaData title={"Публічна оферта"} img={""} description={"Публічна оферта, що укладається між клієнтом та продавцем"} />
 
 
       <PublicOffer />

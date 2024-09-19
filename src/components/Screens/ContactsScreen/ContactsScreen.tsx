@@ -14,7 +14,7 @@ const ContactsScreen = () => {
 
   return (
     <>
-        <UseMetaData title={"Контакты"} img={""} description={""} />
+        <UseMetaData title={"Контакти Щербаківського 59"} img={""} description={"Наші контакти BikeLove Щербаківського 59, Київ, Нивки, 0932118930"} />
         <Text
           color={colors.black}
           size="42px"
