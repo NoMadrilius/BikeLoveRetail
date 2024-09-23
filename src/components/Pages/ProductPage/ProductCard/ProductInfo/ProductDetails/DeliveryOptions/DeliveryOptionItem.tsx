@@ -19,7 +19,7 @@ const DeliveryOptionItem = ({
   deliveryImage,
   hideIconOnMobile = false,
 }: DeliveryOptionItemProps) => {
-  const isMobile = useIsMobile();
+  const isMobile = true;
 
   return (
     <div className="flex ">

@@ -36,6 +36,7 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
         */}
         <Pagination selected={cs.catalogState!.page} pageList={Array(cs.catalogState?.totalPages).fill(0).map((n,index)=>GenerateCatalogLink(cs.catalogState!, {page:index+1}))} />
       </div>
+
     </div>
   );
 };

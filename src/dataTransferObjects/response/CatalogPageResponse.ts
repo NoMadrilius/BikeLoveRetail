@@ -10,6 +10,7 @@ export interface CatalogPageResponse{
     pageSize: number;
     totalPages: number;
     totalProducts: number;
+    seoLocalized?: string|null;
     storageId: number;
     options: ProductOptionVariants[];
     sortingSettings: string;

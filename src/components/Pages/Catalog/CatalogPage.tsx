@@ -82,7 +82,11 @@ const CatalogPage = () => {
           <SelectColor />
             */}
         </aside>
-        <MainContent products={cs.catalogState?.products ?? []} />
+        <div className={"flex flex-col gap-4"}>
+          <MainContent products={cs.catalogState?.products ?? []} />
+          {cs.catalogState.seoLocalized && <div className={"text-black"} dangerouslySetInnerHTML={{ __html: cs.catalogState.seoLocalized}}></div>}
+
+        </div>
       </section>
       <CheckedProducts products={as.saleProducts} />
       {cs.isOpenFiltersModal ? <FilterModal /> : null}
