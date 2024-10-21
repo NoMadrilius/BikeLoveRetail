@@ -1,5 +1,6 @@
 export interface OrderProduct{
     id: number;
+    image?:string|null
     createdAt: string;
     updatedAt: string;
     enabled: boolean;

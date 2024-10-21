@@ -5,7 +5,8 @@ export interface Order{
     enabled: boolean;
     shopId: number;
     orderType: string;
-    orderStatus?: string | null;
+    orderStatus: string;
+    orderStatusList: string;
     deliveryType?: string | null;
     deliveryInfo?: string | null;
     isPayed: boolean;

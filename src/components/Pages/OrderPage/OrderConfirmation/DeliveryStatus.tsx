@@ -20,52 +20,53 @@ type StatusStep = {
 const allSteps: StatusStep[] = [
   {
     key: "confirmed",
-    titleDefault: "Order Confirmed",
-    titleActive: "Your order has been confirmed",
+    titleDefault: "Підтверджено",
+    titleActive: "Ваше замовлення було підтверджено!",
     icon: OrderConfirmedIcon,
   },
   {
     key: "payment",
-    titleDefault: "Waiting for Payment",
-    titleActive: "Awaiting your payment",
+    titleDefault: "Оплата",
+    titleActive: "Очікуємо оплату!",
     icon: WaitingForPaymentIcon,
   },
   {
     key: "shipment",
-    titleDefault: "Awaiting Shipment",
-    titleActive: "Your order is awaiting shipment",
+    titleDefault: "Відправка",
+    titleActive: "Очікуємо відправлення",
     icon: AwaitingShipmentToStoreIcon,
   },
   {
     key: "packing",
-    titleDefault: "Being Packed",
-    titleActive: "Your order is being packed",
+    titleDefault: "Пакування",
+    titleActive: "Пакуємо замовлення",
     icon: BeingPackedIcon,
   },
   {
     key: "store",
-    titleDefault: "Awaiting in Store",
-    titleActive: "Your order is awaiting in the store",
+    titleDefault: "В магазині",
+    titleActive: "Замовлення очікує вас в магазині!",
     icon: AwaitingInStoreIcon,
   },
   {
     key: "enroute",
-    titleDefault: "En Route to Customer",
-    titleActive: "Your order is en route to you",
+    titleDefault: "В дорозі",
+    titleActive: "Замовлення прямує до вас!",
     icon: EnRouteToCustomerIcon,
   },
   {
     key: "delivered",
-    titleDefault: "Successfully Delivered",
-    titleActive: "Your order has been delivered",
+    titleDefault: "Доставлено",
+    titleActive: "Заберіть замовлення з пошти!",
     icon: SuccessfullyDeliveredIcon,
   },
   {
     key: "cancelled",
-    titleDefault: "Order Cancelled",
-    titleActive: "Your order has been cancelled",
+    titleDefault: "Відмінено",
+    titleActive: "Замовлення було відмінено",
     icon: OrderCancelledIcon,
   },
+
 ];
 
 type DeliveryStatusProps = {
@@ -92,7 +93,7 @@ const DeliveryStatus = ({ status, activeStatusKey }: DeliveryStatusProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [status.length]);
 
-  const steps = allSteps.filter((step) => status.includes(step.key));
+  const steps = status.map(n=>allSteps.find(g=>g.key === n)).filter(n=>n!=undefined)
 
   return (
     <div className="flex justify-between bg-gray-100 items-end rounded-lg">
@@ -114,7 +115,7 @@ const DeliveryStatus = ({ status, activeStatusKey }: DeliveryStatusProps) => {
             >
               <span
                 className={`font-inter text-[12px] leading-[14.4px] max-w-[120px] mt-auto ${
-                  isActive ? "text-[#F9436B]" : "mob:hidden"
+                  isActive ? "text-[#F9436B] font-bold text-[14px]" : "mob:hidden"
                 }`}
               >
                 {isActive ? step.titleActive : step.titleDefault}
@@ -150,7 +151,7 @@ const DeliveryStatus = ({ status, activeStatusKey }: DeliveryStatusProps) => {
                   <div className="mob:h-6 w-full mob:flex mob:items-center gt">
                     <div
                       className={`w-full h-[2px] rounded-full ${
-                        isActive || isCompleted
+                        isCompleted
                           ? "bg-link-pink"
                           : "bg-[#DEDEDE]"
                       }`}

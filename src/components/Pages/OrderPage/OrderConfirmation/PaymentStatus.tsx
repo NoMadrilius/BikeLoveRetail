@@ -3,6 +3,7 @@ import React from "react";
 import { OrderFullData } from "@/dataTransferObjects/entities/OrderFullData";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import Image from "next/image";
+import { OrderAPI } from "@/api/OrderAPI";
 
 const PaymentStatus = (p: { order: OrderFullData }) => {
   const c = useCurrencyStore();
@@ -23,7 +24,9 @@ const PaymentStatus = (p: { order: OrderFullData }) => {
             </span>
           </div>
 
-          <div className="flex items-center py-[10.5px] px-5 mob:px-2 mob:w-full mob:justify-between gap-[6px] rounded-md text-white font-inter leading-[19.36px] cursor-pointer bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989] focus:from-[#D31062] focus:to-[#DB1142]">
+          <div onClick={()=>{
+            window.open(`https://api.bikelove.com.ua/api/payments/liqpay?Target=Order&TargetId=${p.order.order.id}`, "_blanc")
+          }} className="flex items-center py-[10.5px] px-5 mob:px-2 mob:w-full mob:justify-between gap-[6px] rounded-md text-white font-inter leading-[19.36px] cursor-pointer bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] group-hover:from-[#FA6989] group-hover:to-[#FA6989] focus:from-[#D31062] focus:to-[#DB1142]">
             Сплатити за допомогою{" "}
             <Image
               src={"/images/checkout/liqpay.svg"}

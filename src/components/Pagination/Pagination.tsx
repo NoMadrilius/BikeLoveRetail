@@ -9,7 +9,7 @@ const Pagination = (p: { pageList: string[]; selected: number }) => {
     if (p.selected === n)
       return (
         <Link
-          className={`size-6 cursor-pointer text-white font-inter leading-[19.36px] flex items-center justify-center rounded bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]`}
+          className={`p-1 cursor-pointer text-white font-inter leading-[19.36px] flex items-center justify-center rounded bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]`}
           href={p.pageList[n - 1] || "/"}
         >
           {n}
@@ -18,7 +18,7 @@ const Pagination = (p: { pageList: string[]; selected: number }) => {
     else
       return (
         <Link
-          className={`size-6 cursor-pointer text-dark-text hover:bg-[#C1C1C133] rounded-lg font-inter leading-[19.36px] flex items-center justify-center rounded bg-transparent`}
+          className={`p-1 cursor-pointer text-dark-text hover:bg-[#C1C1C133] rounded-lg font-inter leading-[19.36px] flex items-center justify-center rounded bg-transparent`}
           href={p.pageList[n - 1] || "/"}
         >
           {n}

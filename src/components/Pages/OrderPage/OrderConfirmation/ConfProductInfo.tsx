@@ -15,7 +15,7 @@ const ConfProductInfo = (p:{prods:OrderProduct[]}) => {
                     <div className="w-full h-[148px] py-3 flex justify-between gap-3 sm2:flex-col sm2:h-fit border-gray border-b-[1px]">
                         <div className="min-w-[148px] flex flex-col items-center gap-4">
                             <Image className="h-[76px] object-contain" src={{
-                                src: "/",
+                                src: n.image??"/",
                                 width: 100,
                                 height: 80,
                             }} alt="Товар" fill={false} />

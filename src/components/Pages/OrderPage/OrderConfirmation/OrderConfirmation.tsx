@@ -5,10 +5,11 @@ import PaymentStatus from "./PaymentStatus";
 import { OrderFullData } from "@/dataTransferObjects/entities/OrderFullData";
 import { prettyDate } from "@/helpers/stringDecorate/prettyDate";
 import AutorizationDataInfo from "@/components/Pages/OrderPage/PersonalData/autorization-data-info";
+import { observer } from "mobx-react";
 
 const status = {
   status: ["confirmed", "payment", "shipment", "packing"],
-  activeStatusKey: "shipment",
+  activeStatusKey: "created",
 };
 
 const OrderConfirmation = (p: { order: OrderFullData }) => {
@@ -35,8 +36,8 @@ const OrderConfirmation = (p: { order: OrderFullData }) => {
       />
       <div className="flex flex-col gap-4">
         <DeliveryStatus
-          status={status.status}
-          activeStatusKey={status.activeStatusKey}
+          status={p.order.order.orderStatusList}
+          activeStatusKey={p.order.order.orderStatus}
         />
         <DeliveryInfo
           code={p.order.order.uuid}
@@ -52,4 +53,4 @@ const OrderConfirmation = (p: { order: OrderFullData }) => {
   );
 };
 
-export default OrderConfirmation;
+export default observer(OrderConfirmation);
