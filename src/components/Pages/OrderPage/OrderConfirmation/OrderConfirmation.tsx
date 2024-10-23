@@ -36,7 +36,7 @@ const OrderConfirmation = (p: { order: OrderFullData }) => {
       />
       <div className="flex flex-col gap-4">
         <DeliveryStatus
-          status={p.order.order.orderStatusList}
+          status={[p.order.order.orderStatusList]}
           activeStatusKey={p.order.order.orderStatus}
         />
         <DeliveryInfo

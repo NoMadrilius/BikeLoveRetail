@@ -15,6 +15,7 @@ import { useAppStore } from "@/store/AppStore";
 import React, { useEffect } from "react";
 import Aside from "@/components/Pages/Homepage/Aside";
 import {UseMetaData} from "@/helpers/hooks/useMetaData";
+import Link from "next/link";
 
 const HomeScreen = () => {
   const as = useAppStore();
@@ -43,12 +44,14 @@ const HomeScreen = () => {
               className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
               onClick={() => as.setIsOpenCategories(true)}
             />
-            <GradientButton
-              bgColor="bg-[#5D5555]"
-              label={"Майстерня"}
-              showIcon={false}
-              className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
-            />
+            <Link href={`/workshop`}>
+              <GradientButton
+                bgColor="bg-[#5D5555]"
+                label={"Майстерня"}
+                showIcon={false}
+                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
+              />
+            </Link>
           </div>
           <WhyToChooseUs />
           <CustomSlider

@@ -9,6 +9,7 @@ import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
 import {CategoriesSearchPreview} from "@/dataTransferObjects/response/CategoriesSearchPreview";
 import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
+import { WorkshopDataResponse } from "@/dataTransferObjects/response/WorkshopDataResponse";
 
 export const PublicAPI = {
     CatalogProductsByCategory(data:CatalogProductsByCategoryRequest):Promise<AxiosResponse<CatalogPageResponse>>{
@@ -46,5 +47,10 @@ export const PublicAPI = {
     },
     BikeSelectorCount(data:BikeSelectCountRequest):Promise<AxiosResponse<number>>{
        return axiosInstance.post<number>(`/public/bikeselectorcount`,data);
-    }
+    },
+
+  GetWorkshopData():Promise<AxiosResponse<WorkshopDataResponse>>{
+    return axiosInstance.get<WorkshopDataResponse>(`/work/public`);
+  },
+
 }
