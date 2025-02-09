@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/front.shop:latest \
-          -f Dockerfile
+          -f Dockerfile .
       # Шаг 4: Пуш Docker-образа в определённый репозиторий на Docker Hub
       - name: Push Docker image
         run: |
