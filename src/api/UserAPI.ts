@@ -9,5 +9,9 @@ export const UserAPI = {
     },
     GetSelf():Promise<AxiosResponse<User>>{
         return axiosInstance.get("/user/getself");
+    },
+
+    TrackReferal(referalCode:string, deviceFingerprint:string, path:string):Promise<AxiosResponse>{
+        return axiosInstance.post("/user/track-referal",null,{params:{ReferalCode:referalCode, DeviceFingerprint:deviceFingerprint, Path:path}});
     }
 }

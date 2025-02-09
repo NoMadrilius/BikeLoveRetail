@@ -7,6 +7,7 @@ import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import bikeSelectionStore from "@/store/BikeSelectionStore";
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 class AppStore{
     isOpenSidebar=false
@@ -15,6 +16,8 @@ class AppStore{
 
     isOpenAuthModal=false
     isAuthRegMod=false
+
+    deviceFingerprint:string|null=null;
 
     shops:Shop[] = []
 
@@ -35,7 +38,14 @@ class AppStore{
     constructor() {
         makeAutoObservable(this)
         if(typeof window != "undefined")
-        this.fetchShops()
+        {
+            FingerprintJS.load().then(fp=>{
+                fp.get().then(result=>{
+                    this.deviceFingerprint = result.visitorId
+                    console.log('fingerprint',result.visitorId);
+                });
+            });
+        }
     }
 
     loadSaleProducts(){

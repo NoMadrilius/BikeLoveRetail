@@ -23,6 +23,7 @@
     "@babel/plugin-proposal-decorators": "^7.23.6",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@fingerprintjs/fingerprintjs": "^4.5.1",
     "@mui/material": "^6.1.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.12",
     "@react-google-maps/api": "^2.19.3",

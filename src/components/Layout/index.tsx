@@ -12,8 +12,20 @@ import InfoAboutCompany from "../Pages/Homepage/Aside/Sections/InfoAboutCompany"
 import LogoImage from "../UIKit/NavigationPanel/Header/LogoImage";
 import Image from "next/image";
 import CatalogModal from "@/components/UIKit/Modals/CatalogModal";
+import { UserAPI } from "@/api/UserAPI";
+import AppStore from "@/store/AppStore";
 
 const Layout = ({ children }: any) => {
+
+  const router = useRouter();
+
+  if(router.query.r && router.asPath && AppStore.deviceFingerprint){
+    UserAPI.TrackReferal(router.query.r as string, AppStore.deviceFingerprint, router.asPath)
+  }
+
+  console.log("referal",router.query.r)
+  console.log("url",router.asPath)
+
   return (
     <div className={""}>
       <CartModal />
