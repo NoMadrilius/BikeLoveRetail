@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
 import { templates } from "../../../../../../theme/templates";
-import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../../theme/colors";
 import { fonts } from "../../../../../../theme/fonts";
 import { FC, useState } from "react";
 import Item from "./Item";
 import { useTranslation } from "react-i18next";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
+import { Typography } from "@mui/material";
 
 type Props = {
   data: OrderFullData[];
@@ -31,9 +31,9 @@ const Step2: FC<Props> = ({ data }) => {
               active={el.tab === orderTab}
               onClick={() => setOrderTab(el.tab)}
             >
-              <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+              <Typography color={colors.black} fontSize="15px" fontStyle={fonts.f400}>
                 {el.title}
-              </Text>
+              </Typography>
             </Button>
           ))}
         </Header>

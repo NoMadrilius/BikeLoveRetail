@@ -1,7 +1,5 @@
-import { Text } from "@/components/Text/Text";
 import { useAuthStore } from "@/store/AuthStore";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import {
@@ -13,6 +11,7 @@ import {
 } from "../SidebarStyles";
 import Loader from "@/helpers/Loader/Loader";
 import { useTranslation } from "react-i18next";
+import { Typography } from "@mui/material";
 
 const SideBarAuth = ({ setVisible }: any) => {
   const { t } = useTranslation();
@@ -38,19 +37,19 @@ const SideBarAuth = ({ setVisible }: any) => {
           onClick={() => goToAcc()}
         >
           <IconContainer style={{ marginRight: "8px" }}>
-            <Text color={colors.white} size="16px" fontStyle={fonts.f500}>
+            <Typography color={colors.white} fontSize="16px" fontStyle={fonts.f500}>
               {authStore.user?.firstName.substring(0, 1)}
-            </Text>
+            </Typography>
           </IconContainer>
           <ColumnContainer style={{ marginLeft: "14px" }}>
             <RowContainer style={{ columnGap: "14px" }}>
-              <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
+              <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f500}>
                 {authStore.user?.firstName}
-              </Text>
+              </Typography>
             </RowContainer>
-            <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
+            <Typography color={colors.grayMain} fontSize="13px" fontStyle={fonts.f400}>
               {authStore.user?.phoneNumber}
-            </Text>
+            </Typography>
           </ColumnContainer>
         </AuthContainer>
       ) : (
@@ -60,31 +59,29 @@ const SideBarAuth = ({ setVisible }: any) => {
           </IconContainer>
           <ColumnContainer style={{ marginLeft: "14px" }}>
             <RowContainer style={{ columnGap: "14px" }}>
-              <Text
+              <Typography
                 color={colors.black}
-                size="16px"
+                fontSize="16px"
                 fontStyle={fonts.f500}
-                hoverColor={colors.redHover}
-                func={() => goToAuth()}
+                onClick={() => goToAuth()}
               >
                 {t("sidebar.auth.enter")}
-              </Text>
-              <Text color={colors.black} size="16px" fontStyle={fonts.f500}>
+              </Typography>
+              <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f500}>
                 |
-              </Text>
-              <Text
+              </Typography>
+              <Typography
                 color={colors.black}
-                size="16px"
+                fontSize="16px"
                 fontStyle={fonts.f500}
-                hoverColor={colors.redHover}
-                func={() => goToAuth()}
+                onClick={() => goToAuth()}
               >
                 {t("sidebar.auth.register")}
-              </Text>
+              </Typography>
             </RowContainer>
-            <Text color={colors.black} size="13px" fontStyle={fonts.f400}>
+            <Typography color={colors.black} fontSize="13px" fontStyle={fonts.f400}>
               {t("sidebar.auth.authFor")}
-            </Text>
+            </Typography>
           </ColumnContainer>
         </AuthContainer>
       )}

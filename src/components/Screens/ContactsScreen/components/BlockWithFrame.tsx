@@ -1,10 +1,8 @@
-import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
 import styled, { css } from "styled-components";
 import {Shop} from "@/dataTransferObjects/entities/Shop";
-
-
+import { Typography } from "@mui/material";
 
 const BlockWithFrame = (p:{shop:Shop}) => {
 console.log(p.shop)
@@ -12,28 +10,25 @@ console.log(p.shop)
     <MainWrapper sidebar={false}>
       <Wrapper>
         <BlockInfo>
-          <Text
+          <Typography
             color={colors.black}
-            size="16px"
+            fontSize="16px"
             fontStyle={fonts.f400}
-            whiteSpace
           >
             Веломагазин {p.shop.name}
-          </Text>
-          <Text
+          </Typography>
+          <Typography
             color={colors.black}
-            size="16px"
+            fontSize="16px"
             fontStyle={fonts.f400}
-            whiteSpace
           >
             {p.shop.address}
-          </Text>
+          </Typography>
         </BlockInfo>
-        <Text
+        <Typography
           color={colors.black}
-          size="15px"
+          fontSize="15px"
           fontStyle={fonts.f400}
-          whiteSpace
           style={{ lineHeight: "24px" }}
         >
           Режим роботи
@@ -41,7 +36,7 @@ console.log(p.shop)
           ПН-ПТ: 10:00-18:00
           <br />
           СБ-ВС: 10:00-18:00
-        </Text>
+        </Typography>
         {/* <HiddenText sidebar={sidebar}></HiddenText> */}
         {/* <OpenArrow
           src="/images/contacts/arrow.svg"

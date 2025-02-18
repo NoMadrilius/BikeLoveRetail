@@ -4,11 +4,11 @@ import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { metrics } from "../../../../theme/metrics";
 import { useWishListStore } from "@/store/WishListStore";
 import { useEffect, useState } from "react";
-import { Text } from "@/components/Text/Text";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { templates } from "../../../../theme/templates";
 import {Product} from "@/dataTransferObjects/entities/Product";
+import { Typography } from "@mui/material";
 
 const WishListScreen = () => {
   const wishStore = useWishListStore();
@@ -29,10 +29,10 @@ const WishListScreen = () => {
         {//<Slider title={"список желаний"} items={wishList} variant={"wish"} />
         !wishList?.length && (
           <EmptyContainer style={{ paddingBottom: "300px" }}>
-            <Text color={colors.black} size="40px" fontStyle={fonts.f500}>
+            <Typography color={colors.black} fontSize="40px" fontStyle={fonts.f500}>
               {" "}
               Здесь пока пусто :(
-            </Text>
+            </Typography>
           </EmptyContainer>
         )}
       </Wrapper>

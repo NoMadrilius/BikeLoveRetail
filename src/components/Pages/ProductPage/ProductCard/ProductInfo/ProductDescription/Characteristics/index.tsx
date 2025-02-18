@@ -1,10 +1,12 @@
 import React from "react";
 import CharacteristicItem from "./CharacteristicItem";
 import {useProductPageStore} from "@/store/ProductPageStore";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 
-const Characteristics = () => {
-  const ps = useProductPageStore()
+const Characteristics = ({p}:{p:ProductFullData}) => {
 
+  return null
+  /*
   if(ps.uniqueOptions.length < 1) return null
 
   return (
@@ -29,7 +31,9 @@ const Characteristics = () => {
         </div>
       </div>
     </div>
-  );
+
+
+  );*/
 };
 
 export default Characteristics;

@@ -42,7 +42,6 @@ class AppStore{
             FingerprintJS.load().then(fp=>{
                 fp.get().then(result=>{
                     this.deviceFingerprint = result.visitorId
-                    console.log('fingerprint',result.visitorId);
                 });
             });
         }

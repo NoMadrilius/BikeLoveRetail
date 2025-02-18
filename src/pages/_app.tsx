@@ -1,17 +1,11 @@
 import "@/styles/globals.css";
-import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
-import { CONFIG } from "../../config";
 import { ToastContainer } from "react-toastify";
-
-import PhoneWidget from "@/components/PhoneWidget/PhoneWidget";
-import { I18nextProvider } from "react-i18next";
-import i18n from "@/i18n/i18n";
+import { appWithTranslation } from 'next-i18next'
 import Layout from "@/components/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
-  console.log("appState:", pageProps.appState);
+function App({ Component, pageProps }: AppProps) {
 
   return (
     <div>
@@ -22,12 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
         newestOnTop={true}
         closeOnClick
       />
-      <Auth0Provider
-        domain={CONFIG.AUTH0.domain}
-        clientId={CONFIG.AUTH0.clientId}
-        authorizationParams={{ redirect_uri: CONFIG.AUTH0.redirect }}
-        cacheLocation="localstorage"
-      >
           <Layout>
           <>
             <NextNProgress
@@ -37,13 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
               height={3}
               showOnShallow={true}
             />
-            <I18nextProvider i18n={i18n}>
               <Component {...pageProps} />
-            </I18nextProvider>
-            <PhoneWidget />
           </>
           </Layout>
-      </Auth0Provider>
     </div>
   );
 }
+
+export default appWithTranslation(App)

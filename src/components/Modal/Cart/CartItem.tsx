@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
-import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { templates } from "../../../../theme/templates";
@@ -10,6 +9,7 @@ import { useWishListStore } from "@/store/WishListStore";
 import { useRouter } from "next/router";
 import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
+import { Typography } from "@mui/material";
 
 const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:number}}) => {
   const state = useCartStore();
@@ -59,9 +59,9 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
         onClick={() => goToProduct()}
       />
       <InfoContainer>
-        <Text color={colors.black} size="16px" fontStyle={fonts.f600}>
+        <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f600}>
           {product.name}
-        </Text>
+        </Typography>
         <InfoBottomContainer>
           {/* {product.sale && (
 						<SalePatch>
@@ -71,55 +71,53 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
 						</SalePatch> 
 					)}*/}
           {product?.oldRetailPrice && (
-            <Text
+            <Typography
               color={colors.grayMain}
-              size="16px"
+              fontSize="16px"
               fontStyle={fonts.f400}
-              textDecoration="trought"
             >
               {prettyPrice(product.oldRetailPrice)}
-            </Text>
+            </Typography>
           )}
 
-          <Text color={colors.black} size="16px" fontStyle={fonts.f400}>
+          <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f400}>
             {prettyPrice(product.retailPrice)}
-          </Text>
+          </Typography>
         </InfoBottomContainer>
       </InfoContainer>
       <RightContainer>
         <CounterContainer>
-          <Text
+          <Typography
             color={colors.black}
-            size="21px"
+            fontSize="21px"
             fontStyle={fonts.f400}
-            func={() => counterHandler("minus")}
+            onClick={() => counterHandler("minus")}
             style={{userSelect:"none"}}
           >
             -
-          </Text>
+          </Typography>
           <CounterBox>
-            <Text color={colors.black} size="17px" fontStyle={fonts.f400}>
+            <Typography color={colors.black} fontSize="17px" fontStyle={fonts.f400}>
               {q}
-            </Text>
+            </Typography>
           </CounterBox>
-          <Text
+          <Typography
             color={colors.black}
-            size="21px"
+            fontSize="21px"
             fontStyle={fonts.f400} style={{userSelect:"none"}}
-            func={() => counterHandler("plus")}
+            onClick={() => counterHandler("plus")}
           >
             +
-          </Text>
+          </Typography>
         </CounterContainer>
-        <Text
+        <Typography
           color={colors.black}
-          size="21px"
+          fontSize="21px"
           fontStyle={fonts.f400}
           maxWidth="146px"
-          whiteSpace
         >
           {prettyPrice(q* product.retailPrice)}
-        </Text>
+        </Typography>
       </RightContainer>
     </Wrapper>
   );

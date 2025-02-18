@@ -1,4 +1,3 @@
-import { Text } from "../Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
 import BlurWrapper from "../BlurWrapper/BlurWrapper";
@@ -17,6 +16,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
 import {useCartStore} from "@/store/CartStore";
+import { Typography } from "@mui/material";
 
 const SideBar = () => {
   const { t } = useTranslation();
@@ -66,14 +66,14 @@ const SideBar = () => {
       <Wrapper onClick={(e) => e.stopPropagation()}>
         {step === 0 && (
           <>
-            <Text
+            <Typography
               color={colors.redMain}
-              size="30px"
+              fontSize="30px"
               fontStyle={fonts.f700}
               margin="28px 0 0 26px"
             >
               BIKELOVE
-            </Text>
+            </Typography>
 
             <SideBarAuth setVisible={as.setIsOpenSidebar} />
             <ColumnContainer
@@ -90,15 +90,14 @@ const SideBar = () => {
                     //index === 0 ? setStep(1) : el.href && goToLink(el.href)
                   }
                 >
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f500}
-                    hoverColor={colors.redHover}
                     textTransform="uppercase"
                   >
                     {el.title}
-                  </Text>
+                  </Typography>
                   {el.openArrow && (
                     <Image
                       alt="Sidebar Arrow Icon"
@@ -127,16 +126,15 @@ const SideBar = () => {
               <SmallIconContainer>
                 <Image alt="Title Icon" width={13} height={13} src={el.icon} />
               </SmallIconContainer>
-              <Text
+              <Typography
                 color={colors.black}
-                size="13px"
+                fontSize="13px"
                 fontStyle={fonts.f400}
-                hoverColor={colors.redHover}
                 margin="0 0 0 10px"
                 textTransform="uppercase"
               >
                 {el.title}
-              </Text>
+              </Typography>
             </RowContainer>
           ))}
         </ColumnContainer>

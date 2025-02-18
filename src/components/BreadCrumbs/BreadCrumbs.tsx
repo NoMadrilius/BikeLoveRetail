@@ -1,8 +1,6 @@
 import { styled } from "styled-components";
-import { Text } from "../Text/Text";
 import { colors } from "../../../theme/colors";
 import { fonts } from "../../../theme/fonts";
-import { metrics } from "../../../theme/metrics";
 import { useRouter } from "next/router";
 import { Product } from "@/dataTransferObjects/entities/Product";
 import { observer } from "mobx-react";
@@ -49,28 +47,14 @@ const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
             <RightIconSVG />
             {index !== road.length - 1 ? (
               <Link href={el.link}>
-                <Text
-                  color={
-                    index === road.length - 1 ? colors.grayMain : colors.black
-                  }
-                  size="13px"
-                  fontStyle={fonts.f400}
-                  hoverColor={index !== road.length - 1 ? colors.redHover : ""}
-                >
+                <div className={"text-black"}>
                   {el.title}
-                </Text>
+                </div>
               </Link>
             ) : (
-              <Text
-                color={
-                  index === road.length - 1 ? colors.grayMain : colors.black
-                }
-                size="13px"
-                fontStyle={fonts.f400}
-                hoverColor={index !== road.length - 1 ? colors.redHover : ""}
-              >
+              <div className={"text-black"}>
                 {el.title}
-              </Text>
+              </div>
             )}
           </Container>
         ))}

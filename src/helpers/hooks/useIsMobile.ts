@@ -1,5 +1,4 @@
 import { useLayoutEffect, useState } from "react";
-import debounce from "lodash/debounce";
 
 const useIsMobile = (): boolean => {
   const [matches, setMatches] = useState(false);
@@ -13,10 +12,6 @@ const useIsMobile = (): boolean => {
     };
 
     updateSize();
-    const debouncedUpdate = debounce(updateSize, 250);
-    window.addEventListener("resize", debouncedUpdate);
-
-    return (): void => window.removeEventListener("resize", debouncedUpdate);
   }, []);
 
   return matches;

@@ -6,6 +6,7 @@ import ProductPage from "@/components/Pages/ProductPage/ProductPage";
 import {GetProductLinkParams} from "@/helpers/LinkGen/GetProductLinkParams";
 import { setStateBase } from "@/helpers/setState/setStateBase";
 import { useEffect } from "react";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -21,18 +22,16 @@ export const getStaticProps = async (context: any) => {
 
   const r = await loadAppState()
   const params = GetProductLinkParams(context.params.slug)
-  console.warn(params)
 
   if(!params) return null
-
-  const product = await productPageStore.getProduct(params.id)
-
+  const product = await productPageStore.getProduct(params.id, context.locale)
 
   return {
     props: {
       product:product,
       selected:params.variants??[],
-      as:r
+      as:r,
+      ...(await serverSideTranslations(context.locale, ['product_page'])),
     }, revalidate:1}
 };
 
@@ -43,16 +42,15 @@ const ProductItem = (props: {
 }|null) => {
 
   if(props === null) return null
-  if(props.as) setStateBase(props.as)
-
   if(props.product && typeof window === 'undefined') productPageStore.setData(props.product, props.selected)
 
   useEffect(() => {
+    if(props.as) setStateBase(props.as)
     if(props.product) productPageStore.setData(props.product, props.selected)
   }, [props.product, props.selected]);
 
-
-  return (<ProductPage/>);
+  if(!props.product) return null
+  return (<ProductPage product={props.product}/>);
 };
 
 export default ProductItem;

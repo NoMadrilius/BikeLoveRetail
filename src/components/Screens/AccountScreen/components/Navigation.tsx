@@ -1,10 +1,9 @@
-import { Text } from "@/components/Text/Text";
-
 import { styled } from "styled-components";
 import { fonts } from "../../../../../theme/fonts";
 import { colors } from "../../../../../theme/colors";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { Typography } from "@mui/material";
 
 const Navigation = ({ setStep, step }: any) => {
   const { t } = useTranslation();
@@ -52,26 +51,25 @@ const Navigation = ({ setStep, step }: any) => {
   return (
     <>
       <Wrapper>
-        <Text
+        <Typography
           color={colors.black}
-          size="15px"
+          fontSize="15px"
           fontStyle={fonts.f500}
           textTransform="uppercase"
         >
           {t("account.navigation.feedBack")}
-        </Text>
+        </Typography>
         <ItemsWrapper>
           {TABS.map((el, index) => (
             <NavItem key={index} onClick={() => onClick(el.step, el.link)}>
               <Icon src={el.img} />
-              <Text
+              <Typography
                 color={step === el.step ? colors.redMain : colors.black}
-                size="15px"
+                fontSize="15px"
                 fontStyle={fonts.f600}
-                whiteSpace
               >
                 {el.title}
-              </Text>
+              </Typography>
             </NavItem>
           ))}
         </ItemsWrapper>

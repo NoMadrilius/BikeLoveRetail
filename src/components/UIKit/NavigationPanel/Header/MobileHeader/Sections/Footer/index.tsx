@@ -28,10 +28,10 @@ const Footer = ({
         Всі права захищені Публічна оферта
       </p>
       <div className="flex gap-5">
-        <Image
+        <Image priority={true}
           src={
             paymentSrc ? paymentSrc : "/images/homepage/icons/dark-payment.svg"
-          }
+          } fetchPriority={"low"}
           alt={"Payment methods"}
           width={180}
           height={80}

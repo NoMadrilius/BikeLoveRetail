@@ -10,9 +10,9 @@ const HamburgerMenu = () => {
       onClick={() => {as.setIsOpenSidebar(!as.isOpenSidebar)}
     }
     >
-      <Image
+      <Image fetchPriority={"auto"}
         src={"/images/uikit/header/burger-icon.svg"}
-        alt={"Burger Icon"}
+        alt={"burger"}
         width={32}
         height={32}
       />

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import {useAppStore} from "@/store/AppStore";
@@ -16,6 +17,10 @@ const NavigationIcons = () => {
     const as = useAppStore()
     const us = useAuthStore()
     const r = useRouter()
+
+    let cl = 0
+    cl = cs.cart.length
+
   return (
     <div className="flex items-center ">
         {
@@ -50,9 +55,9 @@ const NavigationIcons = () => {
             className="shrink-0"
           />
         </div>
-        {cs.cart.length>0 ? (
+        {cl>0 ? (
           <div className="size-[21px] flex items-center justify-center absolute top-0 right-0 bg-[#F9436B] rounded-full">
-            <span className="text-[14px] leading-[120%]">{cs.cart.length}</span>
+            <span className="text-[14px] leading-[120%]">{cl}</span>
           </div>
         ) : null}
       </div>

@@ -10,19 +10,16 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 import { LeftIconSVG, RightIconSVG } from "@/components/UIKit/SVGIcons";
 import RoundedButton from "@/components/UIKit/Buttons/RoundedIconButton";
-import { useProductPageStore } from "@/store/ProductPageStore";
 
 import FullScreenGallery from "./FullScreenGallery";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 import noImage from "/public/images/no-image.svg";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 
-const ProductGallery = () => {
+const ProductGallery = ({p}:{p:ProductFullData}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const ps = useProductPageStore();
-
 
   const handleSlideChange = (swiper: any) => {
     setCurrentIndex(swiper.realIndex);
@@ -46,8 +43,8 @@ const ProductGallery = () => {
         <div className=" w-full h-full xl:mx-auto max-w-6xl">
           {/* Main Image Swiper */}
           <div className="h-[500px] w-full flex items-center justify-center bg-white md:bg-transparent md2:bg-white md2:px-1 relative rounded-lg ">
-            {(ps.product?.product?.oldRetailPrice??0) >
-                (ps.product?.product?.retailPrice??0) && (
+            {(p.product.oldRetailPrice??0) >
+                (p.product.retailPrice??0) && (
               <RoundedButton
                 text="Акція"
                 altText={"Shopping Cart"}
@@ -64,7 +61,7 @@ const ProductGallery = () => {
               <LeftIconSVG />
             </div>
             <Swiper
-              loop={true}
+              loop={false}
               pagination={{ clickable: true }}
               centeredSlides={true}
               grabCursor={true}
@@ -82,14 +79,14 @@ const ProductGallery = () => {
               className="cursor-pointer !w-full "
               onClick={openModal}
             >
-              {ps.product?.productImages.map((p, index) => (
+              {p.productImages.map((p, index) => (
                 <SwiperSlide key={index}>
                   <div className="relative w-full h-full desc:m-auto">
-                    <Image
+                    <Image priority={true}
                       src={p.url??noImage}
-                      alt=""
-                      layout="fill"
-                      className="sm:object-contain md:object-contain object-contain"
+                      alt="image"
+                      fill
+                      className="object-contain"
                     />
                   </div>
                 </SwiperSlide>
@@ -113,7 +110,7 @@ const ProductGallery = () => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mt-5 hidden sm:!hidden md:!hidden md2:!block"
           >
-            {ps.product?.productImages.map((p, index) => (
+            {p.productImages.map((p, index) => (
               <SwiperSlide key={index}>
                 <div
                   className={`relative w-full h-[100px] bg-white rounded-lg overflow-hidden ${
@@ -122,17 +119,17 @@ const ProductGallery = () => {
                       : "rounded-lg"
                   }`}
                 >
-                  <Image src={p.url} alt="" layout="fill" objectFit="contain" />
+                  <Image src={p.url} alt="kwa" fill className="object-contain"/>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
 
-        {ps.product?.productImages?.length??0 > 1 ? (
+        {p.productImages?.length??0 > 1 ? (
           <Pagination
             currentIndex={currentIndex}
-            totalSlides={ps.product!.productImages.length}
+            totalSlides={p.productImages.length}
             className="block md2:!hidden w-full mx-0 sm:mb-4 md:mb-4 sm:mt-0 md:mt-0"
           />
         ) : null}
@@ -142,7 +139,7 @@ const ProductGallery = () => {
         <FullScreenGallery
           isOpen={isModalOpen}
           onClose={closeModal}
-          images={ps.product!.productImages}
+          images={p.productImages}
           currentIndex={currentIndex}
           handleSlideChange={handleSlideChange}
         />

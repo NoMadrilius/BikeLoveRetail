@@ -15,7 +15,7 @@ const RegistrationForm = () => {
     const us = useAuthStore()
 
 
-    //const isRegPhoneValid = us.regPhone.replace(/[^0-9]/g, "").length >= 12;
+    //const isRegPhoneValid = ua.regPhone.replace(/[^0-9]/g, "").length >= 12;
 
     const registerDisabled =
         !us.regName ||

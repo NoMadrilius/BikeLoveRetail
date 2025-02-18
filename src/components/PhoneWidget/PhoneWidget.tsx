@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 type Props = {};
 
 const PhoneWidget: FC<Props> = () => {
+
   useEffect(() => {
     (function (d, w, s) {
       var widgetHash = "63sb7ct35kdr8z6xcg1g",

@@ -1,4 +1,3 @@
-import { Text } from "@/components/Text/Text";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
@@ -6,6 +5,7 @@ import DeliveryInfo from "./DeliveryInfo";
 import PaymentOptions from "./PaymentOptions";
 import { useTranslation } from "react-i18next";
 import * as S from "./AboutDeliveryScreen.styles";
+import { Typography } from "@mui/material";
 
 const AboutDeliveryScreen = () => {
   const { t } = useTranslation();
@@ -141,12 +141,12 @@ const AboutDeliveryScreen = () => {
       {/* Similarly localize other DeliveryInfo components */}
 
       <S.PictureLarge bg="/images/about/delivery/large.png">
-        <Text color={colors.white} size="28px" fontStyle={fonts.f700}>
+        <Typography color={colors.white} fontSize="28px" fontStyle={fonts.f700}>
           {t("delivery.locationDoesNotMatter.heading")}
-        </Text>
-        <Text color={colors.white} size="16px" fontStyle={fonts.f400}>
+        </Typography>
+        <Typography color={colors.white} fontSize="16px" fontStyle={fonts.f400}>
           {t("delivery.locationDoesNotMatter.description")}
-        </Text>
+        </Typography>
       </S.PictureLarge>
       <PaymentOptions />
     </>

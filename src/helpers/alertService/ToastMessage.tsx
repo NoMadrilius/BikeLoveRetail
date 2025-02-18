@@ -3,7 +3,6 @@ import React, { useMemo } from "react";
 import { styled } from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { colors } from "../../../theme/colors";
-import { Text } from "@/components/Text/Text";
 import { fonts } from "../../../theme/fonts";
 import SuccessToast from "./assets/successToast";
 import WarnToast from "./assets/warnToast";
@@ -40,13 +39,13 @@ const ToastMessage: React.FC<ToastMessageProps> = ({ title, info, type }) => {
     <Wrapper>
       <Icon>{typeParams.icon}</Icon>
       <TextCol>
-        <Text size="21px" color={typeParams.background} fontStyle={fonts.f600}>
+        <div className={"text-xl font-bold bg-["+typeParams.background+"]"}>
           {title}
-        </Text>
+        </div>
         {info && (
-          <Text size="16px" color={colors.grayMain} fontStyle={fonts.f500}>
+          <div className={"text-xl font-bold bg-["+typeParams.background+"]"}>
             {info}
-          </Text>
+          </div>
         )}
       </TextCol>
     </Wrapper>

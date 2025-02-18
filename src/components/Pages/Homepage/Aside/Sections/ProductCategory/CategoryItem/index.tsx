@@ -21,7 +21,7 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
       onMouseEnter={() => {
         as.setSelectedCategory(category);
       }}
-      href={GenerateCatalogLink(undefined,{id:category.id, slug:category.transliterationName})}
+      href={category.transliterationName}
       onClick={onClick}
       className="flex items-center justify-between px-3 py-1 bg-white cursor-pointer group"
     >

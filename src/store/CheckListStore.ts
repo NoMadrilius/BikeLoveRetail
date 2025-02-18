@@ -15,7 +15,6 @@ import authStore from "@/store/AuthStore";
 import {showToast} from "@/helpers/alertService/alertService";
 import {makePersistable} from "mobx-persist-store";
 import Router from "next/router";
-import {User} from "@auth0/auth0-react";
 import {UserExistResponse} from "@/dataTransferObjects/response/UserExistResponse";
 import {AuthAPI} from "@/api/AuthAPI";
 

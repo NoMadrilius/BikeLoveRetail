@@ -1,9 +1,9 @@
 import React from "react";
 import {useProductPageStore} from "@/store/ProductPageStore";
 import {observer} from "mobx-react";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 
-const Description = () => {
-  const ps = useProductPageStore()
+const Description = ({p}:{p:ProductFullData}) => {
   return (
     <div
       className="flex flex-col gap-5 border-b border-gray pb-4"
@@ -14,7 +14,7 @@ const Description = () => {
       </h3>
       <p className="text-dark font-inter text-[16px] font-light leading-[19.2px]"
          dangerouslySetInnerHTML={{
-           __html: ps.product!.productCard.description,
+           __html: p.productCard.description,
          }}
       ></p>
     </div>

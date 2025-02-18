@@ -10,13 +10,14 @@ import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearch
 import {CategoriesSearchPreview} from "@/dataTransferObjects/response/CategoriesSearchPreview";
 import {BikeSelectCountRequest} from "@/dataTransferObjects/request/BikeSelectCountRequest";
 import { WorkshopDataResponse } from "@/dataTransferObjects/response/WorkshopDataResponse";
+import { PageDataResponse } from "@/dataTransferObjects/response/PageDataResponse";
 
 export const PublicAPI = {
     CatalogProductsByCategory(data:CatalogProductsByCategoryRequest):Promise<AxiosResponse<CatalogPageResponse>>{
         return axiosInstance.post<CatalogPageResponse>("/public/catalogproducts", data);
     },
-    GetProductCardById(id:number):Promise<AxiosResponse<ProductFullData>>{
-        return axiosInstance.get<ProductFullData>(`/public/getproductcardbyid?productId=${id}`);
+    GetProductCardById(id:number, lang:string|undefined):Promise<AxiosResponse<ProductFullData>>{
+        return axiosInstance.get<ProductFullData>(`/public/getproductcardbyid`, {params:{productId:id, lang:lang}});
     },
 
     GetShops():Promise<AxiosResponse<Shop[]>>{
@@ -51,6 +52,10 @@ export const PublicAPI = {
 
   GetWorkshopData():Promise<AxiosResponse<WorkshopDataResponse>>{
     return axiosInstance.get<WorkshopDataResponse>(`/work/public`);
+  },
+
+  GetPageData(Url:string, Lang?:string, CurrencyId?:number):Promise<AxiosResponse<PageDataResponse>>{
+    return axiosInstance.get<PageDataResponse>(`/public/get-page`, {params:{Url:Url, Lang:Lang??undefined, CurrencyId:CurrencyId??undefined}});
   },
 
 }

@@ -6,7 +6,7 @@ const Instock = ({
   stockType = "inStore",
 }: {
   className?: string;
-  stockType?: "inStore" | "inWarehouse" | "orderFromSupplier" | "outOfStock";
+  stockType?: string;
 }) => {
   let icon, text, textClass;
 
@@ -16,7 +16,17 @@ const Instock = ({
       text = "Є в магазині";
       textClass = "text-red-500";
       break;
+    case "Shop":
+      icon = <ArrowCheckIcon />;
+      text = "Є в магазині";
+      textClass = "text-red-500";
+      break;
     case "inWarehouse":
+      icon = <ArrowCheckIcon />;
+      text = "Є на складі";
+      textClass = "text-black";
+      break;
+    case "Storage":
       icon = <ArrowCheckIcon />;
       text = "Є на складі";
       textClass = "text-black";
@@ -27,6 +37,11 @@ const Instock = ({
       textClass = "text-black";
       break;
     case "outOfStock":
+      icon = null;
+      text = "Немає в наявності";
+      textClass = "text-t-grey";
+      break;
+    case "No":
       icon = null;
       text = "Немає в наявності";
       textClass = "text-t-grey";

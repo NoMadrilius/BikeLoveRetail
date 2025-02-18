@@ -75,7 +75,7 @@ const GradientButton = ({
               src={buttonIcon}
               alt={"Каталог товарів"}
               fill
-              objectFit="shrink-0"
+              //objectFit="shrink-0"
             />
           </div>
         </div>

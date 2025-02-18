@@ -9,7 +9,7 @@ export const SearchIcon = ({ width = 24, height = 25, color = "#DEDEDE" }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_4415_2710)">
+      <g clipPath="url(#clip0_4415_2710)">
         <path
           d="M18.4246 18.9246L23.5 24M11 22C5.20101 22 0.5 17.299 0.5 11.5C0.5 5.70101 5.20101 1 11 1C16.799 1 21.5 5.70101 21.5 11.5C21.5 17.299 16.799 22 11 22Z"
           stroke={color}
@@ -41,9 +41,9 @@ export const ArrowCheckIcon = () => {
       <path
         d="M1.16699 5.91105L5.33366 10.0777L13.667 1.74438"
         stroke="#F9436B"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -61,8 +61,8 @@ export const DownArrowIcon = () => {
       <path
         d="M1 1L7 7L13 1"
         stroke="#6B6B6B"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -81,8 +81,8 @@ export const PlusIcon = ({ className }: { className?: string }) => {
       <path
         d="M8 0.911133V14.9111M1 7.91113H15"
         stroke="#6B6B6B"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -100,8 +100,8 @@ export const MinusIcon = () => {
       <path
         d="M1 0.911133H15"
         stroke="#6B6B6B"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -119,8 +119,8 @@ export const ClearIcon = () => {
       <path
         d="M13 0.911133L1 12.9111M1 0.911133L13 12.9111"
         stroke="#6B6B6B"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -171,8 +171,8 @@ export const TrashIcon = (p: { onClick?: () => void }) => {
       <path
         d="M2.66675 4.66667H13.3334M6.66675 7.33333V11.3333M9.33341 7.33333V11.3333M3.33341 4.66667L4.00008 12.6667C4.00008 13.0203 4.14056 13.3594 4.39061 13.6095C4.64065 13.8595 4.97979 14 5.33341 14H10.6667C11.0204 14 11.3595 13.8595 11.6096 13.6095C11.8596 13.3594 12.0001 13.0203 12.0001 12.6667L12.6667 4.66667M6.00008 4.66667V2.66667C6.00008 2.48986 6.07032 2.32029 6.19534 2.19526C6.32037 2.07024 6.48994 2 6.66675 2H9.33341C9.51023 2 9.67979 2.07024 9.80482 2.19526C9.92984 2.32029 10.0001 2.48986 10.0001 2.66667V4.66667"
         stroke="black"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -295,16 +295,16 @@ export const FilterIconSvg = (p: { onClick?: () => void }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M10 8H20M4 16H14" stroke="white" stroke-linecap="round" />
+      <path d="M10 8H20M4 16H14" stroke="white" strokeLinecap="round" />
       <path
         d="M4 8C4 9.65685 5.34315 11 7 11C8.65685 11 10 9.65685 10 8C10 6.34315 8.65685 5 7 5C5.34315 5 4 6.34315 4 8Z"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M14 16C14 17.6569 15.3431 19 17 19C18.6569 19 20 17.6569 20 16C20 14.3431 18.6569 13 17 13C15.3431 13 14 14.3431 14 16Z"
         stroke="white"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -324,9 +324,9 @@ export const CloseModalIcon = () => {
         id="Vector"
         d="M12 0L0 12M0 0L12 12"
         stroke="#6B6B6B"
-        stroke-opacity="1.000000"
-        stroke-width="1.000000"
-        stroke-linejoin="round"
+        strokeOpacity="1.000000"
+        strokeWidth="1.000000"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -371,8 +371,8 @@ export const LogOutIconSVG = () => {
           y2="20.0895"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
       </defs>
     </svg>
@@ -392,9 +392,9 @@ export const PinkArrowIconSVG = ({ className }: { className?: string }) => {
       <path
         d="M1.5 6L6.5 11L16.5 1"
         stroke="#F9436B"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -422,8 +422,8 @@ export const InCartMobileIconSVG = ({ className }: { className: string }) => {
           y2="19.2141"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
       </defs>
     </svg>
@@ -443,8 +443,8 @@ export const SpinnerIconSVG = ({ className }: { className?: string }) => {
       <path
         d="M12 3C10.22 3 8.47991 3.52784 6.99987 4.51677C5.51983 5.50571 4.36628 6.91131 3.68509 8.55585C3.0039 10.2004 2.82567 12.01 3.17294 13.7558C3.5202 15.5016 4.37737 17.1053 5.63604 18.364C6.89472 19.6226 8.49836 20.4798 10.2442 20.8271C11.99 21.1743 13.7996 20.9961 15.4442 20.3149C17.0887 19.6337 18.4943 18.4802 19.4832 17.0001C20.4722 15.5201 21 13.78 21 12"
         stroke="white"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -472,8 +472,8 @@ export const MoneyIconSVG = () => {
           y2="19.7698"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
       </defs>
     </svg>
@@ -488,7 +488,7 @@ export const DeliveryIconSVG = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_6370_2849)">
+      <g clipPath="url(#clip0_6370_2849)">
         <path
           d="M11.5 5V16M19.5 5V16M18.5 5C18.5 3.34315 17.1569 2 15.5 2C13.8431 2 12.5 3.34315 12.5 5M4.5 21.5C4.5 22.6046 5.39543 23.5 6.5 23.5C7.60457 23.5 8.5 22.6046 8.5 21.5M19.5 21.5C19.5 22.6046 20.3954 23.5 21.5 23.5C22.6046 23.5 23.5 22.6046 23.5 21.5M24 19H4.5V15.7512C4.5 12.5855 4.44209 9.39815 3.7051 6.31948C3.03471 3.51909 1.87677 0.5 0 0.5M23.5 16H7.5V15.8235L7.70246 14.4777C7.90054 13.1611 8 11.8315 8 10.5C8 9.16853 7.90054 7.83891 7.70246 6.52226L7.5 5.17647V5H23.5V5.17647L23.2975 6.52226C23.0995 7.83891 23 9.16853 23 10.5C23 11.8315 23.0995 13.1611 23.2975 14.4777L23.5 15.8235V16Z"
           stroke="url(#paint0_linear_6370_2849)"
@@ -503,8 +503,8 @@ export const DeliveryIconSVG = () => {
           y2="20.5099"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
         <clipPath id="clip0_6370_2849">
           <rect width="24" height="24" fill="white" />
@@ -540,8 +540,8 @@ export const GuaranteeIconSVG = () => {
           y2="16.2313"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_6370_2898"
@@ -551,8 +551,8 @@ export const GuaranteeIconSVG = () => {
           y2="15.7452"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.202171" stop-color="#F01B74" />
-          <stop offset="1" stop-color="#FF6064" />
+          <stop offset="0.202171" stopColor="#F01B74" />
+          <stop offset="1" stopColor="#FF6064" />
         </linearGradient>
       </defs>
     </svg>
@@ -571,8 +571,8 @@ export const LeftIconArrow = () => {
       <path
         d="M7 1L1 7L7 13"
         stroke="#2C2727"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -590,8 +590,8 @@ export const RightIconArrow = () => {
       <path
         d="M1 1L7 7L1 13"
         stroke="#2C2727"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -609,8 +609,8 @@ export const ClockOrderIconSVG = () => {
       <path
         d="M8 3.83333V8L10.5 10.5M0.5 8C0.5 8.98491 0.693993 9.96018 1.0709 10.8701C1.44781 11.7801 2.00026 12.6069 2.6967 13.3033C3.39314 13.9997 4.21993 14.5522 5.12987 14.9291C6.03982 15.306 7.01509 15.5 8 15.5C8.98491 15.5 9.96018 15.306 10.8701 14.9291C11.7801 14.5522 12.6069 13.9997 13.3033 13.3033C13.9997 12.6069 14.5522 11.7801 14.9291 10.8701C15.306 9.96018 15.5 8.98491 15.5 8C15.5 6.01088 14.7098 4.10322 13.3033 2.6967C11.8968 1.29018 9.98912 0.5 8 0.5C6.01088 0.5 4.10322 1.29018 2.6967 2.6967C1.29018 4.10322 0.5 6.01088 0.5 8Z"
         stroke="#2C2727"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -628,9 +628,9 @@ export const GreenArrowIcon = () => {
       <path
         d="M5 12L10 17L20 7"
         stroke="#2AA77F"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

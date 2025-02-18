@@ -1,28 +1,10 @@
-import { UseMetaData } from "@/helpers/hooks/useMetaData";
-import { styled } from "styled-components";
-import { metrics } from "../../../../theme/metrics";
-import { templates } from "../../../../theme/templates";
-import { Text } from "@/components/Text/Text";
-import { fonts } from "../../../../theme/fonts";
-import { colors } from "../../../../theme/colors";
-import Image from "next/image";
 import React, {FC, useEffect, useState} from "react";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 import {OrderAPI} from "@/api/OrderAPI";
 import {useRouter} from "next/router";
-import PersonalDataSignedIn
-  from "@/components/Pages/OrderPage/PersonalData/personal-data-signed-in/personal-data-signed-in";
-import PersonalDataNeedToAuthentificate
-  from "@/components/Pages/OrderPage/PersonalData/personal-data-need-to-authentificate";
-import PersonalDataNotRegister from "@/components/Pages/OrderPage/PersonalData/personal-data-not-register";
-import PersonalData from "@/components/Pages/OrderPage/PersonalData/personal-data";
-import DeliveryInfo from "@/components/Pages/OrderPage/DeliveryInfo/DeliveryInfo";
 import OrderConfirmation from "@/components/Pages/OrderPage/OrderConfirmation/OrderConfirmation";
-import OrderInfo from "@/components/Pages/OrderPage/OrderInfo/OrderInfo";
 import ContactAndSocial from "@/components/Pages/Homepage/Aside/Sections/ContactAndSocial";
 import DarkFooter from "@/components/UIKit/NavigationPanel/Header/MobileHeader/Sections/Footer/darkFooter";
-import OrderInfoList from "@/components/Pages/OrderPage/OrderInfo/order-info-list/order-info-list";
-import TotalAmountBlock from "@/components/Pages/OrderPage/OrderInfo/total-amount-block/total-amount-block";
 import BlockWrapper from "@/components/Pages/OrderPage/block-wrapper";
 import ConfProductInfo from "@/components/Pages/OrderPage/OrderConfirmation/ConfProductInfo";
 

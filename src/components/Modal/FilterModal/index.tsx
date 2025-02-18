@@ -52,27 +52,13 @@ const FilterModal = () => {
         </div>
         <div className="p-5 w-full">
           <div className="flex flex-col gap-2 h-[450px] overflow-auto">
-            <BicyclePurposeTags />
-            <SelectColor />
             {
               uniqueOptions.map(opt=>{
                 let variants = cs.catalogState!.options.filter((n) => n.optionId === opt.id);
                 return (<CategoryAccordion key={opt.id} title={opt.name} checkboxes={variants} />)
               })
             }
-            <SortByPrice />
           </div>
-        </div>
-        <div className="p-5 flex flex-col gap-3 absolute bottom-[20px] w-full left-0 bg-white">
-          <span className="text-t-grey font-inter font-light leading-[19.2px] text-center">
-            Знайдено ХХХХ товарів
-          </span>
-          <GradientButton
-            label={"Показати"}
-            showIcon={false}
-            className="w-full flex !py-[14.5px] justify-center"
-            onClick={() => {}}
-          />
         </div>
       </div>
     </div>

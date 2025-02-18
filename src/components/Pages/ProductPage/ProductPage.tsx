@@ -1,33 +1,38 @@
-import React, { useEffect } from "react";
-import { useAppStore } from "@/store/AppStore";
-import ProductHeader from "@/components/Pages/ProductPage/ProductHeader";
+"use client";
+
+import React, {Suspense } from "react";
 import ProductCard from "@/components/Pages/ProductPage/ProductCard";
-import CustomSlider from "@/components/Pages/Homepage/MainContent/CustomSlider";
-import { useProductPageStore } from "@/store/ProductPageStore";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { nameProductMetaTemplate } from "@/helpers/metaTamplates/nameProductMetaTemplate";
 import { descriptionProductMetaTemplate } from "@/helpers/metaTamplates/descriptionProductMetaTemplate";
 import noImage from "/public/images/no-image.svg";
 import { observer } from "mobx-react";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 
-const ProductPage = () => {
-  const as = useAppStore();
-  const ps = useProductPageStore();
+const Skeleton = ()=>{
+  console.log("skeleton")
+  return(<div className={"text-black bg-white"}>Kwa kwa</div>)
+}
 
-  if (ps.product === null) return null;
+const ProductPage = ({product}:{product:ProductFullData}) => {
 
   return (
-    <div className="scroll-smooth max-w-[1324px] w-full h-full m-auto items-start pt-5 pb-10 flex flex-col gap-10 md2:pr-8">
-      <div className="flex flex-col gap-10 md:gap-6 w-full h-full">
-        <UseMetaData
-          title={nameProductMetaTemplate(ps.product.product.name)}
-          img={ps.product.productImages[0]?.url??noImage}
-          description={descriptionProductMetaTemplate(ps.product.product.name)}
-        />
+    <Suspense fallback={<Skeleton/>}>
+      <div
+        className="scroll-smooth max-w-[1324px] w-full h-full m-auto items-start pt-5 pb-10 flex flex-col gap-10 md2:pr-8">
+        <div className="flex flex-col gap-10 md:gap-6 w-full h-full">
+          <UseMetaData
+            title={nameProductMetaTemplate(product.product.name)}
+            img={product.productImages[0].url}
+            description={descriptionProductMetaTemplate(product.product.name)}
+          />
+          <ProductCard p={product} />
+        </div>
+        <div className="w-full flex flex-col gap-10 md:px-1 sm:px-5">
+          {/*
         <ProductHeader />
-        <ProductCard />
-      </div>
-      <div className="w-full flex flex-col gap-10 md:px-1 sm:px-5">
+
+
         <CustomSlider
           products={as.topProducts}
           title={"Також Вас можуть зацікавити"}
@@ -56,8 +61,12 @@ const ProductPage = () => {
           hideText={true}
           className="max-w-full"
         />
+        */}
+
+        </div>
       </div>
-    </div>
+    </Suspense>
+
   );
 };
 

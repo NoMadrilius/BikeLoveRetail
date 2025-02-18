@@ -15,7 +15,7 @@ const SubCategories = () => {
   return (
     <div className="flex gap-5 overflow-auto max-w-full sm:px-5 px-0">
       {cs.catalogState!.childrens!.map((el) => (
-        <Link
+        <Link key={el.id}
           className="p-2 flex flex-col gap-1 rounded-lg bg-white cursor-pointer group"
           href={GenerateCatalogLink(undefined, {
             id: el.id,
@@ -27,7 +27,7 @@ const SubCategories = () => {
               src={el.iconUrl || "/images/homepage/static/by-purpose.jpg"}
               alt={""}
               fill
-              className="object-contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }}
             />
           </div>
           <div className="pt-2 text-center">

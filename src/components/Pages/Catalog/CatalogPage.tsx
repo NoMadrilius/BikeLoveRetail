@@ -65,13 +65,13 @@ const CatalogPage = () => {
       <section className="flex gap-5 w-full items-start sm:px-5 px-0">
         <aside className="max-w-[224px] w-full shrink-0 grow p-5 bg-white rounded-lg flex flex-col gap-5 md:hidden sm:hidden">
             <SortByPrice />
-          {uniqueOptions.map((opt) => {
+          {uniqueOptions.map((opt, index) => {
             let variants = cs.catalogState!.options.filter(
               (n) => n.optionId === opt.id
             );
             return (
               <CategoryAccordion
-                key={opt.id}
+                key={index}
                 title={opt.name}
                 checkboxes={variants}
               />

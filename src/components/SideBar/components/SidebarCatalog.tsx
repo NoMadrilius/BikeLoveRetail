@@ -1,8 +1,7 @@
-import { Text } from "@/components/Text/Text";
 import { ColumnContainer, Line, RowContainer } from "../SidebarStyles";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import {useAppStore} from "@/store/AppStore";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import { Typography } from "@mui/material";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();
@@ -56,22 +56,21 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
             transform: "rotate(180deg)",
           }}
         />
-        <Text
+        <Typography
           color={colors.black}
-          size="14px"
+          fontSize="14px"
           fontStyle={fonts.f400}
-          hoverColor={colors.redHover}
         >
           Назад
-        </Text>
+        </Typography>
       </RowContainer>
-      <Text
+      <Typography
         color={colors.redMain}
-        size="16px"
+        fontSize="16px"
         fontStyle={fonts.f500}
         style={cat?{cursor:"pointer"}:{}}
         margin="10px 0 0 25px"
-        func={()=>{
+        onClick={()=>{
             if(cat)
             {
                 r.push(GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}));
@@ -80,7 +79,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
         }}
       >
         {cat? cat.name:"Каталог"}
-      </Text>
+      </Typography>
       <Line style={{ marginTop: "14px" }} />
       <ColumnContainer style={{ rowGap: "20px", padding: "23px 26px 33px" }}>
         {cat? (
@@ -94,14 +93,13 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
                             }}
                             onClick={() => onPress(el)}
                         >
-                            <Text
+                            <Typography
                                 color={colors.black}
-                                size="16px"
+                                fontSize="16px"
                                 fontStyle={fonts.f500}
-                                hoverColor={colors.redHover}
                             >
                                 {el.name}
-                            </Text>
+                            </Typography>
                             {el.childrenIds !== "" && (
                                 <Image
                                     alt="Arrow Icon"
@@ -133,14 +131,13 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
                     }}
                 onClick={() => onPress(el)}
               >
-                <Text
+                <Typography
                   color={colors.black}
-                  size="16px"
+                  fontSize="16px"
                   fontStyle={fonts.f500}
-                  hoverColor={colors.redHover}
                 >
                   {el.name}
-                </Text>
+                </Typography>
                 {el.childrenIds !== "" && (
                   <Image
                     alt="Arrow Icon"

@@ -18,7 +18,7 @@ const FilterBlock: React.FC = () => {
         {
           cs.catalogState!.filterSettings.length>0&&
             <div onClick={()=>{r.push(GenerateCatalogLink(undefined,{id:cs.catalogState!.category?.id, slug:cs.catalogState!.category?.transliterationName}))}} className="border border-pink cursor-pointer select-none rounded-[8px] py-[6.5px] px-3 text-dark-text font-inter font-medium leading-[19.36px] sm:hidden md:hidden hover:bg-[#d3d3d3]">
-              Скасувати
+              Скасувати123
             </div>
         }
 

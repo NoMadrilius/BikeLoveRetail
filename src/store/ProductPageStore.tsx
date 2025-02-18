@@ -6,7 +6,7 @@ import {ProductOptionVariantBind} from "@/dataTransferObjects/entities/ProductOp
 import {Product} from "@/dataTransferObjects/entities/Product";
 
 class ProductPageStore{
-    product:ProductFullData|null = null
+    product:ProductFullData = {}as ProductFullData;
     selectedVariants:number[] = []
     possibleProducts:Product[] = []
     specifications:ProductOptionVariantBind[] = []
@@ -19,9 +19,9 @@ class ProductPageStore{
         makeAutoObservable(this);
     }
 
-    async getProduct(id:number){
+    async getProduct(id:number, lang:string|undefined):Promise<any> {
         let res:ProductFullData = {} as ProductFullData
-        await PublicAPI.GetProductCardById(id).then((r)=>{
+        await PublicAPI.GetProductCardById(id,lang).then((r)=>{
             res = r.data
         }).finally(()=>{})
         return res;
@@ -56,17 +56,20 @@ class ProductPageStore{
             this.activeVariants = this.product!.productOptions.filter(n=>prodWL.includes(n.productId)).map(n=>n.optionVariantId)
         }
     }
+
+    getUniqOptions(p:ProductFullData){
+        return p.productOptions.reduce(
+          (accumulator: { id: number; name: string }[], i) => {
+              let ent = accumulator.find((n) => n.id === i.optionId);
+              if (ent === undefined) {
+                  accumulator.push({ id: i.optionId, name: i.optionName });
+              }
+              return accumulator;
+          }, []);
+    }
+
     initializeOptionAndVariants(){
-        this.uniqueOptions = this.product!.productOptions.reduce(
-            (accumulator: { id: number; name: string }[], i) => {
-                let ent = accumulator.find((n) => n.id === i.optionId);
-                if (ent === undefined) {
-                    accumulator.push({ id: i.optionId, name: i.optionName });
-                }
-                return accumulator;
-            },
-            []
-        );
+        this.uniqueOptions = this.getUniqOptions(this.product!)
 
         this.uniqueVariants = this.product!.productOptions.reduce(
             (accumulator: { variantId: number; variantName: string, optionId:number }[], i) => {
@@ -79,6 +82,7 @@ class ProductPageStore{
             []
         );
     }
+
     getBreadCrumbs(){
         if(this.product!=null)
         {

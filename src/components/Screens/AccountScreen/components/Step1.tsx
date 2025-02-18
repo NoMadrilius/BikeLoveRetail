@@ -1,4 +1,3 @@
-import { Text } from "@/components/Text/Text";
 import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
@@ -10,6 +9,7 @@ import { observer } from "mobx-react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { Typography } from "@mui/material";
 
 const Step1 = ({ step }: any) => {
   const { t } = useTranslation();
@@ -88,9 +88,9 @@ const Step1 = ({ step }: any) => {
   return (
     <>
       <Wrapper>
-        <Text color={colors.black} size="22px" fontStyle={fonts.f600}>
+        <Typography color={colors.black} fontSize="22px" fontStyle={fonts.f600}>
           {t("account.step1.mainData")}
-        </Text>
+        </Typography>
         <InputsContainer>
           <InputField
             placeholder={t("account.step1.surname")}
@@ -114,13 +114,13 @@ const Step1 = ({ step }: any) => {
           />
 
           <SelectField>
-            <Text
+            <Typography
               color={gender ? colors.black : colors.grayBorder}
-              size="16px"
+              fontSize="16px"
               fontStyle={fonts.f400}
             >
               {selectedGender()}
-            </Text>
+            </Typography>
             <Arrow
               width={20}
               height={20}
@@ -131,38 +131,38 @@ const Step1 = ({ step }: any) => {
             {openSelectGender && (
               <SelectArea>
                 <SelectItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f400}
-                    func={() => onClickSelectGender("Male")}
+                    onClick={() => onClickSelectGender("Male")}
                   >
                     {t("account.step1.male")}
-                  </Text>
+                  </Typography>
                 </SelectItem>
 
                 <SelectItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f400}
-                    func={() => onClickSelectGender("Female")}
+                    onClick={() => onClickSelectGender("Female")}
                   >
                     {t("account.step1.female")}
-                  </Text>
+                  </Typography>
                 </SelectItem>
               </SelectArea>
             )}
           </SelectField>
 
           <SelectField>
-            <Text
+            <Typography
               color={lang ? colors.black : colors.grayBorder}
-              size="16px"
+              fontSize="16px"
               fontStyle={fonts.f400}
             >
               {selectedLang()}
-            </Text>
+            </Typography>
             <Arrow
               width={20}
               height={20}
@@ -173,35 +173,35 @@ const Step1 = ({ step }: any) => {
             {openSelectLang && (
               <SelectArea>
                 <SelectItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f400}
-                    func={() => onClickSelectLang("Ukrainin")}
+                    onClick={() => onClickSelectLang("Ukrainin")}
                   >
                     {t("account.step1.ua")}
-                  </Text>
+                  </Typography>
                 </SelectItem>
 
                 <SelectItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f400}
-                    func={() => onClickSelectLang("English")}
+                    onClick={() => onClickSelectLang("English")}
                   >
                     {t("account.step1.en")}
-                  </Text>
+                  </Typography>
                 </SelectItem>
                 <SelectItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="16px"
+                    fontSize="16px"
                     fontStyle={fonts.f400}
-                    func={() => onClickSelectLang("Russian")}
+                    onClick={() => onClickSelectLang("Russian")}
                   >
                     {t("account.step1.ru")}
-                  </Text>
+                  </Typography>
                 </SelectItem>
               </SelectArea>
             )}

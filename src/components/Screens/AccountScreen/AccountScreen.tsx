@@ -1,4 +1,3 @@
-import { Text } from "@/components/Text/Text";
 import { useEffect, useState } from "react";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
@@ -13,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import {OrderAPI} from "@/api/OrderAPI";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
+import { Typography } from "@mui/material";
 
 const AccountScreen = () => {
   const { t } = useTranslation();
@@ -34,14 +34,14 @@ const AccountScreen = () => {
   return (
     <>
       <UseMetaData title={"Аккаунт"} img={""} description={"sadasdasd"} />
-      <Text
+      <Typography
         color={colors.black}
-        size="40px"
+        fontSize="40px"
         fontStyle={fonts.f500}
         textTransform="uppercase"
       >
         {t("account.personalData")}
-      </Text>
+      </Typography>
 
       <MainWrapper>
         <Left>

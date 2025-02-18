@@ -14,8 +14,8 @@ const LoginForm = () => {
     const as = useAppStore()
     const us = useAuthStore()
 
-    //const isLoginPhoneValid = us.loginPhone.replace(/[^0-9]/g, "").length >= 12;
-    //const loginDisabled = !us.loginPassword.length || !isLoginPhoneValid || us.loading;
+    //const isLoginPhoneValid = ua.loginPhone.replace(/[^0-9]/g, "").length >= 12;
+    //const loginDisabled = !ua.loginPassword.length || !isLoginPhoneValid || ua.loading;
 
   return (
     <div className="p-5 flex flex-col gap-5">

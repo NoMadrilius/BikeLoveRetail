@@ -1,23 +1,23 @@
-import { Text } from "@/components/Text/Text";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
+import { Typography } from "@mui/material";
 
 const AboutShopScreen = () => {
   const road = [{ title: "Магазин", link: "/" }];
   return (
     <>
       <UseMetaData title={"Про наш магазин"} img={""} description={"Наш магаз кращий"} />
-      <Text
+      <Typography
         color={colors.black}
-        size="42px"
+        fontSize="42px"
         fontStyle={fonts.f500}
         textAlign="center"
       >
         Ми віримо,
         <br /> що велоспорт змінює життя
-      </Text>
+      </Typography>
       <RowTextContainer>
         <ParagraphContainer>
           <div style={{color:'black'}}

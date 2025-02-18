@@ -50,10 +50,10 @@ class AuthStore {
   }
 
   initialize(){
-    console.log('authIniting', this.isAuth)
+    //console.log('authIniting', this.isAuth)
     if(this.isAuth){
       UserAPI.GetSelf().then(r=>{
-        console.log('uodRes:',r)
+        //console.log('uodRes:',r)
         this.user = r.data
       }).catch(()=>{
         this.isAuth = false

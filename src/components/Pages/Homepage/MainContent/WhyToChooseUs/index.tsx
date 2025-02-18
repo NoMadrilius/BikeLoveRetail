@@ -3,22 +3,22 @@ import WhyToChooseItem from "./WhyToChooseItem";
 
 const itemsData = [
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-us/personal.svg",
+    iconSrc: "/images/homepage/icons/why-to-choose-ua/personal.svg",
     alt: "Personal",
     text: "Кваліфікований персонал",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-us/cool-service.svg",
+    iconSrc: "/images/homepage/icons/why-to-choose-ua/cool-service.svg",
     alt: "Cool Service",
     text: "Гарантійне обслуговування",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-us/bicycle.svg",
+    iconSrc: "/images/homepage/icons/why-to-choose-ua/bicycle.svg",
     alt: "Bicycle",
     text: "Запчастини від виробника",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-us/bus.svg",
+    iconSrc: "/images/homepage/icons/why-to-choose-ua/bus.svg",
     alt: "Bus",
     text: "Доставка в будь-яке місто",
   },

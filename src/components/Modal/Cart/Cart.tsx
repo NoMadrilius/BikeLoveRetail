@@ -3,16 +3,14 @@ import { styled } from "styled-components";
 import BlurWrapper from "../../BlurWrapper/BlurWrapper";
 import { colors } from "../../../../theme/colors";
 import { ButtonCustom } from "../../ButtonCustom/ButtonCustom";
-import { Text } from "../../Text/Text";
 import { fonts } from "../../../../theme/fonts";
 import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import CartItem from "./CartItem";
 import { useCartStore } from "@/store/CartStore";
-import { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import {Product} from "@/dataTransferObjects/entities/Product";
+import { Typography } from "@mui/material";
 
 const Cart = () => {
 
@@ -33,9 +31,9 @@ const Cart = () => {
           src="/icons/close_black.png"
           onClick={() => cartStore.setVisible(false)}
         />
-        <Text color={colors.black} size="22px" fontStyle={fonts.f600}>
+        <Typography color={colors.black} fontSize="22px" fontStyle={fonts.f600}>
           {t("cart.cart")}
-        </Text>
+        </Typography>
 
         <ItemsContainer>
           {cartStore.cart.map((el, index) => (
@@ -58,49 +56,48 @@ const Cart = () => {
             <InfoContainer>
               <Icon src="/icons/van.png" style={{ height: "28px" }} />
               <ColumnContainer>
-                <Text color={colors.black} size="16px" fontStyle={fonts.f700}>
+                <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f700}>
                   {t("cart.quiqDelivery")}
-                </Text>
-                <Text
+                </Typography>
+                <Typography
                   color={colors.black}
-                  size="12px"
+                  fontSize="12px"
                   fontStyle={fonts.f400}
                   margin="10px 0 0 0"
                 >
                   {t("cart.delivery48h")}
-                </Text>
+                </Typography>
               </ColumnContainer>
               <Icon src="/icons/card.png" />
               <ColumnContainer>
-                <Text color={colors.black} size="16px" fontStyle={fonts.f700}>
+                <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f700}>
                   {t("cart.sefetyPay")}
-                </Text>
-                <Text
+                </Typography>
+                <Typography
                   color={colors.black}
-                  size="12px"
+                  fontSize="12px"
                   fontStyle={fonts.f400}
                   margin="10px 0 0 0"
                 >
                   {t("cart.secure3D")}
-                </Text>
+                </Typography>
               </ColumnContainer>
             </InfoContainer>
           </ColumnContainer>
 
           <TotalContainer>
             <RowContainer style={{ alignItems: "center" }}>
-              <Text color={colors.black} size="18px" fontStyle={fonts.f400}>
+              <Typography color={colors.black} fontSize="18px" fontStyle={fonts.f400}>
                 {t("cart.total")}
-              </Text>
-              <Text
+              </Typography>
+              <Typography
                 color={colors.black}
-                size="30px"
+                fontSize="30px"
                 fontStyle={fonts.f500}
-                whiteSpace
                 margin="0 0 0 60px"
               >
                 {prettyPrice(cartStore.totalPrice)}
-              </Text>
+              </Typography>
             </RowContainer>
             <ButtonCustom
               width={"214px"}

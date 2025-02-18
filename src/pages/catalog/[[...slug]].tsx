@@ -6,6 +6,7 @@ import React, {useEffect} from "react";
 import CatalogPage from "@/components/Pages/Catalog/CatalogPage";
 import {GetCatalogLinkParams} from "@/helpers/LinkGen/GetCatalogLinkParams";
 import { setStateBase } from "@/helpers/setState/setStateBase";
+import { productPageStore } from "@/store/ProductPageStore";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -45,11 +46,8 @@ export const getStaticProps= async (context: any) => {
 
 const Page = (props: { iniState: CatalogPageResponse|null, as:AppState|null }) => {
 
-  if(props.as) setStateBase(props.as)
-
-  if(props.iniState && typeof window === 'undefined') catalogStore.setCatalogState(props.iniState)
-
   useEffect(() => {
+    if(props.as) setStateBase(props.as)
     if(props.iniState) catalogStore.setCatalogState(props.iniState)
   }, [props.iniState]);
 

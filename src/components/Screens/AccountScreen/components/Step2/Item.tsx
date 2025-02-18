@@ -1,4 +1,3 @@
-import { Text } from "@/components/Text/Text";
 import { FC, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { colors } from "../../../../../../theme/colors";
@@ -10,6 +9,7 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import { observer } from "mobx-react";
 import { useTranslation } from "react-i18next";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
+import { Typography } from "@mui/material";
 
 type Props = {
   data: OrderFullData;
@@ -103,16 +103,16 @@ const Item: FC<Props> = ({ data }) => {
     <>
       <Wrapper>
         <InfoWrapper>
-          <Text color={colors.black} size="18px" fontStyle={fonts.f600}>
+          <Typography color={colors.black} fontSize="18px" fontStyle={fonts.f600}>
             {t("account.item.order")} №{324234}
-          </Text>
-          <Text color={colors.black} size="26px" fontStyle={fonts.f600}>
+          </Typography>
+          <Typography color={colors.black} fontSize="26px" fontStyle={fonts.f600}>
             {prettyPrice(data.order.totalPrice)}
-          </Text>
-          <Text color={colors.grayMain} size="13px" fontStyle={fonts.f400}>
+          </Typography>
+          <Typography color={colors.grayMain} fontSize="13px" fontStyle={fonts.f400}>
             {t("account.item.sostav")} {data.products.length}
             {t("account.item.quantityName")}
-          </Text>
+          </Typography>
         </InfoWrapper>
         <ImagesWrapper>
           {data.products.map((el, index) => (
@@ -120,28 +120,27 @@ const Item: FC<Props> = ({ data }) => {
           ))}
         </ImagesWrapper>
         <Info2Wrapper>
-          <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+          <Typography color={colors.black} fontSize="15px" fontStyle={fonts.f400}>
             {prettyDate(data.order.createdAt)}
-          </Text>
-          <Text
+          </Typography>
+          <Typography
             color={statusData()?.color as string}
-            size="16px"
+            fontSize="16px"
             fontStyle={fonts.f700}
           >
             {statusData()?.title}
-          </Text>
+          </Typography>
           <RowContainer
             style={{ cursor: "pointer" }}
             onClick={() => setOpenDetails(!openDetails)}
           >
-            <Text
+            <Typography
               color={colors.black}
-              size="15px"
+              fontSize="15px"
               fontStyle={fonts.f400}
-              whiteSpace
             >
               {t("account.item.orderDetails")}
-            </Text>
+            </Typography>
             <Image
               alt="ArrowBottom"
               width={12}
@@ -154,68 +153,68 @@ const Item: FC<Props> = ({ data }) => {
       {openDetails && (
         <HiddenWrapper>
           <DetailsInfo>
-            <Text color={colors.black} size="18px" fontStyle={fonts.f600}>
+            <Typography color={colors.black} fontSize="18px" fontStyle={fonts.f600}>
               {t("account.item.delivery")}
-            </Text>
-            <Text
+            </Typography>
+            <Typography
               color={colors.black}
-              size="15px"
+              fontSize="15px"
               fontStyle={fonts.f400}
               margin="32px 0 0 0"
             >
               {deliveryString}
-            </Text>
-            <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+            </Typography>
+            <Typography color={colors.black} fontSize="15px" fontStyle={fonts.f400}>
               {deliveryLocationString}
-            </Text>
+            </Typography>
 
-            <Text
+            <Typography
               color={colors.black}
-              size="18px"
+              fontSize="18px"
               fontStyle={fonts.f600}
               margin="20px 0 0 0"
             >
               {t("account.item.pay")}
-            </Text>
+            </Typography>
             {
               data.order.isPayed?
-                  <Text
+                  <Typography
                       color={colors.green}
-                      size="18px"
+                      fontSize="18px"
                       fontStyle={fonts.f600}
                       margin="20px 0 0 0"
                   >
                     Замовлення оплачено
-                  </Text>
+                  </Typography>
                   :
                   <>
-                  <Text
+                  <Typography
                       color={colors.redMain}
-                      size="18px"
+                      fontSize="18px"
                       fontStyle={fonts.f600}
                       margin="20px 0 0 0"
                   >
                     Замовлення очікує оплати
-                  </Text>
+                  </Typography>
                     {
                       data.order.isPrePay?
-                          <Text
+                          <Typography
                               color={colors.black}
-                              size="15px"
+                              fontSize="15px"
                               fontStyle={fonts.f400}
                               margin="22px 0 0 0"
                           >
                             Замовлення буде оброблено після оплати
-                          </Text>
+                          </Typography>
                           :
-                          <Text
+                          <Typography
                               color={colors.black}
-                              size="15px"
+                              fontSize="15px"
                               fontStyle={fonts.f400}
                               margin="22px 0 0 0"
                           >
                             Оплата при отриманні
-                          </Text>
+                          </Typography>
 
                     }
                   </>
@@ -228,27 +227,25 @@ const Item: FC<Props> = ({ data }) => {
               <DetailItemsWrapper key={index}>
                 <ItemImage src="/mock/NoPhoto.png" />
                 <DetailItemInfo>
-                  <Text color={colors.black} size="15px" fontStyle={fonts.f400}>
+                  <Typography color={colors.black} fontSize="15px" fontStyle={fonts.f400}>
                     {el.name}
-                  </Text>
+                  </Typography>
                 </DetailItemInfo>
                 <QuantityItem>
-                  <Text
+                  <Typography
                     color={colors.black}
-                    size="15px"
+                    fontSize="15px"
                     fontStyle={fonts.f400}
-                    whiteSpace
                   >
                     1 шт
-                  </Text>
-                  <Text
+                  </Typography>
+                  <Typography
                     color={colors.black}
-                    size="15px"
+                    fontSize="15px"
                     fontStyle={fonts.f400}
-                    whiteSpace
                   >
                     {prettyPrice(el.price)}
-                  </Text>
+                  </Typography>
                 </QuantityItem>
               </DetailItemsWrapper>
             ))}

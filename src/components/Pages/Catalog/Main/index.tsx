@@ -15,7 +15,7 @@ const MainContent = ({ products }: { products: ProductFullData[] }) => {
       <div className="mt-5 flex flex-col gap-5">
         <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 flex-wrap gap-5">
           {products.map((item) => (
-            <ProductCard
+            <ProductCard key={item.product.id}
               product={item}
               showBuyButton={true}
               className="sm:max-w-full"

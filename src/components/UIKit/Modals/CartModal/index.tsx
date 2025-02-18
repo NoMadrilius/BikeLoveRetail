@@ -1,9 +1,8 @@
+"use client";
 import React from "react";
 import GradientButton from "../../Buttons/GradientButton";
 import CartCard from "../../Cards/CartCard";
-import CloseIcon from "../../NavigationPanel/Header/MobileView/CloseIcon";
 import { observer } from "mobx-react";
-import { useAppStore } from "@/store/AppStore";
 import { useCartStore } from "@/store/CartStore";
 import { useCurrencyStore } from "@/store/CurrencyStore";
 import { CloseModalIcon } from "../../SVGIcons";

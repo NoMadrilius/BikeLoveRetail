@@ -23,9 +23,6 @@ const Layout = ({ children }: any) => {
     if(router.query.r && router.asPath && AppStore.deviceFingerprint){
       UserAPI.TrackReferal(router.query.r as string, AppStore.deviceFingerprint, router.asPath)
     }
-
-    console.log("referal",router.query.r)
-    console.log("url",router.asPath)
   }, [router.pathname]); // Runs when `pathname` changes
 
   return (

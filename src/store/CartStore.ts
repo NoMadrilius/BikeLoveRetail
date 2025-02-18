@@ -63,16 +63,8 @@ class CartStore {
         type: "warn",
       });
     } else {
-      PublicAPI.GetProductCardById(id).then((r)=>{
-        const prod = r.data.bindedProducts.find(n=>n.id === id)
-        if (prod){
-          this.cart.push({product:prod, fullData:r.data, quantity:1});
-          showToast({
-            info: prod.name,
-            title: "Товар добавлен",
-            type: "success",
-          });
-        }
+      PublicAPI.GetProductCardById(id,undefined).then((r)=>{
+       this.addToCart(r.data.product, r.data)
       })
     }
     this.updateTotalPrice()

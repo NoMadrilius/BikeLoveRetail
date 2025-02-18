@@ -1,3 +1,4 @@
+"use client";
 import GradientButton from "../../Buttons/GradientButton";
 import MobileHeader from "./MobileHeader";
 import MobileView from "./MobileView";

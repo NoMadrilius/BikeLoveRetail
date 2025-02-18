@@ -1,28 +1,27 @@
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import ProductColorPicker from "./ProductColorPicker";
 import ProductSizePicker from "./ProductSizePicker";
-import {useProductPageStore} from "@/store/ProductPageStore";
+import { productPageStore, useProductPageStore } from "@/store/ProductPageStore";
 import {useCartStore} from "@/store/CartStore";
 import {observer} from "mobx-react";
+import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
 
-const ProductOptions = () => {
-    const ps = useProductPageStore()
+const ProductOptions = ({p}:{p:ProductFullData}) => {
     const cs = useCartStore()
+
   return (
     <div className="flex flex-col gap-8 border-b pb-3 border-gray">
-        {ps.uniqueOptions.map(n=><ProductSizePicker {...n}/>)}
-
-        {//<ProductColorPicker />
-        }
+        {productPageStore.getUniqOptions(p).map(n=><ProductSizePicker {...n}/>)}
+        {productPageStore.getUniqOptions(p).map(n=><ProductSizePicker {...n}/>)}
       <div className="flex gap-3">
         <GradientButton
-            addToCart={cs.checkInCart(ps.product!.product.id)}
+            addToCart={cs.checkInCart(p.product.id)}
             label={"Купити"}
             showIcon={false}
           textstyles="!w-max"
           className="justify-center grow"
           onClick={() => {
-              cs.addToCart(ps.product!.product, ps.product!);
+              cs.addToCart(p.product, p);
           }}
           buttonIcon="/images/homepage/icons/shopping-cart.svg"
         />

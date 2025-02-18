@@ -1,6 +1,7 @@
 import useIsMobile from "@/helpers/hooks/useIsMobile";
 import Image from "next/image";
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 interface DeliveryOptionItemProps {
   price: string;
@@ -21,6 +22,8 @@ const DeliveryOptionItem = ({
 }: DeliveryOptionItemProps) => {
   const isMobile = true;
 
+  const { t } = useTranslation('product_page');
+
   return (
     <div className="flex ">
       <div className="grow flex flex-col gap-2">
@@ -40,7 +43,7 @@ const DeliveryOptionItem = ({
             </div>
           ) : (
             <span className="text-black font-inter text-[14px] leading-[16.8px]">
-              Самовивіз з магазину
+              {t("Самовивіз з магазину")}
             </span>
           )}
           <div className="block md:hidden lg:hidden md2:block text-black font-inter text-[14px] leading-[16.8px]">
@@ -51,7 +54,7 @@ const DeliveryOptionItem = ({
           </div>
         </div>
         <button className="text-[#074FA5] font-inter text-[14px] leading-[16.8px] text-left">
-          Дивитись на мапі
+          {t("Дивитись на мапі")}
         </button>
       </div>
 

@@ -35,9 +35,6 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
-  const ps = useProductPageStore();
-
-  if (!ps.product || ps.product.productImages.length < 1) return null;
 
   return (
     <div className="w-[80%] max-w-[1170px] h-[80%] bg-white p-5 rounded-lg relative z-[10]">
@@ -64,7 +61,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
           </div>
 
           <Swiper
-            loop={true}
+            loop={false}
             pagination={{ clickable: true }}
             centeredSlides={true}
             grabCursor={true}
@@ -77,13 +74,12 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
             onSlideChange={handleSlideChange}
             className="breakpoint"
           >
-            {ps.product?.productImages.map((p, index) => (
+            {images.map((p, index) => (
               <SwiperSlide key={index}>
                 <div className="relative w-full h-full desc:m-auto">
-                  <Image
+                  <Image priority={true}
                     src={p.url}
-                    alt=""
-                    layout="fill"
+                    alt="fscreen" width={500} height={500}
                     className="sm:object-contain md:object-contain object-contain"
                   />
                 </div>
@@ -98,7 +94,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
           </div>
         </div>
         {/* Thumbnails Swiper */}
-        <Swiper
+        <Swiper loop={false}
           onSwiper={setThumbsSwiper}
           spaceBetween={10}
           slidesPerView={4}
@@ -107,7 +103,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
           modules={[FreeMode, Navigation, Thumbs]}
           className="!h-[120px]  hidden sm:!hidden md:!hidden md2:!block"
         >
-          {ps.product?.productImages.map((p, index) => (
+          {images.map((p, index) => (
             <SwiperSlide key={index}>
               <div
                 className={`relative h-[100px] w-[144px] bg-white rounded-lg overflow-hidden ${
@@ -116,7 +112,7 @@ const FullScreenGallery: React.FC<FullScreenGalleryProps> = ({
                     : "rounded-lg"
                 }`}
               >
-                <Image src={p.url} alt="" layout="fill" objectFit="contain" />
+                <Image src={p.url} alt="small" width={500} height={500} />
               </div>
             </SwiperSlide>
           ))}
