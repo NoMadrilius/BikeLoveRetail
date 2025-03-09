@@ -22,7 +22,7 @@ const InfoAboutCompany = ({
       <h2
         className={`text-dark-text text-[20px] leading-[24px] font-bold font-robot-c ${textColor}`}
       >
-        Інформація про компанію
+        Інформація
       </h2>
       <nav className="flex flex-col max-h-[175px]">
         {linksData.map((link, index) => (

@@ -12,18 +12,17 @@ import {useSearchStore} from "@/store/SearchStore";
 import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 import {useCartStore} from "@/store/CartStore";
 import {useAppStore} from "@/store/AppStore";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
 
-const SearchCard = (p:{prod:ProductSearchPreview}) => {
+const SearchCard = (p:{prod:CatalogPageProduct}) => {
     const c = useCurrencyStore()
     const ss = useSearchStore()
     const cs = useCartStore()
     const as = useAppStore();
 
-    const link = GenerateProductLink(p.prod.productId, "product")
-
     return (
           <article className="p-3 bg-white border-b border-gray flex items-center justify-between gap-2 w-full select-text border hover:border-black">
-              <Link href={link} onClick={()=>{
+              <Link href={p.prod.url} onClick={()=>{
                   ss.setIsOpenSearch(false)
                   as.setIsOpenSidebar(false)
               }} className={"cursor-pointer"}>
@@ -33,19 +32,19 @@ const SearchCard = (p:{prod:ProductSearchPreview}) => {
               />
               </Link>
               <div className={"flex-grow"}>
-                  <Link href={link} onClick={()=>{ss.setIsOpenSearch(false)}} className={"cursor-pointer"}>
+                  <Link href={p.prod.url} onClick={()=>{ss.setIsOpenSearch(false)}} className={"cursor-pointer"}>
                   <ProductTitle
                       disableBorder={true}
                       className="py-0"
                       text={
-                          p.prod.productName
+                          p.prod.name
                       }
                   />
                   </Link>
                   <div className="flex items-end justify-between">
                       <div className="flex items-center gap-3">
                 <span className="product-card-price text-[20px] leading-[120%] font-bold">
-                {c.useCurrency(p.prod.retailPrice)}
+                {p.prod.price}
                 </span>
                           <LastPrice
                               product={p.prod as unknown as Product}
@@ -66,7 +65,7 @@ const SearchCard = (p:{prod:ProductSearchPreview}) => {
                                   "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] shadow-product-card px-[38px]"
                               }
                               onClick={(e) => {
-                                  cs.addToCartRequest(p.prod.productId);
+                                  cs.addToCartRequest(p.prod.id);
                               }}
                           />
                       </div>

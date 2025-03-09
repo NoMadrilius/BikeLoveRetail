@@ -84,7 +84,7 @@ const CatalogPageProductCard = ({p}:{p:CatalogPageProduct}) => {
       </span>
 
           </div>
-          <Instock stockType={"inStore"} />
+          <Instock stockType={p.availability} />
         </>
       ) : (
         <Link

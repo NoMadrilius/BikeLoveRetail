@@ -31,7 +31,7 @@ const Page = (props: { data: PageDataResponse|null, as:AppState|null }) => {
   if(props.data?.productPage&&props.data.type==="Product")
     return (<ProductPageUni p={props.data.productPage}/>);
 
-  if(props.data?.catalogPage&&props.data.type==="Ctegory")
+  if(props.data?.catalogPage&&props.data.type==="Category")
     return (<CatalogPageUni c={props.data.catalogPage}/>);
 };
 

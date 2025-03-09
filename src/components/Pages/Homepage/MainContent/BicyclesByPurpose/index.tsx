@@ -17,8 +17,8 @@ const BicyclesByPurpose = () => {
     if(!cat) return null
     return {
       name: cat.name,
-      link: GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}),
-      img: cat.iconUrl,
+      link: cat.url,
+      img: cat.image,
     };
   }).filter(n=>n!=null) as {img: string | undefined, name: string, link: string}[];
 

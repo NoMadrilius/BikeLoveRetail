@@ -4,9 +4,8 @@ import {Shop} from "@/dataTransferObjects/entities/Shop";
 import {PublicAPI} from "@/api/PublicAPI";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {TreeNode} from "@/dataTransferObjects/internal/TreeNode";
-import {AppState} from "@/dataTransferObjects/internal/AppState";
+import { AppState, Category } from "@/dataTransferObjects/internal/AppState";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
-import bikeSelectionStore from "@/store/BikeSelectionStore";
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
 
 class AppStore{
@@ -21,9 +20,9 @@ class AppStore{
 
     shops:Shop[] = []
 
-    categories: ProductCategory[] = [];
-    selectedCategory: ProductCategory|null = null;
-    categoryBlocks:ProductCategory[] = []
+    categories: Category[] = [];
+    selectedCategory: Category|null = null;
+    categoryBlocks:Category[] = []
 
     saleProducts:ProductFullData[] = []
     topProducts:ProductFullData[]=[]
@@ -59,7 +58,7 @@ class AppStore{
         })
     }
 
-    setSelectedCategory(v:ProductCategory|null){
+    setSelectedCategory(v:Category|null){
         this.selectedCategory = v
         if(v)
         this.categoryBlocks = this.categories.filter(n=>n.parentId === v.id)

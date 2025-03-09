@@ -16,14 +16,10 @@ import React, { useEffect } from "react";
 import Aside from "@/components/Pages/Homepage/Aside";
 import {UseMetaData} from "@/helpers/hooks/useMetaData";
 import Link from "next/link";
+import { AppState } from "@/dataTransferObjects/internal/AppState";
 
-const HomeScreen = () => {
+const HomeScreen = ({state}:{state:AppState}) => {
   const as = useAppStore();
-
-  useEffect(() => {
-    as.loadSaleProducts();
-    as.loadTopProducts();
-  }, []);
 
   if (as.isOpenSidebar) return null;
 
@@ -55,15 +51,15 @@ const HomeScreen = () => {
           </div>
           <WhyToChooseUs />
           <CustomSlider
-            products={as.saleProducts}
-            title={"Акційні пропозиції"}
+            products={state.trendingProducts}
+            title={"Топ продаж"}
             rightText={"Більше пропозицій"}
           />
           <SelectionOfBicycle className="xl:hidden lg:hidden" />
           <PopularProductCategories />
           <CustomSlider
-            products={as.topProducts}
-            title={"Топ продаж"}
+            products={state.salesProducts}
+            title={"Акційні пропозиції"}
             rightText={"Перейти до каталогу"}
             lineStyles={"xl:max-w-[302px]"}
           />

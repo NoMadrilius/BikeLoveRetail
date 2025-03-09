@@ -37,7 +37,7 @@ const CatalogHeader = () => {
             />
           ) :
               <Image
-                  src={as.selectedCategory.iconUrl || "/images/homepage/static/bike.jpg"}
+                  src={as.selectedCategory.image || "/images/homepage/static/bike.jpg"}
                   alt={"Bike"}
                   width={24}
                   height={24}

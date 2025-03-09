@@ -4,7 +4,7 @@ import CatalogHeader from "./CatalogHeader";
 import CatalogMain from "./CatalogMain";
 import CatalogMenu from "./CatalogMenu";
 import { observer } from "mobx-react";
-import { useAppStore } from "@/store/AppStore";
+import appStore, { useAppStore } from "@/store/AppStore";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 
 const CatalogModal = () => {
@@ -24,7 +24,7 @@ const CatalogModal = () => {
     };
   }, []);
 
-  const as = useAppStore();
+  const as = appStore
 
   return (
     <ModalBase

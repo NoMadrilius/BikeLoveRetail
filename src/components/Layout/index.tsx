@@ -15,7 +15,7 @@ import CatalogModal from "@/components/UIKit/Modals/CatalogModal";
 import { UserAPI } from "@/api/UserAPI";
 import AppStore from "@/store/AppStore";
 
-const Layout = ({ children }: any) => {
+const Layout = ({ children }:{children:React.ReactNode}) => {
 
   const router = useRouter();
 

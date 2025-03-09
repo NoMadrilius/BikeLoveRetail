@@ -10,20 +10,20 @@ import {useAppStore} from "@/store/AppStore";
 import {ProductCategory} from "@/dataTransferObjects/entities/ProductCategory";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 import { Typography } from "@mui/material";
+import { Category } from "@/dataTransferObjects/internal/AppState";
 
 const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
   const { t } = useTranslation();
   const r = useRouter();
   const as = useAppStore();
 
-    const [cat, setCat] = useState<ProductCategory|null>(null);
+    const [cat, setCat] = useState<Category|null>(null);
 
-  const onPress = (el:ProductCategory) => {
-    if (el.childrenIds !== "") {
+  const onPress = (el:Category) => {
+    if (as.categories.filter(n=>n.parentId === el.id).length === 0) {
         setCat(el)
     } else {
-        let link = GenerateCatalogLink(undefined,{id:el.id, slug:el.transliterationName})
-      r.push(link);
+      r.push(el.url);
       setVisible(false);
     }
   };
@@ -73,7 +73,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
         onClick={()=>{
             if(cat)
             {
-                r.push(GenerateCatalogLink(undefined, {id:cat.id, slug:cat.transliterationName}));
+                r.push(cat.url);
                 setVisible(false);
             }
         }}
@@ -100,7 +100,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
                             >
                                 {el.name}
                             </Typography>
-                            {el.childrenIds !== "" && (
+                            {as.categories.filter(n=>n.parentId === el.id).length === 0 && (
                                 <Image
                                     alt="Arrow Icon"
                                     width={20}
@@ -138,7 +138,7 @@ const SidebarCatalog = ({ setMainStep, setVisible }: any) => {
                 >
                   {el.name}
                 </Typography>
-                {el.childrenIds !== "" && (
+                {as.categories.filter(n=>n.parentId === el.id).length === 0 && (
                   <Image
                     alt="Arrow Icon"
                     width={20}

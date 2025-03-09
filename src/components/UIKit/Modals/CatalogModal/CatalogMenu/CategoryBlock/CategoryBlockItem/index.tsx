@@ -7,8 +7,9 @@ import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import { useAppStore } from "@/store/AppStore";
 import { observer } from "mobx-react";
 import { GenerateCatalogLink } from "@/helpers/LinkGen/GenerateCatalogLink";
+import { Category } from "@/dataTransferObjects/internal/AppState";
 interface CategoryItemProps {
-  category: ProductCategory;
+  category: Category;
   imageLink?: string;
   categoryType: "category" | "subcategory";
   categoryItemsLength?: number;
@@ -26,7 +27,7 @@ const CategoryBlockItem = ({
 
   return (
     <Link
-      href={category.transliterationName}
+      href={category.url}
       className={`flex items-center justify-between px-3 py-1 bg-white cursor-pointer group ${
         categoryItemsLength === 0 ? "py-1" : ""
       }`}

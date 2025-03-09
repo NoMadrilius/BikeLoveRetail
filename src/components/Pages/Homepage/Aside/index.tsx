@@ -12,7 +12,8 @@ const Aside = () => {
   return (
     <aside className="w-full max-w-[304px] lg:flex xl:flex 2xl:flex hidden flex-col gap-8">
       <ProductCategory />
-      <SelectionOfBicycle />
+      {/*<SelectionOfBicycle />
+      */}
       <InfoAboutCompany />
       <ContactAndSocial />
       <GetOurLatestNewsFirst />

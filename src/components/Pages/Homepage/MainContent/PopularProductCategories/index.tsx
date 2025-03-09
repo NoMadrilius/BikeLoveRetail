@@ -10,17 +10,15 @@ import Link from "next/link";
 const PopularProductCategories = () => {
   const as = useAppStore();
   const r = useRouter();
+
   const cats = [0, 1, 2, 3, 4, 5].map((n, index) => {
     let set = as.popularCategories[index];
     let cat = as.categories.find((g) => g.id === set);
     if(!cat) return null
     return {
       name: cat.name,
-      link: GenerateCatalogLink(undefined, {
-        id: cat.id,
-        slug: cat.transliterationName,
-      }),
-      img: cat.iconUrl,
+      link: cat.url,
+      img: cat.image,
     };
   }).filter(n=>n!=null);
 

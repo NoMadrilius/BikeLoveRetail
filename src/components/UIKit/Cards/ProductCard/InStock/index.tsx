@@ -11,7 +11,7 @@ const Instock = ({
   let icon, text, textClass;
 
   switch (stockType) {
-    case "inStore":
+    case "InShop":
       icon = <ArrowCheckIcon />;
       text = "Є в магазині";
       textClass = "text-red-500";
@@ -26,7 +26,7 @@ const Instock = ({
       text = "Є на складі";
       textClass = "text-black";
       break;
-    case "Storage":
+    case "Wharehouse":
       icon = <ArrowCheckIcon />;
       text = "Є на складі";
       textClass = "text-black";
@@ -41,7 +41,7 @@ const Instock = ({
       text = "Немає в наявності";
       textClass = "text-t-grey";
       break;
-    case "No":
+    case "NotInStock":
       icon = null;
       text = "Немає в наявності";
       textClass = "text-t-grey";

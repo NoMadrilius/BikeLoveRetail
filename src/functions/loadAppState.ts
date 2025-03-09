@@ -10,3 +10,12 @@ export async function loadAppState():Promise<AppState|null>{
     }
 
 }
+
+export async function loadAppState2(locale?:string, currencyId?:number):Promise<AppState|null>{
+    try {
+        return (await PublicAPI.GetState2(locale, currencyId)).data
+    }catch (e){
+        return null
+    }
+
+}

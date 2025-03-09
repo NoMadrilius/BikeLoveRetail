@@ -10,6 +10,7 @@ import { useAppStore } from "@/store/AppStore";
 import { HomeIconSVG, RightIconSVG } from "../UIKit/SVGIcons";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
+import { Category } from "@/dataTransferObjects/internal/AppState";
 
 const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   const router = useRouter();
@@ -19,12 +20,12 @@ const BreadCrumbs = (p: { categoryId: number; product?: Product }) => {
   const st = useAppStore();
 
   const cat = st.categories.find((n) => n.id === p.categoryId);
-  let lastCatParent: ProductCategory | undefined = cat;
+  let lastCatParent: Category | undefined = cat;
 
   while (lastCatParent != undefined) {
     road.unshift({
       title: lastCatParent.name,
-      link: GenerateCatalogLink(undefined, { id: lastCatParent.id, slug:lastCatParent.transliterationName}),
+      link: GenerateCatalogLink(undefined, { id: lastCatParent.id, slug:lastCatParent.url}),
     });
     lastCatParent = st.categories.find((n) => n.id === lastCatParent?.parentId);
   }

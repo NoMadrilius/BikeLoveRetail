@@ -55,11 +55,11 @@ const NavigationIcons = () => {
             className="shrink-0"
           />
         </div>
-        {cl>0 ? (
+
           <div className="size-[21px] flex items-center justify-center absolute top-0 right-0 bg-[#F9436B] rounded-full">
-            <span className="text-[14px] leading-[120%]">{cl}</span>
+            <span suppressHydrationWarning className="text-[14px] leading-[120%]">{cl}</span>
           </div>
-        ) : null}
+
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const ProductPageUni = ({p}:{p:ProductPageData}) => {
         <div className="flex flex-col gap-2 desc:gap-10 md:gap-6 w-full h-full">
           <UseMetaData
             title={nameProductMetaTemplate(p.product.name)}
-            img={p.images[0].url}
+            img={p.images[0]?.url}
             description={descriptionProductMetaTemplate(p.product.name)}
           />
           <BreadCrumbsUni list={SortCategoryBreadCrumbs(p.categoryWay)} active={{name:p.product.name, url:""}}/>

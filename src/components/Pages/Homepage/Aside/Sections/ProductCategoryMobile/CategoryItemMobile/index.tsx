@@ -5,9 +5,10 @@ import { useRouter } from "next/router";
 import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory";
 import { useAppStore } from "@/store/AppStore";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
+import { Category } from "@/dataTransferObjects/internal/AppState";
 
 interface CategoryItemProps {
-  category: ProductCategory;
+  category: Category;
   onClick?: () => void;
 }
 
@@ -22,7 +23,7 @@ const CategoryItemMobile = ({ category, onClick }: CategoryItemProps) => {
     >
       <div className="flex items-center gap-2">
         <Image
-          src={category.iconUrl || "/images/homepage/static/bike.jpg"}
+          src={category.image || "/images/homepage/static/bike.jpg"}
           alt={"Bike"}
           width={48}
           height={48}

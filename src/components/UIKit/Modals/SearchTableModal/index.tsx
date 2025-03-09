@@ -29,7 +29,7 @@ const SearchTableModal = () => {
               {
                   //<SearchResults />
               }
-            <MobileViewSearchResults />
+
             <div className="w-full flex flex-col h-full overflow-y-auto">
               {ss.products.map((n) => (
                   <SearchCard prod={n} />

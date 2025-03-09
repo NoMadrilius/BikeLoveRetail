@@ -3,20 +3,15 @@ import {createContext, useContext} from "react";
 import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
 import {CategoriesSearchPreview} from "@/dataTransferObjects/response/CategoriesSearchPreview";
 import {PublicAPI} from "@/api/PublicAPI";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
 
 class SearchStore{
     isOpenSearch=false
 
     query:string=""
     isLoadingProducts=false
-    isLoadingCategories=false
-    requestTimeout=1000
 
-    products:ProductSearchPreview[]=[]
-    categories:CategoriesSearchPreview[]=[]
-
-    selectedCategory:number|undefined = undefined
-
+    products:CatalogPageProduct[]=[]
 
     constructor() {
         makeAutoObservable(this)
@@ -26,30 +21,15 @@ class SearchStore{
     setQuery(v:string){
         this.query = v
         if(v!="")
-        this.searchCategories()
         this.searchProducts()
     }
 
     searchProducts(){
         this.isLoadingProducts = true
-        PublicAPI.SearchPreview(this.query, this.selectedCategory).then((r)=>{
+        PublicAPI.Search(this.query).then((r)=>{
             this.products = r.data
         }).finally(()=>{this.isLoadingProducts=false})
     }
-
-    searchCategories(){
-        this.isLoadingCategories = true
-        PublicAPI.CategoriesSearchPreview(this.query).then(r=>{
-            this.categories = r.data
-            if(!this.categories.find(n=>n.id === this.selectedCategory)) this.setSelectedCategory(undefined)
-        }).finally(()=>{this.isLoadingCategories = false})
-    }
-
-    setSelectedCategory(v:number|undefined){
-        this.selectedCategory = v
-        this.searchProducts()
-    }
-
 }
 
 const searchStore = new SearchStore()

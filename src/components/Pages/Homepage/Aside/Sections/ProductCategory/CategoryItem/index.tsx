@@ -6,9 +6,10 @@ import { ProductCategory } from "@/dataTransferObjects/entities/ProductCategory"
 import { useAppStore } from "@/store/AppStore";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
+import { Category } from "@/dataTransferObjects/internal/AppState";
 
 interface CategoryItemProps {
-  category: ProductCategory;
+  category: Category;
   onClick?: () => void;
 }
 
@@ -21,13 +22,13 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
       onMouseEnter={() => {
         as.setSelectedCategory(category);
       }}
-      href={category.transliterationName}
+      href={category?.url??"/"}
       onClick={onClick}
       className="flex items-center justify-between px-3 py-1 bg-white cursor-pointer group"
     >
       <div className="flex items-center gap-2">
         <Image
-          src={category.iconUrl || "/images/homepage/static/bike.jpg"}
+          src={category.image || "/images/homepage/static/bike.jpg"}
           alt={"Bike"}
           width={48}
           height={48}

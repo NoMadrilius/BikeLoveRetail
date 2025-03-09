@@ -7,12 +7,14 @@ import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData"
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
+import CatalogPageProductCard from "@/components/Screens/CatalogPage/CatalogPageProductCard";
 
 interface SwiperSliderProps {
   title: string;
   rightText: string;
   lineStyles?: string;
-  products: ProductFullData[];
+  products: CatalogPageProduct[];
   justShowTitle?: boolean;
   hideText?: boolean;
   className?: string;
@@ -72,7 +74,7 @@ const SwiperSlider = ({
               key={index}
               className="max-w-[159px] w-full md:!max-w-[322px] lg:!max-w-[316px] xl:max-w-[274.67px]"
             >
-              <ProductCard product={el} />
+              <CatalogPageProductCard p={el} />
             </SwiperSlide>
           ))}
         </Swiper>
