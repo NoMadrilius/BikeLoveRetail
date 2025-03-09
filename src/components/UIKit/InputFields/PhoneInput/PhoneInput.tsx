@@ -1,5 +1,5 @@
 import React, {createContext, memo, ReactNode, useContext, useEffect, useRef} from 'react';
-import InputMask from 'react-input-mask';
+import { InputMask } from "@react-input/mask";
 
 interface PhoneInputProps {
     autoFocus?:boolean
