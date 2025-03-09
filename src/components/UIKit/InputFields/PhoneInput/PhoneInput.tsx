@@ -1,6 +1,6 @@
 import React, {createContext, memo, ReactNode, useContext, useEffect, useRef} from 'react';
 import { InputMask } from "@react-input/mask";
-
+import { useMask } from '@react-input/mask';
 interface PhoneInputProps {
     autoFocus?:boolean
     value: string
@@ -10,7 +10,13 @@ interface PhoneInputProps {
 
 const PhoneInput = memo((props: PhoneInputProps) => {
     const {value,onChange,className, autoFocus} = props
+
     const ref = useRef<HTMLInputElement>()
+
+    const inputRef = useMask({
+        mask: '+38 (0__) ___-__-__',
+        replacement: { _: /\d/ },
+    });
 
     useEffect(() => {
         if (autoFocus && ref.current) {
@@ -23,22 +29,12 @@ const PhoneInput = memo((props: PhoneInputProps) => {
             <label className="text-t-grey font-light leading-[120%]">Номер телефону *</label>
 
             <div className="flex relative">
-                <InputMask
-                    mask="+(380)99 999 99 99"
-                    onChange={v=>props.onChange(v.target.value)}
-                    value={props.value}
-                    disabled={false} autoFocus placeholder={"Телефон"}
-                    maskChar=""
-                    // @ts-ignore
-                    children={(inputProps) => <input {...inputProps}
-                                                     className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white"
-                    />}
-                />
+                <input value={props.value} placeholder={"Телефон"} onChange={v => props.onChange(v.target.value)} ref={inputRef} className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white" />
             </div>
         </div>
 
     )
-        ;
+      ;
 });
 /*
 <input ref={ref}
