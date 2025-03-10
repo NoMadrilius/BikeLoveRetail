@@ -71,12 +71,7 @@ const ProductCard = (p: {
           <Link href={link} className={"cursor-pointer"}>
             <ProductTitle text={p.product.product.name} />
           </Link>
-          {showLastPrice && (
-            <LastPrice
-              product={p.product.product}
-              classname="sm:pt-[7px] pt-[11px] lg:pt-[7px] xl:pt-1 mt-auto"
-            />
-          )}
+
           <PriceAndCart
             product={p.product}
             showBuyButton={p.showBuyButton}
@@ -94,7 +89,7 @@ const ProductCard = (p: {
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                cs.addToCart(p.product.product, p.product);
+                //cs.addToCart(p.product.product, p.product);
               }}
             />
           )}
@@ -127,7 +122,7 @@ const ProductCard = (p: {
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                cs.addToCart(p.product.product, p.product);
+                //cs.addToCart(p.product.product, p.product);
               }}
             />
           )}

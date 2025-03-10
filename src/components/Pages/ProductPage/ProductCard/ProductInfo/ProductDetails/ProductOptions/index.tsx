@@ -21,7 +21,7 @@ const ProductOptions = ({p}:{p:ProductFullData}) => {
           textstyles="!w-max"
           className="justify-center grow"
           onClick={() => {
-              cs.addToCart(p.product, p);
+              //cs.addToCart(p.product, p);
           }}
           buttonIcon="/images/homepage/icons/shopping-cart.svg"
         />

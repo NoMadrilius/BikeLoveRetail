@@ -57,7 +57,7 @@ const CatalogPageProductCard = ({p}:{p:CatalogPageProduct}) => {
           href={p.url}
           className={"bg-white opacity-50 select-none cursor-pointer"}
         >
-          <ProductImage src={p.image} />
+          <ProductImage src={p.image??"/"} />
           <ProductTitle text={p.name} />
           <Instock stockType={p.availability} />
         </Link>

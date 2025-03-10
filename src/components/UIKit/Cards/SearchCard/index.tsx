@@ -46,8 +46,9 @@ const SearchCard = (p:{prod:CatalogPageProduct}) => {
                 <span className="product-card-price text-[20px] leading-[120%] font-bold">
                 {p.prod.price}
                 </span>
+
                           <LastPrice
-                              product={p.prod as unknown as Product}
+                              product={p.prod as unknown as CatalogPageProduct}
                               priceClass="!text-pink"
                               discountClass="md:block hidden"
                           />

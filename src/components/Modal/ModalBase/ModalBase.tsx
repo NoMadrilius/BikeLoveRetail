@@ -1,8 +1,7 @@
-import React, { ReactHTMLElement, useEffect } from "react";
-import { ReactJSX } from "@emotion/react/src/jsx-namespace";
+import React, { ReactElement, ReactHTMLElement, useEffect } from "react";
 
 const ModalBase = (p: {
-  children: ReactHTMLElement<any>;
+  children: ReactElement<any>;
   open: boolean;
   setOpen: (v: boolean) => void;
 }) => {

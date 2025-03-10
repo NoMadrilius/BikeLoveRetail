@@ -25,7 +25,7 @@ const MobileViewCard = (props: {
       <div className="flex flex-col items-start justify-center gap-4">
         <div>
           <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
-          <ProductImage src={props.product.image} classname="sm:!w-[148px] sm:!h-[132px]" />
+          <ProductImage src={props.product.image??"/"} classname="sm:!w-[148px] sm:!h-[132px]" />
           </Link>
           <div className="flex gap-[10px]">
             <span className="font-normal text-black text-[14px] leading-[120%]">

@@ -25,7 +25,7 @@ const OrderInfoListItem = (props: {product: CatalogPageProduct, quantity: number
         <div className="w-full h-[148px] py-3 flex justify-between gap-3 sm2:flex-col sm2:h-fit border-gray border-b-[1px]">
             <Link className="min-w-[148px] flex flex-col items-center gap-4 cursor-pointer" href={props.product.url}>
                 <Image className="h-[76px] object-contain" src={{
-                    src: props.product.image,
+                    src: props.product.image??"/",
                     width: 100,
                     height: 80,
                 }} alt="Товар" fill={false} />

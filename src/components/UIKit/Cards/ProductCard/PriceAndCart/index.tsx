@@ -35,7 +35,7 @@ const PriceAndCart = (p: {
             !p.addToCart ? "button-gradient" : "bg-[#fa698926]"
           } xl:block lg:block sm:block hidden`}
           onClick={() => {
-            cs.addToCart(p.product.product, p.product);
+            //cs.addToCart(p.product.product, p.product);
           }}
         />
       ) : null}
