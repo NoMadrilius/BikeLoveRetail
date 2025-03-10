@@ -15,7 +15,6 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
-      "#is-development": ["node_modules/@emotion/react/is-development"]
     },
 
   },
