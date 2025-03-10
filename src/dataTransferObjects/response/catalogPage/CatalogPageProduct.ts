@@ -6,5 +6,5 @@ export interface CatalogPageProduct{
   price: number;
   oldPrice: number;
   currencySymbol: string;
-  image: string;
+  image?: string;
 }

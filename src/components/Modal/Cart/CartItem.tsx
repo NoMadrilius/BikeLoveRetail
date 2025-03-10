@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
-import { prettyPrice } from "@/helpers/stringDecorate/stringDecorate";
 import { templates } from "../../../../theme/templates";
 import { useCartStore } from "@/store/CartStore";
 import { observer } from "mobx-react";
@@ -10,8 +9,10 @@ import { useRouter } from "next/router";
 import {Product} from "@/dataTransferObjects/entities/Product";
 import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import { Typography } from "@mui/material";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
+import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
 
-const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:number}}) => {
+const CartItem = (p:{d:{product:CatalogPageProduct, quantity:number}}) => {
   const state = useCartStore();
   const wishStore = useWishListStore();
   const router = useRouter();
@@ -31,7 +32,7 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
     state.removeFromCart(id);
   };
   const likeItem = () => {
-    wishStore.addToWishList(p.d.product, null);
+    //wishStore.addToWishList(p.d.product, null);
   };
 
   const productInWishList = wishStore.wishList?.some(
@@ -70,18 +71,18 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
 							</Text>
 						</SalePatch> 
 					)}*/}
-          {product?.oldRetailPrice && (
+          {product?.oldPrice && (
             <Typography
               color={colors.grayMain}
               fontSize="16px"
               fontStyle={fonts.f400}
             >
-              {prettyPrice(product.oldRetailPrice)}
+              {prettyPrice(product.oldPrice)}
             </Typography>
           )}
 
           <Typography color={colors.black} fontSize="16px" fontStyle={fonts.f400}>
-            {prettyPrice(product.retailPrice)}
+            {prettyPrice(product.price)}
           </Typography>
         </InfoBottomContainer>
       </InfoContainer>
@@ -116,7 +117,7 @@ const CartItem = (p:{d:{product:Product, fullData:ProductFullData, quantity:numb
           fontStyle={fonts.f400}
           maxWidth="146px"
         >
-          {prettyPrice(q* product.retailPrice)}
+          {prettyPrice(q* product.price)}
         </Typography>
       </RightContainer>
     </Wrapper>

@@ -24,6 +24,10 @@ import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
 import ProductPageOption from "@/components/Screens/ProductPage/ProductPageOption";
 import { ProductPageDataOption } from "@/dataTransferObjects/response/productPage/ProductPageDataOption";
 import { observer } from "mobx-react";
+import ProductCardButton from "@/components/UIKit/Buttons/ProductCardButton/ProductCardButton";
+import { PageToCatalogProduct } from "@/helpers/ProductConverter";
+import { Button } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const PublicPageInfo = ({p}:{p:ProductPageData}) => {
   const { t } = useTranslation('product_page');
@@ -86,25 +90,16 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
           {p.requiredVariants.map(n => <ProductPageOption preferred={p.requiredVariants} binds={p.binds} active={n} variants={allOpts.filter(g=>g.optionId === n.optionId)} />)}
 
           <div className="flex gap-3">
-            <GradientButton
-              addToCart={cs.checkInCart(p.product.id)}
-              label={"Купити"}
-              showIcon={false}
-              textstyles="!w-max"
-              className="justify-center grow"
-              onClick={() => {
-                cs.addToCartRequest(p.product.id);
-              }}
-              buttonIcon="/images/homepage/icons/shopping-cart.svg"
-            />
-            <GradientButton
-              bgColor="bg-[#5D5555]"
-              label={"В кредит"}
-              textstyles="!w-max"
-              className="justify-center grow"
-              showIcon={false}
-              type="secondary"
-            />
+              {cs.isInCart(p.product.id)?
+                <Button className={"w-full"} variant={"contained"} size={"medium"} color={"info"} onClick={()=>cs.setVisible(true)} startIcon={<CheckCircleIcon />}>
+                  Вже в кошику
+                </Button>
+                :
+                <Button className={"w-full"} variant={"contained"} size={"medium"} onClick={()=>cs.addToCart(PageToCatalogProduct(p))}>
+                  В кошик
+                </Button>
+              }
+
           </div>
         </div>
 
