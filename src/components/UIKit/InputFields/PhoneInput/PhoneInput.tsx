@@ -14,7 +14,7 @@ const PhoneInput = memo((props: PhoneInputProps) => {
     const ref = useRef<HTMLInputElement>()
 
     const inputRef = useMask({
-        mask: '+38 (0__) ___-__-__',
+        mask: '+38 (___) ___-__-__',
         replacement: { _: /\d/ },
     });
 

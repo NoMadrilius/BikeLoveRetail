@@ -9,31 +9,23 @@ import { useCartStore } from "@/store/CartStore";
 import {useRouter} from "next/router";
 import Link from "next/link";
 import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
 
 const MobileViewCard = (props: {
-  product: Product;
-  fullData: ProductFullData;
+  product: CatalogPageProduct;
   quantity: number;
 }) => {
   const c = useCurrencyStore();
   const cs = useCartStore();
   const r= useRouter()
 
-  let img = props.fullData.productImages.find(
-    (n) => n.productId === props.product.id
-  );
-
-  const link = GenerateProductLink(props.product.id, props.product.transliteration)
 
   return (
     <article className="border-b border-gray gap-4 p-5 sm:flex hidden">
       <div className="flex flex-col items-start justify-center gap-4">
         <div>
-          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
-          <ProductImage
-            src={img ? img.url : ""}
-            classname="sm:!w-[148px] sm:!h-[132px]"
-          />
+          <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+          <ProductImage src={props.product.image} classname="sm:!w-[148px] sm:!h-[132px]" />
           </Link>
           <div className="flex gap-[10px]">
             <span className="font-normal text-black text-[14px] leading-[120%]">
@@ -52,7 +44,7 @@ const MobileViewCard = (props: {
             discountClass="md:block hidden"
           />
           <span className="product-card-price text-[20px] leading-[120%] font-bold">
-            {c.useCurrency(props.product.retailPrice * props.quantity)}
+            {props.product.price * props.quantity}
           </span>
         </div>
       </div>
@@ -71,7 +63,7 @@ const MobileViewCard = (props: {
               <HeartIcon />
             </div>
           </div>
-          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+          <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
           <h3 className="text-[16px] leading-[19.36px] font-semibold font-inter text-dark">
             {props.product.name}
           </h3>

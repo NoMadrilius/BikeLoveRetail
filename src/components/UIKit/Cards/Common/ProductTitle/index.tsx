@@ -33,11 +33,11 @@ const ProductTitle = ({
 
   return (
     <h3
-      className={`text-product-card-text py-2 xl:mt-[1.75rem] lg:line-clamp-none lg:pt-[14px] min-h-[76px]  ${
+      className={`text-product-card-text lg:line-clamp-none lg:pt-[14px] min-h-[76px]  ${
         disableBorder ? "" : "border-b border-[rgb(218, 218, 218)]"
       } ${className}`}
     >
-      <span className="line-clamp-5 text-[16px] leading-[19.36px] font-semibold font-inter modernWay">
+      <span className="line-clamp-5 text-[16px] font-semibold font-inter modernWay">
         {truncatedText}
       </span>
     </h3>

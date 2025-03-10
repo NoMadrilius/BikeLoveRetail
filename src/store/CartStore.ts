@@ -1,13 +1,13 @@
 import { showToast } from "@/helpers/alertService/alertService";
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
-import {Product} from "@/dataTransferObjects/entities/Product";
-import {ProductFullData} from "@/dataTransferObjects/response/ProductFullData";
 import {makePersistable} from "mobx-persist-store";
 import {PublicAPI} from "@/api/PublicAPI";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
 
 class CartStore {
-  cart: {product:Product, fullData:ProductFullData, quantity:number}[] = [];
+  cart: {product:CatalogPageProduct, quantity:number}[] = [];
+
   visible:boolean = false;
   totalPrice:number = 0;
   totalDiscount:number = 0;
@@ -33,24 +33,15 @@ class CartStore {
     this.visible = v
   }
   updateTotalPrice(){
-    this.totalPrice = this.cart.reduce((acc, item) => acc + item.product.retailPrice * item.quantity, 0)
-    this.totalDiscount = this.cart.reduce((acc, item) => acc + item.product.oldRetailPrice > item.product.retailPrice? item.product.oldRetailPrice - item.product.retailPrice:0, 0)
+    this.totalPrice = this.cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
+    this.totalDiscount = this.cart.reduce((acc, item) => acc + item.product.oldPrice > item.product.price? item.product.oldPrice - item.product.price:0, 0)
   }
 
-  addToCart(product: Product, FullData:ProductFullData) {
+  addToCart(product: CatalogPageProduct) {
     if (this.cart.find(n=>n.product.id === product.id)) {
-      showToast({
-        info: `${product.name}`,
-        title: "Товар уже в корзине",
-        type: "warn",
-      });
     } else {
-      this.cart.push({product:product, fullData:FullData, quantity:1});
-      showToast({
-        info: product.name,
-        title: "Товар добавлен",
-        type: "success",
-      });
+      this.cart.push({product:product, quantity:1});
+      this.setVisible(true)
     }
     this.updateTotalPrice()
   }
@@ -64,7 +55,7 @@ class CartStore {
       });
     } else {
       PublicAPI.GetProductCardById(id,undefined).then((r)=>{
-       this.addToCart(r.data.product, r.data)
+       //this.addToCart(r.data.product, r.data)
       })
     }
     this.updateTotalPrice()
@@ -77,6 +68,10 @@ class CartStore {
       productToUpdate.quantity = newQuantity;
     }
     this.updateTotalPrice()
+  }
+
+  isInCart(id:number){
+    return !!this.cart.find(n => n.product.id === id);
   }
 
   removeFromCart(productId: number) {

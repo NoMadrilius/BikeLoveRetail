@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { loadAppState } from "@/functions/loadAppState";
+import { loadAppState, loadAppState2 } from "@/functions/loadAppState";
 import { AppState } from "@/dataTransferObjects/internal/AppState";
 import { setStateBase } from "@/helpers/setState/setStateBase";
 import { PageDataResponse } from "@/dataTransferObjects/response/PageDataResponse";
@@ -13,7 +13,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps= async (context: any) => {
-  const r = await loadAppState()
+  const r = await loadAppState2()
 
   console.log("there", context.params.slug.join('/'))
   let result = await PublicAPI.GetPageData(context.params.slug.join('/'), context.locale, 2);

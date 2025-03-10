@@ -14,6 +14,8 @@ import Image from "next/image";
 import CatalogModal from "@/components/UIKit/Modals/CatalogModal";
 import { UserAPI } from "@/api/UserAPI";
 import AppStore from "@/store/AppStore";
+import { theme } from "@/styles/theme";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 
 const Layout = ({ children }:{children:React.ReactNode}) => {
 
@@ -26,7 +28,7 @@ const Layout = ({ children }:{children:React.ReactNode}) => {
   }, [router.pathname]); // Runs when `pathname` changes
 
   return (
-    <div className={""}>
+    <ThemeProvider theme={theme}>
       <CartModal />
       <AuthModal />
       <CatalogModal />
@@ -58,7 +60,7 @@ const Layout = ({ children }:{children:React.ReactNode}) => {
           buttonStyles="bg-transparent border border-white text-white"
         />
       </footer>
-    </div>
+    </ThemeProvider>
   );
 };
 export default Layout;

@@ -10,7 +10,7 @@ export const AsyncSelectSearchCityNP = (props: { onSelect: (value: NPCityRespons
 
     const loadOptions = (inputValue: string, callback: (value: NPCityResponse[]) => void) => {
         let request: NPRequestWrapper<NPCitySearchRequest> = {
-            apiKey: "b999eaca6863967c372f125b71fe1f67",
+            apiKey: "099d9e9b0d28f7d57cdcfaa4e9ca9af2",
             modelName: "Address",
             calledMethod: "getCities",
             methodProperties: {

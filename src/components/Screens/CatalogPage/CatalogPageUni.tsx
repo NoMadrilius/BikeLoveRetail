@@ -41,7 +41,7 @@ const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
         quantity={c.totalProducts}
       />
 
-      <CatalogPageSubcategories cats={c.childrens}/>
+      <CatalogPageSubcategories cats={c.childrens.filter(n=>n.parentId === c.category.id)}/>
       <section className="flex gap-5 w-full items-start sm:px-5 px-0">
         <aside className="max-w-[224px] w-full shrink-0 grow p-5 bg-white rounded-lg flex flex-col gap-5 md:hidden sm:hidden">
           <CatalogPageFilterBlock c={c}/>

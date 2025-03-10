@@ -10,23 +10,23 @@ import {observer} from "mobx-react";
 import {useCartStore} from "@/store/CartStore";
 import Link from "next/link";
 import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
+import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
+import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
 
-const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quantity:number}) => {
+const DesktopViewCard = (props:{product:CatalogPageProduct, quantity:number}) => {
     const c = useCurrencyStore()
     const cs = useCartStore()
 
-    const link = GenerateProductLink(props.product.id, props.product.transliteration)
-    let img = props.fullData.productImages.find(n=>n.productId === props.product.id)
   return (
     <article className="border-b border-gray flex items-center px-5 relative sm:hidden">
-        <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+        <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
         <ProductImage
-        src={img?img.url:""}
+        src={props.product.image}
         classname="!w-[200px] !h-[160px] sm:!w-[148px] sm:!h-[132px] shrink-0 !mb-0 mr-4"
       />
         </Link>
       <div className="flex w-full flex-col gap-[30px] max-w-[407px] mr-5">
-          <Link href={link} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
+          <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
           <ProductTitle
           disableBorder={true}
           className="py-2 max-w-[419px]"
@@ -48,8 +48,8 @@ const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quant
 
       <CounterControl productId={props.product.id} />
       <div className="flex items-center absolute top-0 right-[20px]">
-        <div className="p-2">
-          <TrashIcon onClick={()=>{cs.removeFromCart(props.product.id)}} />
+        <div className="p-2 hover:bg-neutral-300 rounded-s" onClick={()=>{cs.removeFromCart(props.product.id)}} >
+          <TrashIcon />
         </div>
         <div className="p-2">
           <HeartIcon />
@@ -62,7 +62,7 @@ const DesktopViewCard = (props:{product:Product, fullData:ProductFullData, quant
           discountClass="md:block hidden"
         />
         <span className="product-card-price text-[20px] leading-[120%] font-bold">
-          {c.useCurrency(props.product.retailPrice*props.quantity)}
+          {prettyPrice(props.product.price*props.quantity, props.product.currencySymbol)}
         </span>
       </div>
     </article>

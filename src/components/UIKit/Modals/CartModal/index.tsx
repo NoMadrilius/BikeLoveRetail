@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import GradientButton from "../../Buttons/GradientButton";
 import CartCard from "../../Cards/CartCard";
@@ -8,6 +7,8 @@ import { useCurrencyStore } from "@/store/CurrencyStore";
 import { CloseModalIcon } from "../../SVGIcons";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 import {useRouter} from "next/router";
+import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
+import { Button } from "@mui/material";
 
 const CartModal = () => {
   const cs = useCartStore();
@@ -51,7 +52,7 @@ const CartModal = () => {
                 Всього:
               </span>
               <span className="text-white text-[32px] sm:font-bold sm:text-[20px] sm:leading-[120%] font-medium leading-[38px]">
-                {c.useCurrency(cs.totalPrice)}
+                {prettyPrice(cs.totalPrice)}
               </span>
             </div>
             {cs.totalDiscount > 0 && (
@@ -60,21 +61,13 @@ const CartModal = () => {
                   Ви економите:
                 </span>
                 <span className="text-link-pink text-[14px] font-medium leading-[120%]">
-                  {c.useCurrency(cs.totalDiscount)}
+                  {prettyPrice(cs.totalDiscount)}
                 </span>
               </div>
             )}
           </div>
-          <GradientButton onClick={()=>{
-            r.push('/checkout')
-            cs.setVisible(false)
-          }}
-            label={"Оформити замовлення"}
-                          disabled={cs.cart.length === 0}
-            showIcon={false}
-            className="max-w-[220px] w-full sm:max-w-[133px]"
-            textstyles="!w-max "
-          />
+          <Button variant={"contained"} size={"medium"} disabled={cs.cart.length === 0} onClick={()=>{r.push('/checkout');cs.setVisible(false)}}>
+            Оформити замовлення</Button>
         </div>
       </div>
     </ModalBase>

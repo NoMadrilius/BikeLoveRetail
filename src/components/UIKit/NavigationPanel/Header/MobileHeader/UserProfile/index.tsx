@@ -10,12 +10,12 @@ const UserProfile = () => {
   const as = useAppStore();
   const us = useAuthStore();
 
-  return us.isAuth ? (
+  return us.isAuth && us.user ? (
     <div className="flex gap-3 items-center">
-      <GeneratedUserIcon user={us.user!} />
+      <GeneratedUserIcon user={us.user} />
       <div className="flex gap-3 grow">
         <span>
-          {us.user?.firstName} {us.user?.lastName}
+          {us.user.firstName} {us.user.lastName}
         </span>
       </div>
       <div
