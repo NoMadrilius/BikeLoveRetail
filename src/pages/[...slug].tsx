@@ -33,6 +33,9 @@ const Page = (props: { data: PageDataResponse|null, as:AppState|null }) => {
 
   if(props.data?.catalogPage&&props.data.type==="Category")
     return (<CatalogPageUni c={props.data.catalogPage}/>);
+
+  if(props.data?.catalogPage&&props.data.type==="Sitemap")
+    return new Response(props.data.sitemap, {headers:{"Content-Type": "application/xml"}})
 };
 
 export default Page;

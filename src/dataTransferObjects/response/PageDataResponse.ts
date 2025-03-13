@@ -5,4 +5,5 @@ export interface PageDataResponse{
   type: string;
   productPage?: ProductPageData
   catalogPage?: CatalogPageData
+  sitemap?:string
 }
