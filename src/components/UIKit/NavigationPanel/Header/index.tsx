@@ -18,13 +18,8 @@ const Header = () => {
     <>
       <header className="py-5 bg-dark flex justify-center">
         <div className="flex justify-between w-full mob:px-[20px] tab:px-[40px] desc:w-[1324px]">
-          {as.isOpenSidebar ? (
-              <MobileView />
-          ) : (
-            <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />
-          )}
+          {as.isOpenSidebar ? <MobileView /> : <DesktopView setIsModalOpen={() => as.setIsOpenCategories(true)} />}
         </div>
-
       </header>
 
       <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">

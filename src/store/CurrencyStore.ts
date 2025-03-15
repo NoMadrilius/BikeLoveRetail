@@ -21,7 +21,9 @@ class CurrencyStore {
         properties: ["currencies", "selectedCurrency",],
         storage:window.localStorage
       }).finally(()=>{
-        this.initialize()
+        this.loadCurrencies().then(()=>{
+          this.initialize()
+        })
       });
 
     }

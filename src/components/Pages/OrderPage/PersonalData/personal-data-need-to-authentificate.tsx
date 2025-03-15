@@ -8,6 +8,8 @@ import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import {useCheckList} from "@/store/CheckListStore";
 import {observer} from "mobx-react";
 import authStore, {useAuthStore} from "@/store/AuthStore";
+import { Button, TextField } from "@mui/material";
+import classNames from "classnames";
 
 type SignType = "SMS" | "password"
 const PersonalDataNeedToAuthentificate = () => {
@@ -18,40 +20,39 @@ const PersonalDataNeedToAuthentificate = () => {
     const [signInType, setSignInType] = useState<SignType>("password")
 
     return (
-        <BlockWrapper  title="Контактні дані" className="grid grid-cols-2 gap-8 items-end sm2:grid-cols-1">
+        <BlockWrapper  title="Контактні дані" className={"flex flex-col gap-10"}>
 
-            <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)} className="w-1/3"/>
-            <AutorizationDataInfo name={cls.initialUser?.lastName+" "+cls.initialUser?.firstName+" "+cls.initialUser?.patronymic} className="sm2:order-first"/>
+          <div className={"flex gap-6 items-end justify-between w-full mob:flex-col"}>
+            <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)} className="w-full"/>
+            <AutorizationDataInfo name={cls.initialUser?.lastName+" "+cls.initialUser?.firstName+" "+cls.initialUser?.patronymic} className="w-full"/>
+          </div>
 
-            {signInType === "password" && <>
+
+            <div className={"flex w-full gap-6 mob:flex-col"}>
+              <div className={"flex w-full flex-col gap-4"}>
                 <InputTypePassword value={as.loginPassword} setValue={v=>as.setLoginPassword(v)} className="w-1/3"
                                    label="Увійти за допомогою пароля"/>
-                <SignInWithPersonalData onClick={()=>{setSignInType("SMS")}} text="ми відправимо вам код"/>
-            </>}
+                <Button className={"w-full"} variant={"contained"} onClick={()=>as.login(()=>{})}>Увійти</Button>
+              </div>
+              <div className={classNames("w-full flex flex-col gap-4", codeSent?"":"pt-7")}>
 
-            {signInType === "SMS" && <>
-                <InputTypePassword value={code} setValue={setCode} className="w-1/3"
-                                   label="Увійти за допомогою коду"/>
-                <SignInWithPersonalData onClick={()=>{setSignInType("password")}} text="увійдіть за допомогою пароля "/>
-            </>}
-
-            {
-                signInType === "SMS" &&
-                <GradientButton onClick={()=>{
-                    as.setLoginPhone(cls.initialPhone)
-                    authStore.loginCode(()=>{setCodeSent(true)})
-                }} label={codeSent?"Телефонуємо! Введіт останні 4 цифри номеру":"Надіслати код"} disabled={codeSent} showIcon={false} className="text-white w-[140px] sm2:w-full h-[50px]"/>
-            }
-
-            <GradientButton onClick={()=>{
-                as.setLoginPhone(cls.initialPhone)
-                if(signInType === "SMS"){
-                    authStore.confirmLoginCode(code, ()=>{console.log('ok')})
+                {
+                  codeSent?
+                    <div className={"w-full flex flex-col gap-2 text-neutral-500"}>
+                      Ми надіслали вам код!
+                      <TextField className={"w-full"} value={code} onChange={e=>setCode(e.target.value)} placeholder={"КОД"} type="number"/>
+                    </div>
+                    :
+                    <Button variant={"outlined"} onClick={()=>{
+                      as.setLoginPhone(cls.initialPhone)
+                      authStore.loginCode(()=>{setCodeSent(true)})
+                    }}>Надіслати код</Button>
                 }
-                if(signInType === "password"){
-                    as.login(()=>console.log('ok'))
-                }
-            }} label="Увійти" showIcon={false} className="text-white w-[140px] sm2:w-full h-[50px]"/>
+                <Button variant={"contained"} className={"w-full"} disabled={!codeSent} onClick={()=>{
+                  authStore.confirmLoginCode(code, ()=>{console.log('ok')})
+                }}>Увійти з кодом</Button>
+              </div>
+            </div>
         </BlockWrapper>
 
     );

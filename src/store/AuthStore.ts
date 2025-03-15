@@ -49,6 +49,8 @@ class AuthStore {
     }
   }
 
+  setIsAuth(isAuth:boolean){this.isAuth=isAuth}
+
   initialize(){
     //console.log('authIniting', this.isAuth)
     if(this.isAuth){
@@ -170,7 +172,7 @@ class AuthStore {
   };
 
   loginCode = (os:()=>void)=>{
-    AuthAPI.CodeLogin('+'+this.loginPhone.replace(/[^0-9]/g, ""),"BinoCall").then(()=>{
+    AuthAPI.CodeLogin('+'+this.loginPhone.replace(/[^0-9]/g, ""),"BinoSMS").then(()=>{
       showToast({
         info: "Код - останні 4 цифри номеру",
         title: "Телефонуємо!",
@@ -212,9 +214,9 @@ class AuthStore {
 
   logout = async () => {
     this.user = null
-    this.isAuth = false
+    this.setIsAuth(false)
     this.accessToken = null
-    Router.push("/");
+    Router.push("/")
     AuthAPI.Logout()
   };
 

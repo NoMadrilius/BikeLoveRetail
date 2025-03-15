@@ -1,24 +1,28 @@
 import React from "react";
 import WhyToChooseItem from "./WhyToChooseItem";
+import f from "../../../../../../public/images/homepage/icons/why-to-choose-us/personal.svg"
+import s from "../../../../../../public/images/homepage/icons/why-to-choose-us/cool-service.svg"
+import t from "../../../../../../public/images/homepage/icons/why-to-choose-us/bicycle.svg"
+import fo from "../../../../../../public/images/homepage/icons/why-to-choose-us/bus.svg"
 
 const itemsData = [
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-ua/personal.svg",
+    iconSrc: f,
     alt: "Personal",
     text: "Кваліфікований персонал",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-ua/cool-service.svg",
+    iconSrc: s,
     alt: "Cool Service",
     text: "Гарантійне обслуговування",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-ua/bicycle.svg",
+    iconSrc: t,
     alt: "Bicycle",
     text: "Запчастини від виробника",
   },
   {
-    iconSrc: "/images/homepage/icons/why-to-choose-ua/bus.svg",
+    iconSrc: fo,
     alt: "Bus",
     text: "Доставка в будь-яке місто",
   },

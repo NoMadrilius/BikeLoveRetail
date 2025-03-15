@@ -55,6 +55,11 @@ export const theme = createTheme({
             backgroundImage: "linear-gradient(45deg, #F01B74, #FF6064)", // Darker gradient on hover
           },
         },
+        outlinedPrimary:{
+          borderColor:"#ff1fba",
+          color: "#ff1fba"
+
+        },
       },
     },
   },

@@ -1,15 +1,16 @@
 import { styled } from "styled-components";
 import { colors } from "../../../../../theme/colors";
 import { fonts } from "../../../../../theme/fonts";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { templates } from "../../../../../theme/templates";
 import { ButtonCustom } from "@/components/ButtonCustom/ButtonCustom";
-import { useAuthStore } from "@/store/AuthStore";
+import authStore, { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Router, { useRouter } from "next/router";
 
 const Step1 = ({ step }: any) => {
   const { t } = useTranslation();
@@ -26,9 +27,9 @@ const Step1 = ({ step }: any) => {
   const [bike, setBike] = useState("");
   const [gender, setGender] = useState<"Male" | "Female" | string>("");
 
-  const authStore = useAuthStore();
-
   const user = authStore.user!
+
+  const r = useRouter()
 
   const languageLabels: Record<string, string> = {
     English: "en",
@@ -234,13 +235,7 @@ const Step1 = ({ step }: any) => {
             label={t("account.step1.save")}
             func={() => updateInfo()}
           />
-          <ButtonCustom
-            width={"188px"}
-            height={"56px"}
-            type={"default"}
-            label={"Выйти"}
-            func={() => authStore.logout()}
-          />
+          <Button variant={"contained"} onClick={()=>authStore.logout()}>Вийти</Button>
         </ButtonsContainer>
       </Wrapper>
     </>
