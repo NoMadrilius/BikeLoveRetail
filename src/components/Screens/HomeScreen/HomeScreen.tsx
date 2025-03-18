@@ -12,22 +12,23 @@ import WhyToChooseUs from "@/components/Pages/Homepage/MainContent/WhyToChooseUs
 import GradientButton from "@/components/UIKit/Buttons/GradientButton";
 import { observer } from "mobx-react";
 import { useAppStore } from "@/store/AppStore";
-import React, { useEffect } from "react";
+import React, { useEffect, useTransition } from "react";
 import Aside from "@/components/Pages/Homepage/Aside";
 import {UseMetaData} from "@/helpers/hooks/useMetaData";
 import Link from "next/link";
 import { AppState } from "@/dataTransferObjects/internal/AppState";
+import { useTranslation } from "next-i18next";
 
 const HomeScreen = ({state}:{state:AppState}) => {
   const as = useAppStore();
-
+  const {t} = useTranslation("home_page")
   if (as.isOpenSidebar) return null;
 
   return (
     <div className="w-full flex gap-[32px]">
       <Aside />
       <UseMetaData
-          title={"Веломагазин BikeLove. Велосипеди, аксесуари, запчастини."}
+          title={t("Веломагазин BikeLove. Велосипеди, аксесуари, запчастини.")}
           img={"/favicon.ico"}
           description={"BikeLove - ваш надійний веломагазин у Києві! Пропонуємо широкий асортимент велосипедів, аксесуарів та запчастин. Професійне обслуговування, вигідні ціни та знижки. Завітайте до нас та відчуйте справжню любов до велосипедів!"}
       />
@@ -36,14 +37,14 @@ const HomeScreen = ({state}:{state:AppState}) => {
           <Hero />
           <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center relative z-[20]">
             <GradientButton
-              label={"Каталог товарів"}
+              label={t("Каталог товарів")}
               className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
               onClick={() => as.setIsOpenCategories(true)}
             />
             <Link href={`/workshop`}>
               <GradientButton
                 bgColor="bg-[#5D5555]"
-                label={"Майстерня"}
+                label={t("Майстерня")}
                 showIcon={false}
                 className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
               />

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import {useAppStore} from "@/store/AppStore";
+import AppStore, {useAppStore} from "@/store/AppStore";
 import {useCartStore} from "@/store/CartStore";
 import {observer} from "mobx-react";
 import {useAuthStore} from "@/store/AuthStore";
@@ -38,12 +38,8 @@ const NavigationIcons = () => {
                 </div>
         }
       <div className="p-3 sm:hidden hover:bg-[#C1C1C133] rounded-lg">
-        <div className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer">
-          <Image
-            src={heartImage}
-            alt={"Favorites"}
-            fill
-          />
+        <div onClick={()=>r.push(r.pathname, r.asPath, { locale: AppStore.locale === "UA" ? "ru":"ua" })} className=" relative size-[24px] md:block hidden lg:block xl:block 2xl:block cursor-pointer">
+          {AppStore.locale}
         </div>
       </div>
       <div onClick={()=>cs.setVisible(true)} className="p-3 hover:bg-[#C1C1C133] rounded-lg relative select-none cursor-pointer">

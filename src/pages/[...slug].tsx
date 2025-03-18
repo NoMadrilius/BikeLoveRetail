@@ -6,6 +6,7 @@ import { PageDataResponse } from "@/dataTransferObjects/response/PageDataRespons
 import ProductPageUni from "@/components/Screens/ProductPage/ProductPageUni";
 import CatalogPageUni from "@/components/Screens/CatalogPage/CatalogPageUni";
 import { PublicAPI } from "@/api/PublicAPI";
+import AppStore from "@/store/AppStore";
 
 export const getStaticPaths = async () => {
   const paths = [] as string[];
@@ -19,10 +20,13 @@ export const getStaticProps= async (context: any) => {
   let result = await PublicAPI.GetPageData(context.params.slug.join('/'), context.locale, 2);
   if(!result.data) return {notFound: true};
 
-  return { props: { data: result.data, as: r }, revalidate:60 }
+  return { props: { data: result.data, as: r, locale: context.locale}, revalidate:60 }
 };
 
-const Page = (props: { data: PageDataResponse|null, as:AppState|null }) => {
+const Page = (props: { data: PageDataResponse|null, as:AppState|null, locale:string }) => {
+
+  if(props.locale === "ru") AppStore.setLocale("RU")
+  else AppStore.setLocale("UA")
 
   useEffect(() => {
     if(props.as) setStateBase(props.as)

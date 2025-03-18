@@ -12,6 +12,8 @@ import { SortCategoryBreadCrumbs } from "@/helpers/SortCategoryBreadCrumbs";
 import CatalogPageMobileFilter from "@/components/Screens/CatalogPage/CatalogPageMobileFilter";
 import CatalogPageFilterBlock from "@/components/Screens/CatalogPage/CatalogPageFilterBlock";
 import { observer } from "mobx-react";
+import { nameCategoryMetaTemplate } from "@/helpers/metaTamplates/nameCategoryMetaTemplate";
+import { descriptionCategoryMetaTemplate } from "@/helpers/metaTamplates/descriptionCategoryMetaTemplate";
 
 const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
   const cs = useCatalogStore();
@@ -30,8 +32,8 @@ const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
   return (
     <div className="max-w-[1324px] w-full items-start my-10 flex flex-col gap-10">
       <UseMetaData
-        title={name}
-        description={c.seoLocalized??name}
+        title={nameCategoryMetaTemplate(name)}
+        description={descriptionCategoryMetaTemplate(name)}
       />
 
       <BreadCrumbsUni list={SortCategoryBreadCrumbs(c.categoryWay)} active={{name:c.category.name, url:c.category.url}} />

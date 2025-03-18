@@ -5,5 +5,5 @@ module.exports = {
     localeDetection: false,
   },
   defaultNS: 'common', // Дефолтный namespace
-  namespaces: ['common', 'product_page'], // Все доступные namespaces
+  namespaces: ['common', 'product_page','home_page'], // Все доступные namespaces
 };

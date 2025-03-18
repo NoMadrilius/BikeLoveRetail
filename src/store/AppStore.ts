@@ -18,6 +18,8 @@ class AppStore{
 
     deviceFingerprint:string|null=null;
 
+    locale:"UA"|"RU" = "UA"
+
     shops:Shop[] = []
 
     categories: Category[] = [];
@@ -80,6 +82,7 @@ class AppStore{
     setIsOpenSettings(v:boolean) {this.isOpenSettings=v}
     setIsOpenAuthModal(v:boolean) {this.isOpenAuthModal=v}
     setIsAuthRegMod(v:boolean) {this.isAuthRegMod=v}
+    setLocale(v:"UA"|"RU") {this.locale=v}
 
     buildTree(data: ProductCategory[], parentId: number = 0, depth:number = 0) {
         const tree: TreeNode[] = []
