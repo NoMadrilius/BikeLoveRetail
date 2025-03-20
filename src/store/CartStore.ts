@@ -23,6 +23,12 @@ class CartStore {
         this.updateTotalPrice()
       });
   }
+
+  clearCart(){
+    this.cart = []
+    this.updateTotalPrice()
+  }
+
   checkInCart(id:number):boolean{
     let res = this.cart.find(n=>n.product.id===id)
 

@@ -19,7 +19,7 @@ const TotalAmountBlock = () => {
                 <TotalAmountRow text={cs.cart.length+" тов. на суму"} value={prettyPrice(cs.totalPrice)}/>
             </div>
             <TotalAmountRow text="До сплати" value={prettyPrice(cs.totalPrice)} className="text-[24px] font-bold font-robot-c"/>
-          <Button disabled={cs.cart.length ===0} variant={"contained"} className={"w-full"} onClick={()=>{cls.createOrder()}}>Замовлення підтверджую</Button>
+          <Button loading={cls.isLoadingCreate} disabled={cs.cart.length ===0} variant={"contained"} className={"w-full"} onClick={()=>{cls.createOrder()}}>Замовлення підтверджую</Button>
           <br/>
           <span>Підтвержджуючи замовлення я приймаю умови про:</span>
             <OrderLink title="положення про обробку персональних даних" href=""/>

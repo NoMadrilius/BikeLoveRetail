@@ -12,7 +12,7 @@ const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
       {uniqOpts.map((opt, index) => {
         let variants = c.options.filter((n) => n.optionId === opt.id);
         return (
-          <CatalogPageFilters key={index} title={opt.name} variants={variants} actual={c.filterSettings} segments={c.segments}/>
+          <CatalogPageFilters key={index} title={opt.name} variants={variants.filter(n=>n.quantity > 0)} actual={c.filterSettings} segments={c.segments}/>
         );
       })}
     </>

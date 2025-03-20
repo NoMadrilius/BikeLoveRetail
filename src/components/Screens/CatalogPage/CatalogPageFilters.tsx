@@ -49,7 +49,7 @@ const CatalogPageFilters = ({ title, variants, actual,segments }:{title:string, 
             )}
           </div>
           <span className="text-dark-text hover:text-pink text-[14px] leading-[16.8px] font-inter">
-            {checkbox.name}{" "}
+            {checkbox.name + ` (${checkbox.quantity})`}
             {
               //<span className="text-gray">(text)</span>
             }

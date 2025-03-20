@@ -32,7 +32,10 @@ const PersonalDataNeedToAuthentificate = () => {
               <div className={"flex w-full flex-col gap-4"}>
                 <InputTypePassword value={as.loginPassword} setValue={v=>as.setLoginPassword(v)} className="w-1/3"
                                    label="Увійти за допомогою пароля"/>
-                <Button className={"w-full"} variant={"contained"} onClick={()=>as.login(()=>{})}>Увійти</Button>
+                <Button className={"w-full"} variant={"contained"} onClick={()=>{
+                  as.setLoginPhone(cls.initialPhone)
+                  as.login(()=>{})
+                }}>Увійти</Button>
               </div>
               <div className={classNames("w-full flex flex-col gap-4", codeSent?"":"pt-7")}>
 

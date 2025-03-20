@@ -3,5 +3,6 @@ export interface CatalogPageOption{
   id: number;
   optionName: string;
   optionId: number;
+  quantity:number;
   url: string;
 }

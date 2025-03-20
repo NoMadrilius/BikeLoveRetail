@@ -17,6 +17,7 @@ import {makePersistable} from "mobx-persist-store";
 import Router from "next/router";
 import {UserExistResponse} from "@/dataTransferObjects/response/UserExistResponse";
 import {AuthAPI} from "@/api/AuthAPI";
+import CartStore from "@/store/CartStore";
 
 
 declare global {
@@ -33,6 +34,8 @@ class CheckListStore{
     pickupShop:Shop|null = null
 
     clientDesc = ""
+
+    isLoadingCreate:boolean = false;
 
     initialPhone = ""
     initialPhoneCorrect = false
@@ -58,6 +61,7 @@ class CheckListStore{
     setName(v:string){this.name = v}
     setLastName(v:string){this.lastName = v}
     setPatronymic(v:string){this.patronymic = v}
+    setIsLoadingCreate(v:boolean){this.isLoadingCreate = v}
 
     async setInitialPhone(v:string){
         let clean = v.replace(/[+\s\)\(\-_]/g, '')
@@ -160,7 +164,10 @@ class CheckListStore{
             console.log("order:", orderData)
             console.log("products:", prods)
 
+
+            this.setIsLoadingCreate(true)
             OrderAPI.PublicCreate({order:orderData, products:prods}).then(r=>{
+                CartStore.clearCart()
                 if (typeof window.gtag === 'function') {
                     window.gtag('event', 'conversion_event_purchase', {
                         'event_callback': ()=>{console.log("google purchase event")},
@@ -169,7 +176,7 @@ class CheckListStore{
                     });
                 }
                 Router.push('/gratitude/'+r.data.order.uuid)
-            })
+            }).finally(()=>this.setIsLoadingCreate(false))
         }
     }
 }
