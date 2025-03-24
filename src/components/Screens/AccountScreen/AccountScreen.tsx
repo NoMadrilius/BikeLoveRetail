@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import {OrderAPI} from "@/api/OrderAPI";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 import { Typography } from "@mui/material";
+import LoyaltyScreen from "@/components/Screens/AccountScreen/components/LoyaltyScreen";
 
 const AccountScreen = () => {
   const { t } = useTranslation();
@@ -30,7 +31,8 @@ const AccountScreen = () => {
           setProducts(r.data)
       })
   }, []);
-  const [step, setStep] = useState(0);
+
+  const [step, setStep] = useState(1);
   return (
     <>
       <UseMetaData title={"Аккаунт"} img={""} description={"sadasdasd"} />
@@ -40,7 +42,7 @@ const AccountScreen = () => {
         fontStyle={fonts.f500}
         textTransform="uppercase"
       >
-        {t("account.personalData")}
+        {t("Персональний кабінет")}
       </Typography>
 
       <MainWrapper>
@@ -49,12 +51,9 @@ const AccountScreen = () => {
         </Left>
         <Line />
         <Right>
-          {step === 0 && (
-            <>
-              <Step1 step={step} />
-            </>
-          )}
-          {step === 1 && <Step2 data={products} />}
+          {step === 1 && <LoyaltyScreen/>}
+          {step === 2 && <Step1 step={step} />}
+          {step === 3 && <Step2 data={products} />}
         </Right>
       </MainWrapper>
     </>

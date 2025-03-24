@@ -12,6 +12,7 @@ export interface User{
     isEmployee: boolean;
     bike: string;
     balance: number;
+    bonuceBalance: number;
     creditLimit: number;
     created: string;
     updated: string;

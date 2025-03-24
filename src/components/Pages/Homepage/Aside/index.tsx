@@ -7,6 +7,8 @@ import ProductCategory from "./Sections/ProductCategory";
 import SelectionOfBicycle from "./Sections/SelectionOfBicycle";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
+import { Button } from "@mui/material";
+import Router from "next/router";
 
 const Aside = () => {
   return (
@@ -16,6 +18,7 @@ const Aside = () => {
       */}
       <InfoAboutCompany />
       <ContactAndSocial />
+      <Button variant={'contained'} onClick={()=>Router.push("/reviews")}>Залишити відгук</Button>
       <GetOurLatestNewsFirst />
       <Footer />
     </aside>

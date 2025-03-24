@@ -21,10 +21,10 @@ const Step2: FC<Props> = ({ data }) => {
     { title: t("account.step2.title3"), tab: 2 },
     { title: t("account.step2.title4"), tab: 3 },
   ];
-  return (
-    <>
-      <>
-        <Header>
+
+  /*
+
+  <Header>
           {TITLES.map((el, index) => (
             <Button
               key={index}
@@ -37,6 +37,11 @@ const Step2: FC<Props> = ({ data }) => {
             </Button>
           ))}
         </Header>
+   */
+  return (
+    <>
+      <>
+
         {data.length>0 && (
           <MainContainer>
             {data.map((el, index: number) => (

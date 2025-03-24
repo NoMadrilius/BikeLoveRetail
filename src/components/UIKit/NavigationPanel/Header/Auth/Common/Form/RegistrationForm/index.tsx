@@ -29,7 +29,7 @@ const RegistrationForm = () => {
     <div className="p-5 flex flex-col gap-5 ">
       <InputWithPlaceholder value={us.regName} setValue={(e)=>{us.setRegName(e)}} label="Ім'я" />
       <InputWithPlaceholder value={us.regLastName} setValue={(e)=>{us.setRegLastName(e)}} label="Прізвище" />
-      <InputWithPlaceholder value={us.regPhone} setValue={(e)=>{us.setRegPhone(e)}} label="Номер телефону" />
+      <PhoneInput value={us.regPhone} onChange={v=>us.setRegPhone(v)} className="w-full"/>
       <PasswordInput value={us.regPassword} setValue={(e)=>{us.setRegPassword(e)}} label="Пароль" />
       <PasswordInput value={us.regConfirmPassword} setValue={(e)=>{us.setRegConfirmPassword(e)}} label="Повторіть пароль" />
       <AgreeTerms />

@@ -10,35 +10,46 @@ const Navigation = ({ setStep, step }: any) => {
   const router = useRouter();
   const TABS = [
     {
-      title: t("account.navigation.presonalData"),
-      step: 0,
+      title: t("Програма лояльності"),
+      step: 1,
+      img: "/images/account/icons/loyalty.png",
+      link: "",
+    },
+    {
+      title: t("Особиста інформація"),
+      step: 2,
       img: "/images/account/icons/account.svg",
       link: "",
     },
     {
-      title: t("account.navigation.orders"),
-      step: 1,
+      title: t("Мої замовлення"),
+      step: 3,
       img: "/images/account/icons/invoice.svg",
       link: "",
     },
+    /*
     {
       title: t("account.navigation.wishList"),
       step: 2,
       img: "/images/account/icons/heart.svg",
       link: "/wish-list",
     },
+
     {
       title: t("account.navigation.sawProducts"),
       step: 3,
       img: "/images/account/icons/eye.svg",
       link: "",
     },
+
     {
       title: t("account.navigation.feedBack"),
       step: 4,
       img: "/images/account/icons/chat.svg",
       link: "",
     },
+
+     */
   ];
   const onClick = (step: number, link: string) => {
     setStep(step);
@@ -57,7 +68,7 @@ const Navigation = ({ setStep, step }: any) => {
           fontStyle={fonts.f500}
           textTransform="uppercase"
         >
-          {t("account.navigation.feedBack")}
+          {t("Навігація")}
         </Typography>
         <ItemsWrapper>
           {TABS.map((el, index) => (
@@ -109,8 +120,8 @@ const NavItem = styled.div`
   cursor: pointer;
 `;
 const Icon = styled.img`
-  width: 21px;
-  height: 21px;
+  width: 36px;
+  height: 36px;
   @media (max-width: 750px) {
     display: none;
   }

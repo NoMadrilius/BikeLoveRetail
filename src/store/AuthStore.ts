@@ -43,13 +43,14 @@ class AuthStore {
         properties: ["isAuth", "user", "accessToken", "step"],
         storage:window.localStorage
       }).finally(()=>{
-        this.initialize()
+        //this.initialize()
       });
 
     }
   }
 
   setIsAuth(isAuth:boolean){this.isAuth=isAuth}
+
 
   initialize(){
     //console.log('authIniting', this.isAuth)

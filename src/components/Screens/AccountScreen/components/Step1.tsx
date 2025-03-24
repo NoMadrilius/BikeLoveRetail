@@ -45,11 +45,11 @@ const Step1 = ({ step }: any) => {
 
   const selectedLang = () => {
     const langKey = languageLabels[lang] || ""; // По умолчанию возвращаем пустую строку
-    return t(`account.step1.${langKey}`);
+    return t(`${langKey}`);
   };
   const selectedGender = () => {
     const genderKey = genderLabels[gender] || ""; // По умолчанию возвращаем пустую строку
-    return t(`account.step1.${genderKey}`);
+    return t(`${genderKey}`);
   };
 
 
@@ -90,26 +90,26 @@ const Step1 = ({ step }: any) => {
     <>
       <Wrapper>
         <Typography color={colors.black} fontSize="22px" fontStyle={fonts.f600}>
-          {t("account.step1.mainData")}
+          {t("Основна інформація")}
         </Typography>
         <InputsContainer>
           <InputField
-            placeholder={t("account.step1.surname")}
+            placeholder={t("Фамілія")}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
           <InputField
-            placeholder={t("account.step1.name")}
+            placeholder={t("Ім'я")}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <InputField
-            placeholder={t("account.step1.patronomic")}
+            placeholder={t("По-батькові")}
             value={patronymic}
             onChange={(e) => setPatronymic(e.target.value)}
           />
           <InputField
-            placeholder={t("account.step1.bike")}
+            placeholder={t("Велосипед")}
             value={bike}
             onChange={(e) => setBike(e.target.value)}
           />
@@ -136,9 +136,9 @@ const Step1 = ({ step }: any) => {
                     color={colors.black}
                     fontSize="16px"
                     fontStyle={fonts.f400}
-                    onClick={() => onClickSelectGender("Male")}
+                    onClick={() => onClickSelectGender("Чоловіча")}
                   >
-                    {t("account.step1.male")}
+                    {t("Чоловіча")}
                   </Typography>
                 </SelectItem>
 
@@ -147,9 +147,9 @@ const Step1 = ({ step }: any) => {
                     color={colors.black}
                     fontSize="16px"
                     fontStyle={fonts.f400}
-                    onClick={() => onClickSelectGender("Female")}
+                    onClick={() => onClickSelectGender("Жіноча")}
                   >
-                    {t("account.step1.female")}
+                    {t("Жіноча")}
                   </Typography>
                 </SelectItem>
               </SelectArea>
@@ -178,9 +178,9 @@ const Step1 = ({ step }: any) => {
                     color={colors.black}
                     fontSize="16px"
                     fontStyle={fonts.f400}
-                    onClick={() => onClickSelectLang("Ukrainin")}
+                    onClick={() => onClickSelectLang("Українська")}
                   >
-                    {t("account.step1.ua")}
+                    {t("Українська")}
                   </Typography>
                 </SelectItem>
 
@@ -189,9 +189,9 @@ const Step1 = ({ step }: any) => {
                     color={colors.black}
                     fontSize="16px"
                     fontStyle={fonts.f400}
-                    onClick={() => onClickSelectLang("English")}
+                    onClick={() => onClickSelectLang("Англійська")}
                   >
-                    {t("account.step1.en")}
+                    {t("Англійська")}
                   </Typography>
                 </SelectItem>
                 <SelectItem>
@@ -199,9 +199,9 @@ const Step1 = ({ step }: any) => {
                     color={colors.black}
                     fontSize="16px"
                     fontStyle={fonts.f400}
-                    onClick={() => onClickSelectLang("Russian")}
+                    onClick={() => onClickSelectLang("Російська")}
                   >
-                    {t("account.step1.ru")}
+                    {t("Російська")}
                   </Typography>
                 </SelectItem>
               </SelectArea>

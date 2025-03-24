@@ -70,4 +70,7 @@ export const PublicAPI = {
     return axiosInstance.get<PageDataResponse>(`/web-retail/get-page`, {params:{Url:Url, Lang:Lang??undefined, CurrencyId:CurrencyId??undefined}});
   },
 
+  GetPendingBonuses():Promise<AxiosResponse<number>>{
+    return axiosInstance.get("/bonus/get-pending-self");
+  },
 }
