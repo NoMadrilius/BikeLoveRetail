@@ -3,19 +3,16 @@ import ProductTitle from "../Common/ProductTitle";
 import LastPrice from "../Common/LastPrice";
 import ProductImage from "../ProductCard/ProductImage";
 import RoundedButton from "../../Buttons/RoundedIconButton";
-import { Product } from "@/dataTransferObjects/entities/Product";
-import {ProductSearchPreview} from "@/dataTransferObjects/response/ProductSearchPreview";
-import {observer} from "mobx-react";
-import {useCurrencyStore} from "@/store/CurrencyStore";
+import {observer} from "mobx-react"
 import Link from "next/link";
 import {useSearchStore} from "@/store/SearchStore";
-import {GenerateProductLink} from "@/helpers/LinkGen/GenerateProductLink";
 import {useCartStore} from "@/store/CartStore";
 import {useAppStore} from "@/store/AppStore";
 import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
+import currencyStore from "@/store/CurrencyStore";
+import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
 
 const SearchCard = (p:{prod:CatalogPageProduct}) => {
-    const c = useCurrencyStore()
     const ss = useSearchStore()
     const cs = useCartStore()
     const as = useAppStore();
@@ -44,7 +41,7 @@ const SearchCard = (p:{prod:CatalogPageProduct}) => {
                   <div className="flex items-end justify-between">
                       <div className="flex items-center gap-3">
                 <span className="product-card-price text-[20px] leading-[120%] font-bold">
-                {p.prod.price}
+                {prettyPrice(p.prod.price) + (currencyStore.selectedCurrency?.symbol??"")}
                 </span>
 
                           <LastPrice

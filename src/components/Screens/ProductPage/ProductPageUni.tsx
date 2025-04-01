@@ -18,14 +18,18 @@ const ProductPageUni = ({p}:{p:ProductPageData}) => {
     <Suspense fallback={<Skeleton/>}>
       <div
         className="scroll-smooth max-w-[1324px] w-full h-full m-auto items-start pt-2 pb-10 flex flex-col gap-10 md2:pr-8">
-        <div className="flex flex-col gap-2 desc:gap-10 md:gap-6 w-full h-full">
+        <div className="flex flex-col gap-2 desc:gap-10 w-full h-full">
           <UseMetaData
             title={nameProductMetaTemplate(p.product.name)}
             img={p.images[0]?.url}
             description={descriptionProductMetaTemplate(p.product.name)}
           />
-          <BreadCrumbsUni list={SortCategoryBreadCrumbs(p.categoryWay)} active={{name:p.product.name, url:""}}/>
-          <div className="px-1 w-full h-full  md:px-0 flex flex-col md2:flex-row md2:px-0 md2:gap-6 md2:items-start ">
+          <BreadCrumbsUni list={SortCategoryBreadCrumbs(p.categoryWay)} active={{ name: p.product.name, url: "" }} />
+          <h1
+            className="desc:hidden text-dark leading-[37.5px] text-[32px] font-robot-c font-medium xl:text-[40px] xl:leading-[46.88px] 2xl:text-[40px] 2xl:leading-[46.88px]">
+            {p.product.name}
+          </h1>
+          <div className="px-1 w-full h-full flex flex-col desc:flex-row desc:gap-6 desc:items-start ">
             <ProductPageGallery p={p} />
             <PublicPageInfo p={p} />
           </div>

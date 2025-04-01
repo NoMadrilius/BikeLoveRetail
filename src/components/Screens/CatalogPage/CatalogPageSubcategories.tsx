@@ -8,25 +8,23 @@ const CatalogPageSubcategories = ({cats}:{cats:CatalogPageCategory[]}) => {
 
 
   return (
-    <div className="flex gap-5 overflow-auto max-w-full sm:px-5 px-0">
+    <div className="flex gap-5 overflow-auto max-w-full px-0">
       {cats.map((el) => (
         <Link key={el.id}
-              className="p-2 flex flex-col gap-1 rounded-lg bg-white cursor-pointer group"
+              className="p-2 flex flex-col gap-1 justify-between rounded bg-white hover:font-bold cursor-pointer w-[140px] h-[200px] relative shrink-0 grow-0"
               href={el.url}
         >
-          <div className="w-[121px] h-[66px] relative">
+          <div className={"w-full h-3/5 relative"}>
             <Image
               src={el.image || "/images/homepage/static/by-purpose.jpg"}
-              alt={""}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "contain" }}
+              alt={el.name} fill
+              className="object-cover"
             />
           </div>
-          <div className="pt-2 text-center">
-            <span className="font-inter leading-[19.2px] text-dark-text group-hover:text-pink">
+
+          <span className="font-inter leading-[19.2px] text-dark-text group-hover:text-pink text-center">
               {el.name}
             </span>
-          </div>
         </Link>
       ))}
     </div>

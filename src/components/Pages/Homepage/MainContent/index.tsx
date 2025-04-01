@@ -19,7 +19,7 @@ const Main = ({ children }: MainProps) => {
   `;
   //w-full flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:pl-0 md:px-10 xl:pl-8 pl-8 lg:pl-0
   return (
-      <div className={"w-full flex justify-center desc:pt-[40px]  tab:px-[40px] mob:px-[20px]"}>
+      <div className={"w-full flex justify-center desc:pt-4 tab:px-4 mob:px-2"}>
           <main className="w-full flex flex-col items-center desc:w-[1324px]">
               <div
                   dangerouslySetInnerHTML={{ __html: rawHTML }}

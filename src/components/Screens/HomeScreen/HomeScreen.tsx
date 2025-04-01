@@ -18,6 +18,7 @@ import {UseMetaData} from "@/helpers/hooks/useMetaData";
 import Link from "next/link";
 import { AppState } from "@/dataTransferObjects/internal/AppState";
 import { useTranslation } from "next-i18next";
+import { Button } from "@mui/material";
 
 const HomeScreen = ({state}:{state:AppState}) => {
   const as = useAppStore();
@@ -36,18 +37,9 @@ const HomeScreen = ({state}:{state:AppState}) => {
         <div className="flex flex-col gap-10 lg:gap-[52px] xl:gap-[52px] sm:px-5 md:pl-0 md:px-0 xl:pl-8 pl-8 lg:pl-0">
           <Hero />
           <div className="md:hidden xl:hidden lg:hidden 2xl:hidden flex gap-3 sm:justify-center relative z-[20]">
-            <GradientButton
-              label={t("Каталог товарів")}
-              className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 md:shrink-0"
-              onClick={() => as.setIsOpenCategories(true)}
-            />
+            <Button onClick={() => as.setIsOpenCategories(true)} variant={"contained"}>{t("Каталог товарів")}</Button>
             <Link href={`/workshop`}>
-              <GradientButton
-                bgColor="bg-[#5D5555]"
-                label={t("Майстерня")}
-                showIcon={false}
-                className="w-full max-w-[161px] lg:w-auto shrink-0 lg:shrink-0 justify-center"
-              />
+              <Button variant={"contained"}>{t("Майстерня")}</Button>
             </Link>
           </div>
           <WhyToChooseUs />

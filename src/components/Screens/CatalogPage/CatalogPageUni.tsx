@@ -30,7 +30,7 @@ const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
   if(c.page > 1) name+= `, Сторінка ${c.page}`
 
   return (
-    <div className="max-w-[1324px] w-full items-start my-10 flex flex-col gap-10">
+    <div className="w-full items-start my-4 flex flex-col gap-4">
       <UseMetaData
         title={nameCategoryMetaTemplate(name)}
         description={descriptionCategoryMetaTemplate(name)}
