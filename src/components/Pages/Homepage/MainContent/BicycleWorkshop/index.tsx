@@ -42,6 +42,7 @@ const BicycleWorkshop = () => {
         showButtons={false}
         rightText={"На сторінку"}
         title={"Професійна веломайстерня"}
+        rightTextLink={"/workshop"}
       />
       <div className="flex gap-5 sm:gap-6">
         <div className="flex flex-col gap-5 w-full xl:max-w-[274px] lg:max-w-[316px] shrink-0">

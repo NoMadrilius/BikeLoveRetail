@@ -15,7 +15,7 @@ const nextConfig = {
 
    */
   images: {
-    domains: ["www.statebicycle.com", "storage.googleapis.com","res.cloudinary.com","s3-alpha-sig.figma.com","s3-alpha-sig.figma.com"],
+    domains: ["www.statebicycle.com", "storage.googleapis.com","res.cloudinary.com","s3-alpha-sig.figma.com","s3-alpha-sig.figma.com","img.youtube.com"],
   },
   i18n,
 };

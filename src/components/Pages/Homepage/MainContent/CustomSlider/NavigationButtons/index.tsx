@@ -17,6 +17,7 @@ interface NavigationButtonsProps {
   titleStyles?: string;
   lineStyles?: string;
   hideText?: boolean;
+  rightTextLink?:string
 }
 
 const NavigationButtons = ({
@@ -25,6 +26,7 @@ const NavigationButtons = ({
   isBeginning,
   isEnd,
   rightText,
+  rightTextLink,
   showButtons = true,
   justShowTitle = false,
   title,
@@ -49,7 +51,7 @@ const NavigationButtons = ({
             className={`w-full h-[1px] bg-gray xl:block md:block lg:block hidden max-w-[226px] lg:max-w-[590px] ${lineStyles}`}
           />
           <Link
-            href="#"
+            href={rightTextLink??"#"}
             className="flex items-center gap-[18px] shrink-0 grow sm:py-[10.5px] py-2 px-3 group"
           >
             <span className="text-dark leading-[19px] cursor-pointer group-hover:text-link-pink">

@@ -34,7 +34,7 @@ const WhyToChooseUs = () => {
   ];
 
   return (
-    <section className="grid grid-cols-2 desc:grid-cols-4 tab:grid-cols-4 desc:flex mob:gap-4 gap-5">
+    <section className="flex gap-2 overflow-y-auto scrollbar-hide">
       {itemsData.map((item, index) => (
         <WhyToChooseItem
           key={index}

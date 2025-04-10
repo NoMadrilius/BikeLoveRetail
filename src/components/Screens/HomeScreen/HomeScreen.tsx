@@ -19,6 +19,7 @@ import Link from "next/link";
 import { AppState } from "@/dataTransferObjects/internal/AppState";
 import { useTranslation } from "next-i18next";
 import { Button } from "@mui/material";
+import YoutubeVideoSlider from "@/components/YoutubeVideoSlider/YoutubeVideoSlider";
 
 const HomeScreen = ({state}:{state:AppState}) => {
   const as = useAppStore();
@@ -48,7 +49,7 @@ const HomeScreen = ({state}:{state:AppState}) => {
             title={"Топ продаж"}
             rightText={"Більше пропозицій"}
           />
-          <SelectionOfBicycle className="xl:hidden lg:hidden" />
+          <YoutubeVideoSlider/>
           <PopularProductCategories />
           <CustomSlider
             products={state.salesProducts}
@@ -57,7 +58,7 @@ const HomeScreen = ({state}:{state:AppState}) => {
             lineStyles={"xl:max-w-[302px]"}
           />
           <BicycleWorkshop />
-          <BicyclesByPurpose />
+          {/*<BicyclesByPurpose />*/}
           <AboutUs />
           {/*<Articles />*/}
           <Feedbacks />

@@ -9,11 +9,11 @@ interface WhyToChooseItemProps {
 
 const WhyToChooseItem = ({ iconSrc, alt, text }: WhyToChooseItemProps) => {
   return (
-    <div className="lg:flex-row sm:py-3 sm:px-[16.25] xl:py-3 xl:px-1 p-4 bg-dark rounded-lg flex text-center flex-col space-y-2 items-center max-w-[232px] sm:max-w-full">
-      <div className="relative shrink-0 size-[48px]">
+    <div className="p-4 bg-dark rounded-lg flex text-center flex-col justify-around items-center mob:p-2 mob:size-28 shrink-0">
+      <div className="relative shrink-0 size-[48px] mob:size-[32px]">
         <Image src={iconSrc} alt={alt} fill className="shrink-0" />
       </div>
-      <h3 className="text-white leading-[19px]">{text}</h3>
+      <h3 className="text-white mob:text-xs">{text}</h3>
     </div>
   );
 };
