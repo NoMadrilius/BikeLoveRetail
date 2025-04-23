@@ -23,14 +23,15 @@ export interface Order{
     isIssued: boolean;
     confirmationDate?: string | null;
     userConfirmed?: string | null;
-    orderDiscount: number;
     totalProductDiscount: number;
-    totalProductsPrice: number;
     totalPrice: number;
     clientId: string;
     userCreated?: string | null;
     userUpdated?: string | null;
     managerId?: string | null;
+
+    currencyId:number
+    currencySymbol:string
 
     uuid:string
 }

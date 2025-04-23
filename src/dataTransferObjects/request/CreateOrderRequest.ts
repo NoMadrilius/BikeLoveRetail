@@ -14,6 +14,5 @@ export interface OrderDataRequest{
     deliveryType: string;
     deliveryInfo: string;
     descriptionCilent: string;
-    discountId: number;
     clientId: string;
 }

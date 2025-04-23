@@ -4,6 +4,8 @@ import { createContext, useContext } from "react";
 import {makePersistable} from "mobx-persist-store";
 import {PublicAPI} from "@/api/PublicAPI";
 import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
+import { OrderAPI } from "@/api/OrderAPI";
+import authStore from "@/store/AuthStore";
 
 class CartStore {
   cart: {product:CatalogPageProduct, quantity:number}[] = [];
@@ -11,6 +13,11 @@ class CartStore {
   visible:boolean = false;
   totalPrice:number = 0;
   totalDiscount:number = 0;
+  discountId:number = 0;
+
+  promo:string = "";
+  promoMessage:string = "";
+  isLoadingPromo:boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -27,6 +34,46 @@ class CartStore {
   clearCart(){
     this.cart = []
     this.updateTotalPrice()
+  }
+
+  setPromo(promo:string){this.promo = promo}
+  setDiscountId(id:number){this.discountId = id}
+  setPromoMessage(m:string){this.promoMessage = m}
+  setIsLoadingPromo(v:boolean){this.isLoadingPromo = v}
+
+  updatePromo(){
+    if(this.cart.length > 0 && this.promo.length > 0){
+      this.setIsLoadingPromo(true);
+      OrderAPI.GetPromo({currencyId:2,
+        promo:this.promo, clientId:authStore.user?.id??undefined, products: this.cart.map(n=>{return{quantity:n.quantity, productId:n.product.id, description:"", discountId:0}}),
+      }).then(r=>{
+        if(r.status === 204){
+          this.setPromoMessage("Нажаль промокод не діє")
+          this.totalDiscount = 0
+          this.setDiscountId(0)
+          return
+        }
+
+        console.log(r.data)
+
+        if(r.data!.discount === 0){
+          this.totalDiscount = 0
+          console.log("1")
+          this.setDiscountId(0)
+          this.setPromoMessage("Промокод задіяно, але знижку не знайдено")
+        }
+
+        if(r.data!.discount > 0){
+          console.log("2")
+          this.totalDiscount = r.data?.discount??0
+          this.setDiscountId(r.data?.discountId??0)
+          this.setPromoMessage("Промокод задіяно")
+        }
+      }).catch(()=>{
+        this.totalDiscount = 0
+        this.setPromoMessage("Помилка при використанні промокоду")
+      }).finally(()=>this.setIsLoadingPromo(false))
+    }
   }
 
   checkInCart(id:number):boolean{

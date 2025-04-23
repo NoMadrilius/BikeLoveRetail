@@ -146,7 +146,6 @@ class CheckListStore{
                 deliveryType: this.deliveryType,
                 deliveryInfo: delInfo,
                 descriptionCilent: this.clientDesc,
-                discountId: 0,
                 clientId: AuthStore.user!.id,
             }
 
@@ -155,8 +154,8 @@ class CheckListStore{
                     productId: n.product.id,
                     description: "",
                     quantity: n.quantity,
-                    discountId: 0
-                } as ProductOrderRequest
+                    discountId:cartStore.discountId,
+            } as ProductOrderRequest
             })
 
 

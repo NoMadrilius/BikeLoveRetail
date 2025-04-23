@@ -39,7 +39,7 @@ const PaymentStatus = (p: { order: OrderFullData }) => {
       )}
 
       <span className="text-dark font-robot-c font-medium text-[32px] leading-[37.5px] mob:order-1">
-        {c.useCurrency(p.order.order.totalPrice)}
+        {p.order.order.totalPrice+p.order.order.currencySymbol}
       </span>
     </div>
   );

@@ -55,6 +55,7 @@ const CartModal = () => {
                 {prettyPrice(cs.totalPrice)}
               </span>
             </div>
+
             {cs.totalDiscount > 0 && (
               <div className="flex items-center gap-2">
                 <span className="text-[#DEDEDE] text-[14px] leading-[120%]">
