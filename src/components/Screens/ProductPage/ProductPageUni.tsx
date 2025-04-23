@@ -12,8 +12,10 @@ import PublicPageInfo from "@/components/Screens/ProductPage/PublicPageInfo";
 import BreadCrumbsUni from "@/components/BreadCrumbs/BreadCrumbsUni";
 import { SortCategoryBreadCrumbs } from "@/helpers/SortCategoryBreadCrumbs";
 import { observer } from "mobx-react";
+import { useRouter } from "next/router";
 
 const ProductPageUni = ({p}:{p:ProductPageData}) => {
+
   return (
     <Suspense fallback={<Skeleton/>}>
       <div
