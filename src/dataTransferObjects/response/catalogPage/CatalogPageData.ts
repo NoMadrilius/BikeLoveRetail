@@ -13,9 +13,9 @@ export interface CatalogPageData{
   category: CatalogPageCategory;
   categoryWay: CatalogPageCategory[];
   childrens: CatalogPageCategory[];
-  brands: object[];
+  brands: { id:number, name:string, image:string, url:string }[];
   options: CatalogPageOption[];
-  sortingSettings: string[];
+  sortingSettings?: string;
   filterSettings: number[];
   segments:string[]
 }

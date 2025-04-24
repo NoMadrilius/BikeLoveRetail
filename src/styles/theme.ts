@@ -26,6 +26,50 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red',
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused': {
+            color: 'red',
+          }
+        },
+      },
+    },
+    MuiSelect:{
+      styleOverrides:{
+        root:{
+
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundImage: "linear-gradient(45deg, #FA6989, #FA6989)", // light pink hover
+          },
+          '&.Mui-selected': {
+            color:"white",
+            backgroundImage: "linear-gradient(45deg, #F01B74, #FF6064)", // pink when selected
+            '&:hover': {
+              backgroundImage: "linear-gradient(45deg, #F01B74, #FF6064)", // deeper pink on hover when selected
+            },
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         sizeMedium:{

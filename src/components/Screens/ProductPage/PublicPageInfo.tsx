@@ -89,6 +89,7 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
 
           {p.requiredVariants.map(n => <ProductPageOption preferred={p.requiredVariants} binds={p.binds} active={n} variants={allOpts.filter(g=>g.optionId === n.optionId)} />)}
 
+          {p.product.availability != "NotInStock"&&
           <div className="flex gap-3">
               {cs.isInCart(p.product.id)?
                 <Button className={"w-full"} variant={"contained"} size={"medium"} color={"info"} onClick={()=>cs.setVisible(true)} startIcon={<CheckCircleIcon />}>
@@ -99,8 +100,8 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
                   В кошик
                 </Button>
               }
-
           </div>
+          }
         </div>
 
         <DeliveryOptions />

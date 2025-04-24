@@ -1,6 +1,9 @@
 import React from "react";
 import { CatalogPageData } from "@/dataTransferObjects/response/catalogPage/CatalogPageData";
 import CatalogPageFilters from "@/components/Screens/CatalogPage/CatalogPageFilters";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import catalogStore from "@/store/CatalogStore";
+import { router } from "next/client";
 
 const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
 
@@ -9,10 +12,39 @@ const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
 
   return (
     <>
+      <FormControl fullWidth>
+        <InputLabel sx={{ color: 'black',top: '-8px', // or adjust as needed
+          '&.MuiInputLabel-shrink': {
+            transform: 'translate(14px, -2px) scale(0.75)',
+          }, }} id="demo-simple-select-label">
+          Сортування
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Сортування"
+          size={"small"}
+          value={c.sortingSettings??"default"}
+          onChange={(e)=>{
+            if(e.target.value != "default"){
+              router.push([...c.segments.filter(n=>n!="price-des").filter(n=>n!="price-asc").filter(n=>n!="sale").filter(n=>!n.includes("page")), e.target.value].join('/'))
+            }else {
+              router.push(c.segments.filter(n => n != "price-des").filter(n => n != "price-asc").filter(n => n != "sale").filter(n=>!n.includes("page")).join('/'))
+            }
+          }}
+        >
+          <MenuItem value={"default"}>Рекомендоване</MenuItem>
+          <MenuItem value={"price-des"}>Дорожче</MenuItem>
+          <MenuItem value={"price-asc"}>Дешевше</MenuItem>
+          <MenuItem value={"sale"}>Акції</MenuItem>
+        </Select>
+      </FormControl>
+      {c.brands.length > 0 && <CatalogPageFilters indx={0} title={"Бренд"} variants={c.brands.map(b=>{return{name:b.name, url:b.url, id:b.id}})} actual={c.filterSettings} segments={c.segments}/>}
+
       {uniqOpts.map((opt, index) => {
         let variants = c.options.filter((n) => n.optionId === opt.id);
         return (
-          <CatalogPageFilters key={index} title={opt.name} variants={variants.filter(n=>n.quantity > 0)} actual={c.filterSettings} segments={c.segments}/>
+          <CatalogPageFilters indx={index} key={index} title={opt.name} variants={variants.filter(n=>n.quantity > 0)} actual={c.filterSettings} segments={c.segments}/>
         );
       })}
     </>

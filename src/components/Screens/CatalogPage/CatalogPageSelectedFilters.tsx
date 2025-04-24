@@ -12,6 +12,8 @@ const CatalogPageSelectedFilters = ({c}:{c:CatalogPageData}) => {
   const r = useRouter()
   const cs = useCatalogStore()
 
+  if(c.filterSettings.length === 0) return null;
+
   return (
     <div className="bg-white rounded-bl-lg py-3 px-5 flex items-center justify-between gap-2 w-full rounded-lg rou">
       <div className="flex gap-5 w-ful items-start mob:items-center">

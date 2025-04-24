@@ -4,9 +4,9 @@ import { useCatalogStore } from "@/store/CatalogStore";
 import Link from "next/link";
 import { MinusIcon, PlusIcon, SvgRightIcon } from "@/components/UIKit/SVGIcons";
 
-const CatalogPageFilters = ({ title, variants, actual,segments }:{title:string, variants:CatalogPageOption[], actual:number[], segments:string[]}) => {
+const CatalogPageFilters = ({ title, variants, actual,segments,indx}:{title:string, variants:{name:string, url:string, id:number, quantity?:number}[], actual:number[], segments:string[], indx:number}) => {
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(indx === 0 || indx === 1);
   const [showMore, setShowMore] = useState(false);
 
   const toggleAccordion = () => {
@@ -49,7 +49,7 @@ const CatalogPageFilters = ({ title, variants, actual,segments }:{title:string, 
             )}
           </div>
           <span className="text-dark-text hover:text-pink text-[14px] leading-[16.8px] font-inter">
-            {checkbox.name + ` (${checkbox.quantity})`}
+            {checkbox.name + (checkbox.quantity?` (${checkbox.quantity})`:"")}
             {
               //<span className="text-gray">(text)</span>
             }

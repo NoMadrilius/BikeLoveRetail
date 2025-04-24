@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
 import {useAuthStore} from "@/store/AuthStore";
 import GeneratedUserIcon from "@/components/UIKit/GeneratedUserIcon/GeneratedUserIcon";
 import {useRouter} from "next/router";
-
+import man from "/public/images/account/icons/man.png"
 import personImage from "/public/images/uikit/header/person.svg";
 import heartImage from "/public/images/uikit/header/white-heart.svg";
 import cartImage from "/public/images/uikit/header/shopping-cart.svg";
@@ -27,7 +27,7 @@ const NavigationIcons = () => {
             us.isAuth?
                 <div onClick={n=>r.push("/account")}>
                     {
-                        us.user&&<GeneratedUserIcon user={us.user}/>
+                        us.user&&<Image className={"cursor-pointer"} src={man} height={48} width={48} alt={"man"}/>
                     }
                 </div>
                 :
