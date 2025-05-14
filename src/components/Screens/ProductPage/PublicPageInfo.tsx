@@ -1,4 +1,5 @@
 import React from "react";
+import 'quill/dist/quill.snow.css';
 import { ProductPageData } from "@/dataTransferObjects/response/productPage/ProductPageData";
 import ProductDetails from "@/components/Pages/ProductPage/ProductCard/ProductInfo/ProductDetails";
 import ProductDescription from "@/components/Pages/ProductPage/ProductCard/ProductInfo/ProductDescription";

@@ -14,6 +14,7 @@ import {OrderAPI} from "@/api/OrderAPI";
 import {OrderFullData} from "@/dataTransferObjects/entities/OrderFullData";
 import { Typography } from "@mui/material";
 import LoyaltyScreen from "@/components/Screens/AccountScreen/components/LoyaltyScreen";
+import MyArticles from "@/components/Screens/AccountScreen/components/MyArticles";
 
 const AccountScreen = () => {
   const { t } = useTranslation();
@@ -54,6 +55,7 @@ const AccountScreen = () => {
           {step === 1 && <LoyaltyScreen/>}
           {step === 2 && <Step1 step={step} />}
           {step === 3 && <Step2 data={products} />}
+          {step === 4 && <MyArticles/>}
         </Right>
       </MainWrapper>
     </>

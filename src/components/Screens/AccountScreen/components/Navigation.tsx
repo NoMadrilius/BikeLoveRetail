@@ -27,6 +27,12 @@ const Navigation = ({ setStep, step }: any) => {
       img: "/images/account/icons/invoice.svg",
       link: "",
     },
+    {
+      title: t("Мої статті"),
+      step: 4,
+      img: "/images/account/icons/invoice.svg",
+      link: "",
+    },
     /*
     {
       title: t("account.navigation.wishList"),
