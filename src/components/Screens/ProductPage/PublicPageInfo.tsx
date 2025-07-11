@@ -29,6 +29,8 @@ import ProductCardButton from "@/components/UIKit/Buttons/ProductCardButton/Prod
 import { PageToCatalogProduct } from "@/helpers/ProductConverter";
 import { Button } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CreditBlock from "@/components/CreditBlock/CreditBlock";
+import { router } from "next/client";
 
 const PublicPageInfo = ({p}:{p:ProductPageData}) => {
   const { t } = useTranslation('product_page');
@@ -91,7 +93,7 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
           {p.requiredVariants.map(n => <ProductPageOption preferred={p.requiredVariants} binds={p.binds} active={n} variants={allOpts.filter(g=>g.optionId === n.optionId)} />)}
 
           {p.product.availability != "NotInStock"&&
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3">
               {cs.isInCart(p.product.id)?
                 <Button className={"w-full"} variant={"contained"} size={"medium"} color={"info"} onClick={()=>cs.setVisible(true)} startIcon={<CheckCircleIcon />}>
                   Вже в кошику
@@ -101,6 +103,11 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
                   В кошик
                 </Button>
               }
+              <CreditBlock onClick={()=>{
+                (!cs.isInCart(p.product.id))&&cs.addToCart(PageToCatalogProduct(p))
+                cs.setVisible(false)
+                router.push('/checkout')
+              }}/>
           </div>
           }
         </div>

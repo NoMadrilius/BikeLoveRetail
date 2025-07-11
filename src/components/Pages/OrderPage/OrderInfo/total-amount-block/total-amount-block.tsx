@@ -8,6 +8,7 @@ import {useCurrencyStore} from "@/store/CurrencyStore";
 import {useCheckList} from "@/store/CheckListStore";
 import { Button, TextField } from "@mui/material";
 import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
+import CreditCheckoutBlock from "@/components/CreditBlock/CreditCheckoutBlock";
 
 const TotalAmountBlock = () => {
     const cs = useCartStore()
@@ -29,12 +30,18 @@ const TotalAmountBlock = () => {
               cs.promo.length > 0 && <div className={"text-pink"}>{cs.promoMessage}</div>
             }
           </div>
+
+          <div className={"flex flex-col gap-6"}>
             <TotalAmountRow text="До сплати" value={prettyPrice(cs.totalPrice-cs.totalDiscount)} className="text-[24px] font-bold font-robot-c"/>
-          <Button loading={cls.isLoadingCreate} disabled={cs.cart.length ===0} variant={"contained"} className={"w-full"} onClick={()=>{cls.createOrder()}}>Замовлення підтверджую</Button>
-          <br/>
-          <span>Підтвержджуючи замовлення я приймаю умови про:</span>
-            <OrderLink title="положення про обробку персональних даних" href=""/>
-            <OrderLink title="захист користувача" href=""/>
+            <Button loading={cls.isLoadingCreate} disabled={cs.cart.length ===0} variant={"contained"} className={"w-full"} onClick={()=>{cls.createOrder()}}>Замовлення підтверджую</Button>
+            <div>
+              <span>Підтвержджуючи замовлення я приймаю умови про:</span>
+              <OrderLink title="положення про обробку персональних даних" href="" />
+              <OrderLink title="захист користувача" href="" />
+            </div>
+            <CreditCheckoutBlock />
+          </div>
+
         </>
     );
 };
