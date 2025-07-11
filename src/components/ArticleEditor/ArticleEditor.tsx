@@ -5,13 +5,14 @@ import { ArticleAPI } from "@/api/ArticleAPI";
 import QuillResizeImage from 'quill-resize-image';
 import { observer } from "mobx-react";
 
-const Font = Quill.import('formats/font');
+const Font : any = Quill.import('formats/font');
 Font.whitelist = ['sans-serif', 'serif', 'monospace', 'arial', 'comic-sans', 'courier-new', 'georgia', 'times-new-roman'];
 Quill.register(Font, true);
 Quill.register('modules/resizeImage', QuillResizeImage);
 
 const BaseImage = Quill.import('formats/image');
 
+// @ts-ignore
 export class CustomImage extends BaseImage {
   static create(value: any) {
     const node = super.create(value.src || value);
@@ -37,7 +38,7 @@ const ArticleEditor = ({data, setData}:{data:Delta | null,setData:(v:Delta)=>voi
 
   useEffect(() => {
     if (editorRef.current && q === null) {
-      q = new Quill(editorRef.current, {
+      q  = new Quill(editorRef.current, {
         theme: 'snow', placeholder:"Пишіть тут...",
         modules: {
           toolbar: [
@@ -77,6 +78,7 @@ const ArticleEditor = ({data, setData}:{data:Delta | null,setData:(v:Delta)=>voi
         setData(q!.getContents())
       });
 
+      // @ts-ignore
       q.getModule('toolbar').addHandler('image', () => {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
@@ -88,8 +90,8 @@ const ArticleEditor = ({data, setData}:{data:Delta | null,setData:(v:Delta)=>voi
             formData.append('imageFile', file);
             const res = (await ArticleAPI.LoadImage(formData))
             if (res.data) {
-              const range = q.getSelection();
-              q.insertEmbed(range?.index || 0, 'image', res.data);
+              const range = q!.getSelection();
+              q!.insertEmbed(range?.index || 0, 'image', res.data);
             }
           }
         };

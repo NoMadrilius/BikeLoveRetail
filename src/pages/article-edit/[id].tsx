@@ -13,7 +13,9 @@ import { useEffect, useState } from "react";
 
 function deltaToHtml(delta: Delta) {
   const ar = delta.ops.map(op=>{
+    // @ts-ignore
     if(op?.insert?.image){
+      // @ts-ignore
       const imgData = {...op.insert.image}
       return {insert:{image:imgData.src+"\" style=\""+imgData.style}}
     }
