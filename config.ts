@@ -5,12 +5,12 @@ const RUN_MODE: RunMode = "PRODLOCAL";
 const BASE_URL_SERVER = {
   DEV: "https://bikeshop.1gb.ua/api",
   PROD: "http://host.docker.internal:5000/api",
-  PRODLOCAL: "https://api.bikelove.com.ua/api",
+  PRODLOCAL: "https://unigood.online/api",
 };
 const BASE_URL = {
   DEV: "https://bikeshop.1gb.ua/api",
-  PROD: "https://api.bikelove.com.ua/api",
-  PRODLOCAL: "https://api.bikelove.com.ua/api",
+  PROD: "https://unigood.online/api",
+  PRODLOCAL: "https://unigood.online/api",
 };
 const IMG_URL = {
   DEV: "http://localhost:3000/",
