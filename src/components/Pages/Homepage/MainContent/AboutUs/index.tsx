@@ -5,13 +5,16 @@ import NavigationButtons from "../CustomSlider/NavigationButtons";
 import AboutUsContent from "./AboutUsContent";
 import ImageLink from "./ImageLink";
 import StatisticsSection from "./StatisticsSection";
+import { useTranslation } from "next-i18next";
 
 const AboutUs = () => {
+  const {t} = useTranslation("home_page")
+
   const statisticsData = [
-    { value: "20", label: "Кращих спеціалістів" },
-    { value: "12+", label: "Років досвіду" },
-    { value: "2", label: "Магазини" },
-    { value: "100+", label: "Моделей велосипеду" },
+    { value: "20", label: t("Кращих спеціалістів") },
+    { value: "12+", label: t("Років досвіду") },
+    { value: "2", label: t("Магазини") },
+    { value: "100+", label: t("Моделей велосипеду") },
   ];
   return (
     <section>

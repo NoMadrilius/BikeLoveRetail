@@ -9,11 +9,13 @@ import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 import {useRouter} from "next/router";
 import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
 import { Button } from "@mui/material";
+import { useTranslation } from "next-i18next";
 
 const CartModal = () => {
   const cs = useCartStore();
   const c = useCurrencyStore();
   const r = useRouter()
+  const { t } = useTranslation('common');
 
   return (
     <ModalBase setOpen={(v) => cs.setVisible(v)} open={cs.visible}>
@@ -24,7 +26,7 @@ const CartModal = () => {
         <div className="flex justify-between items-center py-2 px-5  border-b border-gray">
           <div className="flex items-center gap-5">
             <h2 className="text-[20px] font-bold leading-[120%] font-robot-c text-dark-text">
-              Кошик
+              {t("Кошик")}
             </h2>
             <span className="text-t-grey text-[14px] leading-[120%] font-inter">
               {cs.cart.length +
@@ -49,7 +51,7 @@ const CartModal = () => {
           <div className="flex flex-col gap-5 sm:gap-2">
             <div className="flex sm:flex-col flex-row items-center sm:items-start gap-2">
               <span className="text-white text-[18px] leading-[22px] sm:text-[16px] sm:leading-[19.2px]">
-                Всього:
+                {t("Всього:")}
               </span>
               <span className="text-white text-[32px] sm:font-bold sm:text-[20px] sm:leading-[120%] font-medium leading-[38px]">
                 {prettyPrice(cs.totalPrice)}
@@ -59,7 +61,7 @@ const CartModal = () => {
             {cs.totalDiscount > 0 && (
               <div className="flex items-center gap-2">
                 <span className="text-[#DEDEDE] text-[14px] leading-[120%]">
-                  Ви економите:
+                  {t("Ви економите:")}
                 </span>
                 <span className="text-link-pink text-[14px] font-medium leading-[120%]">
                   {prettyPrice(cs.totalDiscount)}
@@ -68,7 +70,7 @@ const CartModal = () => {
             )}
           </div>
           <Button variant={"contained"} size={"medium"} disabled={cs.cart.length === 0} onClick={()=>{r.push('/checkout');cs.setVisible(false)}}>
-            Оформити замовлення</Button>
+            {t("Оформити замовлення")}</Button>
         </div>
       </div>
     </ModalBase>

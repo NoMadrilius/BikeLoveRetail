@@ -3,10 +3,13 @@ import React from "react";
 import {useAppStore} from "@/store/AppStore";
 import {useCartStore} from "@/store/CartStore";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const NavigationSection = () => {
   const as = useAppStore()
   const cs = useCartStore()
+  const {t} = useTranslation("common")
+
   return (
     <section>
       <div
@@ -25,7 +28,7 @@ const NavigationSection = () => {
           />
         </div>
         <button className="text-dark border-none leading-[19px]">
-          Каталог товарів
+          {t("Каталог товарів")}
         </button>
       </div>
       <Link href={'/workshop'}
@@ -44,7 +47,7 @@ const NavigationSection = () => {
           />
         </div>
         <button className="text-dark border-none leading-[19px]">
-          Майстерня
+          {t("Майстерня")}
         </button>
       </Link>
       <div className="flex flex-col border border-y-category-border">
@@ -59,7 +62,7 @@ const NavigationSection = () => {
             />
           </div>
           <button onClick={() => cs.setVisible(true)} className="text-dark border-none leading-[19px]">
-            Кошик
+            {t("Кошик")}
           </button>
         </div>
         <div className="flex items-center gap-3 px-5 py-3">
@@ -73,7 +76,7 @@ const NavigationSection = () => {
             />
           </div>
           <button className="text-dark border-none leading-[19px]">
-            Улюблене
+            {t("Улюблене")}
           </button>
         </div>
       </div>

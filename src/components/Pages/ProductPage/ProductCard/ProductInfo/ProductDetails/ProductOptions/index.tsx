@@ -5,9 +5,11 @@ import { productPageStore, useProductPageStore } from "@/store/ProductPageStore"
 import {useCartStore} from "@/store/CartStore";
 import {observer} from "mobx-react";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
+import { useTranslation } from "next-i18next";
 
 const ProductOptions = ({p}:{p:ProductFullData}) => {
     const cs = useCartStore()
+  const { t } = useTranslation('product_page');
 
   return (
     <div className="flex flex-col gap-8 border-b pb-3 border-gray">
@@ -16,7 +18,7 @@ const ProductOptions = ({p}:{p:ProductFullData}) => {
       <div className="flex gap-3">
         <GradientButton
             addToCart={cs.checkInCart(p.product.id)}
-            label={"Купити"}
+            label={t("Купити")}
             showIcon={false}
           textstyles="!w-max"
           className="justify-center grow"
@@ -27,7 +29,7 @@ const ProductOptions = ({p}:{p:ProductFullData}) => {
         />
         <GradientButton
           bgColor="bg-[#5D5555]"
-          label={"В кредит"}
+          label={t("В кредит")}
           textstyles="!w-max"
           className="justify-center grow"
           showIcon={false}

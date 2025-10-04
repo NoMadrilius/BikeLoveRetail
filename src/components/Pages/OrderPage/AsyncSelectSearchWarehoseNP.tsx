@@ -6,9 +6,10 @@ import {NPWarehouseResponse} from "@/dataTransferObjects/internal/NovaPoshta/Res
 import {NPRequestWrapper} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPRequestWrapper";
 import {NPWarehouseSearchRequest} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPWarehouseSearchRequest";
 import {NovaPoshtaAPI} from "@/api/NovaPoshtaAPI";
+import { useTranslation } from "next-i18next";
 
 export const AsyncSelectSearchWarehouseNP = (props: { onSelect: (value: NPWarehouseResponse|null) => void, value: NPWarehouseResponse | null, cityId: string, isDisabled?: boolean }) => {
-
+    const { t } = useTranslation('checkout_page');
     const loadOptions = (inputValue: string, callback: (value: NPWarehouseResponse[]) => void) => {
         let request: NPRequestWrapper<NPWarehouseSearchRequest> = {
             apiKey: "099d9e9b0d28f7d57cdcfaa4e9ca9af2",
@@ -45,8 +46,8 @@ export const AsyncSelectSearchWarehouseNP = (props: { onSelect: (value: NPWareho
                 }}
                 getOptionLabel={label => label!.Description}
                 getOptionValue={value => value!.Description}
-                placeholder={'Пошук відділення'}
-                noOptionsMessage={() => 'Відділення не знайдено'}
+                placeholder={t("Пошук відділення")}
+                noOptionsMessage={() => t("Відділення не знайдено")}
             />
         </div>
     )

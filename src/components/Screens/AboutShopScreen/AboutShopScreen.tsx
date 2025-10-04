@@ -3,9 +3,11 @@ import { colors } from "../../../../theme/colors";
 import { fonts } from "../../../../theme/fonts";
 import { styled } from "styled-components";
 import { Typography } from "@mui/material";
+import { useTranslation } from "next-i18next";
 
 const AboutShopScreen = () => {
   const road = [{ title: "Магазин", link: "/" }];
+  const { t } = useTranslation('about_page');
   return (
     <>
       <UseMetaData title={"Про наш магазин"} img={""} description={"Наш магаз кращий"} />
@@ -15,8 +17,8 @@ const AboutShopScreen = () => {
         fontStyle={fonts.f500}
         textAlign="center"
       >
-        Ми віримо,
-        <br /> що велоспорт змінює життя
+        {t("Ми віримо")},
+        <br /> {t("що велоспорт змінює життя")}
       </Typography>
       <RowTextContainer>
         <ParagraphContainer>

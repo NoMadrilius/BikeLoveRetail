@@ -1,6 +1,7 @@
 import React, {createContext, memo, ReactNode, useContext, useEffect, useRef} from 'react';
 import { InputMask } from "@react-input/mask";
 import { useMask } from '@react-input/mask';
+import { useTranslation } from "next-i18next";
 interface PhoneInputProps {
     autoFocus?:boolean
     value: string
@@ -10,7 +11,7 @@ interface PhoneInputProps {
 
 const PhoneInput = memo((props: PhoneInputProps) => {
     const {value,onChange,className, autoFocus} = props
-
+    const { t } = useTranslation('common');
     const ref = useRef<HTMLInputElement>()
 
     const inputRef = useMask({
@@ -26,10 +27,10 @@ const PhoneInput = memo((props: PhoneInputProps) => {
 
     return (
         <div className={`w-full relative flex flex-col gap-2 ${className}`}>
-            <label className="text-t-grey font-light leading-[120%]">Номер телефону *</label>
+            <label className="text-t-grey font-light leading-[120%]">{t("Номер телефону")} *</label>
 
             <div className="flex relative">
-                <input value={props.value} placeholder={"Телефон"} onChange={v => props.onChange(v.target.value)} ref={inputRef} className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white" />
+                <input value={props.value} placeholder={t("Телефон")} onChange={v => props.onChange(v.target.value)} ref={inputRef} className="px-5 py-3 border border-gray rounded-lg text-t-grey font-light w-full bg-white" />
             </div>
         </div>
 

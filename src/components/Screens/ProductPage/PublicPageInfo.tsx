@@ -96,11 +96,11 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
           <div className="flex flex-col gap-3">
               {cs.isInCart(p.product.id)?
                 <Button className={"w-full"} variant={"contained"} size={"medium"} color={"info"} onClick={()=>cs.setVisible(true)} startIcon={<CheckCircleIcon />}>
-                  Вже в кошику
+                  {t("Вже в кошику")}
                 </Button>
                 :
                 <Button className={"w-full"} variant={"contained"} size={"medium"} onClick={()=>cs.addToCart(PageToCatalogProduct(p))}>
-                  В кошик
+                  {t("В кошик")}
                 </Button>
               }
               <CreditBlock onClick={()=>{
@@ -123,7 +123,7 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
         >
           <h3
             className="text-dark font-robot-c text-[24px] font-medium leading-[28.13px] xl:text-[32px] xl:leading-[37.5px]">
-            Опис
+            {t("Опис")}
           </h3>
           <p className="text-dark font-inter text-[16px] font-light leading-[19.2px]"
              dangerouslySetInnerHTML={{

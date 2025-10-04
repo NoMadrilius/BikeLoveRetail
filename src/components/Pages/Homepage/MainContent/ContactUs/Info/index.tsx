@@ -1,29 +1,32 @@
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const Info = () => {
+  const {t} = useTranslation("home_page")
+
   return (
     <div className="flex gap-5 grow w-full xl:flex-row lg:flex-row md:flex-row md:items-start flex-col items-center lg:items-start xl:items-start">
       <div className="grow lg:w-1/2 xl:w-full xl:max-w-[204.36px] sm:text-center">
         <h3 className="font-bold text-[20px] leading-[24px] text-dark mb-5 font-robot-c">
-          Магазини
+          {t("Магазини")}
         </h3>
         <div className="flex flex-col gap-4">
           <div>
             <h4 className="text-dark font-semibold leading-[19px]">
-              Київ, вул. Щербаківського, 59
+              {t("Київ, вул. Щербаківського, 59")}
             </h4>
             <div className="w-full max-w-[155px] h-[2.5px] bg-gradient-custom rounded-full mt-[6px]" />
           </div>
 
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold text-dark text-[16px] leading-[19.36px]">
-              Години роботи
+              {t("Години роботи")}
             </h4>
             <div className="flex gap-3 sm:justify-center">
               <span className="font-semibold text-dark text-[16px] leading-[19.36px]">
-                Пн - Пт:{" "}
+                {t("Пн - Пт:")}{" "}
               </span>
               <span className="font-light leading-[120%] text-dark">
                 10.00 - 18.00
@@ -31,7 +34,7 @@ const Info = () => {
             </div>
             <div className="flex gap-3 sm:justify-center">
               <span className="font-semibold text-dark text-[16px] leading-[19.36px]">
-                Cб - Нд:{" "}
+                {t("Cб - Нд:")}{" "}
               </span>
               <span className="font-light leading-[120%] text-dark">
                 10.00 - 18.00
@@ -41,7 +44,7 @@ const Info = () => {
 
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold text-dark text-[16px] leading-[19.36px]">
-              Телефон
+              {t("Телефон")}
             </h4>
             <a
               href="tel:+38 (093) 211 - 89 - 30"
@@ -76,7 +79,7 @@ const Info = () => {
 
       <div className="grow lg:w-1/2 xl:max-w-[204.36px] xl:w-full shrink-0 flex flex-col">
         <h3 className="font-bold shrink-0 text-[20px] leading-[120%] text-dark mb-5 font-robot-c">
-          Отримати консультацію
+          {t("Отримати консультацію")}
         </h3>
         <div className="flex flex-col gap-3 xl:gap-5">
           <a

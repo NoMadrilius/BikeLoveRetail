@@ -1,11 +1,10 @@
 import GratitudeScreen from "@/components/Screens/GratitudeScreen/GratitudeScreen";
-import { useRouter } from "next/router";
-import {loadAppState} from "@/functions/loadAppState";
-import appStore, {useAppStore} from "@/store/AppStore";
-import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
-import bikeSelectionStore, {useBikeSelectionStore} from "@/store/BikeSelectionStore";
+import { loadAppState, loadAppState2 } from "@/functions/loadAppState";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
 import {useEffect} from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import AppStore from "@/store/AppStore";
+import { setStateBase } from "@/helpers/setState/setStateBase";
 
 export const getStaticPaths = async () => {
   // Fetch the dynamic paths from your API or any data source
@@ -16,19 +15,18 @@ export const getStaticPaths = async () => {
     fallback: true // or 'blocking' if you want to use incremental static regeneration
   };
 };
-export async function getStaticProps() {
-  return {props: {as:await loadAppState()}, revalidate:60}
+export async function getStaticProps(context: any) {
+  return {props: {as:await loadAppState2(),locale:context.locale, ...(await serverSideTranslations(context.locale, ['common']))}, revalidate:60}
 }
 
-const Gratitude = (props:{as:AppState|null}) => {
+const Gratitude = (props:{as:AppState|null, locale:string}) => {
+
+  if(props.locale === "ru") AppStore.setLocale("RU")
+  else AppStore.setLocale("UA")
 
   useEffect(() => {
-    if(props.as){
-      appStore.setServerData(props.as)
-      currencyStore.setServerData(props.as)
-      bikeSelectionStore.setOptions(props.as.bikeSelectState)
-    }
-  }, []);
+    if(props.as) setStateBase(props.as)
+  }, [props.as]);
 
 
   return (

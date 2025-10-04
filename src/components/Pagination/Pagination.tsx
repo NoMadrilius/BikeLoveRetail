@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { LeftIconSVG, RightIconSVG } from "@/components/UIKit/SVGIcons";
 
 const Pagination = (p: { pageList: string[]; selected: number }) => {
+
   const PaginationLabel = (n: number) =>
     <Link
       className={p.selected===n?`p-1 cursor-pointer text-white font-inter leading-[19.36px] flex items-center justify-center rounded bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989]`:

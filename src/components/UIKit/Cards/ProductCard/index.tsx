@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react";
 import { GenerateProductLink } from "@/helpers/LinkGen/GenerateProductLink";
 import noImage from "/public/images/no-image.svg";
+import { useTranslation } from "next-i18next";
 
 const ProductCard = (p: {
   product: ProductFullData;
@@ -24,7 +25,7 @@ const ProductCard = (p: {
     .slice()
     .sort((a, b) => b.sortOrder - a.sortOrder);
   const cs = useCartStore();
-
+  const { t } = useTranslation('catalog_page');
   const link = GenerateProductLink(
     p.product.product.id,
     p.product.product.transliteration
@@ -44,7 +45,7 @@ const ProductCard = (p: {
             {p.product.product.oldRetailPrice >
               p.product.product.retailPrice && (
               <RoundedButton
-                text="Акція"
+                text={t("Акція")}
                 altText={"Shopping Cart"}
                 bgColor={
                   "bg-pink shadow-product-card absolute left-[20px] xl:left-[21px] lg:left-[21px] lg:pt-2 lg:px-3 lg:max-h-[39px] xl:top-[31px] xl:flex top-[25px] xl:block lg:block hidden  xl:!py-2 xl:!px-3 xl:max-h-[35px] "
@@ -81,7 +82,7 @@ const ProductCard = (p: {
           {p.showBuyButton && (
             <GradientButton
               addToCart={cs.checkInCart(p.product.product.id)}
-              label={"Kупити"}
+              label={t("Kупити")}
               showIcon={false}
               className={`!rounded-full w-full sm:mt-auto sm:flex justify-center ${
                 p.showBuyButton ? "flex" : "hidden"
@@ -114,7 +115,7 @@ const ProductCard = (p: {
           {p.showBuyButton && (
             <GradientButton
               addToCart={cs.checkInCart(p.product.product.id)}
-              label={"Kупити"}
+              label={t("Купити")}
               showIcon={false}
               className={`!rounded-full w-full sm:mt-auto mt-[6px] sm:flex !py-2 justify-center ${
                 p.showBuyButton ? "flex" : "hidden"
@@ -137,10 +138,11 @@ const ProductCard = (p: {
 export default observer(ProductCard);
 
 const ProductButtonsOnMobile = () => {
+  const { t } = useTranslation('catalog_page');
   return (
     <div className="flex justify-between xl:hidden lg:hidden">
       <RoundedButton
-        text="Акція"
+        text={t("Акція")}
         altText={"Shopping Cart"}
         bgColor={
           "bg-pink shadow-product-card !py-2 !px-3 max-h-[35px] flex items-center my-[6.5px]"

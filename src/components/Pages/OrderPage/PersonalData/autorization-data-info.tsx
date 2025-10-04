@@ -1,6 +1,7 @@
 import React from 'react';
 import RoundedButton from "@/components/UIKit/Buttons/RoundedIconButton";
 import classnames from "classnames";
+import { useTranslation } from "next-i18next";
 
 interface AutorizationDataInfoProps {
     name:string

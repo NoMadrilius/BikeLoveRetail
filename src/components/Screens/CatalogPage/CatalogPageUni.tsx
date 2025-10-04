@@ -14,10 +14,12 @@ import CatalogPageFilterBlock from "@/components/Screens/CatalogPage/CatalogPage
 import { observer } from "mobx-react";
 import { nameCategoryMetaTemplate } from "@/helpers/metaTamplates/nameCategoryMetaTemplate";
 import { descriptionCategoryMetaTemplate } from "@/helpers/metaTamplates/descriptionCategoryMetaTemplate";
+import { useTranslation } from "next-i18next";
 
 const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
   const cs = useCatalogStore();
   const as = useAppStore();
+  const { t } = useTranslation('catalog_page');
 
   let name = c.category.name
   if(c.filterSettings.length > 0){
@@ -27,7 +29,7 @@ const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
     })
   }
 
-  if(c.page > 1) name+= `, Сторінка ${c.page}`
+  if(c.page > 1) name+= `, ${t("Сторінка")} ${c.page}`
 
   return (
     <div className="w-full items-start my-4 flex flex-col gap-4">

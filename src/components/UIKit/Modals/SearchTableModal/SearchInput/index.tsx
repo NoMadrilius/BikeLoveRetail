@@ -2,6 +2,7 @@ import { ClearIcon } from "@/components/UIKit/SVGIcons";
 import {useEffect, useRef, useState} from "react";
 import {useSearchStore} from "@/store/SearchStore";
 import {observer} from "mobx-react";
+import { useTranslation } from "next-i18next";
 
 const SearchInput = () => {
 
@@ -21,13 +22,15 @@ const SearchInput = () => {
     ss.setQuery("")
   };
 
+  const {t} = useTranslation("common")
+
   return (
     <div className="relative w-full">
       <input
           ref={inputRef}
         type="text"
         className="px-5 py-3 text-dark w-full"
-        placeholder="Шукати..."
+        placeholder={t("Шукати...")}
         value={ss.query}
         onChange={handleInputChange}
       />

@@ -4,11 +4,14 @@ import CatalogPageFilters from "@/components/Screens/CatalogPage/CatalogPageFilt
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import catalogStore from "@/store/CatalogStore";
 import { router } from "next/client";
+import { useTranslation } from "next-i18next";
 
 const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
 
   const uniqOpts:{id:number,name:string}[]=[]
   c.options.forEach(n=>{if(uniqOpts.find(g=>g.id === n.optionId)===undefined)uniqOpts.push({id:n.optionId, name:n.optionName})});
+
+  const { t } = useTranslation('catalog_page');
 
   return (
     <>
@@ -17,12 +20,12 @@ const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
           '&.MuiInputLabel-shrink': {
             transform: 'translate(14px, -2px) scale(0.75)',
           }, }} id="demo-simple-select-label">
-          Сортування
+          {t("Сортування")}
         </InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          label="Сортування"
+          label={t("Сортування")}
           size={"small"}
           value={c.sortingSettings??"default"}
           onChange={(e)=>{
@@ -33,13 +36,13 @@ const CatalogPageFilterBlock = ({c}:{c:CatalogPageData}) => {
             }
           }}
         >
-          <MenuItem value={"default"}>Рекомендоване</MenuItem>
-          <MenuItem value={"price-des"}>Дорожче</MenuItem>
-          <MenuItem value={"price-asc"}>Дешевше</MenuItem>
-          <MenuItem value={"sale"}>Акції</MenuItem>
+          <MenuItem value={"default"}>{t("Рекомендоване")}</MenuItem>
+          <MenuItem value={"price-des"}>{t("Дорожче")}</MenuItem>
+          <MenuItem value={"price-asc"}>{t("Дешевше")}</MenuItem>
+          <MenuItem value={"sale"}>{t("Акції")}</MenuItem>
         </Select>
       </FormControl>
-      {c.brands.length > 0 && <CatalogPageFilters indx={0} title={"Бренд"} variants={c.brands.map(b=>{return{name:b.name, url:b.url, id:b.id}})} actual={c.filterSettings} segments={c.segments}/>}
+      {c.brands.length > 0 && <CatalogPageFilters indx={0} title={t("Бренд")} variants={c.brands.map(b=>{return{name:b.name, url:b.url, id:b.id}})} actual={c.filterSettings} segments={c.segments}/>}
 
       {uniqOpts.map((opt, index) => {
         let variants = c.options.filter((n) => n.optionId === opt.id);

@@ -7,11 +7,10 @@ import {GetProductLinkParams} from "@/helpers/LinkGen/GetProductLinkParams";
 import { setStateBase } from "@/helpers/setState/setStateBase";
 import { useEffect } from "react";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import AppStore from "@/store/AppStore";
 
 export const getStaticPaths = async () => {
-  // Fetch the dynamic paths from your API or any data source
   const paths = [] as string[];
-
   return {
     paths,
     fallback: true // or 'blocking' if you want to use incremental static regeneration
@@ -31,23 +30,28 @@ export const getStaticProps = async (context: any) => {
       product:product,
       selected:params.variants??[],
       as:r,
-      ...(await serverSideTranslations(context.locale, ['product_page'])),
+      locale:context.locale,
+      ...(await serverSideTranslations(context.locale, ['product_page', 'common'])),
     }, revalidate:100}
 };
 
-const ProductItem = (props: {
-  as:AppState|null,
-  product:ProductFullData|null,
-  selected:number[]
-}|null) => {
+const ProductItem = (props: { as:AppState|null, product:ProductFullData|null, selected:number[], locale:string }|null) => {
+
+  console.warn("locale:",props?.locale)
 
   if(props === null) return null
   if(props.product && typeof window === 'undefined') productPageStore.setData(props.product, props.selected)
+
+
+  if(props.locale === "ru") AppStore.setLocale("RU")
+  else AppStore.setLocale("UA")
 
   useEffect(() => {
     if(props.as) setStateBase(props.as)
     if(props.product) productPageStore.setData(props.product, props.selected)
   }, [props.product, props.selected]);
+
+
 
   if(!props.product) return null
   return (<ProductPage product={props.product}/>);

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 
 const CustomCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const { t } = useTranslation('common');
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -35,13 +37,13 @@ const CustomCheckbox = () => {
         className="text-dark text-[14px] leading-[120%] cursor-pointer"
         onClick={toggleCheckbox}
       >
-        Запам’ятати мене
+        {t("Запам’ятати мене")}
       </label>
       <Link
         href="#"
         className="text-blue ml-auto leading-[19px] cursor-pointer"
       >
-        Нагадати пароль
+        {t("Нагадати пароль")}
       </Link>
     </div>
   );

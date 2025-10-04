@@ -10,26 +10,27 @@ import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import { useCheckList } from "@/store/CheckListStore";
 import OrderConfirmation from "@/components/Pages/OrderPage/OrderConfirmation/OrderConfirmation";
-import {loadAppState} from "@/functions/loadAppState";
+import { loadAppState, loadAppState2 } from "@/functions/loadAppState";
 import {AppState} from "@/dataTransferObjects/internal/AppState";
-import appStore, {useAppStore} from "@/store/AppStore";
-import currencyStore, {useCurrencyStore} from "@/store/CurrencyStore";
-import bikeSelectionStore, {useBikeSelectionStore} from "@/store/BikeSelectionStore";
 import {useEffect} from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import AppStore from "@/store/AppStore";
+import { setStateBase } from "@/helpers/setState/setStateBase";
+import { useTranslation } from "next-i18next";
 
-export async function getStaticProps() {
-  return {props: {as:await loadAppState()}, revalidate:60}
+export async function getStaticProps(context: any) {
+  return {props: {as:await loadAppState2(),locale:context.locale, ...(await serverSideTranslations(context.locale, ['common','checkout_page']))}, revalidate:60}
 }
 
-const Order = (props:{as:AppState|null}) => {
+const Order = (props:{as:AppState|null, locale:string}) => {
+  const { t } = useTranslation('checkout_page');
+
+  if(props.locale === "ru") AppStore.setLocale("RU")
+  else AppStore.setLocale("UA")
 
   useEffect(() => {
-    if(props.as){
-      appStore.setServerData(props.as)
-      currencyStore.setServerData(props.as)
-      bikeSelectionStore.setOptions(props.as.bikeSelectState)
-    }
-  }, []);
+    if(props.as) setStateBase(props.as)
+  }, [props.as]);
 
 
   const authStore = useAuthStore();
@@ -37,7 +38,7 @@ const Order = (props:{as:AppState|null}) => {
   return (
     <div className="scroll-smooth max-w-[1324px] xl:max-w-[1200px] w-full m-auto items-start pt-[60px] pb-10 flex flex-col gap-8 text-black bg-red sm2:px-5 font-inter">
       <h1 className="text-[40px] sm2:text-[32px] font-medium font-robot-c xl1:sticky top-0">
-        Оформлення замовлення
+        {t("Оформлення замовлення")}
       </h1>
 
       <div className="w-full grid grid-cols-[1.3fr_1fr] xl:grid-cols-[1.4fr_1fr] md1:grid-cols-1 gap-8 xl:gap-5 ">

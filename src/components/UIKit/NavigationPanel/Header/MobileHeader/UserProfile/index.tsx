@@ -5,10 +5,13 @@ import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import GeneratedUserIcon from "@/components/UIKit/GeneratedUserIcon/GeneratedUserIcon";
 import { LogOutIconSVG } from "@/components/UIKit/SVGIcons";
+import { useTranslation } from "next-i18next";
 
 const UserProfile = () => {
   const as = useAppStore();
   const us = useAuthStore();
+
+  const {t} = useTranslation("common")
 
   return us.isAuth && us.user ? (
     <div className="flex gap-3 items-center">
@@ -44,14 +47,14 @@ const UserProfile = () => {
             className="leading-[19px] border-none text-white hover:text-link-pink"
             onClick={() => as.setIsAuthRegMod(false)}
           >
-            Вхід
+            {t("Вхід")}
           </button>
           <div className="w-[1px] bg-border-grey" />
           <button
             className="leading-[19px] border-none text-white hover:text-link-pink"
             onClick={() => as.setIsAuthRegMod(true)}
           >
-            Реєстрація
+            {t("Реєстрація")}
           </button>
         </div>
         <p className="text-grey-text-header text-[14px] leading-[120%]">

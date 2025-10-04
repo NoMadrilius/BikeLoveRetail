@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import LogoImage from "../../../LogoImage";
+import { useTranslation } from "next-i18next";
 
 const Footer = ({
   className,
@@ -13,6 +14,8 @@ const Footer = ({
   logoSrc?: string;
   paymentSrc?: string;
 }) => {
+  const {t} = useTranslation("common")
+
   return (
     <section
       className={`w-fill rounded-lg overflow-hidden flex flex-col bg-white p-5 gap-5 ${className}`}
@@ -25,7 +28,7 @@ const Footer = ({
         className={`text-dark-text font-light leading-[120%] max-w-[145px] ${textColor}`}
       >
         @ 2024 <br />
-        Всі права захищені Публічна оферта
+        {t("Всі права захищені")}  {t("Публічна оферта")}
       </p>
       <div className="flex gap-5">
         <Image priority={true}

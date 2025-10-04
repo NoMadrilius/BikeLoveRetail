@@ -5,9 +5,10 @@ import {NPCityResponse} from "@/dataTransferObjects/internal/NovaPoshta/Response
 import {NPRequestWrapper} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPRequestWrapper";
 import {NPCitySearchRequest} from "@/dataTransferObjects/internal/NovaPoshta/Request/NPCitySearchRequest";
 import {NovaPoshtaAPI} from "@/api/NovaPoshtaAPI";
+import { useTranslation } from "next-i18next";
 
 export const AsyncSelectSearchCityNP = (props: { onSelect: (value: NPCityResponse|null) => void, value: NPCityResponse | null, isDisabled?: boolean }) => {
-
+    const { t } = useTranslation('checkout_page');
     const loadOptions = (inputValue: string, callback: (value: NPCityResponse[]) => void) => {
         let request: NPRequestWrapper<NPCitySearchRequest> = {
             apiKey: "099d9e9b0d28f7d57cdcfaa4e9ca9af2",
@@ -41,8 +42,8 @@ export const AsyncSelectSearchCityNP = (props: { onSelect: (value: NPCityRespons
                 }}
                 getOptionLabel={label => label!.Description}
                 getOptionValue={value => value!.Description}
-                placeholder={'Оберіть місто'}
-                noOptionsMessage={() => 'Місто не знайдено'}
+                placeholder={t("Оберіть місто")}
+                noOptionsMessage={() => t("Місто не знайдено")}
             />
         </div>
     )

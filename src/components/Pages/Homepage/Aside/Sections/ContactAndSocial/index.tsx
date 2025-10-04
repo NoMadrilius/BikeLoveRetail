@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 const socialMediaData = [
   {
@@ -30,6 +31,7 @@ const ContactAndSocial = ({
 }) => {
   const phone = " +38 (093) 211 - 89 - 30";
   const email = "storebikelove@gmail.com";
+  const {t} = useTranslation("common")
 
   return (
     <section
@@ -38,7 +40,7 @@ const ContactAndSocial = ({
       <h2
         className={`text-dark-text text-[20px] leading-[24px] font-bold font-robot-c ${textColor}`}
       >
-        Зв’язок та соцмережі
+        {t("Зв’язок та соцмережі")}
       </h2>
       <div>
         <div className="flex gap-2 py-2">

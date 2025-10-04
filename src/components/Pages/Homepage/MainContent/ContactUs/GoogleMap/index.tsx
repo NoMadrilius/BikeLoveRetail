@@ -1,5 +1,6 @@
 import { GoogleMap, OverlayView, useLoadScript } from "@react-google-maps/api";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 const Map = () => {
   const googleMapsApiKey = "AIzaSyBv2_7VxdRyRVHTewYLCFQK_fVSmX-S5fE";

@@ -9,10 +9,12 @@ import { useAppStore } from "@/store/AppStore";
 import SearchTableModal from "../../Modals/SearchTableModal";
 import { useSearchStore } from "@/store/SearchStore";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const Header = () => {
   const as = useAppStore();
   const ss = useSearchStore();
+  const {t} = useTranslation("common")
 
   return (
     <>
@@ -24,7 +26,7 @@ const Header = () => {
 
       <div className="hidden grid-cols-2 lg:hidden md:grid h-full items-center gap-3 pt-3 px-10 bg-white shadow-custom md:pt-3 md:pb-5">
         <GradientButton
-          label={"Каталог товарів"}
+          label={t("Каталог товарів")}
           textstyles="!w-max"
           className="justify-center"
           onClick={() => {
@@ -34,7 +36,7 @@ const Header = () => {
         <Link href={'/workshop'}>
           <GradientButton
             bgColor="bg-[#5D5555]"
-            label={"Майстерня"}
+            label={t("Майстерня")}
             className="justify-center"
             showIcon={false}
             type="secondary"

@@ -7,12 +7,15 @@ import PhoneNumberWithImage from "../PhoneNumberWithIcon";
 import HamburgerMenu from "@/components/UIKit/NavigationPanel/Header/HamburgerMenu";
 import {observer} from "mobx-react";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const DesktopView = ({
   setIsModalOpen,
 }: {
   setIsModalOpen: (n: boolean) => void;
 }) => {
+  const {t} = useTranslation("common")
+
   return (
     <div className={"flex justify-between w-full items-center"}>
       <HamburgerMenu />
@@ -20,7 +23,7 @@ const DesktopView = ({
 
       <div className="flex gap-[12px] mob:hidden tab:hidden">
         <GradientButton
-          label={"Каталог товарів"}
+          label={t("Каталог товарів")}
           onClick={() => {
             setIsModalOpen(true);
           }}
@@ -30,7 +33,7 @@ const DesktopView = ({
         <Link href={'/workshop'}>
           <GradientButton
             bgColor="bg-[#5D5555]"
-            label={"Майстерня"}
+            label={t("Майстерня")}
             showIcon={false}
             type={"secondary"}
             textstyles="!w-full xl:shrink-0"

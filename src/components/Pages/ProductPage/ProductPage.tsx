@@ -1,5 +1,3 @@
-"use client";
-
 import React, {Suspense } from "react";
 import ProductCard from "@/components/Pages/ProductPage/ProductCard";
 import { UseMetaData } from "@/helpers/hooks/useMetaData";
@@ -15,7 +13,6 @@ const Skeleton = ()=>{
 }
 
 const ProductPage = ({product}:{product:ProductFullData}) => {
-
   return (
     <Suspense fallback={<Skeleton/>}>
       <div

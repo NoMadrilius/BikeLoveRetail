@@ -8,7 +8,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export async function getStaticProps(context:any) {
 
-  return {props: {as:await loadAppState2(context.locale, 2), locale:context.locale, ...(await serverSideTranslations(context.locale, ['home_page'])),}, revalidate:10}
+  return {props: {as:await loadAppState2(context.locale, 2), locale:context.locale, ...(await serverSideTranslations(context.locale, ['home_page','common']))}, revalidate:10}
 }
 
 export default function Home(props:{as:AppState|null, locale:string, }) {

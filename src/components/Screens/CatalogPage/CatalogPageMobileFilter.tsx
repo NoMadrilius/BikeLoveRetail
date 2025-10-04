@@ -4,9 +4,11 @@ import { AccordionIconSVG, FilterIconSvg, WhiteCross } from "@/components/UIKit/
 import { useCatalogStore } from "@/store/CatalogStore";
 import CatalogPageFilterBlock from "@/components/Screens/CatalogPage/CatalogPageFilterBlock";
 import { observer } from "mobx-react";
+import { useTranslation } from "next-i18next";
 
 const CatalogPageMobileFilter = ({c}:{c:CatalogPageData}) => {
 
+  const { t } = useTranslation('catalog_page');
   const cs = useCatalogStore()
   return (
     <div className="fixed sm:top-0 top-0 left-0 w-full bg-black bg-opacity-50 flex justify-center items-start z-50">
@@ -20,12 +22,12 @@ const CatalogPageMobileFilter = ({c}:{c:CatalogPageData}) => {
               <AccordionIconSVG className={`transform rotate-90`} />
             </div>
             <span className="font-inter text-dark-text leading-[19.36px]">
-              Фільтри
+              {t("Фільтри")}
             </span>
           </div>
           <div>
             <button className="border border-pink rounded-full py-[6.5px] px-3 text-dark-text font-inter leading-[19.36px]">
-              Скасувати
+              {t("Скасувати")}
             </button>
           </div>
         </div>

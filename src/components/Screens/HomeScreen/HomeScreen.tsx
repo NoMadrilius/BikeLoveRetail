@@ -46,15 +46,15 @@ const HomeScreen = ({state}:{state:AppState}) => {
           <WhyToChooseUs />
           <CustomSlider
             products={state.trendingProducts}
-            title={"Топ продаж"}
-            rightText={"Більше пропозицій"}
+            title={t("Топ продаж")}
+            rightText={t("Більше пропозицій")}
           />
           <YoutubeVideoSlider/>
           <PopularProductCategories />
           <CustomSlider
             products={state.salesProducts}
-            title={"Акційні пропозиції"}
-            rightText={"Перейти до каталогу"}
+            title={t("Акційні пропозиції")}
+            rightText={t("Перейти до каталогу")}
             lineStyles={"xl:max-w-[302px]"}
           />
           <BicycleWorkshop />

@@ -15,6 +15,7 @@ import FullScreenGallery from "./FullScreenGallery";
 import ModalBase from "@/components/Modal/ModalBase/ModalBase";
 import noImage from "/public/images/no-image.svg";
 import { ProductFullData } from "@/dataTransferObjects/response/ProductFullData";
+import { useTranslation } from "next-i18next";
 
 const ProductGallery = ({p}:{p:ProductFullData}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,6 +28,7 @@ const ProductGallery = ({p}:{p:ProductFullData}) => {
 
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation('product_page');
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -46,7 +48,7 @@ const ProductGallery = ({p}:{p:ProductFullData}) => {
             {(p.product.oldRetailPrice??0) >
                 (p.product.retailPrice??0) && (
               <RoundedButton
-                text="Акція"
+                text={t("Акція")}
                 altText={"Shopping Cart"}
                 bgColor={
                   "bg-pink shadow-product-card py-[6.5px] px-2 md:order-1 absolute top-5 left-5 z-[5] sm:hidden md:hidden md2:block"

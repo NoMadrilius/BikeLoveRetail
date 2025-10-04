@@ -4,6 +4,7 @@ import { SearchIcon } from "../../SVGIcons";
 import {useAppStore} from "@/store/AppStore";
 import {observer} from "mobx-react";
 import {useSearchStore} from "@/store/SearchStore";
+import { useTranslation } from "next-i18next";
 
 interface SearchInputProps {
   className?: string;
@@ -18,6 +19,7 @@ const SearchInput = ({
 }: SearchInputProps) => {
 
   const ss = useSearchStore()
+  const {t} = useTranslation("common")
 
   return (
     <div
@@ -28,7 +30,7 @@ const SearchInput = ({
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only"
       >
-        Search
+        {t("Шукати...")}
       </label>
       <div className="relative ">
         <div className="absolute inset-y-0 start-0 flex items-center pl-5  pointer-events-none">
@@ -39,7 +41,7 @@ const SearchInput = ({
           id="default-search"
           className={`block w-full p-4 ps-[52px] max-h-[48px] text-sm text-t-grey cursor-pointer
           font-light leading-[120%] bg-transparent border border-[#DADADA] rounded-lg group-hover:border group-hover:border-t-grey ${inputStyles} `}
-          placeholder="Я шукаю"
+          placeholder={t("Я шукаю")}
           required
         />
       </div>

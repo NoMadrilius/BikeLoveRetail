@@ -11,11 +11,14 @@ import {useAppStore} from "@/store/AppStore";
 import { CatalogPageProduct } from "@/dataTransferObjects/response/catalogPage/CatalogPageProduct";
 import currencyStore from "@/store/CurrencyStore";
 import { prettyPrice } from "@/helpers/stringDecorate/prettyPrice";
+import { useTranslation } from "next-i18next";
 
 const SearchCard = (p:{prod:CatalogPageProduct}) => {
     const ss = useSearchStore()
     const cs = useCartStore()
     const as = useAppStore();
+
+  const {t} = useTranslation("common")
 
     return (
           <article className="p-3 bg-white border-b border-gray flex items-center justify-between gap-2 w-full select-text border hover:border-black">
@@ -58,7 +61,7 @@ const SearchCard = (p:{prod:CatalogPageProduct}) => {
                               onClick={() => {}}
                           />
                           <RoundedButton
-                              text="Купити"
+                              text={t("Купити")}
                               bgColor={
                                   "bg-gradient-to-br from-[#F01B74] to-[#FF6064] hover:from-[#FA6989] hover:to-[#FA6989] shadow-product-card px-[38px]"
                               }

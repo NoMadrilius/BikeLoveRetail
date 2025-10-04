@@ -10,6 +10,7 @@ import {observer} from "mobx-react";
 import authStore, {useAuthStore} from "@/store/AuthStore";
 import { Button, TextField } from "@mui/material";
 import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 type SignType = "SMS" | "password"
 const PersonalDataNeedToAuthentificate = () => {
@@ -18,9 +19,10 @@ const PersonalDataNeedToAuthentificate = () => {
     const [code, setCode] = useState("");
     const [codeSent, setCodeSent] = useState<boolean>(false);
     const [signInType, setSignInType] = useState<SignType>("password")
+  const { t } = useTranslation('checkout_page');
 
     return (
-        <BlockWrapper  title="Контактні дані" className={"flex flex-col gap-10"}>
+        <BlockWrapper  title={t("Контактні дані")} className={"flex flex-col gap-10"}>
 
           <div className={"flex gap-6 items-end justify-between w-full mob:flex-col"}>
             <PhoneInput value={cls.initialPhone} onChange={v=>cls.setInitialPhone(v)} className="w-full"/>
@@ -31,29 +33,29 @@ const PersonalDataNeedToAuthentificate = () => {
             <div className={"flex w-full gap-6 mob:flex-col"}>
               <div className={"flex w-full flex-col gap-4"}>
                 <InputTypePassword value={as.loginPassword} setValue={v=>as.setLoginPassword(v)} className="w-1/3"
-                                   label="Увійти за допомогою пароля"/>
+                                   label={t("Увійти за допомогою пароля")}/>
                 <Button className={"w-full"} variant={"contained"} onClick={()=>{
                   as.setLoginPhone(cls.initialPhone)
                   as.login(()=>{})
-                }}>Увійти</Button>
+                }}>{t("Увійти")}</Button>
               </div>
               <div className={classNames("w-full flex flex-col gap-4", codeSent?"":"pt-7")}>
 
                 {
                   codeSent?
                     <div className={"w-full flex flex-col gap-2 text-neutral-500"}>
-                      Ми надіслали вам код!
-                      <TextField className={"w-full"} value={code} onChange={e=>setCode(e.target.value)} placeholder={"КОД"} type="number"/>
+                      {t("Ми надіслали вам код!")}
+                      <TextField className={"w-full"} value={code} onChange={e=>setCode(e.target.value)} placeholder={t("КОД")} type="number"/>
                     </div>
                     :
                     <Button variant={"outlined"} onClick={()=>{
                       as.setLoginPhone(cls.initialPhone)
                       authStore.loginCode(()=>{setCodeSent(true)})
-                    }}>Надіслати код</Button>
+                    }}>{t("Надіслати код")}</Button>
                 }
                 <Button variant={"contained"} className={"w-full"} disabled={!codeSent} onClick={()=>{
                   authStore.confirmLoginCode(code, ()=>{console.log('ok')})
-                }}>Увійти з кодом</Button>
+                }}>{t("Увійти з кодом")}</Button>
               </div>
             </div>
         </BlockWrapper>

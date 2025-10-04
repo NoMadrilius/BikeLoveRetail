@@ -9,6 +9,7 @@ import { PublicAPI } from "@/api/PublicAPI";
 import AppStore from "@/store/AppStore";
 import { useRouter } from "next/router";
 import { AxiosResponse } from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export const getStaticPaths = async () => {
   const paths = [] as string[];
@@ -34,7 +35,7 @@ export const getStaticProps= async (context: any) => {
 
     // Return the data and other props
     return {
-      props: { data: result!.data, as: r, locale: context.locale },
+      props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
       revalidate: 60,
     };
   } catch (error) {

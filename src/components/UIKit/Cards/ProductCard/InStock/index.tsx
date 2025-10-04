@@ -1,5 +1,6 @@
 import { ArrowCheckIcon, ClockOrderIconSVG } from "@/components/UIKit/SVGIcons";
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 const Instock = ({
   className,
@@ -10,35 +11,38 @@ const Instock = ({
 }) => {
   let icon, text, textClass;
 
+  const { t } = useTranslation('product_page',);
+
+
   switch (stockType) {
     case "InShop":
       icon = <ArrowCheckIcon />;
-      text = "Є в магазині";
+      text = t("Є в магазині");
       textClass = "text-red-500";
       break;
     case "Shop":
       icon = <ArrowCheckIcon />;
-      text = "Є в магазині";
+      text = t("Є в магазині");
       textClass = "text-red-500";
       break;
     case "inWarehouse":
       icon = <ArrowCheckIcon />;
-      text = "Є на складі";
+      text = t("Є на складі");
       textClass = "text-black";
       break;
     case "Wharehouse":
       icon = <ArrowCheckIcon />;
-      text = "Є на складі";
+      text = t("Є на складі");
       textClass = "text-black";
       break;
     case "orderFromSupplier":
       icon = <ClockOrderIconSVG />;
-      text = "Замовити у постачальника";
+      text = t("Замовити у постачальника");
       textClass = "text-black";
       break;
     case "outOfStock":
       icon = null;
-      text = "Немає в наявності";
+      text = t("Немає в наявності");
       textClass = "text-t-grey";
       break;
     case "NotInStock":
