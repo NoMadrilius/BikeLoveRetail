@@ -41,7 +41,7 @@ export const getStaticProps= async (context: any) => {
     props: {
       iniState: result,
       as:r
-    }, revalidate:1}
+    }, revalidate:100}
 };
 
 const Page = (props: { iniState: CatalogPageResponse|null, as:AppState|null }) => {

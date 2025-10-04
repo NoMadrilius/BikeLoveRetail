@@ -32,7 +32,7 @@ export const getStaticProps = async (context: any) => {
       selected:params.variants??[],
       as:r,
       ...(await serverSideTranslations(context.locale, ['product_page'])),
-    }, revalidate:1}
+    }, revalidate:100}
 };
 
 const ProductItem = (props: {
