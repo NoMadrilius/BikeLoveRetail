@@ -3,11 +3,4 @@ Disallow: /auth/*
 Disallow: /checklist/*
 Disallow: /wish-list/*
 Disallow: *filter=
-
-User-agent: Googlebot
-Disallow: /auth/*
-Disallow: /checklist/*
-Disallow: /wish-list/*
-Disallow: *filter=
-
 Sitemap: https://bikelove.com.ua/sm/sitemap.xml
