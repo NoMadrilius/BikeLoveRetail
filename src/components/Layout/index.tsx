@@ -16,6 +16,7 @@ import { UserAPI } from "@/api/UserAPI";
 import AppStore from "@/store/AppStore";
 import { theme } from "@/styles/theme";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import { BinoScript } from "@/components/BinoScript";
 
 const Layout = ({ children }:{children:React.ReactNode}) => {
 
@@ -32,6 +33,8 @@ const Layout = ({ children }:{children:React.ReactNode}) => {
       <CartModal />
       <AuthModal />
       <CatalogModal />
+
+      <div dangerouslySetInnerHTML={{__html:BinoScript}}/>
 
       <Header />
 
