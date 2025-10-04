@@ -11,5 +11,3 @@ Disallow: /wish-list/*
 Disallow: *filter=
 
 Sitemap: https://bikelove.com.ua/sm/sitemap.xml
-User-agent: GPTBot
-Disallow: /
