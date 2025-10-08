@@ -1,5 +1,12 @@
-import type { DocumentContext, DocumentInitialProps } from "next/document";
-import Document from "next/document";
+import React from "react";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -20,10 +27,28 @@ export default class MyDocument extends Document {
       return {
         ...initialProps,
         styles: [initialProps.styles, sheet.getStyleElement()],
-
       };
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    // Next вставляет locale в __NEXT_DATA__ при включённом i18n в next.config.js
+    const nextData = (this.props as any).__NEXT_DATA__ ?? {};
+    const localeFromNext = nextData.locale as string | undefined;
+
+    // fallback к defaultLocale из next.config.js (если экспортирован)
+    const { locale } = this.props as any;
+
+    return (
+      <Html lang={locale === 'ua'?"uk-UA":"ru-UA"}>
+        <Head />
+        <body>
+        <Main />
+        <NextScript />
+        </body>
+      </Html>
+    );
   }
 }

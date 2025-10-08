@@ -27,7 +27,7 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
         content={img || `${CONFIG.IMG_URL}/mock/NoPhoto.png`}
       />
       <link rel="icon" href="/logo.ico" />
-      <link rel="canonical" href={typeof window != "undefined"?window.location.href:"/"} />
+      <link rel="canonical" href={r.asPath} />
     </Head>
   );
 };

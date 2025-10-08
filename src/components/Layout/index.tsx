@@ -34,13 +34,14 @@ const Layout = ({ children }:{children:React.ReactNode}) => {
       <AuthModal />
       <CatalogModal />
 
-      <div dangerouslySetInnerHTML={{__html:BinoScript}}/>
 
       <Header />
+      <div dangerouslySetInnerHTML={{ __html: BinoScript }} />
 
       <PhoneVerification />
       <Main>{children}</Main>
-      <footer className="px-[60px] md:px-10 sm:px-10 bg-[#3C3C3C] grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 sm:mx-auto py-4">
+      <footer
+        className="px-[60px] md:px-10 sm:px-10 bg-[#3C3C3C] grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 sm:mx-auto py-4">
         <Footer
           className="grow !bg-transparent px-5"
           textColor="text-white font-bold"
