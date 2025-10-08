@@ -19,9 +19,24 @@ export function middleware(req: NextRequest) {
     changed = true;
   }
 
-  // 1) Принудительно https: если x-forwarded-proto !== 'https' — менять только схему и оставить host как есть.
+  // 1) Если www — убрать
+  if (host.startsWith("www.")) {
+    url.hostname = PRIMARY_HOST;
+    changed = true;
+  }
+
+  // 2) Если протокол не https — принудительно на https
+  // (на Vercel x-forwarded-proto = 'https' для https requests)
   if (proto !== "https" && url.protocol !== "https:") {
     url.protocol = "https:";
+    url.hostname = PRIMARY_HOST; // гарантируем основной хост
+    changed = true;
+  }
+
+  // 3) Убрать конечный слеш (кроме корня)
+  const pathname = url.pathname;
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    url.pathname = pathname.replace(/\/+$/, "");
     changed = true;
   }
 
