@@ -20,30 +20,14 @@ export function middleware(req: NextRequest) {
     changed = true;
     reasons.push("strip-page-N");
   }
-
-  // 2) If host starts with www. -> change to primary host
-  if (host.startsWith("www.")) {
-    url.hostname = PRIMARY_HOST;
-    changed = true;
-    reasons.push("remove-www");
-  }
-
-  // 3) Force https if not https (use x-forwarded-proto)
-  if (proto !== "https" && url.protocol !== "https:") {
-    url.protocol = "https:";
-    // also ensure primary host (optional, but safe)
-    url.hostname = PRIMARY_HOST;
-    changed = true;
-    reasons.push("force-https");
-  }
-
+/*
   // 4) Remove trailing slash (except for root)
   if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
     url.pathname = url.pathname.replace(/\/+$/, "");
     changed = true;
     reasons.push("remove-trailing-slash");
   }
-
+*/
   if (changed) {
     const res = NextResponse.redirect(url, 301);
     res.headers.set("X-Redirect-Reason", reasons.join(","));
