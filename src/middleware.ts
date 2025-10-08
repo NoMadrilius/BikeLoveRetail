@@ -1,55 +1,63 @@
-// middleware.ts
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const PRIMARY_HOST = "bikelove.com.ua";
-const FORCE_HTTPS_HEADER = "x-forwarded-proto"; // Vercel sets this
+const PROTO_HEADER = "x-forwarded-proto";
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-  const host = req.headers.get("host") || "";
-  const proto = req.headers.get(FORCE_HTTPS_HEADER) || "";
+  const rawHost = req.headers.get("host") || "";
+  // normalize host: remove port if present
+  const host = rawHost.split(":")[0].toLowerCase();
+  const proto = (req.headers.get(PROTO_HEADER) || "").toLowerCase();
 
   let changed = false;
+  let reasons: string[] = [];
 
-  // Match trailing /page-0 or /page-1
+  // 1) Remove page-0 or page-1 suffix -> replace with root slash (you had this)
   if (url.pathname.match(/\/page-(0|1)(\/)?$/)) {
-    // Remove /page-0 or /page-1 from the path
-    url.pathname = url.pathname.replace(/\/page-(0|1)(\/)?$/, '/')
+    url.pathname = url.pathname.replace(/\/page-(0|1)(\/)?$/, "/");
     changed = true;
+    reasons.push("strip-page-N");
   }
 
-  // 1) Если www — убрать
+  // 2) If host starts with www. -> change to primary host
   if (host.startsWith("www.")) {
     url.hostname = PRIMARY_HOST;
     changed = true;
+    reasons.push("remove-www");
   }
 
-  // 2) Если протокол не https — принудительно на https
-  // (на Vercel x-forwarded-proto = 'https' для https requests)
+  // 3) Force https if not https (use x-forwarded-proto)
   if (proto !== "https" && url.protocol !== "https:") {
     url.protocol = "https:";
-    url.hostname = PRIMARY_HOST; // гарантируем основной хост
+    // also ensure primary host (optional, but safe)
+    url.hostname = PRIMARY_HOST;
     changed = true;
+    reasons.push("force-https");
   }
 
-  // 3) Убрать конечный слеш (кроме корня)
-  const pathname = url.pathname;
-  if (pathname.length > 1 && pathname.endsWith("/")) {
-    url.pathname = pathname.replace(/\/+$/, "");
+  // 4) Remove trailing slash (except for root)
+  if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
+    url.pathname = url.pathname.replace(/\/+$/, "");
     changed = true;
+    reasons.push("remove-trailing-slash");
   }
 
   if (changed) {
-    // Используем 301 - permanent
-    return NextResponse.redirect(url, 301);
+    const res = NextResponse.redirect(url, 301);
+    res.headers.set("X-Redirect-Reason", reasons.join(","));
+    return res;
   }
 
-  // Не менять — продолжить обработку
-  return NextResponse.next();
+  // No redirect — continue, but set canonical header for visibility
+  const canonical = `https://${host}${url.pathname === "/" ? "/" : url.pathname}${url.search || ""}`;
+  const res = NextResponse.next();
+  res.headers.set("Link", `<${canonical}>; rel="canonical"`);
+  res.headers.set("X-Canonical", canonical);
+  return res;
 }
 
-// Apply only to routes you need
 export const config = {
-  matcher: ['/((?!_next|api|favicon.ico).*)'],
-}
+  matcher: "/:path*",
+};
