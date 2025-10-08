@@ -4,21 +4,16 @@ const { i18n } = require('./next-i18next.config')
 const nextConfig = {
   async redirects() {
     return [
-      // www -> без www
+      // www → без www
       {
         source: "/:path*",
-        has: [{ type: "host", value: "www.bikelove.com.ua" }],
+        has: [
+          {
+            type: "host",
+            value: "www.bikelove.com.ua",
+          },
+        ],
         destination: "https://bikelove.com.ua/:path*",
-        permanent: false,
-        statusCode: 301,
-      },
-
-      // http -> https
-      {
-        source: "/:path*",
-        has: [{ type: "protocol", value: "http" }],
-        destination: "https://bikelove.com.ua/:path*",
-        permanent: false,
         statusCode: 301,
       },
 
@@ -26,7 +21,6 @@ const nextConfig = {
       {
         source: "/:path*/",
         destination: "/:path*",
-        permanent: false,
         statusCode: 301,
       },
     ];

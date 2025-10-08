@@ -19,6 +19,12 @@ export function middleware(req: NextRequest) {
     changed = true;
   }
 
+  // 1) Принудительно https: если x-forwarded-proto !== 'https' — менять только схему и оставить host как есть.
+  if (proto !== "https" && url.protocol !== "https:") {
+    url.protocol = "https:";
+    changed = true;
+  }
+
   if (changed) {
     // Используем 301 - permanent
     return NextResponse.redirect(url, 301);
