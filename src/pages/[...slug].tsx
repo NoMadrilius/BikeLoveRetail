@@ -36,12 +36,11 @@ export const getStaticProps= async (context: any) => {
     // Return the data and other props
     return {
       props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
-      revalidate: 60,
+      revalidate: 86400, //day
     };
   } catch (error) {
     // Log the error for debugging
     console.error('Error fetching page data:', error);
-
     // If API fails (500 or other error), return 404
     return { notFound: true };
   }
