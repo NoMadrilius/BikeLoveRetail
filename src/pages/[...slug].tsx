@@ -36,7 +36,7 @@ export const getStaticProps= async (context: any) => {
     // Return the data and other props
     return {
       props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
-      revalidate: 86400, //day
+      revalidate: 1, //day
     };
   } catch (error) {
     // Log the error for debugging
