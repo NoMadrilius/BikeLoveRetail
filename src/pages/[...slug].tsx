@@ -13,7 +13,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export const getStaticPaths = async () => {
   const paths = [] as string[];
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps= async (context: any) => {
@@ -37,7 +37,7 @@ export const getStaticProps= async (context: any) => {
     // Return the data and other props
     return {
       props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
-      revalidate: 86400, //day
+      revalidate: 1, //864000 10 days
     };
   } catch (error) {
     // Log the error for debugging
