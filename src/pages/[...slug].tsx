@@ -31,19 +31,19 @@ export const getStaticProps= async (context: any) => {
     // If no data or invalid result, return 404 (notFound)
     if (!result || !result?.data) {
       console.error('[API Ошибка:', result);
-      return { notFound: true };
+      return { notFound: true, revalidate:1};
     }
 
     // Return the data and other props
     return {
       props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
-      revalidate: 1, //864000 100 days
+      revalidate: 864000, //864000 100 days
     };
   } catch (error) {
     // Log the error for debugging
     console.error('Error fetching page data:', error);
     // If API fails (500 or other error), return 404
-    return { notFound: true };
+    return { notFound: true, revalidate:1 };
   }
 
 };
