@@ -60,8 +60,8 @@ module.exports = {
 
       "2xl": { min: "1921px", max: "5000px" },
 
-      mob:{ min: "0px", max: "743px" },
-      tab:{ min: "744px", max: "1323px" },
+      mob:{ min: "0px", max: "884px" }, //743
+      tab:{ min: "884px", max: "1323px" },
       desc:{ min: "1324px", max: "9999px" },
     },
   },

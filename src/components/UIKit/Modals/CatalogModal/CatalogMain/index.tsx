@@ -7,8 +7,8 @@ const CatalogMain = (p: { isMobile: boolean }) => {
   const as = useAppStore();
 
   return (
-    <div className="overflow-auto h-[744px] sm:h-screen md:h-full">
-      <section className="py-5 masonry sm:masonry-sm sm:flex sm:flex-col md:flex-col md:flex lg:masonry-md xl:masonry-md ">
+    <div className="overflow-auto h-[90vh] mob:h-screen w-full">
+      <section className="py-5 desc:columns-3 tab:columns-2 mob:columns-1">
         {as.categoryBlocks.map((n) =>
           p.isMobile ? (
             <CategoryBlock key={n.id} cat={n} />

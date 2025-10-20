@@ -25,7 +25,7 @@ const CatalogPageProductCard = ({p}:{p:CatalogPageProduct}) => {
             {p.oldPrice > p.price && (<div>kekw</div>)}
 
             <Link href={p.url} className={"cursor-pointer"}>
-              <ProductImage src={p.image ?? noImage} />
+              <ProductImage src={p.image ?? noImage} alt={p.name}/>
             </Link>
 
           </>

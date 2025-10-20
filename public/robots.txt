@@ -1,4 +1,7 @@
 User-agent: *
 Disallow: /auth/*
 Disallow: /checklist/*
+Disallow: *price-asc*
+Disallow: *price-des*
+Disallow: *sale*
 Sitemap: https://bikelove.com.ua/sm/sitemap.xml

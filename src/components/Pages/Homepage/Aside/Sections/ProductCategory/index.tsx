@@ -11,7 +11,7 @@ const ProductCategory = ({ className }: ProductCategoryProps) => {
   const as = useAppStore();
   return (
     <section
-      className={`w-fill rounded-lg overflow-hidden flex flex-col bg-white p-3 ${className}`}
+      className={`w-fill rounded-lg overflow-hidden flex flex-col bg-white p-3 gap-1 ${className}`}
     >
       {as.categories
         .filter((n) => n.parentId === 0)

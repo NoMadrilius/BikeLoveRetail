@@ -9,6 +9,19 @@ type Props = {
 };
 export const UseMetaData: FC<Props> = ({ title, img, description }) => {
     const r = useRouter()
+
+  const isSortPage =
+    r.asPath.includes("/price-asc") ||
+    r.asPath.includes("/price-des") ||
+    r.asPath.includes("/sale");
+
+  // 2. убираем локали в начале пути
+  const noLang = r.asPath.replace(/^\/(ua|ru)(?=\/|$)/i, "");
+
+  const cleanPath = r.asPath
+    .replace(/\/(price-asc|price-des|sale)(\/|$)/gi, "/") // удаляем хвосты сортировок
+    .replace(/\/+$/, ""); // убираем лишний слеш в конце
+
   return (
     <Head>
       <title>{title}</title>
@@ -27,7 +40,21 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
         content={img || `${CONFIG.IMG_URL}/mock/NoPhoto.png`}
       />
       <link rel="icon" href="/logo.ico" />
-      <link rel="canonical" href={r.asPath} />
+
+      {isSortPage && (
+        <>
+          <meta name="robots" content="noindex, nofollow" />
+          <link rel="canonical" href={cleanPath} />
+        </>
+      )}
+      {!isSortPage && (
+        <link rel="canonical" href={r.asPath} />
+      )}
+
+      <link rel="alternate" href={noLang} hrefLang="uk-UA" />
+      <link rel="alternate" href={"/ru"+noLang} hrefLang="ru-UA" />
+      <link rel="alternate" href={"/ru"+noLang} hrefLang="x-default" />
+
     </Head>
   );
 };

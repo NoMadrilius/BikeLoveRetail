@@ -64,7 +64,7 @@ class AppStore{
         this.selectedCategory = v
         if(v)
         this.categoryBlocks = this.categories.filter(n=>n.parentId === v.id)
-        else this.categoryBlocks = []
+        //else this.categoryBlocks = []
     }
 
     setServerData(d:AppState){

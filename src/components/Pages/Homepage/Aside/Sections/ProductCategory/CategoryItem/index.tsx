@@ -7,6 +7,8 @@ import { useAppStore } from "@/store/AppStore";
 import { SvgRightIcon } from "@/components/UIKit/SVGIcons";
 import {GenerateCatalogLink} from "@/helpers/LinkGen/GenerateCatalogLink";
 import { Category } from "@/dataTransferObjects/internal/AppState";
+import classnames from "classnames";
+import { observer } from "mobx-react";
 
 interface CategoryItemProps {
   category: Category;
@@ -24,7 +26,7 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
       }}
       href={category?.url??"/"}
       onClick={onClick}
-      className="flex items-center justify-between px-3 py-1 bg-white cursor-pointer group"
+      className={classnames("flex items-center justify-between px-3 bg-white py-1 cursor-pointer group rounded-lg", (as.selectedCategory?.id === category.id)?"outline-red-400 outline-1 outline":"")}
     >
       <div className="flex items-center gap-2">
         <Image
@@ -48,4 +50,4 @@ const CategoryItem = ({ category, onClick }: CategoryItemProps) => {
   );
 };
 
-export default CategoryItem;
+export default observer(CategoryItem);

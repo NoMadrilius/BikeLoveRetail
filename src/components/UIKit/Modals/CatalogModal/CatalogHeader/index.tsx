@@ -6,7 +6,7 @@ const CatalogHeader = () => {
   const as = useAppStore();
 
   return (
-    <div className="py-2 px-5 bg-white border border-b-gray hidden sm:flex md:flex w-full">
+    <div className="py-2 px-5 bg-white border border-b-gray tab:hidden desc:hidden flex w-full">
       <div className="py-3 flex items-center gap-16 sm:gap-0 md:gap-0 w-full">
         <div
           className="p-3 cursor-pointer hover:bg-[#C1C1C133] rounded-lg py-2"

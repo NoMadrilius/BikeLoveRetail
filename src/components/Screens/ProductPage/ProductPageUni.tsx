@@ -13,9 +13,11 @@ import BreadCrumbsUni from "@/components/BreadCrumbs/BreadCrumbsUni";
 import { SortCategoryBreadCrumbs } from "@/helpers/SortCategoryBreadCrumbs";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
+import { router } from "next/client";
 
 const ProductPageUni = ({p}:{p:ProductPageData}) => {
 
+  const r = useRouter()
   return (
     <Suspense fallback={<Skeleton/>}>
       <div
@@ -26,7 +28,7 @@ const ProductPageUni = ({p}:{p:ProductPageData}) => {
             img={p.images[0]?.url}
             description={descriptionProductMetaTemplate(p.product.name)}
           />
-          <BreadCrumbsUni list={SortCategoryBreadCrumbs(p.categoryWay)} active={{ name: p.product.name, url: "" }} />
+          <BreadCrumbsUni list={SortCategoryBreadCrumbs(p.categoryWay)} active={{ name: p.product.name, url: r.asPath }} />
           <h1
             className="desc:hidden text-dark leading-[37.5px] text-[32px] font-robot-c font-medium xl:text-[40px] xl:leading-[46.88px] 2xl:text-[40px] 2xl:leading-[46.88px]">
             {p.product.name}

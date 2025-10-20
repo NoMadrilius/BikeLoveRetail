@@ -48,10 +48,10 @@ const PublicPageInfo = ({p}:{p:ProductPageData}) => {
           id="about-product"
         >
           <div className="md2:flex flex-col hidden gap-3">
-            <h1
+            <div
               className="text-dark leading-[37.5px] text-[32px] font-robot-c font-medium xl:text-[40px] xl:leading-[46.88px] 2xl:text-[40px] 2xl:leading-[46.88px]">
               {p.product.name}
-            </h1>
+            </div>
             <span className="font-inter text-t-grey text-[14px] leading-[16.8px]">
           {t("Код")}{" " + p.product.id}
         </span>
