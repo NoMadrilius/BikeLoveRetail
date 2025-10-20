@@ -20,7 +20,7 @@ const DesktopViewCard = (props:{product:CatalogPageProduct, quantity:number}) =>
   return (
     <article className="border-b border-gray flex items-center px-5 relative sm:hidden">
         <Link href={props.product.url} onClick={()=>{cs.setVisible(false)}} className={"cursor-pointer"}>
-        <ProductImage
+        <ProductImage alt={props.product.name}
         src={props.product.image??""}
         classname="!w-[200px] !h-[160px] sm:!w-[148px] sm:!h-[132px] shrink-0 !mb-0 mr-4"
       />

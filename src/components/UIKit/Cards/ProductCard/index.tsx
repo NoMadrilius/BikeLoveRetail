@@ -56,7 +56,7 @@ const ProductCard = (p: {
 
             <ProductButtonsOnMobile />
             <Link href={link} className={"cursor-pointer"}>
-              <ProductImage src={imgs[0]?.url??noImage} />
+              <ProductImage alt={p.product.product.name} src={imgs[0]?.url??noImage} />
             </Link>
 
             <RoundedButton
@@ -104,7 +104,7 @@ const ProductCard = (p: {
           className={"bg-white opacity-50 select-none cursor-pointer"}
         >
           <ProductButtonsOnMobile />
-          <ProductImage src={imgs[0]?.url??noImage} />
+          <ProductImage alt={p.product.product.name} src={imgs[0]?.url??noImage} />
           <ProductTitle text={p.product.product.name} />
           <PriceAndCart
             product={p.product}

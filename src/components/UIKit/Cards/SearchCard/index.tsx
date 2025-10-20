@@ -26,7 +26,7 @@ const SearchCard = (p:{prod:CatalogPageProduct}) => {
                   ss.setIsOpenSearch(false)
                   as.setIsOpenSidebar(false)
               }} className={"cursor-pointer"}>
-              <ProductImage
+              <ProductImage alt={p.prod.name}
                   src={p.prod.image||""}
                   classname="!w-[116px] !h-[100px] sm:!w-[80px] sm:!h-[68px] shrink-0 !mb-0"
               />
