@@ -22,6 +22,7 @@ const CatalogPageUni = ({c}:{c:CatalogPageData}) => {
   const { t } = useTranslation('catalog_page');
 
   let name = c.category.name
+
   if(c.filterSettings.length > 0){
     let opts = c.options.filter(n=>c.filterSettings.includes(n.id))
     opts.forEach(opt=>{

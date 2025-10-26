@@ -21,6 +21,7 @@ export const getStaticProps= async (context: any) => {
   let result: AxiosResponse<PageDataResponse> | null = null;
 
   try {
+    console.warn(context.locale)
     // Try to fetch data from the API
     result = await PublicAPI.GetPageData(
       context.params.slug.join('/'),
@@ -37,7 +38,7 @@ export const getStaticProps= async (context: any) => {
     // Return the data and other props
     return {
       props: { data: result!.data, as: r, locale: context.locale, ...(await serverSideTranslations(context.locale, ['product_page','common','catalog_page'])) },
-      revalidate: 864000, //864000 100 days
+      revalidate: 1, //864000 100 days
     };
   } catch (error) {
     // Log the error for debugging
