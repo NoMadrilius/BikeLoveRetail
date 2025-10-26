@@ -5,6 +5,7 @@ import workshopStore from "@/store/WorkshopStore";
 import { className } from "postcss-selector-parser";
 import classNames from "classnames";
 import { observer } from "mobx-react";
+import { useTranslation } from "next-i18next";
 
 const WorkshopTable = () => {
 
@@ -12,10 +13,11 @@ const WorkshopTable = () => {
   const [page, setPage] = React.useState(0);
   let groups = workshopStore.groups.filter(n=>n.parentId === pages[page].id)
   let direct = workshopStore.works.filter(n=>n.workGroupId === pages[page].id)
+  const {t} = useTranslation('workshop_page')
 
   return (
     <div className={"text-black h-full w-full overflow-hidden"}>
-      <span className={"font-robot-c text-[32px] ml-4"}>Усі наші послуги</span>
+      <span className={"font-robot-c text-[32px] ml-4"}>{t('Усі наші послуги')}</span>
       <div className={"bg-white h-[800px] flex flex-col rounded-[8px]"}>
         <div className={"flex justify-between"}>
           {

@@ -8,9 +8,10 @@ import { AppState } from "@/dataTransferObjects/internal/AppState";
 import { WorkshopDataResponse } from "@/dataTransferObjects/response/WorkshopDataResponse";
 import workshopStore from "@/store/WorkshopStore";
 import { observer } from "mobx-react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-export async function getStaticProps() {
-  return {props: {as:await loadAppState(), data:await workshopStore.loadData()}, revalidate:60}
+export async function getStaticProps(context:any) {
+  return {props: {as:await loadAppState(), data:await workshopStore.loadData(), locale: context.locale, ...(await serverSideTranslations(context.locale, ['common','workshop_page'])) }, revalidate:60}
 }
 
 const Index = (props:{as:AppState|null, data:WorkshopDataResponse|null}) => {

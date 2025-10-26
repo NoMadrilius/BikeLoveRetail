@@ -3,26 +3,32 @@ import Image from "next/image";
 import master from '../../../../public/images/workshop/master.png'
 import master2 from '../../../../public/images/workshop/master2.png'
 import logo from '../../../../public/images/workshop/Logo.svg'
+import { useTranslation } from "next-i18next";
 
-const itemsData = [
-  {
-    text: "Профейсійний ремонт та обслугогування",
-    iconSrc: "/images/homepage/static/hero/pentagon.svg",
-  },
-  {
-    text: "Індивідуальний підбір та налаштування",
-    iconSrc: "/images/homepage/static/hero/pentagon.svg",
-  },
-  { text: "Високоякісні запчастини та аксесуари", iconSrc: "/images/homepage/static/hero/pentagon.svg" },
-];
+
 
 const WorkshopStartBanner = () => {
+
+  const {t} = useTranslation('workshop_page')
+
+  const itemsData = [
+    {
+      text: t("Профейсійний ремонт та обслугогування"),
+      iconSrc: "/images/homepage/static/hero/pentagon.svg",
+    },
+    {
+      text: t("Індивідуальний підбір та налаштування"),
+      iconSrc: "/images/homepage/static/hero/pentagon.svg",
+    },
+    { text: t("Високоякісні запчастини та аксесуари"), iconSrc: "/images/homepage/static/hero/pentagon.svg" },
+  ];
+
   return (
     <div className={"h-[460px] w-full flex flex-col justify-between relative"}>
 
       <div className={"w-1/2 flex"}>
         <span className={"text-[150px] mob:text-[50px] font-robot font-bold uppercase gradient-text from-indigo-500"}>
-          Майстерня
+          {t('Майстерня')}
         </span>
       </div>
 
@@ -30,7 +36,7 @@ const WorkshopStartBanner = () => {
         <div className="">
           <h1
             className="text-[40px] mob:text-[20px] font-medium text-dark pr-5 font-robot-c">
-            Професійний ремонт та обслуговування велосипедів
+            {t('Професійний ремонт та обслуговування велосипедів')}
           </h1>
           <div className="gap-4 lg:gap-0 flex lg:block sm:pr-0 pr-5 lg:pr-0 mt-3 lg:mt-0 sm:justify-center">
             <div className="flex flex-col gap-3 lg:mt-3 sm:shrink-0 sm:max-w-[159px]">
