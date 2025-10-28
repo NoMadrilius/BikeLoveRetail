@@ -4,7 +4,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') return res.status(405).json({ error: 'Only POST allowed' })
 
 
-  const secret = (req.query.secter as string)
+  const secret = (req.query.secret as string)
   if (secret !== "111111") return res.status(401).json({ error: 'Invalid secret' })
 
 
