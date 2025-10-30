@@ -17,7 +17,7 @@ const ProductPageGallery = ({p}:{p:ProductPageData}) => {
       <ImageGallery
         showPlayButton={false}
         useBrowserFullscreen={false}
-        items={p.images.map(n=>{return{original: n.url, thumbnail: n.url, thumbnailAlt:"Product photo: "+p.product.name, originalAlt:"Product photo: "+p.product.name}})} />
+        items={p.images.map(n=>{return{original: n.url, thumbnail: n.url, thumbnailAlt:"Product photo: "+p.product.name, originalAlt:p.product.name}})} />
     </section>
   );
 };

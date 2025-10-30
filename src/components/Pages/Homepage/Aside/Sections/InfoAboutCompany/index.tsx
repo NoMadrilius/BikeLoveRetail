@@ -15,7 +15,7 @@ const InfoAboutCompany = ({
   const linksData = [
     { href: "/about", text: t("Про нас") },
     { href: "/about/delivery", text: t("Доставка та оплата") },
-    //{ href: "/contacts", text: t("Контакти") },
+    { href: "/contacts", text: t("Контакти") },
     { href: "/terms-of-public-offer", text: t("Публічна оферта") },
     //{ href: "#", text: "Політика конфіденційності" },
   ];

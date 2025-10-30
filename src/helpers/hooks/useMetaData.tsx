@@ -9,6 +9,7 @@ type Props = {
 };
 export const UseMetaData: FC<Props> = ({ title, img, description }) => {
     const r = useRouter()
+  const domain = "https://bikelove.com.ua"
 
   const isSortPage =
     r.asPath.includes("/price-asc") ||
@@ -51,9 +52,9 @@ export const UseMetaData: FC<Props> = ({ title, img, description }) => {
         <link rel="canonical" href={r.asPath} />
       )}
 
-      <link rel="alternate" href={noLang} hrefLang="uk-UA" />
-      <link rel="alternate" href={"/ru"+noLang} hrefLang="ru-UA" />
-      <link rel="alternate" href={"/ru"+noLang} hrefLang="x-default" />
+      <link rel="alternate" href={domain+noLang} hrefLang="uk-UA" />
+      <link rel="alternate" href={domain+"/ru"+noLang} hrefLang="ru-UA" />
+      <link rel="alternate" href={domain+"/ru"+noLang} hrefLang="x-default" />
 
     </Head>
   );

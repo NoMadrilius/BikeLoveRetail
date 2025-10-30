@@ -14,7 +14,7 @@ const Map = () => {
   const center = { lat: 50.47859184922369, lng: 30.40536527166876 };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-20 w-full rounded-lg overflow-hidden xl:max-w-[415.29px] xl:max-h-[343.21px]">
+    <div className="flex flex-col justify-center items-center gap-20 w-full rounded-lg overflow-hidden">
       <GoogleMap
         zoom={18}
         center={center}
